@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(winget search --id Anaconda.Miniconda3 --exact)",
+      "PowerShell(winget search --id CondaForge.Miniforge3 --exact)",
+      "PowerShell(Get-ExecutionPolicy -List)"
+    ]
+  }
+}
