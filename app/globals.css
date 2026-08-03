@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==================================================================
+   원본(hakambio.com)의 공개 CSS 에서 그대로 옮긴 값입니다.
+     /css/reset.css   .wrap_in {width:1600px} · .gfont {GmarketSans}
+     /css/main.css    #1EAC44 · #333 · #666 · #d9d9d9 · #FF9D00
+     /css/mo_main.css 브레이크포인트 6개
+   ================================================================== */
+@theme {
+  /* ── 색 ─────────────────────────────────────────────── */
+  /* 서브메뉴 상단선 · 로고 */
+  --color-brand-500: #1eac44;
+  /* PRODUCTS 섹션 CTA */
+  --color-accent-500: #ff9d00;
+  /* 본문 · 헤딩 */
+  --color-ink-900: #333333;
+  /* 드롭다운 글자 · 카피라이트 */
+  --color-ink-500: #666666;
+  /* 구분선 */
+  --color-line: #d9d9d9;
+  --color-line-soft: #dfdfdf;
+
+  /* ── 브레이크포인트 ──────────────────────────────────
+     원본은 데스크톱 우선(max-width)이라 max-b* 변형을 주로 씁니다.
+     --breakpoint-b1600 을 선언하면 b1600:(min-width) 와
+     max-b1600:(max-width) 이 함께 생성됩니다.                  */
+  --breakpoint-b520: 520px;
+  --breakpoint-b548: 548px;
+  --breakpoint-b580: 580px;
+  --breakpoint-b856: 856px;
+  --breakpoint-b860: 860px;
+  --breakpoint-b980: 980px;
+  --breakpoint-b1080: 1080px;
+  --breakpoint-b1200: 1200px;
+  --breakpoint-b1400: 1400px;
+  --breakpoint-b1600: 1600px;
+
+  /* ── 폰트 ───────────────────────────────────────────── */
+  /* 본문 — 원본은 Malgun Gothic + Noto Sans KR */
+  --font-sans: var(--font-noto), "Malgun Gothic", dotum, sans-serif;
+  /* 히어로 슬로건 · ‹ 1 / 3 › 전용 (Google Fonts) */
+  --font-display: var(--font-goblin), serif;
+  /* .gfont — CDN 로드 실패 시 Noto Sans KR 로 자연스럽게 대체됩니다 */
+  --font-gmarket: "GmarketSans", var(--font-noto), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply bg-white text-ink-900 font-sans antialiased;
+    /* 원본 * { word-break: keep-all } — 한글이 단어 단위로 줄바꿈됩니다 */
+    word-break: keep-all;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    @apply bg-brand-500 text-white;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* 원본 .wrap_in
+       기본            width: 1600px
+       max-width:1600  width: 90%                                   */
+  .wrap-in {
+    @apply relative mx-auto w-[90%];
+  }
+  @media screen and (min-width: 1601px) {
+    .wrap-in {
+      width: 1600px;
+    }
+  }
+
+  /* 원본 .wrap_in2 — 서브페이지 본문 폭
+       기본            width: 1400px
+       max-width:1600  width: 90%                                   */
+  .wrap-in2 {
+    @apply relative mx-auto w-[90%];
+  }
+  @media screen and (min-width: 1601px) {
+    .wrap-in2 {
+      width: 1400px;
+    }
+  }
+
+  /* 원본 .gfont */
+  .gfont {
+    font-family: var(--font-gmarket);
+  }
+}
+
+/* 원본 sub15.php 의 인라인 <style> — 카카오맵 하단 안내 바를 숨깁니다 */
+.root_daum_roughmap .cont {
+  display: none;
+}
+
+/* ==================================================================
+   section_2ball.png 대체 — 광택 있는 구(球) 3개
+   ================================================================== */
+.ball-light {
+  background: radial-gradient(
+    circle at 33% 27%,
+    #ffffff 0%,
+    #ededed 20%,
+    #c4c4c4 56%,
+    #9a9a9a 100%
+  );
+}
+.ball-mid {
+  background: radial-gradient(
+    circle at 33% 27%,
+    #a6a6a6 0%,
+    #767676 22%,
+    #4d4d4d 58%,
+    #333333 100%
+  );
+}
+.ball-dark {
+  background: radial-gradient(
+    circle at 33% 27%,
+    #6f6f6f 0%,
+    #303030 24%,
+    #151515 60%,
+    #050505 100%
+  );
+}
+
+/* ==================================================================
+   원본 @keyframes 이식
+   ================================================================== */
+
+/* .inquriy_btn — bottom 30px ↔ 50px, 2초 무한.
+   bottom 을 애니메이션하면 매 프레임 레이아웃을 다시 계산하므로
+   같은 움직임을 transform 으로 구현했습니다. */
+@keyframes inquiry-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* bounce_513 — VIEW MORE 화살표가 hover 시 좌우로 튐 */
+@keyframes arrow-bounce {
+  0%,
+  100% {
+    transform: translateX(-20%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateX(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* 사용자가 "동작 줄이기"를 켜둔 경우 (접근성) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
