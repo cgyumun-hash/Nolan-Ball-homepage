@@ -13,12 +13,12 @@ Next.js 기반 웹사이트를 만들기 위한 스택 문서입니다.
 | | CSS | 모양 | 별도 설치 없음 |
 | | JavaScript | 동작 | 별도 설치 없음 |
 | | **TypeScript** 5 | 타입 검사 | 프로젝트 생성 시 포함 |
-| **프레임워크** | **Next.js** 15 | 서버 · 라우팅 · 빌드 | `create-next-app` |
-| | **React** 19 | UI 컴포넌트 | Next.js에 포함 |
-| **스타일·모션** | **Tailwind CSS** v4 | 스타일 | `create-next-app` 옵션 |
-| | **Framer Motion** 12 | 애니메이션 | `npm i framer-motion` |
-| | **Swiper** 11 | 슬라이더 | `npm i swiper` |
-| **도구** | **Node.js** 22 | JS 실행 환경 | winget |
+| **프레임워크** | **Next.js** 16.2 | 서버 · 라우팅 · 빌드 | `create-next-app` |
+| | **React** 19.2 | UI 컴포넌트 | Next.js에 포함 |
+| **스타일·모션** | **Tailwind CSS** 4.3 | 스타일 | `create-next-app` 옵션 |
+| | **Framer Motion** 12.43 | 애니메이션 | `npm i framer-motion` |
+| | **Swiper** 14 | 슬라이더 | `npm i swiper` |
+| **도구** | **Node.js** 24 | JS 실행 환경 | winget |
 | | **npm** | 패키지 설치 | Node.js에 포함 |
 | | **Git** | 버전 관리 | winget |
 | | **ESLint** | 실수 검출 | `create-next-app` 옵션 |
