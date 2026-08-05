@@ -2,74 +2,120 @@
 
 import { FormEvent, useState } from "react";
 
+import { COMPANY } from "@/lib/site";
+
 const inputClass =
   "h-[54px] border border-line bg-white px-4 outline-none transition-colors focus:border-brand-500";
 
+/**
+ * ⚠️ 자료정리 7장 체크리스트에서 개인정보처리방침은 "신규 작성 필요" 상태입니다.
+ *    아래는 하캄바이오 원문을 놀란볼코리아 기준으로 옮긴 임시 문안이며,
+ *    문의폼을 실제로 운영하기 전에 개인정보처리방침 담당자를 지정하고
+ *    정식 문안으로 교체해야 합니다(자료정리 5-2).
+ */
 const policySections = [
   {
-    title: "1. Information We Collect",
-    body: "We may collect personal information such as your name, email address, phone number and mailing address; usage data including IP address, browser, device details and pages visited; and sensitive or research data voluntarily provided with appropriate consent.",
+    title: "1. 수집하는 개인정보 항목",
+    body: "문의 접수를 위해 기관명, 담당자명, 부서·직책, 연락처, 이메일 주소를 수집합니다. 서비스 이용 과정에서 IP 주소, 브라우저·기기 정보, 방문 페이지 등의 이용 기록이 자동으로 생성될 수 있습니다.",
   },
   {
-    title: "2. How We Use Your Information",
-    body: "We use your data to provide and improve products and services, respond to inquiries, conduct research and development with consent, fulfill legal obligations, and ensure service security and functionality.",
+    title: "2. 개인정보의 이용 목적",
+    body: "제품·샘플·견적 문의에 대한 회신, 제품 및 서비스 제공과 개선, 법령상 의무 이행, 서비스 보안 유지를 위해 이용합니다.",
   },
   {
-    title: "3. Sharing and Disclosure of Information",
-    body: "We do not sell personal data. We may share it with trusted service providers under confidentiality agreements, government authorities when legally required, or as part of a merger, acquisition or asset transfer.",
+    title: "3. 개인정보의 제공 및 위탁",
+    body: "개인정보를 판매하지 않습니다. 법령에 따라 요구되는 경우 또는 비밀유지 계약을 맺은 수탁업체에 업무 수행에 필요한 범위에서만 제공할 수 있습니다.",
   },
   {
-    title: "4. Data Retention",
-    body: "We retain personal information only as long as necessary for the purposes described in this policy or as required by law.",
+    title: "4. 개인정보의 보유 및 파기",
+    body: "수집 목적이 달성되면 지체 없이 파기합니다. 보유 기간은 최대 3년이며, 법령에서 별도로 정한 경우 해당 기간을 따릅니다.",
   },
   {
-    title: "5. Your Rights",
-    body: "Depending on your jurisdiction, you may access, correct, update or request deletion of your data, withdraw consent, or object to or restrict certain processing activities.",
+    title: "5. 정보주체의 권리",
+    body: "본인의 개인정보에 대한 열람, 정정, 삭제, 처리정지를 요구할 수 있으며 동의를 철회할 수 있습니다.",
   },
   {
-    title: "6. Data Security",
-    body: "Hakambio implements industry-standard safeguards against loss, misuse and unauthorized access.",
+    title: "6. 개인정보의 안전성 확보 조치",
+    body: "놀란볼코리아는 개인정보의 분실, 도난, 유출, 위조·변조 또는 훼손을 방지하기 위해 필요한 기술적·관리적 조치를 시행합니다.",
   },
   {
-    title: "7. International Data Transfers",
-    body: "When data is transferred internationally, appropriate legal safeguards are used to protect your privacy.",
+    title: "7. 쿠키의 사용",
+    body: "본 웹사이트는 쿠키 또는 유사 기술을 사용할 수 있습니다. 브라우저 설정을 통해 쿠키 저장을 거부할 수 있습니다.",
   },
   {
-    title: "8. Cookies and Tracking Technologies",
-    body: "Our website may use cookies or similar technologies. You can manage cookie preferences through your browser settings.",
+    title: "8. 개인정보처리방침의 변경",
+    body: "본 방침은 변경될 수 있으며, 변경 시 웹사이트를 통해 최신 내용과 시행일을 안내합니다.",
   },
-  {
-    title: "9. Changes to This Privacy Policy",
-    body: "We may update this policy periodically. The latest version and effective date will be available on our website.",
-  },
+] as const;
+
+/** 자료정리 5-3 — 문의 유형 */
+const INQUIRY_TYPES = [
+  "제품",
+  "샘플",
+  "견적",
+  "유통·대리점",
+  "해외 수출",
 ] as const;
 
 export default function OnlineInquiryForm() {
   const [domain, setDomain] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  /** 폼이 화면에 뜬 시각 — 스팸 봇 판별용 (자료정리 7-1 "스팸 방지 기능") */
+  const [openedAt] = useState(() => Date.now());
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+
+    // ── 스팸 방지 1: 허니팟
+    // 사람 눈에는 안 보이는 칸이라 값이 차 있으면 자동 입력 봇입니다.
+    const honeypot = (form.elements.namedItem("website") as HTMLInputElement)?.value;
+    // ── 스팸 방지 2: 제출 속도
+    // 사람이 이 폼을 3초 안에 다 채울 수는 없습니다.
+    const tooFast = Date.now() - openedAt < 3000;
+
+    if (honeypot || tooFast) {
+      // 봇에게는 실패를 알리지 않고 성공한 것처럼 보이게 둡니다.
+      setSubmitted(true);
+      form.reset();
+      setDomain("");
+      return;
+    }
+
+    // TODO: 실제 접수 처리 — 자료정리 7-1 "문의 접수 시 담당 이메일로 자동 알림".
+    //       지금은 화면에만 표시되고 어디로도 전송되지 않습니다.
+    //       서버 라우트(app/api/inquiry/route.ts)와 메일 발송을 붙여야
+    //       Nolan5000@naver.com 으로 알림이 갑니다.
     setSubmitted(true);
-    event.currentTarget.reset();
+    form.reset();
     setDomain("");
   }
 
   return (
     <section className="wrap-in2 pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[180px] max-b580:pt-[100px] max-b580:pb-[120px]">
       <form onSubmit={submit}>
+        {/* 허니팟 — 화면에도 스크린리더에도 노출되지 않습니다. 봇만 채웁니다. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden
+          className="absolute left-[-9999px] h-0 w-0 opacity-0"
+        />
+
         <h2 className="gfont mb-[30px] text-[38px] max-b580:text-[30px]">
-          Privacy Policy
+          개인정보 수집·이용 동의
         </h2>
 
         <div className="mb-5 leading-[30px]">
-          <p>Please read the contents regarding the collection and use of personal information carefully before giving your consent.</p>
-          <p className="mb-2.5">Scope of Personal Information Collected: Name, Email, Contact Information</p>
-          <p className="text-[16px]">※ Personal information is destroyed without delay once its purpose has been fulfilled. The retention period is up to three years.</p>
+          <p>동의하시기 전에 개인정보의 수집·이용에 관한 아래 내용을 자세히 읽어 주세요.</p>
+          <p className="mb-2.5">수집 항목: 기관명, 담당자명, 부서·직책, 연락처, 이메일</p>
+          <p className="text-[16px]">※ 수집 목적이 달성되면 개인정보는 지체 없이 파기되며, 보유 기간은 최대 3년입니다.</p>
         </div>
 
         <div className="mb-[30px] h-[400px] overflow-y-auto border border-line bg-[#fafafa] p-[30px] text-[16px] leading-[26px] max-b580:p-5">
-          <p className="mb-7">At Hakambio, we are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal data when you use our website, products, or services.</p>
+          <p className="mb-7">놀란볼코리아는 이용자의 개인정보를 소중하게 생각합니다. 본 방침은 웹사이트·제품·서비스 이용 과정에서 개인정보를 어떻게 수집·이용·보관·파기하는지 설명합니다.</p>
           {policySections.map((section) => (
             <div key={section.title} className="mb-7">
               <h3 className="mb-2 font-bold">{section.title}</h3>
@@ -77,26 +123,36 @@ export default function OnlineInquiryForm() {
             </div>
           ))}
           <div>
-            <h3 className="mb-2 font-bold">10. Contact Us</h3>
-            <p className="mb-5">If you have questions, requests, or concerns regarding this Privacy Policy, please contact us at:</p>
-            <strong className="gfont text-[21px]">Hakambio</strong>
-            <p className="mt-2">#706, Byucksan E Centum Class One 2nd, 71 Centum-dong, Haeundae-gu, Busan, 48060, South Korea</p>
-            <p>hakamb@naver.com</p>
-            <p>051-746-7077</p>
+            <h3 className="mb-2 font-bold">9. 문의처</h3>
+            <p className="mb-5">본 개인정보처리방침에 관한 문의는 아래로 연락해 주세요.</p>
+            <strong className="gfont text-[21px]">{COMPANY.legal}</strong>
+            <p className="mt-2">{COMPANY.address}</p>
+            <p>{COMPANY.email}</p>
+            <p>
+              {COMPANY.tel} (팩스 {COMPANY.fax})
+            </p>
           </div>
         </div>
 
         <label className="mb-[60px] flex cursor-pointer items-center gap-3 text-[17px]">
           <input type="checkbox" required className="h-5 w-5 accent-[#1eac44]" />
-          <span>I agree to the Privacy Policy.</span>
+          <span>개인정보 수집·이용에 동의합니다.</span>
         </label>
 
         <div className="border-t-2 border-ink-900">
-          <FormRow label="Name">
+          <FormRow label="기관명">
+            <input name="organization" required className={`${inputClass} w-full max-w-[520px]`} />
+          </FormRow>
+
+          <FormRow label="담당자명">
             <input name="name" required className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label="TEL">
+          <FormRow label="부서·직책">
+            <input name="department" className={`${inputClass} w-full max-w-[520px]`} />
+          </FormRow>
+
+          <FormRow label="연락처">
             <div className="flex items-center gap-3 max-b580:gap-2">
               <PhoneInput name="tel1" maxLength={3} />
               <span>-</span>
@@ -106,31 +162,48 @@ export default function OnlineInquiryForm() {
             </div>
           </FormRow>
 
-          <FormRow label="E-Mail">
+          <FormRow label="이메일">
             <div className="flex items-center gap-3 max-b860:flex-wrap max-b580:gap-2">
               <input name="emailId" required className={`${inputClass} w-[220px] max-b580:w-[calc(50%-16px)]`} />
               <span>@</span>
               <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-[calc(50%-16px)]`} />
-              <select aria-label="Select email domain" value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
-                <option value="">-Direct-</option>
+              <select aria-label="이메일 도메인 선택" value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
+                <option value="">직접 입력</option>
                 {["naver.com", "daum.net", "hanmail.net", "gmail.com", "nate.com", "hotmail.com", "msn.com", "google.com", "dreamwiz.com"].map((item) => <option key={item}>{item}</option>)}
               </select>
             </div>
           </FormRow>
 
-          <FormRow label="Inquiry Message" alignTop>
+          <FormRow label="문의 유형">
+            <select name="inquiryType" required className={`${inputClass} w-full max-w-[320px]`}>
+              <option value="">선택해 주세요</option>
+              {INQUIRY_TYPES.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
+          </FormRow>
+
+          <FormRow label="사용 내시경 종류·채널 규격">
+            <input
+              name="endoscope"
+              placeholder="예) 대장 내시경 · 채널 3.7 mm"
+              className={`${inputClass} w-full max-w-[520px]`}
+            />
+          </FormRow>
+
+          <FormRow label="문의 내용" alignTop>
             <textarea name="message" required className="min-h-[240px] w-full resize-y border border-line p-4 outline-none transition-colors focus:border-brand-500" />
           </FormRow>
         </div>
 
         {submitted && (
           <p role="status" className="mt-8 text-center font-medium text-brand-500">
-            Your inquiry has been received.
+            문의가 접수되었습니다.
           </p>
         )}
 
         <button type="submit" className="mx-auto mt-[50px] block h-[60px] w-[220px] bg-ink-900 text-[18px] font-bold text-white transition-colors hover:bg-brand-500">
-          Inquire
+          문의하기
         </button>
       </form>
     </section>

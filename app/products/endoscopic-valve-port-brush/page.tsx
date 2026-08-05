@@ -4,7 +4,7 @@ import FilterBallPage from "@/components/FilterBallPage";
 import { VALVE_PORT_BRUSH } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Endoscopic Valve/Port Brush | 하캄바이오",
+  title: "밸브·포트 브러시",
 };
 
 /**

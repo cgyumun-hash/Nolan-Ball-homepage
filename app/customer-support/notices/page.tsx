@@ -5,10 +5,10 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import NoticeBoard from "@/components/NoticeBoard";
 import SubHeader from "@/components/SubHeader";
-import { CUSTOMER_SUPPORT_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { DOWNLOAD_PAGES, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Notices | Ha Kam BIO",
+  title: "공지사항",
 };
 
 export default function NoticesPage() {
@@ -19,7 +19,7 @@ export default function NoticesPage() {
       <SubHeader
         eyebrow="Customer Support"
         title="Notices"
-        pager={CUSTOMER_SUPPORT_PAGES}
+        pager={DOWNLOAD_PAGES}
         current="Notices"
         breadcrumb={["Customer Support", "Notices"]}
         bg={SUBHEADER_BG.sub04}

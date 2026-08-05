@@ -54,11 +54,14 @@ export default function SubHeader({
                    max-b980:rounded-b-[25px]"
         style={{ backgroundImage: bg.fallback }}
       >
-        {/* 사진이 없으면 위 그라디언트가 그대로 보입니다 */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${bg.image})` }}
-        />
+        {/* bg.image 가 빈 문자열이면 사진 레이어를 아예 그리지 않고
+            위 그라디언트만 보여 줍니다 (lib/site.ts 의 SUBHEADER_BG 주석 참고) */}
+        {bg.image && (
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${bg.image})` }}
+          />
+        )}
 
         {/* .sub_txt_wrap */}
         <div

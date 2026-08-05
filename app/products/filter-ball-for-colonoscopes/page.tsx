@@ -4,7 +4,7 @@ import FilterBallPage from "@/components/FilterBallPage";
 import { FILTER_BALL_COLONOSCOPES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Filter Ball for Colonoscopes | 하캄바이오",
+  title: "대장 내시경용 3.7mm",
 };
 
 /**

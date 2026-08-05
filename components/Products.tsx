@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { PRODUCTS } from "@/lib/site";
 
 /**
@@ -59,14 +61,14 @@ export default function Products() {
             {PRODUCTS.desc}
           </p>
 
-          <a
-            href="#"
+          <Link
+            href={PRODUCTS.href}
             className="gfont inline-block rounded-[50px] bg-accent-500 px-[30px] py-2.5
                        text-[16px] font-extrabold text-white transition-opacity hover:opacity-90
                        max-b1600:px-5 max-b1600:py-[5px] max-b1600:text-[14px]"
           >
             {PRODUCTS.cta}
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,5 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
+import { WHY } from "@/lib/site";
+
 /**
  * 원본 .section_2
  *   height:100vh (1400↓ 80vh · 1080↓ auto + padding 80px 0)
@@ -48,18 +52,18 @@ export default function WhyAcf() {
                      max-b856:text-center max-b856:text-[80px]
                      max-b580:text-[68px]"
         >
-          Why ACF
+          {WHY.headingLines[0]}
           <br />
-          Filter Ball?
+          {WHY.headingLines[1]}
         </h2>
 
         {/* 원본 a.gfont.fs16.fw800 — 16px / 800 (1600↓ 14px) */}
-        <a
-          href="#"
+        <Link
+          href={WHY.href}
           className="group mx-auto flex w-fit items-center gap-[30px]
                      text-[16px] font-extrabold text-ink-900 max-b1600:text-[14px]"
         >
-          <p className="gfont">VIEW MORE</p>
+          <p className="gfont">{WHY.cta}</p>
           {/* 원본 view_btn.png — hover 시 bounce_513 */}
           <span className="inline-block group-hover:[animation:arrow-bounce_1s_infinite]">
             <svg width="46" height="10" viewBox="0 0 46 10" fill="none" aria-hidden>
@@ -70,7 +74,7 @@ export default function WhyAcf() {
               />
             </svg>
           </span>
-        </a>
+        </Link>
       </div>
     </section>
   );

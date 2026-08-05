@@ -7,10 +7,10 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
-import { ABOUT_US_PAGES, SUBHEADER_BG, TECHNOLOGY } from "@/lib/site";
+import { SUBHEADER_BG, TECHNOLOGY, TECHNOLOGY_PAGES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Technology Overview | 하캄바이오",
+  title: "기술 개요",
 };
 
 function hasImage(src: string) {
@@ -58,7 +58,7 @@ export default function TechnologyPage() {
       <SubHeader
         eyebrow={TECHNOLOGY.eyebrow}
         title={TECHNOLOGY.title}
-        pager={ABOUT_US_PAGES}
+        pager={TECHNOLOGY_PAGES}
         current={TECHNOLOGY.title}
         breadcrumb={[TECHNOLOGY.eyebrow, TECHNOLOGY.title]}
         bg={SUBHEADER_BG.sub01}
@@ -134,75 +134,71 @@ export default function TechnologyPage() {
             {TECHNOLOGY.bandTitle}
           </div>
 
-          {/* .s2.wrap_in2 */}
+          {/* 도해 2장 — 안에 작은 글씨가 있어 본문 폭을 꽉 채워 싣습니다 */}
           <div className="wrap-in2">
-            {TECHNOLOGY.timeline.map((row) => {
-              const image = hasImage(row.image) ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src={row.image}
-                  alt=""
-                  className="w-[486px] shrink-0 max-b1200:w-[350px] max-b860:w-full"
-                />
-              ) : (
-                /* 원본 486×485 정사각 이미지 자리 */
-                <div
-                  className="aspect-square w-[486px] shrink-0 rounded-full
-                             bg-[radial-gradient(circle_at_35%_30%,#e9efe6_0%,#bcd0b4_45%,#7e9a74_100%)]
-                             max-b1200:w-[350px] max-b860:w-full"
-                />
-              );
-
-              const text = (
-                <li className="max-b860:w-full">
-                  <h6
-                    className="mb-[100px] text-[40px] font-bold
-                               max-b1200:mb-[50px] max-b1200:text-[35px]
-                               max-b520:mb-[25px] max-b520:text-[30px]"
+            {TECHNOLOGY.figures.map((fig) => (
+              <FadeUp key={fig.image}>
+                <figure className="mb-[150px] max-b860:mb-[80px]">
+                  {hasImage(fig.image) ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={fig.image}
+                      alt={fig.caption}
+                      className="w-full rounded-[10px] border border-line"
+                    />
+                  ) : (
+                    <div
+                      className="flex aspect-[16/9] w-full items-center justify-center
+                                 border border-line bg-[linear-gradient(160deg,#f7f8f6_0%,#e8ece6_100%)]
+                                 p-6 text-center text-[13px] text-ink-500"
+                    >
+                      public{fig.image}
+                    </div>
+                  )}
+                  <figcaption
+                    className="mt-5 text-[16px] leading-[1.7] text-ink-500
+                               max-b520:text-[14px]"
                   >
-                    {row.year}
-                  </h6>
-                  <div>
-                    {row.items.map((item) => (
-                      /* 원본의 p:last-child 규칙은 선택자 오타(`p :last-child`)라
-                         실제로는 적용되지 않습니다. 마지막 항목에도 여백이 남습니다. */
-                      <p
-                        key={item}
-                        className="mb-[50px] text-[24px]
-                                   max-b1200:mb-[25px] max-b1200:text-[20px]
-                                   max-b520:text-[18px]"
-                      >
-                        &middot; {item}
-                      </p>
-                    ))}
+                    {fig.caption}
+                  </figcaption>
+                </figure>
+              </FadeUp>
+            ))}
+
+            {/* 자료정리 3-2 구조적 특징 4가지 */}
+            <h3
+              className="gfont mb-[60px] text-[40px] font-bold text-ink-900
+                         max-b1200:text-[32px] max-b520:mb-[30px] max-b520:text-[24px]"
+            >
+              {TECHNOLOGY.featuresTitle}
+            </h3>
+            <ul>
+              {TECHNOLOGY.features.map((f) => (
+                <li
+                  key={f.no}
+                  className="flex gap-[50px] border-t border-line py-[45px] last:border-b
+                             max-b980:flex-col max-b980:gap-3 max-b980:py-[30px]"
+                >
+                  <span
+                    className="gfont w-[100px] shrink-0 text-[40px] font-bold leading-none text-brand-500
+                               max-b1200:text-[32px] max-b980:w-auto"
+                  >
+                    {f.no}
+                  </span>
+                  <div className="min-w-0">
+                    <h4 className="mb-2 text-[26px] font-bold max-b1200:text-[21px] max-b520:text-[18px]">
+                      {f.name}
+                      <span className="ml-3 text-[16px] font-normal text-ink-500 max-b520:text-[13px]">
+                        {f.en}
+                      </span>
+                    </h4>
+                    <p className="text-[18px] leading-[1.8] text-ink-500 max-b1200:text-[16px] max-b520:text-[15px]">
+                      {f.body}
+                    </p>
                   </div>
                 </li>
-              );
-
-              return (
-                <FadeUp key={row.year}>
-                  <ul
-                    className={`mb-[200px] flex items-center gap-[60px] max-b860:mb-[100px] ${
-                      row.side === "right"
-                        ? "justify-between max-b860:flex-col-reverse"
-                        : "max-b860:flex-col"
-                    }`}
-                  >
-                    {row.side === "left" ? (
-                      <>
-                        {image}
-                        {text}
-                      </>
-                    ) : (
-                      <>
-                        {text}
-                        {image}
-                      </>
-                    )}
-                  </ul>
-                </FadeUp>
-              );
-            })}
+              ))}
+            </ul>
           </div>
         </div>
       </main>

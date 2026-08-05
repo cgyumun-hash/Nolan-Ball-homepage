@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { COMPANY, LANGS, NAV } from "@/lib/site";
 
@@ -47,7 +48,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
           {/* ── 로고 (원본 logo.png 를 텍스트+도형으로 재현) ──────────
               원본은 이미지라 색이 고정이지만, 여기서는 투명 헤더 위에서도
               읽히도록 헤더 상태를 따라가게 했습니다. */}
-          <a href="#" className="flex shrink-0 items-center gap-2.5 py-4">
+          <Link href="/" className="flex shrink-0 items-center gap-2.5 py-4">
             <span
               className={`grid h-9 w-9 shrink-0 place-items-center rounded-[6px] border-2 text-[15px] font-black transition-colors ${
                 solid
@@ -55,17 +56,17 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
                   : "border-white text-white"
               }`}
             >
-              H
+              N
             </span>
             <span className="leading-none">
               <span className="flex items-center gap-1.5">
                 <span
                   className={`text-[22px] font-bold tracking-tight transition-colors ${fg}`}
                 >
-                  Ha Kam
+                  Nolan
                 </span>
                 <span className="rounded-[3px] bg-brand-500 px-1.5 py-0.5 text-[13px] font-bold text-white">
-                  BIO
+                  BALL
                 </span>
               </span>
               <span
@@ -76,28 +77,32 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
                 {COMPANY.legal}
               </span>
             </span>
-          </a>
+          </Link>
 
           {/* ── GNB ─────────────────────────────────────────────── */}
-          <nav className="hidden w-[70%] items-center justify-between text-center b1080:flex">
+          {/* 메뉴가 4개에서 7개로 늘어 고정 폭(w-1/5) 대신 flex-1 로 나눕니다.
+              글자 수 차이가 커서 whitespace-nowrap 으로 줄바꿈을 막습니다. */}
+          <nav className="hidden w-[74%] items-center justify-between text-center b1080:flex">
             {NAV.map((item) => (
               <div
                 key={item.label}
                 onMouseEnter={() => setOpenMenu(item.label)}
-                className="relative w-1/5 cursor-pointer px-2.5 py-[25px]
-                           max-b1600:px-[5px] max-b1400:w-1/4"
+                className="relative flex-1 cursor-pointer px-2 py-[25px]
+                           max-b1600:px-1"
               >
                 {/* 원본 GNB 링크는 class="fs20" → 20px, 1600px 이하 18px */}
                 <a
                   href={item.href}
-                  className={`text-[20px] font-normal transition-colors max-b1600:text-[18px] ${fg}`}
+                  className={`whitespace-nowrap text-[17px] font-normal transition-colors
+                              max-b1600:text-[15px] max-b1200:text-[13px] ${fg}`}
                 >
                   {item.label}
                 </a>
 
-                {/* 원본 .sub_menu — jQuery slideDown/slideUp */}
+                {/* 원본 .sub_menu — jQuery slideDown/slideUp.
+                    하위 항목이 없는 메뉴는 드롭다운을 띄우지 않습니다. */}
                 <AnimatePresence>
-                  {openMenu === item.label && (
+                  {openMenu === item.label && item.children.length > 0 && (
                     <motion.ul
                       initial={{ height: 0 }}
                       animate={{ height: "auto" }}
@@ -204,17 +209,28 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
             >
               {NAV.map((item) => (
                 <div key={item.label}>
-                  <button
-                    onClick={() =>
-                      setOpenAccordion((v) =>
-                        v === item.label ? null : item.label,
-                      )
-                    }
-                    className="block w-full px-10 py-3.5 text-left
-                               max-b580:px-[30px] max-b580:text-[16px]"
-                  >
-                    {item.label}
-                  </button>
+                  {/* 하위 항목이 없으면 아코디언 대신 바로 이동하는 링크로 둡니다 */}
+                  {item.children.length === 0 ? (
+                    <a
+                      href={item.href}
+                      className="block w-full px-10 py-3.5 text-left
+                                 max-b580:px-[30px] max-b580:text-[16px]"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        setOpenAccordion((v) =>
+                          v === item.label ? null : item.label,
+                        )
+                      }
+                      className="block w-full px-10 py-3.5 text-left
+                                 max-b580:px-[30px] max-b580:text-[16px]"
+                    >
+                      {item.label}
+                    </button>
+                  )}
 
                   <AnimatePresence initial={false}>
                     {openAccordion === item.label && (

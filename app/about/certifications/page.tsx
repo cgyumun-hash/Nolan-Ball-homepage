@@ -6,10 +6,15 @@ import Header from "@/components/Header";
 import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
-import { ABOUT_US_PAGES, CERTIFICATIONS, SUBHEADER_BG } from "@/lib/site";
+import {
+  CERTIFICATIONS,
+  SUBHEADER_BG,
+  TEST_DATA_PAGES,
+  TEST_SUMMARY,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Certifications | 하캄바이오",
+  title: "인증·시험성적",
 };
 
 function hasImage(src: string) {
@@ -45,13 +50,51 @@ export default function CertificationsPage() {
       <SubHeader
         eyebrow={CERTIFICATIONS.eyebrow}
         title={CERTIFICATIONS.title}
-        pager={ABOUT_US_PAGES}
+        pager={TEST_DATA_PAGES}
         current={CERTIFICATIONS.title}
         breadcrumb={[CERTIFICATIONS.eyebrow, CERTIFICATIONS.title]}
         bg={SUBHEADER_BG.sub01}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
+        {/* 자료정리 4-2 권장 표현 — 시험 결과를 단정하지 않고 원문 확인을 함께 안내합니다 */}
+        <p
+          className="wrap-in2 mb-[60px] text-[17px] leading-[1.8] text-ink-500
+                     max-b580:text-[15px]"
+        >
+          {CERTIFICATIONS.note}
+        </p>
+
+        {/* 시험 결과 요약 — 자료정리 4-1 */}
+        <div className="wrap-in2 mb-[100px] max-b1080:mb-[60px]">
+          <h3
+            className="gfont mb-[30px] text-[32px] font-bold text-ink-900
+                       max-b1080:text-[26px] max-b520:text-[21px]"
+          >
+            {TEST_SUMMARY.heading}
+          </h3>
+          <dl className="border-t border-ink-900">
+            {TEST_SUMMARY.rows.map((row) => (
+              <div
+                key={row.label}
+                className="flex border-b border-line py-[22px]
+                           max-b580:flex-col max-b580:gap-1.5 max-b580:py-4"
+              >
+                <dt className="w-[200px] shrink-0 text-[17px] font-bold text-ink-900 max-b580:w-full max-b580:text-[15px]">
+                  {row.label}
+                </dt>
+                <dd className="min-w-0 flex-1 text-[17px] leading-[1.7] text-ink-500 max-b580:text-[15px]">
+                  {row.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          {/* md 4-1 "필수 표기" — 빼면 안 됩니다 */}
+          <p className="mt-5 text-[15px] leading-[1.7] text-ink-500 max-b520:text-[13px]">
+            {TEST_SUMMARY.disclaimer}
+          </p>
+        </div>
+
         <div
           className="wrap-in2 flex flex-wrap items-center justify-between gap-[15px]
                      max-b860:justify-center"

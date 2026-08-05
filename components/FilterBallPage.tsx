@@ -8,6 +8,7 @@ import InquiryButton from "@/components/InquiryButton";
 import {
   FILTER_BALL_ICONS,
   PRODUCTS_PAGES,
+  PRODUCT_SPECS,
   SUBHEADER_BG,
   type FilterBall,
 } from "@/lib/site";
@@ -217,6 +218,51 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
               </ul>
             </div>
           </div>
+
+          {/* ── 제품 규격 (자료정리 3-3) ─────────────────────────
+              세 제품 페이지가 같은 표를 공유합니다. 현재 페이지 규격에
+              해당하는 줄을 굵게 표시합니다. */}
+          <h3
+            className="gfont mt-[200px] mb-[40px] text-[40px] font-bold text-ink-900
+                       max-b1080:mt-[100px] max-b1080:text-[30px] max-b520:text-[24px]"
+          >
+            {PRODUCT_SPECS.heading}
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[560px] border-collapse text-center">
+              <thead>
+                <tr className="h-[60px] border-y border-ink-900 bg-[#fafafa] text-[16px] font-bold">
+                  {PRODUCT_SPECS.columns.map((c) => (
+                    <th key={c} className="px-3">
+                      {c}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {PRODUCT_SPECS.rows.map((r) => {
+                  const on = data.title.startsWith(r.use.replace(" 내시경", ""));
+                  return (
+                    <tr
+                      key={r.use}
+                      className={`h-[62px] border-b border-line text-[16px] max-b520:text-[14px] ${
+                        on ? "bg-brand-500/8 font-bold text-ink-900" : "text-ink-500"
+                      }`}
+                    >
+                      <td className="px-3">{r.use}</td>
+                      <td className="px-3">{r.purpose}</td>
+                      <td className="px-3">{r.spec}</td>
+                      <td className="px-3">{r.status}</td>
+                      <td className="px-3">{r.pack}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-5 text-[15px] leading-[1.7] text-ink-500 max-b520:text-[13px]">
+            {PRODUCT_SPECS.note}
+          </p>
         </div>
       </main>
 

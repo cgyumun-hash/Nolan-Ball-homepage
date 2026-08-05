@@ -5,12 +5,12 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import OnlineInquiryForm from "@/components/OnlineInquiryForm";
 import SubHeader from "@/components/SubHeader";
-import { CUSTOMER_SUPPORT_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { ABOUT_CONTACT_PAGES, SUBHEADER_BG } from "@/lib/site";
 
-const title = "Online Inquiry";
+const title = "온라인 문의";
 
 export const metadata: Metadata = {
-  title: `${title} | Ha Kam BIO`,
+  title: `${title}`,
 };
 
 export default function OnlineInquiryPage() {
@@ -19,11 +19,11 @@ export default function OnlineInquiryPage() {
       <InquiryButton />
       <Header forceSolid />
       <SubHeader
-        eyebrow="Customer Support"
+        eyebrow="ABOUT / CONTACT"
         title={title}
-        pager={CUSTOMER_SUPPORT_PAGES}
+        pager={ABOUT_CONTACT_PAGES}
         current={title}
-        breadcrumb={["Customer Support", title]}
+        breadcrumb={["ABOUT / CONTACT", title]}
         bg={SUBHEADER_BG.sub04}
       />
       <main>

@@ -4,7 +4,7 @@ import FilterBallPage from "@/components/FilterBallPage";
 import { FILTER_BALL_GASTROSCOPES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Filter Ball for Gastroscopes | 하캄바이오",
+  title: "위 내시경용 2.8mm",
 };
 
 /**

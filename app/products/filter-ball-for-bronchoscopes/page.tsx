@@ -4,7 +4,7 @@ import FilterBallPage from "@/components/FilterBallPage";
 import { FILTER_BALL_BRONCHOSCOPES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Filter Ball for Bronchoscopes | 하캄바이오",
+  title: "기관지 내시경용 2.8mm",
 };
 
 /**

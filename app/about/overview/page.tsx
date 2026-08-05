@@ -7,10 +7,10 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import RevealBottom from "@/components/RevealBottom";
-import { ABOUT_US_PAGES, OVERVIEW, SUBHEADER_BG } from "@/lib/site";
+import { ABOUT_CONTACT_PAGES, OVERVIEW, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Overview | 하캄바이오",
+  title: "회사 개요",
 };
 
 function hasImage(src: string) {
@@ -62,7 +62,7 @@ export default function OverviewPage() {
       <SubHeader
         eyebrow={OVERVIEW.eyebrow}
         title={OVERVIEW.title}
-        pager={ABOUT_US_PAGES}
+        pager={ABOUT_CONTACT_PAGES}
         current={OVERVIEW.title}
         breadcrumb={[OVERVIEW.eyebrow, OVERVIEW.title]}
         bg={SUBHEADER_BG.sub01}

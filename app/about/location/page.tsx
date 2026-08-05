@@ -8,10 +8,10 @@ import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
 import KakaoRoughMap from "@/components/KakaoRoughMap";
-import { ABOUT_US_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
+import { ABOUT_CONTACT_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Location & Directions | 하캄바이오",
+  title: "오시는 길",
 };
 
 function hasImage(src: string) {
@@ -56,7 +56,7 @@ export default function LocationPage() {
       <SubHeader
         eyebrow={LOCATION.eyebrow}
         title={LOCATION.title}
-        pager={ABOUT_US_PAGES}
+        pager={ABOUT_CONTACT_PAGES}
         current={LOCATION.title}
         breadcrumb={[LOCATION.eyebrow, LOCATION.title]}
         bg={SUBHEADER_BG.sub01}

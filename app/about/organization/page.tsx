@@ -7,10 +7,10 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
-import { ABOUT_US_PAGES, ORGANIZATION, SUBHEADER_BG } from "@/lib/site";
+import { ABOUT_CONTACT_PAGES, ORGANIZATION, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Organization | 하캄바이오",
+  title: "조직도",
 };
 
 /** 조직도 이미지가 실제로 있는지 빌드 시점에 확인합니다 */
@@ -44,7 +44,7 @@ export default function OrganizationPage() {
       <SubHeader
         eyebrow={ORGANIZATION.eyebrow}
         title={ORGANIZATION.title}
-        pager={ABOUT_US_PAGES}
+        pager={ABOUT_CONTACT_PAGES}
         current={ORGANIZATION.title}
         breadcrumb={[ORGANIZATION.eyebrow, ORGANIZATION.title]}
         bg={SUBHEADER_BG.sub01}
@@ -74,14 +74,14 @@ export default function OrganizationPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={ORGANIZATION.chartPc}
-                  alt="하캄바이오 조직도"
+                  alt="놀란볼코리아 조직도"
                   className="w-full max-b520:hidden"
                 />
                 {/* .sub13_mo — 520px 이하에서 표시 (원본 width:60%) */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={ORGANIZATION.chartMo}
-                  alt="하캄바이오 조직도"
+                  alt="놀란볼코리아 조직도"
                   className="mx-auto hidden w-[60%] max-b520:block"
                 />
               </>

@@ -6,10 +6,10 @@ import Header from "@/components/Header";
 import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
-import { BUSINESS, BUSINESS_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { BUSINESS, SUBHEADER_BG, TECHNOLOGY_PAGES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Business Areas | 하캄바이오",
+  title: "사업분야",
 };
 
 function hasImage(src: string) {
@@ -53,7 +53,7 @@ export default function BusinessAreasPage() {
 
       <SubHeader
         title={BUSINESS.title}
-        pager={BUSINESS_PAGES}
+        pager={TECHNOLOGY_PAGES}
         current={BUSINESS.title}
         breadcrumb={[BUSINESS.title]}
         bg={SUBHEADER_BG.sub02}

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { ABOUT } from "@/lib/site";
 
 /**
@@ -30,7 +32,7 @@ export default function About() {
         >
           ABOUT
           {/* 원본 br.mo_br — section_4 에서는 580px 이하에서만 줄바꿈 */}
-          <br className="hidden max-b580:block" /> HAKAM BIO
+          <br className="hidden max-b580:block" /> NOLAN BALL
         </h2>
 
         {/* .w1 */}
@@ -63,15 +65,15 @@ export default function About() {
                          max-b1600:mt-[15px]
                          max-b1080:mt-[50px] max-b1080:justify-start"
             >
-              <a
-                href="#"
+              <Link
+                href={ABOUT.href}
                 className="gfont inline-block rounded-[50px] border border-ink-900 px-[30px] py-2.5
                            text-[16px] font-extrabold transition-colors
                            hover:bg-ink-900 hover:text-white
                            max-b1600:px-5 max-b1600:py-[5px] max-b1600:text-[14px]"
               >
                 {ABOUT.cta}
-              </a>
+              </Link>
             </div>
           </div>
 

@@ -10,7 +10,7 @@ import FadeDown from "@/components/FadeDown";
 import { PRODUCTS_PAGES, PRODUCT_VIDEO, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "ACF Filter Ball Video | 하캄바이오",
+  title: "제품 영상",
 };
 
 function hasFile(src: string) {
