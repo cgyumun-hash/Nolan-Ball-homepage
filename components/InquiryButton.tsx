@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 /**
  * 원본 .inquriy_btn  (오타는 원본 클래스명 그대로입니다)
  *   position:fixed; bottom:0; right:50px; z-index:999
@@ -11,8 +13,8 @@
  */
 export default function InquiryButton() {
   return (
-    <a
-      href="#"
+    <Link
+      href="/customer-support/online-inquiry"
       className="group fixed bottom-[30px] right-[50px] z-[999] flex items-center gap-4
                  rounded-full border border-line bg-white py-2.5 pr-2.5 pl-7
                  shadow-[0_6px_24px_rgba(0,0,0,0.14)]
@@ -20,7 +22,7 @@ export default function InquiryButton() {
                  max-b856:right-[5px]"
     >
       <span className="text-[15px] font-medium text-ink-900">
-        Go to Online Inquiry
+        도입·샘플 문의
       </span>
       <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-500 text-white">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -34,6 +36,6 @@ export default function InquiryButton() {
           />
         </svg>
       </span>
-    </a>
+    </Link>
   );
 }

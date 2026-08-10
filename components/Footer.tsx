@@ -20,9 +20,10 @@ import { COMPANY, NAV } from "@/lib/site";
  */
 export default function Footer({ bordered = false }: { bordered?: boolean }) {
   const info = [
-    { label: "ADDRESS.", lines: COMPANY.addressLines },
-    { label: "TEL.", lines: [COMPANY.tel] },
-    { label: "E-MAIL.", lines: [COMPANY.email] },
+    { label: "주소", lines: COMPANY.addressLines },
+    { label: "대표전화", lines: [COMPANY.tel] },
+    { label: "팩스", lines: [COMPANY.fax] },
+    { label: "이메일", lines: [COMPANY.email] },
   ];
 
   return (
@@ -80,15 +81,15 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
           <div className="flex flex-col items-end max-b1200:items-start">
             <div className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[6px] border-2 border-brand-500 text-[15px] font-black text-brand-500">
-                H
+                N
               </span>
               <span className="leading-none">
                 <span className="flex items-center gap-1.5">
                   <span className="text-[22px] font-bold tracking-tight text-ink-900">
-                    Ha Kam
+                    Nolan
                   </span>
                   <span className="rounded-[3px] bg-brand-500 px-1.5 py-0.5 text-[13px] font-bold text-white">
-                    BIO
+                    BALL
                   </span>
                 </span>
                 <span className="mt-1 block text-[9px] tracking-wide text-ink-500">

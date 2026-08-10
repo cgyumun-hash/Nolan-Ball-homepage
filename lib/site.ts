@@ -1,25 +1,28 @@
 /**
- * hakambio.com 메인 페이지의 실제 마크업에서 확인한 내용만 담습니다.
- * 출처: index.html · /css/main.css · /css/reset.css · /css/mo_main.css
+ * 사이트 문구를 한곳에 모읍니다.
  *
- * 원본은 같은 메뉴가 GNB · 사이드바 · 푸터 3곳에 하드코딩되어 있고,
- * 그 탓에 한쪽만 "Prouducts" 오타가 남아 있습니다.
- * 여기서는 한 곳에 모아 그런 불일치가 생길 수 없게 합니다.
+ * 레이아웃·구조는 hakambio.com 마크업을 그대로 따르고(출처: index.html ·
+ * /css/main.css · /css/reset.css · /css/mo_main.css), 내용만 놀란볼코리아로
+ * 교체합니다. 원본은 같은 메뉴가 GNB · 사이드바 · 푸터 3곳에 하드코딩되어
+ * 있었고 그 탓에 한쪽만 "Prouducts" 오타가 남아 있었습니다.
+ *
+ * 문구 출처: 자료넣기/놀란볼코리아_홈페이지_콘텐츠_자료정리.md
  */
 
 export const COMPANY = {
-  nameEn: "Ha Kam BIO",
-  legal: "(주)하캄바이오 hakam Co,. Ltd",
+  nameEn: "Nolan Ball Korea",
+  legal: "놀란볼코리아 Nolan Ball Korea",
   address:
-    "#706, Byucksan E Centum Class One 2nd, 71 Centum-dong, Haeundae-gu, Busan, 48060, South Korea",
+    "부산광역시 금정구 서부곡로 16번길 8-1, 알찬빌딩 1층",
   /** 모바일에서 줄바꿈이 사라지도록 두 조각으로 나눠 둡니다 (원본 br.no_br) */
   addressLines: [
-    "#706, Byucksan E Centum Class One 2nd, 71 Centum-dong,",
-    "Haeundae-gu, Busan, 48060, South Korea",
+    "부산광역시 금정구 서부곡로 16번길 8-1,",
+    "알찬빌딩 1층",
   ],
-  tel: "051-746-7077",
-  email: "hakamb@naver.com",
-  copyright: "COPYRIGHT 2025 BY Ha Kam BIO Co., Ltd ALL RIGHT RESERVED.",
+  tel: "051-516-5064",
+  fax: "051-516-5065",
+  email: "Nolan5000@naver.com",
+  copyright: "COPYRIGHT 2026 BY Nolan Ball Korea ALL RIGHT RESERVED.",
 } as const;
 
 export type NavItem = {
@@ -29,75 +32,80 @@ export type NavItem = {
 };
 
 /**
- * About Us 하위 5개.
- * GNB · 사이드바 · 푸터 · 서브페이지 탭(.sub_pager)이 모두 이걸 씁니다.
- * 아직 만들지 않은 페이지는 href="#" 로 두어 404 가 나지 않게 합니다.
+ * 메뉴는 자료정리 1-2 "추천 홈페이지 메뉴" 7개를 따릅니다.
+ * GNB · 사이드바 · 푸터 · 서브페이지 탭(.sub_pager)이 모두 아래를 씁니다.
+ * 라우트는 하캄바이오 구조를 최대한 재사용해 페이지 이동을 최소화했습니다.
+ * (신규 라우트는 /how-to-use 하나뿐입니다.)
+ *
+ * md 1-2 에 없어 메뉴에서 뺀 페이지: /business, /about/organization,
+ * /customer-support/notices — 파일은 남아 있지만 링크되지 않습니다.
  */
-export const ABOUT_US_PAGES = [
-  { label: "Overview", href: "/about/overview" },
-  { label: "Technology Overview", href: "/about/technology-overview" },
-  { label: "Organization", href: "/about/organization" },
-  { label: "Certifications", href: "/about/certifications" },
-  { label: "Location & Directions", href: "/about/location" },
-] as const;
 
-/** Business Areas 는 하위 항목이 하나뿐입니다 */
-export const BUSINESS_PAGES = [
-  { label: "Business Areas", href: "/business" },
-] as const;
-
-/** Products 하위 5개 */
+/** PRODUCT — 자료정리 3-3 제품 규격 기준. 출시 3종 + 보류 2개 */
 export const PRODUCTS_PAGES = [
-  { label: "ACF Filter Ball Video", href: "/products/acf-filter-ball-video" },
   {
-    label: "Filter Ball for Colonoscopes",
-    href: "/products/filter-ball-for-colonoscopes",
-  },
-  {
-    label: "Filter Ball for Gastroscopes",
+    label: "위 내시경용 2.8mm",
     href: "/products/filter-ball-for-gastroscopes",
   },
   {
-    label: "Filter Ball for Bronchoscopes",
+    label: "대장 내시경용 3.7mm",
+    href: "/products/filter-ball-for-colonoscopes",
+  },
+  {
+    label: "기관지 내시경용 2.8mm",
     href: "/products/filter-ball-for-bronchoscopes",
   },
-  {
-    label: "Endoscopic Valve/Port Brush",
-    href: "/products/endoscopic-valve-port-brush",
-  },
+  { label: "제품 영상", href: "/products/acf-filter-ball-video" },
 ] as const;
 
-export const CUSTOMER_SUPPORT_PAGES = [
-  { label: "Notices", href: "/customer-support/notices" },
-  {
-    label: "Resources & Downloads",
-    href: "/customer-support/resources-downloads",
-  },
-  { label: "Online Inquiry", href: "/customer-support/online-inquiry" },
+/** ABOUT / CONTACT — 자료정리 5장 */
+export const ABOUT_CONTACT_PAGES = [
+  { label: "회사 소개", href: "/about/overview" },
+  { label: "오시는 길", href: "/about/location" },
+  { label: "온라인 문의", href: "/customer-support/online-inquiry" },
+] as const;
+
+/** 서브페이지 탭(.sub_pager)이 단독 페이지에서도 필요해 배열로 둡니다 */
+export const TECHNOLOGY_PAGES = [
+  { label: "기술 개요", href: "/about/technology-overview" },
+] as const;
+
+export const HOW_TO_USE_PAGES = [
+  { label: "사용 방법", href: "/how-to-use" },
+] as const;
+
+export const TEST_DATA_PAGES = [
+  { label: "시험 결과·성적서", href: "/about/certifications" },
+] as const;
+
+export const DOWNLOAD_PAGES = [
+  { label: "자료 다운로드", href: "/customer-support/resources-downloads" },
 ] as const;
 
 /** 상단 GNB · 좌측 사이드바 · 푸터가 공유합니다 */
 export const NAV: NavItem[] = [
+  { label: "MAIN", href: "/", children: [] },
   {
-    label: "About Us",
-    href: "#",
-    children: [...ABOUT_US_PAGES],
-  },
-  {
-    label: "Business Areas",
-    href: "/business",
-    children: [...BUSINESS_PAGES],
-  },
-  {
-    label: "Products",
-    href: "/products/acf-filter-ball-video",
-    // 원본은 데스크톱 드롭다운에서만 <br> 로 두 줄 처리합니다
+    label: "PRODUCT",
+    href: "/products/filter-ball-for-gastroscopes",
     children: [...PRODUCTS_PAGES],
   },
   {
-    label: "Customer Support",
-    href: "/customer-support/notices",
-    children: [...CUSTOMER_SUPPORT_PAGES],
+    label: "TECHNOLOGY",
+    href: "/about/technology-overview",
+    children: [],
+  },
+  { label: "HOW TO USE", href: "/how-to-use", children: [] },
+  { label: "TEST & DATA", href: "/about/certifications", children: [] },
+  {
+    label: "DOWNLOAD",
+    href: "/customer-support/resources-downloads",
+    children: [],
+  },
+  {
+    label: "ABOUT / CONTACT",
+    href: "/about/overview",
+    children: [...ABOUT_CONTACT_PAGES],
   },
 ];
 
@@ -116,32 +124,172 @@ export const LANGS = [
 export const SLIDES = [
   {
     id: "slide_1",
-    lines: ["From Green Innovation to", "Healthy Living"],
-    image: "/images/slide_1.jpg",
+    lines: ["내시경 세척의 새로운 기준,", "Nolan Ball"],
+    image: "/images/slide_1.webp",
     /** 사진이 없을 때 대신 보일 배경 */
     fallback: "linear-gradient(115deg, #6b7a3a 0%, #a99b5e 55%, #d8c68a 100%)",
   },
   {
     id: "slide_2",
-    lines: ["Science for Clean,", "Health and Earth"],
-    image: "/images/slide_2.jpg",
+    lines: ["사용자의 숙련도와 관계없이", "빠르고 균일한 고품질 세척"],
+    image: "/images/slide_2.webp",
     fallback: "linear-gradient(115deg, #23433a 0%, #4c7a63 55%, #9dc3a4 100%)",
   },
   {
     id: "slide_3",
-    lines: ["Redefining Endoscope", "care through science"],
-    image: "/images/slide_3.jpg",
+    /* 제품소개서 6쪽에서 채널 구간만 잘라낸 사진입니다.
+       상단 로고와 하단 설명 카드 3개를 빼서 글자가 겹치지 않습니다. */
+    lines: ["한 번의 통과로", "채널 전 구간 세척"],
+    image: "/images/slide_3.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
 
-/** section_3 — PRODUCTS */
+/** section_3 — PRODUCTS. cta 를 누르면 첫 제품 페이지로 갑니다 */
 export const PRODUCTS = {
   heading: "PRODUCTS",
-  desc: "The Perfect Solution for Cleaning Endoscope Channels",
-  cta: "VIEW MORE",
-  image: "/images/section_3bg.jpg",
+  desc: "내시경 채널 세척을 위한 일회용 솔루션",
+  cta: "제품 알아보기",
+  href: "/products/filter-ball-for-gastroscopes",
+  image: "/images/section_3bg.webp",
   fallback: "linear-gradient(110deg, #2f4a1f 0%, #6d9440 50%, #b9cf86 100%)",
+} as const;
+
+/** section_2 — Why Nolan Ball? (원본 .section_2) */
+export const WHY = {
+  headingLines: ["Why", "Nolan Ball?"],
+  cta: "VIEW MORE",
+  href: "/about/technology-overview",
+} as const;
+
+/**
+ * 히어로 아래 버튼 3개 — 자료정리 2-1.
+ * 원본 하캄바이오에는 없던 영역이라 슬라이드 하단에 새로 얹었습니다.
+ */
+export const HERO_ACTIONS: {
+  label: string;
+  href: string;
+  /** true 면 주황 채움 버튼, 아니면 흰 테두리 버튼 */
+  primary?: boolean;
+}[] = [
+  { label: "제품 알아보기", href: "/products/filter-ball-for-gastroscopes", primary: true },
+  { label: "자료 다운로드", href: "/customer-support/resources-downloads" },
+  { label: "도입·샘플 문의", href: "/customer-support/online-inquiry" },
+];
+
+/**
+ * 메인 핵심 장점 4개 — 자료정리 2-2 원문 그대로.
+ * 4-3 표현 수위에 따라 "10초"는 "회사 자료 기준"이라는 단서를 붙여 씁니다.
+ */
+export const KEY_BENEFITS = {
+  heading: "핵심 장점",
+  lead: "Nolan Ball 은 내시경 채널의 굴곡과 내벽에 밀착하여 연속적인 와이핑과 밀어내기 작용을 구현합니다. 기존 브러시 방식에서 발생할 수 있는 세척 편차와 사각지대를 줄이고, 보다 신속하고 균일한 수동 세척 공정을 지원합니다.",
+  items: [
+    {
+      no: "01",
+      title: "360° 밀착 접촉",
+      body: "채널 내벽 전면에 연속적으로 접촉하여 세척 사각지대를 줄이는 구조입니다.",
+    },
+    {
+      no: "02",
+      title: "빠른 세척 공정",
+      body: "회사 자료 기준 약 10초의 짧은 공정으로 세척 업무의 효율 향상을 지원합니다.",
+    },
+    {
+      no: "03",
+      title: "균일한 세척 성능",
+      body: "사용자의 숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원합니다.",
+    },
+    {
+      no: "04",
+      title: "일회용 관리",
+      body: "수분 반응형 비가역 변색 구조를 통해 사용 여부를 직관적으로 확인하도록 설계되었습니다.",
+    },
+  ],
+  /* 제품소개서 8쪽을 통째로 렌더한 것이라 제목·라벨·설명이 이미지 안에 들어 있습니다.
+     캡션에서 같은 내용을 되풀이하지 않고 출처만 밝힙니다. */
+  image: "/images/product_before_after.webp",
+  imageCaption: "출처 — Nolan Ball 제품소개서",
+} as const;
+
+/**
+ * 제품 규격 — 자료정리 3-3 "현재 자료 기준" 표 그대로.
+ *
+ * ⚠️ md 3-3 확인 필요: 최근 포장 시안과 기존 카탈로그의 포장단위가 다를 수 있어
+ *    100 pcs/pack 또는 500 pcs 중 최종 단위를 확인해야 합니다.
+ *    제품코드·법적 분류도 미확정이라 표에 넣지 않았습니다.
+ */
+export const PRODUCT_SPECS = {
+  heading: "제품 규격",
+  columns: ["구분", "용도", "규격", "상태", "포장단위"] as const,
+  rows: [
+    { use: "위 내시경", purpose: "전용", spec: "2.8 mm", status: "출시", pack: "500 pcs" },
+    { use: "대장 내시경", purpose: "전용", spec: "3.7 mm", status: "출시", pack: "500 pcs" },
+    { use: "기관지 내시경", purpose: "전용", spec: "2.8 mm", status: "출시", pack: "500 pcs" },
+    { use: "ERCP", purpose: "전용", spec: "—", status: "출시 예정", pack: "—" },
+    { use: "비뇨 내시경", purpose: "전용", spec: "—", status: "출시 예정", pack: "—" },
+  ],
+  note: "포장단위와 제품코드는 최종 확정 전이므로 실제 발주 전 담당자에게 확인해 주세요.",
+} as const;
+
+/** 시험 결과 요약 — 자료정리 4-1 표 그대로 */
+export const TEST_SUMMARY = {
+  heading: "시험 결과 요약",
+  rows: [
+    { label: "시험기관", value: "씨젠의료재단 씨젠의원" },
+    { label: "시험 유형", value: "일반세균배양(MIC, 기타검체)" },
+    { label: "결과 표현", value: "2일 배양 후 미생물 증식 없음(No growth)" },
+    { label: "보고일", value: "2026.02.27 / 2026.03.16 / 2026.03.18" },
+    { label: "시료", value: "2.8 mm · 3.7 mm 관련 시료 (구형·와플형 포함) 총 9건" },
+  ],
+  /** md 4-1 "필수 표기" */
+  disclaimer:
+    "시험 조건과 시료 정보에 따라 결과가 달라질 수 있으며, 상세 내용은 시험성적서 원문을 참조해 주세요.",
+} as const;
+
+/**
+ * DOWNLOAD — 자료정리 6장 "기존 자료의 홈페이지 배치 계획".
+ *
+ * ready:false 인 항목은 md 가 지정한 "공개 전 조치"가 아직 끝나지 않은 자료입니다.
+ * 조치가 끝나면 파일을 public/downloads/ 에 넣고 ready:true 로 바꾸세요.
+ */
+export const DOWNLOADS = {
+  heading: "자료 다운로드",
+  items: [
+    {
+      name: "Nolan Ball 카탈로그",
+      desc: "제품 개요, 규격표, 핵심 장점",
+      file: "/downloads/nolan-ball-catalog.pdf",
+      size: "19.8 MB",
+      ready: true,
+    },
+    {
+      name: "Nolan Ball 제품소개서",
+      desc: "제품 구조(Micro-Anatomy), 세정 메커니즘",
+      file: "/downloads/nolan-ball-product-guide.pdf",
+      size: "28.9 MB",
+      ready: true,
+    },
+    {
+      name: "미생물검사 결과보고서",
+      desc: "씨젠의료재단 일반세균배양 시험성적서 9건",
+      file: "/downloads/nolan-ball-test-report.pdf",
+      size: "2.7 MB",
+      /** md 6장 공개 전 조치: "개인·기관 정보 공개 범위 확인" — 미완료 */
+      ready: false,
+      pending: "검사기관 담당자 실명·서명이 포함되어 있어 공개 범위 확인 후 게시합니다.",
+    },
+    {
+      name: "사용설명서 (IFU)",
+      desc: "단계별 사용 순서와 주의사항",
+      file: "",
+      size: "—",
+      /** md 3-4 주의: 최종 IFU 원문 미확보 */
+      ready: false,
+      pending: "최종 사용설명서(IFU) 원문이 확보되면 게시합니다.",
+    },
+  ],
+  note: "자료는 예고 없이 개정될 수 있습니다. 최신본이 필요하시면 문의해 주세요.",
 } as const;
 
 /* ══════════════════════════════════════════════════════════════
@@ -152,23 +300,38 @@ export const PRODUCTS = {
  * .subheader 배경.
  * 원본은 대메뉴별로 .sub01 ~ .sub04 클래스를 바꿔 배경 이미지를 교체합니다.
  */
+/**
+ * ⚠️ 배너 사진은 현재 전부 비워 둔 상태입니다 (image: "").
+ *
+ * 제품 렌더·도해를 배너 배경으로 넣어 봤더니 배경이 밝아 흰색 제목이 묻히고
+ * 제품 이미지가 잘려 보여서 뺐습니다. 지금은 아래 그라디언트만 나옵니다.
+ *
+ * 나중에 배너 전용 사진이 준비되면
+ *   1) public/images/ 에 1920×655 (권장 2배 3840×1310) 로 넣고
+ *   2) 아래 image 에 "/images/파일명.jpg" 를 적으면 바로 반영됩니다.
+ * SubHeader 는 image 가 빈 문자열이면 사진 레이어를 아예 그리지 않습니다.
+ *
+ * 배너 사진 고를 때: 제목이 왼쪽에 흰색으로 얹히므로 왼쪽 절반이 어두워야 읽힙니다.
+ */
 export const SUBHEADER_BG = {
+  /** TEST & DATA · ABOUT / CONTACT */
   sub01: {
-    image: "/images/subheader_1.jpg",
+    image: "",
     fallback: "linear-gradient(120deg, #12351f 0%, #2f6b3f 55%, #6ba15f 100%)",
   },
-  /** Business Areas — subheader_2.jpg (1920×655) */
+  /** (현재 메뉴에서 빠진 사업분야 페이지가 씁니다) */
   sub02: {
-    image: "/images/subheader_2.jpg",
+    image: "",
     fallback: "linear-gradient(120deg, #14304a 0%, #2f6a86 55%, #74a9b5 100%)",
   },
-  /** Products — subheader_3.jpg (1920×655) */
+  /** PRODUCT · HOW TO USE */
   sub03: {
-    image: "/images/subheader_3.jpg",
+    image: "",
     fallback: "linear-gradient(120deg, #2a2320 0%, #5d5048 55%, #a2907f 100%)",
   },
+  /** DOWNLOAD */
   sub04: {
-    image: "/images/subheader_4.jpg",
+    image: "",
     fallback: "linear-gradient(120deg, #17241b 0%, #435d4b 55%, #8ca391 100%)",
   },
 } as const;
@@ -198,51 +361,59 @@ export type FilterBall = {
 };
 
 export const FILTER_BALL_ICONS = {
-  feature: "/images/subicon_1.png",
-  effect: "/images/subicon_2.png",
+  feature: "/images/subicon_1.webp",
+  effect: "/images/subicon_2.webp",
 } as const;
 
+/**
+ * 세 제품의 본문은 자료정리 3-1(제품 개요) · 3-2(구조적 특징) · 2-2(핵심 장점)에서
+ * 가져왔습니다. 규격·용도만 제품별로 다르고 나머지는 공통입니다.
+ *
+ * 자료정리 4-3(표현 수위 검토)에 따라 "완전 세척", "미세균 사멸",
+ * "바이오필름 완전 차단", "감염 예방 보장", "멸균·소독" 표현은 쓰지 않습니다.
+ */
 export const FILTER_BALL_COLONOSCOPES: FilterBall = {
-  eyebrow: "Products",
-  title: "Filter Ball for Colonoscopes",
-  brand: "ACF Filter Ball",
+  eyebrow: "PRODUCT",
+  title: "대장 내시경용 3.7mm",
+  brand: "Nolan Ball",
   brandColor: "#E84E79",
-  subtitle: "for Colonoscopes",
-  image: "/images/sub31_img.png",
+  subtitle: "대장 내시경 전용 · 3.7 mm",
+  image: "/images/sub31_img.webp",
   imageWidth: 408,
   imageHeight: 408,
   intro: [
     [
       {
-        t: "The ACF filter ball for colonoscopy is designed to effectively remove contamination that occurs in deep and long channel structures.",
+        t: "대장 내시경 전용 Nolan Ball 은 길고 굴곡이 많은 채널 구조에 맞춰 설계된 3.7 mm 규격의 일회용 채널 세척 볼입니다.",
       },
     ],
     [
-      { t: "Its " },
-      { t: "activated carbon fiber adsorption power and dimple structure", b: true },
+      { t: "채널 내벽과의 " },
+      { t: "360° 접촉과 연속 와이핑", b: true },
       {
-        t: " reduce frictional resistance during cleaning and enhance hydrodynamic energy, enabling ",
+        t: " 을 통해 혈액·점액·단백질 등 잔류 오염물의 ",
       },
-      { t: "efficient washing even in narrow channels.", b: true },
+      { t: "물리적 제거를 돕습니다.", b: true },
     ],
     [
-      { t: "In addition, it uses " },
-      { t: "eco-friendly materials,", b: true },
+      { t: "굴곡부를 통과하면서도 접촉을 유지하도록 설계되어 " },
+      { t: "사용자의 숙련도에 따른 편차를 줄이고,", b: true },
       {
-        t: " providing a safe cleaning solution for both humans and the environment.",
+        t: " 보다 균일한 수동 세척 공정을 지원합니다.",
       },
     ],
   ],
   features: [
-    "Precision cleaning design tailored to the structure of colonoscope channels",
-    "Dimple structure enhances cleaning efficiency and flow dynamics",
-    "Gentle and safe cleaning without the need for brushes",
-    "Eco-friendly materials support sustainable infection control",
+    "미세 돌기 구조 — 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다",
+    "연속 띠 구조 — 이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다",
+    "비대칭 마찰 구조 — 이동 시 회전을 유도하여 내벽과의 접촉 범위를 넓힙니다",
+    "유연한 탄성 구조 — 굴곡부를 통과하면서도 내벽과의 접촉을 유지합니다",
   ],
   effects: [
-    "Improved cleaning quality and prevention of cross-contamination",
-    "Extended endoscope lifespan",
-    "Establishment of an eco-friendly hospital cleaning system",
+    "360° 밀착 접촉으로 세척 사각지대를 줄이는 구조",
+    "짧은 공정으로 세척 업무의 효율 향상을 지원",
+    "숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원",
+    "수분 반응형 비가역 변색 구조로 사용 여부를 직관적으로 확인",
   ],
 };
 
@@ -254,46 +425,47 @@ export const FILTER_BALL_COLONOSCOPES: FilterBall = {
  *   첫 문단 · Features 첫 항목
  */
 export const FILTER_BALL_GASTROSCOPES: FilterBall = {
-  eyebrow: "Products",
-  title: "Filter Ball for Gastroscopes",
-  brand: "ACF Filter Ball",
+  eyebrow: "PRODUCT",
+  title: "위 내시경용 2.8mm",
+  brand: "Nolan Ball",
   brandColor: "#999",
-  subtitle: "for Gastroscopes",
-  image: "/images/sub32_img.png",
+  subtitle: "위 내시경 전용 · 2.8 mm",
+  image: "/images/sub32_img.webp",
   imageWidth: 408,
   imageHeight: 408,
   intro: [
     [
       {
-        t: "The ACF filter ball, designed specifically for upper endoscopy, is engineered to fit delicate channel structures and effectively remove proteins and bacteria.",
+        t: "위 내시경 전용 Nolan Ball 은 상부 소화관 내시경의 채널 구조에 맞춰 설계된 2.8 mm 규격의 일회용 채널 세척 볼입니다.",
       },
     ],
     [
-      { t: "Its " },
-      { t: "activated carbon fiber adsorption power and dimple structure", b: true },
+      { t: "채널 내벽과의 " },
+      { t: "360° 접촉과 연속 와이핑", b: true },
       {
-        t: " reduce frictional resistance during cleaning and enhance hydrodynamic energy, enabling ",
+        t: " 을 통해 혈액·점액·단백질 등 잔류 오염물의 ",
       },
-      { t: "efficient washing even in narrow channels.", b: true },
+      { t: "물리적 제거를 돕습니다.", b: true },
     ],
     [
-      { t: "In addition, it uses " },
-      { t: "eco-friendly materials,", b: true },
+      { t: "굴곡부를 통과하면서도 접촉을 유지하도록 설계되어 " },
+      { t: "사용자의 숙련도에 따른 편차를 줄이고,", b: true },
       {
-        t: " providing a safe cleaning solution for both humans and the environment.",
+        t: " 보다 균일한 수동 세척 공정을 지원합니다.",
       },
     ],
   ],
   features: [
-    "Precision cleaning design tailored to the structure of upper endoscope channels",
-    "Dimple structure enhances cleaning efficiency and flow dynamics",
-    "Gentle and safe cleaning without the need for brushes",
-    "Eco-friendly materials support sustainable infection control",
+    "미세 돌기 구조 — 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다",
+    "연속 띠 구조 — 이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다",
+    "비대칭 마찰 구조 — 이동 시 회전을 유도하여 내벽과의 접촉 범위를 넓힙니다",
+    "유연한 탄성 구조 — 굴곡부를 통과하면서도 내벽과의 접촉을 유지합니다",
   ],
   effects: [
-    "Improved cleaning quality and prevention of cross-contamination",
-    "Extended endoscope lifespan",
-    "Establishment of an eco-friendly hospital cleaning system",
+    "360° 밀착 접촉으로 세척 사각지대를 줄이는 구조",
+    "짧은 공정으로 세척 업무의 효율 향상을 지원",
+    "숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원",
+    "수분 반응형 비가역 변색 구조로 사용 여부를 직관적으로 확인",
   ],
 };
 
@@ -303,41 +475,42 @@ export const FILTER_BALL_GASTROSCOPES: FilterBall = {
  * Features · Effects 도 문구가 전부 다릅니다.
  */
 export const FILTER_BALL_BRONCHOSCOPES: FilterBall = {
-  eyebrow: "Products",
-  title: "Filter Ball for Bronchoscopes",
-  brand: "ACF Filter Ball",
+  eyebrow: "PRODUCT",
+  title: "기관지 내시경용 2.8mm",
+  brand: "Nolan Ball",
   brandColor: "#64C5C9",
-  subtitle: "for Bronchoscopes",
-  image: "/images/sub33_img.png",
+  subtitle: "기관지 내시경 전용 · 2.8 mm",
+  image: "/images/sub33_img.webp",
   imageWidth: 408,
   imageHeight: 408,
   intro: [
     [
       {
-        t: "The ACF filter ball for bronchoscopy is designed to fit the narrow and complex channels of respiratory endoscopes.",
+        t: "기관지 내시경 전용 Nolan Ball 은 좁고 복잡한 호흡기 내시경 채널에 맞춰 설계된 2.8 mm 규격의 일회용 채널 세척 볼입니다.",
       },
     ],
     [
-      { t: "Its " },
+      { t: "채널 내벽과의 " },
       {
-        t: "activated carbon fiber provides powerful adsorption, effectively removing",
+        t: "360° 접촉과 연속 와이핑",
         b: true,
       },
-      { t: " bacteria and protein residues, while " },
-      { t: "eco-friendly materials", b: true },
-      { t: " reduce waste generation and ensure a safe cleaning environment." },
+      { t: " 을 통해 잔류 오염물의 물리적 제거를 돕고, " },
+      { t: "굴곡부에서도 접촉을 유지하도록", b: true },
+      { t: " 설계되어 균일한 수동 세척 공정을 지원합니다." },
     ],
   ],
   features: [
-    "Stable cleaning performance even in complex channel structures",
-    "Powerful adsorption with multi-porous activated carbon fiber",
-    "Gentle, brush-free cleaning method",
-    "Eco-friendly infection control solution",
+    "미세 돌기 구조 — 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다",
+    "연속 띠 구조 — 이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다",
+    "비대칭 마찰 구조 — 이동 시 회전을 유도하여 내벽과의 접촉 범위를 넓힙니다",
+    "유연한 탄성 구조 — 굴곡부를 통과하면서도 내벽과의 접촉을 유지합니다",
   ],
   effects: [
-    "Minimization of cross-contamination risk",
-    "Improved cleaning quality and prevention of equipment damage",
-    "Realization of an eco-friendly hospital system",
+    "360° 밀착 접촉으로 세척 사각지대를 줄이는 구조",
+    "짧은 공정으로 세척 업무의 효율 향상을 지원",
+    "숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원",
+    "수분 반응형 비가역 변색 구조로 사용 여부를 직관적으로 확인",
   ],
 };
 
@@ -347,11 +520,14 @@ export const FILTER_BALL_BRONCHOSCOPES: FilterBall = {
  * 다만 h6(브랜드 줄)이 없고 h4 에 제품명 전체가 들어갑니다.
  * 이미지도 398×298 가로형으로 앞의 세 개(408×408)와 다릅니다.
  */
+/* ⚠️ 보류 — 놀란볼코리아 자료정리 문서에 이 제품에 대한 내용이 없습니다.
+   본문은 하캄바이오 원문 그대로이며 아직 교체되지 않았습니다.
+   제품 자료가 확보되면 위 세 제품과 같은 방식으로 교체하세요. */
 export const VALVE_PORT_BRUSH: FilterBall = {
-  eyebrow: "Products",
-  title: "Endoscopic Valve/Port Brush",
+  eyebrow: "PRODUCT",
+  title: "밸브·포트 브러시",
   subtitle: "Endoscopic Valve/Port Brush",
-  image: "/images/sub34_img.png",
+  image: "/images/sub34_img.webp",
   imageWidth: 398,
   imageHeight: 298,
   intro: [
@@ -381,104 +557,161 @@ export const VALVE_PORT_BRUSH: FilterBall = {
   ],
 };
 
-/** /sub/sub30.php — Products ▸ ACF Filter Ball Video */
+/**
+ * /sub/sub30.php — 제품소개 ▸ 제품 영상
+ * 영상 파일(sub30_video.mp4)은 아직 없습니다. 자료정리 3-4 에 따라
+ * 제품 가이드 영상을 확보하면 public/images/ 에 넣으세요.
+ */
 export const PRODUCT_VIDEO = {
-  eyebrow: "Products",
-  title: "ACF Filter Ball Video",
-  sectionTitle: "About Filter Ball",
+  eyebrow: "PRODUCT",
+  title: "제품 영상",
+  sectionTitle: "Nolan Ball 알아보기",
   video: "/images/sub30_video.mp4",
 } as const;
 
 /** /sub/sub11.php — About Us ▸ Overview */
 export const OVERVIEW = {
-  eyebrow: "About Us",
+  eyebrow: "회사소개",
   title: "Overview",
   /** 초록 100px 헤딩 — 원본은 <br class="no_br"> 로 3줄, 980px 이하에서 한 줄로 흐름 */
-  headline: ["From Green", "Innovation to", "Healthy Living"],
+  headline: ["내시경 세척의", "새로운 기준,", "Nolan Ball"],
   paragraphs: [
-    "Our ACF filter ball and our patented products currently under research and development (both domestic and PCT patents) are designed to meet global standards such as international environmental management systems and carbon neutrality initiatives.",
-    "These products not only contribute to the promotion of public health but also demonstrate that the quality of South Korean medical supplies continues to evolve through innovation and scientific advancement.",
-    "We are committed to leading the way in introducing these innovations to the global market.",
+    "놀란볼코리아(Nolan Ball Korea)는 내시경 재처리 과정의 효율성과 일관성을 높이기 위한 위생 소모품을 개발합니다.",
+    "대표 제품 Nolan Ball 은 기존 브러시 방식의 구조적 한계를 보완하기 위해 360° 접촉 구조와 연속 와이핑 메커니즘을 적용한 내시경 채널 세척 솔루션입니다.",
+    "현장의 사용 편의성과 신뢰할 수 있는 세척 공정을 지원하는 제품을 통해 보다 안전한 내시경 위생 환경을 만드는 것을 목표로 합니다.",
   ],
-  photo: "/images/sub11_img.jpg",
+  photo: "/images/sub11_img.webp",
   photoFallback:
     "linear-gradient(135deg, #1f3d24 0%, #3f7a45 55%, #8bc07a 100%)",
-  /** 회사 개요 표 */
-  companyTitle: "Company Overview",
+  /**
+   * 회사 개요 표.
+   * 자료정리 5-2 기준. 설립일·사업자등록번호·대표자명은 "공개 여부 및 최종 정보 확인"
+   * 상태라 채우지 않고 행을 빼 두었습니다. 확정되면 여기에 추가하세요.
+   */
+  companyTitle: "회사 개요",
   company: [
-    { label: "Company Name", value: "Hakam Bio Co., Ltd." },
-    { label: "Established", value: "July 10, 2024" },
-    { label: "Headquarters", value: "Haeundae-gu, Busan, Korea" },
+    { label: "회사명", value: "놀란볼코리아 (Nolan Ball Korea)" },
+    { label: "본사", value: "부산광역시 금정구 서부곡로 16번길 8-1, 알찬빌딩 1층" },
+    { label: "대표전화", value: "051-516-5064 (팩스 051-516-5065)" },
     {
-      label: "Main Business",
+      label: "주요 사업",
       value:
-        "Manufacturing and sales of the “ACF Filter Ball” for endoscope channel cleaning",
+        "내시경 채널 세척용 일회용 제품 “Nolan Ball” 개발·제조·판매",
     },
   ],
-  companyBg: "/images/sub11_bg.jpg",
+  companyBg: "/images/sub11_bg.webp",
   companyBgFallback:
     "linear-gradient(120deg, #0d2a17 0%, #1e5b30 55%, #35804a 100%)",
 } as const;
 
-/** /sub/sub12.php — About Us ▸ Technology Overview */
+/**
+ * /sub/sub12.php — TECHNOLOGY ▸ 기술 개요
+ *
+ * 본문은 자료정리 3-1(제품 개요) · 3-2(구조적 특징)을 기준으로 하고,
+ * 도해는 제품소개서(Micro-Anatomy)와 병원제안서(구조 상세)에서 가져왔습니다.
+ * 4-3 표현 수위에 따라 "완전 세척", "미세균 사멸" 등은 쓰지 않습니다.
+ */
 export const TECHNOLOGY = {
-  eyebrow: "About Us",
-  title: "Technology Overview",
+  eyebrow: "TECHNOLOGY",
+  title: "기술 개요",
   /** 원본 .text — 좌우에 84×53 아이콘, 가운데 40px 헤딩 */
-  headline: [
-    "Introduction of ACF Filter Ball Research",
-    "and Development Team",
-  ],
-  icons: ["/images/sub12_icon1.png", "/images/sub12_icon2.png"],
+  headline: ["360° 접촉과 연속 와이핑으로", "채널 내벽을 세척합니다"],
+  icons: ["/images/sub12_icon1.webp", "/images/sub12_icon2.webp"],
   /** 원본은 <br><br> 로 두 문단 */
   lead: [
-    "HaKamBio is realizing innovation in endoscopic cleaning with the world’s first activated carbon fiber ACF Filter Ball.",
-    "By applying activated carbon fiber and ribbed structural technology, it maximizes cleaning efficiency while providing a safe and eco-friendly infection-control solution.",
+    "Nolan Ball 은 유연성 내시경의 내부 채널을 수동 세척하는 과정에서 사용하는 채널 세척용 볼입니다. 채널 내벽과의 360° 접촉, 연속 와이핑, 오염물 밀어내기 및 배출을 핵심 원리로 합니다.",
+    "굴곡진 채널에서도 접촉을 유지하도록 설계되어 혈액·점액·단백질 등 잔류 유기물 제거를 돕고, 사용자의 숙련도에 따른 세척 편차를 줄입니다.",
   ],
   /** 화면 전체 폭 주황 밴드 */
-  bandTitle: "Development Technology",
+  bandTitle: "Micro-Anatomy",
   /**
-   * 연도별 개발 기술.
-   * side "left"  = .ul_1 (이미지 왼쪽)
-   * side "right" = .ul_2 (이미지 오른쪽 · justify-content:space-between)
+   * 전체 폭으로 싣는 도해.
+   * 모두 제품소개서 페이지를 통째로 렌더한 것이라 설명 글자가 이미지 안에 있습니다.
+   * 순서는 "문제 제기 → 해결 원리 → 근거" 흐름으로 잡았습니다.
+   *
+   * 지우고 싶은 도해가 있으면 아래 배열에서 해당 항목만 지우면 됩니다.
    */
-  timeline: [
+  figures: [
     {
-      year: "2019",
-      side: "left",
-      image: "/images/sub12_1.png",
-      items: ["Carbon heater boiler", "Carbon heating system"],
+      image: "/images/tech_biofilm.webp",
+      caption: "바이오필름 형성 조건 — 재처리 가이드라인을 지켜도 채널 내부에 잔존할 수 있습니다.",
     },
     {
-      year: "2022",
-      side: "right",
-      image: "/images/sub12_2.png",
-      items: [
-        "CNT Flashable Surface Heating Body",
-        "CNT High Temperature (110°C) Surface Film",
-        "An air sterilizing warmer",
-        "Refractory Filling Structure Filling Material with Expansion Graphite",
-      ],
+      image: "/images/tech_brush_limits.webp",
+      caption: "기존 브러시 방식의 구조적 한계 — 사각지대, 기질 잔존, 내벽 마모.",
     },
     {
-      year: "2023",
-      side: "left",
-      image: "/images/sub12_1.png",
-      items: [
-        "Fireproof coating with carbon material Dry heating flooring",
-        "Refractory Filling Structure Filling Material with Expansion Graphite",
-        "CNT + Silicon Dispersion High Temperature Heating Composite Material",
-      ],
+      image: "/images/tech_impact.webp",
+      caption: "오염된 내시경이 불러오는 연쇄 파급 효과.",
     },
     {
-      year: "2024",
-      side: "right",
-      image: "/images/sub12_2.png",
-      items: [
-        "ACF Filter Ball",
-        "Activated carbon cleaning cloth",
-        "CNT Electrode Window Pad",
-      ],
+      image: "/images/tech_process.webp",
+      caption: "내시경 재처리 공정과 기존 세척 방식의 구조.",
+    },
+    {
+      image: "/images/tech_paradigm.webp",
+      caption: "긁어내기(Scraping)에서 360° 전면 밀착 와이핑(Wiping)으로.",
+    },
+    {
+      image: "/images/tech_mechanism.webp",
+      caption: "세정 메커니즘 — 내경 일치 360° 밀착, 연속 와이핑, 오염 기질 제거.",
+    },
+    {
+      /* 제품소개서 7쪽 — 표면 구조 상세 */
+      image: "/images/tech_micro_anatomy.webp",
+      caption: "표면 구조 — 미세 돌기, 연속 띠, 편마찰 유도 표면.",
+    },
+    {
+      image: "/images/tech_structure.webp",
+      caption:
+        "구조별 역할 — 구형 본체, 연속 띠, 미세 돌기, 편마찰 표면, 오염물 포획 표면, 비가역 색상 인디케이터.",
+    },
+    {
+      image: "/images/tech_speed.webp",
+      caption: "기존 재처리 공정을 바꾸지 않고 본세척 단계에 그대로 들어갑니다.",
+    },
+    {
+      /* ⚠️ md 4-3 조건부 — "0 CFU" 는 시험 방법·단위·검출한계를 함께 제시할 때만
+         쓰라고 되어 있습니다. 아래 캡션이 그 단서 역할을 합니다. */
+      image: "/images/tech_cfu.webp",
+      caption:
+        "비임상 세척 시험 결과 (일반세균배양, 2일 배양 기준). 시험 조건과 시료 정보에 따라 결과가 달라질 수 있으며 상세 내용은 시험성적서 원문을 참조해 주세요.",
+    },
+    {
+      /* 🚨 경쟁사 실명 비교표입니다. EZ JET · ACF · CBC 등 타사 제품을 지목해
+         "깨짐·막힘", "걸림 우려", "위험" 으로 평가합니다.
+         공개 홈페이지에 게시하면 비교광고·명예훼손 소지가 있습니다.
+         빼려면 이 항목 하나만 지우면 됩니다. */
+      image: "/images/tech_compare.webp",
+      caption: "기존 세척 방식과의 비교 (회사 자료 기준).",
+    },
+  ],
+  /** 자료정리 3-2 구조적 특징 4가지 */
+  featuresTitle: "구조적 특징",
+  features: [
+    {
+      no: "01",
+      name: "미세 돌기 구조",
+      en: "Micro-Protrusions",
+      body: "미세 돌기가 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다.",
+    },
+    {
+      no: "02",
+      name: "연속 띠 구조",
+      en: "Contact Bands",
+      body: "이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다.",
+    },
+    {
+      no: "03",
+      name: "비대칭 마찰 구조",
+      en: "Asymmetric Friction",
+      body: "이동 시 회전을 유도하여 채널 내벽과의 접촉 범위를 넓히도록 설계되었습니다.",
+    },
+    {
+      no: "04",
+      name: "유연한 탄성 구조",
+      en: "Flexible Body",
+      body: "굴곡부를 통과하면서도 채널 내벽과의 접촉을 유지하도록 설계되었습니다.",
     },
   ],
 } as const;
@@ -491,8 +724,16 @@ export const TECHNOLOGY = {
  *   <br>                줄바꿈     → 안쪽 배열
  *   <br class="no_br">  1600px 이하에서 숨김 → 재현하지 않았습니다
  */
+/*
+ * 🚨 미교체 — 아래 items 4개(내열 내시경 캡 · ACF Filter Ball · 밸브 브러시 ·
+ *    생분해성 의료기기)는 전부 하캄바이오 사업 내용입니다. 놀란볼코리아
+ *    자료정리 문서에 대응 자료가 없어 그대로 두었습니다.
+ *    "95% 단백질 제거", "99.9% 세균 감소" 같은 수치는 놀란볼코리아 시험자료로
+ *    뒷받침되지 않으므로(자료정리 4-3 표현 수위 참조) 그대로 쓰면 안 됩니다.
+ *    ❗공개 배포 전 반드시 교체하거나 이 페이지를 내려야 합니다.
+ */
 export const BUSINESS = {
-  title: "Business Areas",
+  title: "사업분야",
   leadTitle: "Eco-Friendly Innovation in Medical Care",
   leadText:
     "Hakam Bio is committed to safer, greener healthcare through sustainable materials and smart design.",
@@ -502,7 +743,7 @@ export const BUSINESS = {
       name: "Heat-resistant endoscopic cap",
       quote:
         "“ It disperses the high heat generated by the endoscopic light, reducing the risk of organ damage to the patient. ”",
-      image: "/images/sub21_1.jpg",
+      image: "/images/sub21_1.webp",
       /** false = 이미지 왼쪽 · true = .left (이미지 오른쪽) */
       reversed: false,
       body: [
@@ -529,7 +770,7 @@ export const BUSINESS = {
       name: "ACF Filter Ball",
       quote:
         "“ An innovative solution that blocks infections and reduces medical waste through powerful adsorption-based cleaning. ”",
-      image: "/images/sub21_2.jpg",
+      image: "/images/sub21_2.webp",
       reversed: true,
       body: [
         [
@@ -558,7 +799,7 @@ export const BUSINESS = {
       /** 원본에는 "clean<" 처럼 여는 꺾쇠가 잘못 남아 있습니다 (오타로 보여 제외) */
       quote:
         "“ A specialized brush designed to thoroughly clean even the narrow and complex endoscope valve channels. ”",
-      image: "/images/sub21_3.jpg",
+      image: "/images/sub21_3.webp",
       reversed: false,
       body: [
         [
@@ -586,7 +827,7 @@ export const BUSINESS = {
       name: "Biodegradable medical device",
       quote:
         "“ An eco-friendly medical device that naturally decomposes after use, minimizing environmental impact. ”",
-      image: "/images/sub21_4.jpg",
+      image: "/images/sub21_4.webp",
       reversed: true,
       body: [
         [
@@ -608,102 +849,160 @@ export const BUSINESS = {
   ],
 } as const;
 
-/** /sub/sub15.php — About Us ▸ Location & Directions */
+/**
+ * 대중교통 안내 한 줄.
+ * bold 는 굵게 앞세우는 노선 번호, wide 는 그 뒤에서 줄을 바꿀지 여부입니다
+ * (원본은 이 줄에만 span.lh50 을 줍니다).
+ */
+export type TransitLine = { text: string; bold?: string; wide?: boolean };
+export type TransitRow = { icon: string; label: string; lines: TransitLine[] };
+
+/**
+ * ⚠️ 보류 — 원본은 하캄바이오(해운대 센텀) 기준 지하철·버스 노선이었습니다.
+ * 놀란볼코리아(금정구 서부곡로) 기준 노선 정보가 확보되면 아래를 채우세요.
+ */
+const TRANSIT: TransitRow[] = [
+  {
+    icon: "/images/icon_1.webp",
+    label: "지하철",
+    lines: [{ text: "노선 정보 확인 필요 — 금정구 서부곡로 기준으로 교체하세요." }],
+  },
+  {
+    icon: "/images/icon_2.webp",
+    label: "버스",
+    lines: [{ text: "노선 정보 확인 필요 — 금정구 서부곡로 기준으로 교체하세요." }],
+  },
+];
+
+/** /sub/sub15.php — 회사소개 ▸ 오시는 길 */
 export const LOCATION = {
-  eyebrow: "About Us",
-  title: "Location & Directions",
-  officeTitle: "Head office",
-  officeAddress:
-    "Room 706, 71 Centumdong-ro, Haeundae-gu, Busan, 48058, Republic of Korea",
+  eyebrow: "ABOUT / CONTACT",
+  title: "오시는 길",
+  officeTitle: "본사",
+  officeAddress: "부산광역시 금정구 서부곡로 16번길 8-1, 알찬빌딩 1층",
   /**
-   * 카카오맵 "지도 퍼가기" 임베드 값 (원본 sub15.php 의 실행 스크립트).
-   * 이 키는 하캄바이오가 등록한 장소를 가리킵니다.
-   * 직접 배포하실 거면 https://map.kakao.com 에서 본인 장소로 새로 발급하세요.
+   * ⚠️ 카카오맵 "지도 퍼가기" 임베드 값 (원본 sub15.php 의 실행 스크립트).
+   * 이 키는 하캄바이오가 등록한 해운대 센텀 주소를 가리킵니다 — 놀란볼코리아
+   * 위치가 아닙니다. https://map.kakao.com 에서 금정구 주소로 새로 발급해
+   * timestamp · key 를 교체해야 합니다.
    */
   map: {
     timestamp: "1758100857535",
     key: "wgda2t8mv3n",
     height: "579",
   },
-  transitTitle: "Public Transit",
-  transit: [
-    {
-      icon: "/images/icon_1.png",
-      label: "Subway",
-      lines: [
-        {
-          text: "Take Line 2 and get off at Centum City Station. Use Exit 3 and walk approximately 250 meters.",
-        },
-      ],
-    },
-    {
-      icon: "/images/icon_2.png",
-      label: "Bus stop",
-      lines: [
-        { bold: "Bus No. 115 : ", text: "Get off at Sejong Telecom bus stop." },
-        {
-          bold: "Bus No. 181, 307 : ",
-          text: "Get off at SK Telecom bus stop. (Approx. 200 meters on foot)",
-        },
-        {
-          bold: "Bus No. 100-1, 155, 200, 31, 5-1, 115, 100 : ",
-          /** 원본은 이 줄만 span 에 .lh50 을 주고 <br> 로 줄을 나눕니다 */
-          wide: true,
-          text: "Get off at Centum High School bus stop. (Approx. 260 meters on foot)",
-        },
-      ],
-    },
-  ],
+  transitTitle: "대중교통",
+  transit: TRANSIT,
 } as const;
 
 /**
  * /sub/sub14.php — About Us ▸ Certifications
- * 인증서 이미지는 모두 406×550 (세로형)입니다.
+ * 인증서 이미지는 세로형입니다. 원본 사이트는 406×550,
+ * sub14_1~9 는 PDF 를 150dpi 로 렌더한 1073×1517 (A4 비율).
+ * <img className="w-full"> 로 원본 비율 그대로 그려지므로 비율은 달라도 됩니다.
  * hover 하면 rgba(0,0,0,.8) 오버레이 위에 제목이 뜹니다 (순수 CSS).
  */
 export const CERTIFICATIONS = {
-  eyebrow: "About Us",
-  title: "Certifications",
+  eyebrow: "TEST & DATA",
+  title: "시험 결과·성적서",
+  /**
+   * 자료정리 4-1 기준 안내 문구.
+   * 4-3 표현 수위 검토에 따라 결과를 단정하지 않고 원문 확인을 함께 안내합니다.
+   */
+  note: "외부 전문 검사기관의 일반세균배양 시험에서 2일 배양 후 미생물 증식 없음이 확인되었습니다. 자세한 시험 조건과 시료 정보는 시험성적서 원문을 확인해 주세요.",
   items: [
-    { image: "/images/sub14_1.jpg", label: "Certificate of In-House Research Institute" },
-    { image: "/images/sub14_2.jpg", label: "Patent Certificate for Activated Carbon Ball" },
-    { image: "/images/sub14_3.jpg", label: "Patent Certificate for Dimple" },
-    { image: "/images/sub14_4.jpg", label: "Certificate of Startup Enterprise" },
-    {
-      image: "/images/sub14_5.jpg",
-      label: "Test Report on Bacterial Reduction Rate of Activated Carbon",
-    },
-    { image: "/images/sub14_6.jpg", label: "Test Report on Activated Carbon Fiber" },
-    { image: "/images/sub14_7.jpg", label: "Certificate of Venture Enterprise" },
-    { image: "/images/sub14_8.jpg", label: "Certificate of ESG Self-Assessment" },
-    { image: "/images/sub14_9.jpg", label: "PCT Application 1/4" },
-    { image: "/images/sub14_10.jpg", label: "PCT Application 2/4" },
-    { image: "/images/sub14_11.jpg", label: "PCT Application 3/4" },
-    { image: "/images/sub14_12.jpg", label: "PCT Application 4/4" },
+    /* sub14_1 ~ sub14_9 — 씨젠의료재단 미생물검사 결과보고서 9건.
+       모두 일반세균배양(MIC) 결과 "No growth of microorganisms after 2-day culture".
+       라벨의 괄호 안은 원본 보고서의 수진자명(시료 구분)입니다. */
+    { image: "/images/sub14_1.webp", label: "미생물검사 결과보고서 — 시료 2" },
+    { image: "/images/sub14_2.webp", label: "미생물검사 결과보고서 — nolan 2.8 (10-2)" },
+    { image: "/images/sub14_3.webp", label: "미생물검사 결과보고서 — nolan 2.8 (10-1)" },
+    { image: "/images/sub14_4.webp", label: "미생물검사 결과보고서 — nolan 2.8 (1-1)" },
+    { image: "/images/sub14_5.webp", label: "미생물검사 결과보고서 — nolan 2.8 (1-2)" },
+    { image: "/images/sub14_6.webp", label: "미생물검사 결과보고서 — nolan 3.7 구형 (2)" },
+    { image: "/images/sub14_7.webp", label: "미생물검사 결과보고서 — nolan 3.7 와플 (2)" },
+    { image: "/images/sub14_8.webp", label: "미생물검사 결과보고서 — nolan 3.7 구형 (1)" },
+    { image: "/images/sub14_9.webp", label: "미생물검사 결과보고서 — nolan 3.7 와플 (1)" },
   ],
 } as const;
 
 /** /sub/sub13.php — About Us ▸ Organization */
 export const ORGANIZATION = {
-  eyebrow: "About Us",
-  title: "Organization",
+  eyebrow: "회사소개",
+  title: "조직도",
   /** 원본 h4 — 앞부분만 주황색 40px 굵게 (span) */
-  leadHighlight: "HAKAM Bio's",
+  leadHighlight: "놀란볼코리아는",
   leadRest:
-    " streamlined organizational structure supports our commitment to delivering advanced medical solutions through precise R&D, quality manufacturing, and global partnerships.",
+    " 연구개발부터 품질관리, 생산, 영업까지 이어지는 조직 구성을 통해 신뢰할 수 있는 내시경 위생 소모품을 공급합니다.",
   /** 조직도 이미지 — 520px 이하에서 모바일용으로 교체됩니다 */
-  chartPc: "/images/sub13_w1.png",
-  chartMo: "/images/sub13_w2.png",
+  chartPc: "/images/sub13_w1.webp",
+  chartMo: "/images/sub13_w2.webp",
 } as const;
 
-/** section_4 — ABOUT HAKAM BIO (원문 그대로) */
+/**
+ * /how-to-use — HOW TO USE (자료정리 3-4)
+ *
+ * ⚠️ md 3-4 주의: "현재 제공 자료만으로는 최종 사용 순서와 주의사항을 확정하기
+ *    어렵습니다. 최종 IFU 원문을 추가해야 합니다."
+ *    아래 steps 는 카탈로그·제품소개서에서 확인되는 범위만 적은 잠정 안내이며,
+ *    최종 사용설명서(IFU)가 나오면 그 순서와 문구로 교체해야 합니다.
+ */
+export const HOW_TO_USE = {
+  eyebrow: "HOW TO USE",
+  title: "사용 방법",
+  lead: "Nolan Ball 은 내시경 재처리의 수동 세척 단계에서 사용하는 일회용 채널 세척 볼입니다. 아래 순서는 제공된 자료 기준의 잠정 안내이며, 실제 사용은 제품에 동봉된 최종 사용설명서(IFU)를 따라야 합니다.",
+  /** 최종 IFU 확정 전까지 노출하는 안내 배너 */
+  notice:
+    "최종 사용설명서(IFU)가 확정되면 이 페이지의 단계와 주의사항을 교체해야 합니다. 현재 내용은 카탈로그·제품소개서에서 확인된 범위만 담고 있습니다.",
+  steps: [
+    {
+      no: "01",
+      title: "채널 규격에 맞는 제품 선택",
+      body: "위·기관지 내시경은 2.8 mm, 대장 내시경은 3.7 mm 제품을 사용합니다. 채널 내경과 맞지 않는 규격을 쓰면 세척 편차가 생길 수 있습니다.",
+    },
+    {
+      no: "02",
+      title: "사용 전 상태 확인",
+      body: "개봉 후 볼의 색이 변해 있지 않은지 확인합니다. 색이 변한 제품은 이미 사용된 것이므로 사용하지 않습니다.",
+    },
+    {
+      no: "03",
+      title: "채널에 투입 후 통과",
+      body: "석션 채널에 투입해 채널 전 구간을 통과시킵니다. 이동 과정에서 채널 내벽에 밀착해 연속적인 와이핑과 밀어내기 작용이 이루어집니다.",
+    },
+    {
+      no: "04",
+      title: "배출 및 색 변화 확인",
+      body: "채널 말단으로 배출된 볼의 색 변화를 확인해 세척 공정이 수행되었는지 점검합니다.",
+    },
+    {
+      no: "05",
+      title: "1회 사용 후 폐기",
+      body: "재사용하지 않습니다. 수분 반응형 비가역 변색 구조로 사용 여부가 남으며, 사용 후에는 기관의 의료폐기물 처리 절차에 따라 폐기합니다.",
+    },
+  ],
+  cautionTitle: "주의사항",
+  cautions: [
+    "1회용 제품입니다. 재사용하지 마십시오.",
+    "채널 규격에 맞지 않는 제품을 사용하지 마십시오.",
+    "포장이 손상되었거나 사용 전 이미 변색된 제품은 사용하지 마십시오.",
+    "본 제품은 수동 세척 단계를 보조하는 제품이며, 기관의 재처리 절차와 소독 공정을 대체하지 않습니다.",
+    "보관 조건과 유효기간은 제품 표시사항을 따르십시오.",
+  ],
+  videoTitle: "제품 가이드 영상",
+  videoNote:
+    "카탈로그의 QR 코드로 제공되는 제품 가이드 영상입니다. 영상 파일 또는 링크가 확보되면 이 자리에 삽입합니다.",
+} as const;
+
+/** section_4 — ABOUT (자료정리 5-1 회사 소개 문구 초안) */
 export const ABOUT = {
   paragraphs: [
-    "Our ACF filter ball and our patented products currently under research and development (both domestic and PCT patents) are designed to meet global standards such as international environmental management systems and carbon neutrality initiatives.",
-    "These products not only contribute to the promotion of public health but also demonstrate that the quality of South Korean medical supplies continues to evolve through innovation and scientific advancement.",
-    "We are committed to leading the way in introducing these innovations to the global market.",
+    "놀란볼코리아(Nolan Ball Korea)는 내시경 재처리 과정의 효율성과 일관성을 높이기 위한 위생 소모품을 개발합니다.",
+    "대표 제품 Nolan Ball 은 기존 브러시 방식의 구조적 한계를 보완하기 위해 360° 접촉 구조와 연속 와이핑 메커니즘을 적용한 내시경 채널 세척 솔루션입니다.",
+    "현장의 사용 편의성과 신뢰할 수 있는 세척 공정을 지원하는 제품을 통해 보다 안전한 내시경 위생 환경을 만드는 것을 목표로 합니다.",
   ],
-  cta: "VIEW MORE",
-  image: "/images/section_4bg.jpg",
+  cta: "자세히 보기",
+  href: "/about/overview",
+  image: "/images/section_4bg.webp",
   fallback: "linear-gradient(150deg, #1f2f3d 0%, #4a6b7a 60%, #8fb56a 100%)",
 } as const;

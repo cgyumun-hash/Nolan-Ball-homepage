@@ -39,17 +39,17 @@ export default function NoticeBoard({
           </colgroup>
           <thead>
             <tr className="h-[64px] border-b border-line bg-[#fafafa] text-[16px] font-bold">
-              <th>Number</th>
-              <th>Title</th>
-              <th>Writer</th>
-              <th>Views</th>
-              <th>Date</th>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>조회</th>
+              <th>날짜</th>
             </tr>
           </thead>
           <tbody>
             {empty ? (
               <tr className="h-[100px] border-b border-line text-[15px] text-ink-500">
-                <td colSpan={5}>No posts available.</td>
+                <td colSpan={5}>등록된 게시물이 없습니다.</td>
               </tr>
             ) : (
               <tr className="h-[72px] border-b border-line text-[16px]">
