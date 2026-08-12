@@ -69,11 +69,11 @@ export default function SubHeader({
                      max-b1600:left-[100px] max-b980:left-[50px] max-b520:left-[30px]"
         >
           {eyebrow && (
-            <h2 className="mb-5 text-[36px] max-b1600:mb-0 max-b1600:text-[24px] max-b980:text-[20px]">
+            <h2 className="headline-font mb-5 text-[36px] leading-tight max-b1600:mb-0 max-b1600:text-[24px] max-b980:text-[20px]">
               {eyebrow}
             </h2>
           )}
-          <h1 className="gfont text-[80px] max-b1600:text-[68px] max-b980:text-[36px] max-b520:text-[30px]">
+          <h1 className="headline-font text-[80px] leading-none max-b1600:text-[68px] max-b980:text-[36px] max-b520:text-[30px]">
             {title}
           </h1>
         </div>

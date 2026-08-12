@@ -90,6 +90,13 @@
   .gfont {
     font-family: var(--font-gmarket);
   }
+
+  /* 예시 이미지처럼 획이 굵고 자간이 촘촘한 배너 전용 고딕 제목 */
+  .headline-font {
+    font-family: var(--font-noto), "Malgun Gothic", sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.055em;
+  }
 }
 
 /* 원본 sub15.php 의 인라인 <style> — 카카오맵 하단 안내 바를 숨깁니다 */
