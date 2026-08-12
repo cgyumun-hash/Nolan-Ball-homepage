@@ -1,6 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import { KEY_BENEFITS } from "@/lib/site";
 
 /**
@@ -12,10 +9,6 @@ import { KEY_BENEFITS } from "@/lib/site";
  *
  * 애니메이션이 없어 서버 컴포넌트입니다.
  */
-function hasImage(src: string) {
-  return fs.existsSync(path.join(process.cwd(), "public", src));
-}
-
 export default function KeyBenefits() {
   return (
     <section className="w-full py-[160px] max-b1080:py-[100px] max-b580:py-[70px]">
@@ -35,7 +28,7 @@ export default function KeyBenefits() {
         </p>
 
         {/* 4개 장점 — 2×2 그리드, 860px 이하 1열 */}
-        <ul className="mb-[100px] grid grid-cols-2 gap-x-[60px] max-b860:mb-[60px] max-b860:grid-cols-1">
+        <ul className="grid grid-cols-2 gap-x-[60px] max-b860:grid-cols-1">
           {KEY_BENEFITS.items.map((item) => (
             <li
               key={item.no}
@@ -60,20 +53,6 @@ export default function KeyBenefits() {
           ))}
         </ul>
 
-        {/* 사용 전·후 비교 이미지 */}
-        {hasImage(KEY_BENEFITS.image) && (
-          <figure>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={KEY_BENEFITS.image}
-              alt={KEY_BENEFITS.imageCaption}
-              className="w-full rounded-[10px] border border-line"
-            />
-            <figcaption className="mt-4 text-[15px] text-ink-500 max-b580:text-[13px]">
-              {KEY_BENEFITS.imageCaption}
-            </figcaption>
-          </figure>
-        )}
       </div>
     </section>
   );

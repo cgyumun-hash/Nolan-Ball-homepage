@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { PRODUCTS } from "@/lib/site";
@@ -23,25 +24,24 @@ export default function Products() {
     >
       {/* 사진이 없으면 위 그라디언트가 그대로 보입니다 */}
       <div
-        className="absolute inset-0 bg-cover bg-right bg-no-repeat"
+        className="absolute inset-0 z-0 bg-cover bg-right bg-no-repeat"
         style={{ backgroundImage: `url(${PRODUCTS.image})` }}
       />
 
-      <div className="wrap-in h-full">
-        <div
-          className="absolute top-1/2 right-[200px] -translate-y-1/2 text-white
+      <div
+          className="absolute top-1/2 right-[200px] z-10 -translate-y-1/2 text-white
                      [text-shadow:0_3px_6px_rgba(0,0,0,0.16),0_3px_6px_rgba(0,0,0,0.23)]
                      max-b1200:right-[100px]
                      max-b1080:right-[50px]
-                     max-b580:left-[50px]"
-        >
-          {/* 원본 section_3icon.png 자리 */}
-          <span className="grid h-14 w-14 place-items-center rounded-full border-2 border-white/70">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <circle cx="12" cy="12" r="7.5" stroke="currentColor" strokeWidth="1.6" />
-              <circle cx="12" cy="12" r="2.8" fill="currentColor" />
-            </svg>
-          </span>
+                     max-b580:right-auto max-b580:left-[50px]"
+      >
+          <Image
+            src="/images/main/logo.webp"
+            alt="Nolan Ball Korea"
+            width={633}
+            height={161}
+            className="h-auto w-[250px] drop-shadow-md max-b1080:w-[210px] max-b580:w-[180px]"
+          />
 
           <h3
             className="gfont mt-[15px] mb-2.5 text-[80px] font-bold leading-none
@@ -69,7 +69,6 @@ export default function Products() {
           >
             {PRODUCTS.cta}
           </Link>
-        </div>
       </div>
     </section>
   );
