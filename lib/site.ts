@@ -125,22 +125,20 @@ export const SLIDES = [
   {
     id: "slide_1",
     lines: ["내시경 세척의 새로운 기준,", "Nolan Ball"],
-    image: "/images/slide_1.webp",
+    image: "/images/main/1.webp",
     /** 사진이 없을 때 대신 보일 배경 */
     fallback: "linear-gradient(115deg, #6b7a3a 0%, #a99b5e 55%, #d8c68a 100%)",
   },
   {
     id: "slide_2",
     lines: ["사용자의 숙련도와 관계없이", "빠르고 균일한 고품질 세척"],
-    image: "/images/slide_2.webp",
+    image: "/images/main/3.webp",
     fallback: "linear-gradient(115deg, #23433a 0%, #4c7a63 55%, #9dc3a4 100%)",
   },
   {
     id: "slide_3",
-    /* 제품소개서 6쪽에서 채널 구간만 잘라낸 사진입니다.
-       상단 로고와 하단 설명 카드 3개를 빼서 글자가 겹치지 않습니다. */
     lines: ["한 번의 통과로", "채널 전 구간 세척"],
-    image: "/images/slide_3.webp",
+    image: "/images/main/4.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
@@ -151,7 +149,7 @@ export const PRODUCTS = {
   desc: "내시경 채널 세척을 위한 일회용 솔루션",
   cta: "제품 알아보기",
   href: "/products/filter-ball-for-gastroscopes",
-  image: "/images/section_3bg.webp",
+  image: "/images/main/6.webp",
   fallback: "linear-gradient(110deg, #2f4a1f 0%, #6d9440 50%, #b9cf86 100%)",
 } as const;
 
