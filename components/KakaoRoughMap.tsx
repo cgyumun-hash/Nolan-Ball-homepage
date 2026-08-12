@@ -38,12 +38,18 @@ export default function KakaoRoughMap({
   mapKey,
   height,
   address,
+  placeName,
+  latitude,
+  longitude,
 }: {
   timestamp: string;
   mapKey: string;
   height: string;
   /** 지도가 안 뜰 때 보여줄 주소 */
   address: string;
+  placeName: string;
+  latitude: number;
+  longitude: number;
 }) {
   const rendered = useRef(false);
 
@@ -94,7 +100,7 @@ export default function KakaoRoughMap({
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center">
         <p className="gfont text-[18px] text-ink-900">{address}</p>
         <a
-          href={`https://map.kakao.com/?q=${encodeURIComponent(address)}`}
+          href={`https://map.kakao.com/link/map/${encodeURIComponent(placeName)},${latitude},${longitude}`}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[14px] text-ink-500 underline"
