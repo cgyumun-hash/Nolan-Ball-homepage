@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { COMPANY, LANGS, NAV } from "@/lib/site";
+import { LANGS, NAV } from "@/lib/site";
 
 /**
  * 원본 .header
@@ -45,38 +46,19 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
                     max-b1080:py-[5px] ${solid ? "bg-white" : "bg-transparent"}`}
       >
         <div className="wrap-in flex items-center justify-between">
-          {/* ── 로고 (원본 logo.png 를 텍스트+도형으로 재현) ──────────
-              원본은 이미지라 색이 고정이지만, 여기서는 투명 헤더 위에서도
-              읽히도록 헤더 상태를 따라가게 했습니다. */}
-          <Link href="/" className="flex shrink-0 items-center gap-2.5 py-4">
-            <span
-              className={`grid h-9 w-9 shrink-0 place-items-center rounded-[6px] border-2 text-[15px] font-black transition-colors ${
-                solid
-                  ? "border-brand-500 text-brand-500"
-                  : "border-white text-white"
-              }`}
-            >
-              N
-            </span>
-            <span className="leading-none">
-              <span className="flex items-center gap-1.5">
-                <span
-                  className={`text-[22px] font-bold tracking-tight transition-colors ${fg}`}
-                >
-                  Nolan
-                </span>
-                <span className="rounded-[3px] bg-brand-500 px-1.5 py-0.5 text-[13px] font-bold text-white">
-                  BALL
-                </span>
-              </span>
-              <span
-                className={`mt-1 block text-[9px] tracking-wide transition-colors ${
-                  solid ? "text-ink-500" : "text-white/80"
-                }`}
-              >
-                {COMPANY.legal}
-              </span>
-            </span>
+          <Link
+            href="/"
+            className="shrink-0 py-3"
+            aria-label="놀란볼코리아 메인으로 이동"
+          >
+            <Image
+              src="/images/nolan-ball-company-logo.webp"
+              alt="Nolan Ball Korea"
+              width={633}
+              height={161}
+              priority
+              className="h-auto w-[230px] max-b1200:w-[190px] max-b1080:w-[180px]"
+            />
           </Link>
 
           {/* ── GNB ─────────────────────────────────────────────── */}
