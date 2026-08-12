@@ -24,22 +24,21 @@ import { ABOUT } from "@/lib/site";
 export default function About() {
   return (
     <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0">
-      <div className="wrap-in">
-        <h2
-          className="gfont ml-[120px] text-[80px] font-bold uppercase leading-[1.15] text-ink-900
-                     max-b1600:ml-[100px] max-b1600:text-[64px]
-                     max-b1080:ml-0 max-b1080:text-center max-b1080:text-[50px]"
-        >
-          ABOUT
-          {/* 원본 br.mo_br — section_4 에서는 580px 이하에서만 줄바꿈 */}
-          <br className="hidden max-b580:block" /> NOLAN BALL
-        </h2>
+      <h2
+        className="gfont ml-[120px] text-[80px] font-bold uppercase leading-[1.15] text-ink-900
+                   max-b1600:ml-[100px] max-b1600:text-[64px]
+                   max-b1080:ml-0 max-b1080:text-center max-b1080:text-[50px]"
+      >
+        ABOUT
+        {/* 원본 br.mo_br — section_4 에서는 580px 이하에서만 줄바꿈 */}
+        <br className="hidden max-b580:block" /> NOLAN BALL
+      </h2>
 
-        {/* .w1 */}
-        <div
-          className="relative mt-10 flex border-y border-ink-900
-                     max-b1200:items-center max-b1080:flex-col-reverse"
-        >
+      {/* .w1 — 원본처럼 화면 전체 폭을 사용합니다. */}
+      <div
+        className="relative mt-10 flex border-y border-ink-900
+                   max-b1200:items-center max-b1080:flex-col-reverse"
+      >
           {/* .s1 */}
           <div
             className="ml-[100px] w-1/2 border-l border-ink-900 p-[60px]
@@ -79,7 +78,7 @@ export default function About() {
 
           {/* .s2 — 원본 section_4bg.jpg */}
           <div
-            className="absolute bottom-0 right-0 h-[86%] w-[43%]
+            className="absolute bottom-0 right-0 h-[195%] w-[43%]
                        max-b1200:relative max-b1200:bottom-auto max-b1200:right-auto
                        max-b1200:h-auto max-b1200:min-h-[320px]
                        max-b1080:mx-auto max-b1080:w-4/5
@@ -87,11 +86,10 @@ export default function About() {
             style={{ backgroundImage: ABOUT.fallback }}
           >
             <div
-              className="h-full min-h-[inherit] w-full bg-cover bg-center"
+              className="h-full min-h-[inherit] w-full bg-cover bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${ABOUT.image})` }}
             />
           </div>
-        </div>
       </div>
     </section>
   );

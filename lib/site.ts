@@ -1001,6 +1001,6 @@ export const ABOUT = {
   ],
   cta: "자세히 보기",
   href: "/about/overview",
-  image: "/images/section_4bg.webp",
+  image: "/images/main/9.webp",
   fallback: "linear-gradient(150deg, #1f2f3d 0%, #4a6b7a 60%, #8fb56a 100%)",
 } as const;

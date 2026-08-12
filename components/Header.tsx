@@ -52,7 +52,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
             aria-label="놀란볼코리아 메인으로 이동"
           >
             <Image
-              src="/images/nolan-ball-company-logo.webp"
+              src="/images/main/logo.webp"
               alt="Nolan Ball Korea"
               width={633}
               height={161}

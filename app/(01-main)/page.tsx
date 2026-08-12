@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhyAcf from "@/components/WhyAcf";
-import KeyBenefits from "@/components/KeyBenefits";
 import Products from "@/components/Products";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
@@ -33,7 +32,6 @@ export default function Home() {
         <main>
           <Hero />
           <WhyAcf />
-          <KeyBenefits />
           <Products />
           <About />
         </main>

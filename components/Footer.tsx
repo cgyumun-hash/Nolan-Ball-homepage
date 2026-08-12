@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { COMPANY, NAV } from "@/lib/site";
 
 /**
@@ -79,24 +80,13 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
 
           {/* .c2 */}
           <div className="flex flex-col items-end max-b1200:items-start">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-[6px] border-2 border-brand-500 text-[15px] font-black text-brand-500">
-                N
-              </span>
-              <span className="leading-none">
-                <span className="flex items-center gap-1.5">
-                  <span className="text-[22px] font-bold tracking-tight text-ink-900">
-                    Nolan
-                  </span>
-                  <span className="rounded-[3px] bg-brand-500 px-1.5 py-0.5 text-[13px] font-bold text-white">
-                    BALL
-                  </span>
-                </span>
-                <span className="mt-1 block text-[9px] tracking-wide text-ink-500">
-                  {COMPANY.legal}
-                </span>
-              </span>
-            </div>
+            <Image
+              src="/images/main/logo.webp"
+              alt="Nolan Ball Korea"
+              width={633}
+              height={161}
+              className="h-auto w-[240px] max-b580:w-[200px]"
+            />
             <p className="mt-4 text-[14px] text-ink-500">{COMPANY.copyright}</p>
           </div>
         </div>
