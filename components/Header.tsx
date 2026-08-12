@@ -62,7 +62,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
           </Link>
 
           {/* ── GNB ─────────────────────────────────────────────── */}
-          {/* 3개 대분류를 동일한 폭으로 나누고 줄바꿈을 막습니다. */}
+          {/* 4개 대분류를 동일한 폭으로 나누고 줄바꿈을 막습니다. */}
           <nav className="hidden w-[74%] items-center justify-between text-center b1080:flex">
             {NAV.map((item) => (
               <div

@@ -49,8 +49,8 @@ export type NavItem = {
 };
 
 /**
- * 상단 메뉴는 PRODUCT · TECHNOLOGY · ABOUT / CONTACT 3개로 구성합니다.
- * MAIN은 로고 링크로 대체하고, HOW TO USE는 PRODUCT에,
+ * 상단 메뉴는 MAIN · PRODUCT · TECHNOLOGY · ABOUT / CONTACT 4개로 구성합니다.
+ * HOW TO USE는 PRODUCT에,
  * TEST & DATA와 DOWNLOAD는 ABOUT / CONTACT에 포함합니다.
  * GNB · 사이드바 · 푸터 · 서브페이지 탭(.sub_pager)이 모두 아래를 씁니다.
  * 라우트는 하캄바이오 구조를 최대한 재사용해 페이지 이동을 최소화했습니다.
@@ -94,6 +94,7 @@ export const TECHNOLOGY_PAGES = [
 
 /** 상단 GNB · 좌측 사이드바 · 푸터가 공유합니다 */
 export const NAV: NavItem[] = [
+  { label: "MAIN", href: "/", children: [] },
   {
     label: "PRODUCT",
     href: "/products/filter-ball-for-gastroscopes",
@@ -206,6 +207,11 @@ export const KEY_BENEFITS = {
       body: "수분 반응형 비가역 변색 구조를 통해 사용 여부를 직관적으로 확인하도록 설계되었습니다.",
     },
   ],
+  sustainability: {
+    eyebrow: "SUSTAINABILITY",
+    title: "폐기물 부피 부담 완화",
+    body: "Nolan Ball은 기존 일회용 채널 세척 브러시보다 작고 단순한 볼 형태로 설계되어, 사용 후 발생하는 폐기물의 부피 부담을 줄이는 데 도움을 줄 수 있습니다. 실제 감소 정도는 사용량과 기관별 폐기 기준에 따라 달라질 수 있습니다.",
+  },
   /* 제품소개서 8쪽을 통째로 렌더한 것이라 제목·라벨·설명이 이미지 안에 들어 있습니다.
      캡션에서 같은 내용을 되풀이하지 않고 출처만 밝힙니다. */
   image: "/images/product_before_after.webp",
