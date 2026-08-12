@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import NoticeBoard from "@/components/NoticeBoard";
 import SubHeader from "@/components/SubHeader";
-import { DOWNLOAD_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { ABOUT_CONTACT_PAGES, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "공지사항",
@@ -19,7 +19,7 @@ export default function NoticesPage() {
       <SubHeader
         eyebrow="Customer Support"
         title="Notices"
-        pager={DOWNLOAD_PAGES}
+        pager={ABOUT_CONTACT_PAGES}
         current="Notices"
         breadcrumb={["Customer Support", "Notices"]}
         bg={SUBHEADER_BG.sub04}

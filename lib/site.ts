@@ -49,7 +49,9 @@ export type NavItem = {
 };
 
 /**
- * 메뉴는 자료정리 1-2 "추천 홈페이지 메뉴" 7개를 따릅니다.
+ * 상단 메뉴는 PRODUCT · TECHNOLOGY · ABOUT / CONTACT 3개로 구성합니다.
+ * MAIN은 로고 링크로 대체하고, HOW TO USE는 PRODUCT에,
+ * TEST & DATA와 DOWNLOAD는 ABOUT / CONTACT에 포함합니다.
  * GNB · 사이드바 · 푸터 · 서브페이지 탭(.sub_pager)이 모두 아래를 씁니다.
  * 라우트는 하캄바이오 구조를 최대한 재사용해 페이지 이동을 최소화했습니다.
  * (신규 라우트는 /how-to-use 하나뿐입니다.)
@@ -72,6 +74,7 @@ export const PRODUCTS_PAGES = [
     label: "기관지 내시경용 2.8mm",
     href: "/products/filter-ball-for-bronchoscopes",
   },
+  { label: "HOW TO USE", href: "/how-to-use" },
   { label: "제품 영상", href: "/products/acf-filter-ball-video" },
 ] as const;
 
@@ -80,6 +83,8 @@ export const ABOUT_CONTACT_PAGES = [
   { label: "회사 소개", href: "/about/overview" },
   { label: "오시는 길", href: "/about/location" },
   { label: "온라인 문의", href: "/customer-support/online-inquiry" },
+  { label: "TEST & DATA", href: "/about/certifications" },
+  { label: "DOWNLOAD", href: "/customer-support/resources-downloads" },
 ] as const;
 
 /** 서브페이지 탭(.sub_pager)이 단독 페이지에서도 필요해 배열로 둡니다 */
@@ -87,21 +92,8 @@ export const TECHNOLOGY_PAGES = [
   { label: "기술 개요", href: "/about/technology-overview" },
 ] as const;
 
-export const HOW_TO_USE_PAGES = [
-  { label: "사용 방법", href: "/how-to-use" },
-] as const;
-
-export const TEST_DATA_PAGES = [
-  { label: "시험 결과·성적서", href: "/about/certifications" },
-] as const;
-
-export const DOWNLOAD_PAGES = [
-  { label: "자료 다운로드", href: "/customer-support/resources-downloads" },
-] as const;
-
 /** 상단 GNB · 좌측 사이드바 · 푸터가 공유합니다 */
 export const NAV: NavItem[] = [
-  { label: "MAIN", href: "/", children: [] },
   {
     label: "PRODUCT",
     href: "/products/filter-ball-for-gastroscopes",
@@ -110,13 +102,6 @@ export const NAV: NavItem[] = [
   {
     label: "TECHNOLOGY",
     href: "/about/technology-overview",
-    children: [],
-  },
-  { label: "HOW TO USE", href: "/how-to-use", children: [] },
-  { label: "TEST & DATA", href: "/about/certifications", children: [] },
-  {
-    label: "DOWNLOAD",
-    href: "/customer-support/resources-downloads",
     children: [],
   },
   {

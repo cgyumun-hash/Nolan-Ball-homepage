@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
-import { DOWNLOADS, DOWNLOAD_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { ABOUT_CONTACT_PAGES, DOWNLOADS, SUBHEADER_BG } from "@/lib/site";
 
 const title = "자료실";
 
@@ -33,8 +33,8 @@ export default function ResourcesDownloadsPage() {
       <SubHeader
         eyebrow="DOWNLOAD"
         title={title}
-        pager={DOWNLOAD_PAGES}
-        current={title}
+        pager={ABOUT_CONTACT_PAGES}
+        current="DOWNLOAD"
         breadcrumb={["DOWNLOAD", title]}
         bg={SUBHEADER_BG.sub04}
       />
