@@ -84,6 +84,9 @@ export default function LocationPage() {
                 mapKey={LOCATION.map.key}
                 height={LOCATION.map.height}
                 address={LOCATION.officeAddress}
+                placeName={LOCATION.map.name}
+                latitude={LOCATION.map.latitude}
+                longitude={LOCATION.map.longitude}
               />
             </FadeUp>
           </div>

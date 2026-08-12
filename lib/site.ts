@@ -25,6 +25,23 @@ export const COMPANY = {
   copyright: "COPYRIGHT 2026 BY Nolan Ball Korea ALL RIGHT RESERVED.",
 } as const;
 
+/** 온라인 문의 전송 상태 문구 */
+export const INQUIRY_FORM_MESSAGES = {
+  submit: "문의하기",
+  submitting: "전송 중...",
+  success: "문의가 접수되었습니다. 담당자가 확인 후 연락드리겠습니다.",
+  failure: "문의 전송에 실패했습니다. 잠시 후 다시 시도하거나 대표 이메일로 문의해 주세요.",
+} as const;
+
+/** 자료정리 5-3 — 문의 유형 */
+export const INQUIRY_TYPES = [
+  "제품",
+  "샘플",
+  "견적",
+  "유통·대리점",
+  "해외 수출",
+] as const;
+
 export type NavItem = {
   label: string;
   href: string;
@@ -124,20 +141,20 @@ export const LANGS = [
 export const SLIDES = [
   {
     id: "slide_1",
-    lines: ["내시경 세척의 새로운 기준,", "Nolan Ball"],
+    lines: ["안전하고 지속 가능한", "내시경 위생 환경을 향해"],
     image: "/images/main/1.webp",
     /** 사진이 없을 때 대신 보일 배경 */
     fallback: "linear-gradient(115deg, #6b7a3a 0%, #a99b5e 55%, #d8c68a 100%)",
   },
   {
     id: "slide_2",
-    lines: ["사용자의 숙련도와 관계없이", "빠르고 균일한 고품질 세척"],
+    lines: ["내시경 재처리 전 과정의", "위생 기준을 혁신합니다"],
     image: "/images/main/3.webp",
     fallback: "linear-gradient(115deg, #23433a 0%, #4c7a63 55%, #9dc3a4 100%)",
   },
   {
     id: "slide_3",
-    lines: ["한 번의 통과로", "채널 전 구간 세척"],
+    lines: ["환자 중심의 혁신,", "책임과 협력으로 이어갑니다"],
     image: "/images/main/4.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
@@ -855,20 +872,28 @@ export const BUSINESS = {
 export type TransitLine = { text: string; bold?: string; wide?: boolean };
 export type TransitRow = { icon: string; label: string; lines: TransitLine[] };
 
-/**
- * ⚠️ 보류 — 원본은 하캄바이오(해운대 센텀) 기준 지하철·버스 노선이었습니다.
- * 놀란볼코리아(금정구 서부곡로) 기준 노선 정보가 확보되면 아래를 채우세요.
- */
 const TRANSIT: TransitRow[] = [
   {
     icon: "/images/icon_1.webp",
     label: "지하철",
-    lines: [{ text: "노선 정보 확인 필요 — 금정구 서부곡로 기준으로 교체하세요." }],
+    lines: [
+      {
+        bold: "부산도시철도 1호선 부산대역 2번 출구",
+        text: "서부곡로16번길 방향으로 도보 약 7분",
+        wide: true,
+      },
+    ],
   },
   {
     icon: "/images/icon_2.webp",
     label: "버스",
-    lines: [{ text: "노선 정보 확인 필요 — 금정구 서부곡로 기준으로 교체하세요." }],
+    lines: [
+      {
+        bold: "29 · 49 · 50 · 148 · 1002번",
+        text: "부곡시장 정류장(11118) 하차 후 도보 약 2분",
+        wide: true,
+      },
+    ],
   },
 ];
 
@@ -878,15 +903,13 @@ export const LOCATION = {
   title: "오시는 길",
   officeTitle: "본사",
   officeAddress: "부산광역시 금정구 서부곡로 16번길 8-1, 알찬빌딩 1층",
-  /**
-   * ⚠️ 카카오맵 "지도 퍼가기" 임베드 값 (원본 sub15.php 의 실행 스크립트).
-   * 이 키는 하캄바이오가 등록한 해운대 센텀 주소를 가리킵니다 — 놀란볼코리아
-   * 위치가 아닙니다. https://map.kakao.com 에서 금정구 주소로 새로 발급해
-   * timestamp · key 를 교체해야 합니다.
-   */
+  /** 놀란볼코리아 본사 좌표로 새로 발급한 카카오맵 지도 퍼가기 값 */
   map: {
-    timestamp: "1758100857535",
-    key: "wgda2t8mv3n",
+    name: "놀란볼코리아",
+    latitude: 35.2266414394281,
+    longitude: 129.090490710535,
+    timestamp: "1786522726463",
+    key: "sgc5gi2x9ij",
     height: "579",
   },
   transitTitle: "대중교통",

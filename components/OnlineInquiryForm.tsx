@@ -2,7 +2,7 @@
 
 import { FormEvent, useState } from "react";
 
-import { COMPANY } from "@/lib/site";
+import { COMPANY, INQUIRY_FORM_MESSAGES, INQUIRY_TYPES } from "@/lib/site";
 
 const inputClass =
   "h-[54px] border border-line bg-white px-4 outline-none transition-colors focus:border-brand-500";
@@ -48,47 +48,34 @@ const policySections = [
   },
 ] as const;
 
-/** 자료정리 5-3 — 문의 유형 */
-const INQUIRY_TYPES = [
-  "제품",
-  "샘플",
-  "견적",
-  "유통·대리점",
-  "해외 수출",
-] as const;
-
 export default function OnlineInquiryForm() {
   const [domain, setDomain] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  /** 폼이 화면에 뜬 시각 — 스팸 봇 판별용 (자료정리 7-1 "스팸 방지 기능") */
-  const [openedAt] = useState(() => Date.now());
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
+    setStatus("submitting");
 
-    // ── 스팸 방지 1: 허니팟
-    // 사람 눈에는 안 보이는 칸이라 값이 차 있으면 자동 입력 봇입니다.
-    const honeypot = (form.elements.namedItem("website") as HTMLInputElement)?.value;
-    // ── 스팸 방지 2: 제출 속도
-    // 사람이 이 폼을 3초 안에 다 채울 수는 없습니다.
-    const tooFast = Date.now() - openedAt < 3000;
+    try {
+      const payload = Object.fromEntries(new FormData(form).entries());
+      const response = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    if (honeypot || tooFast) {
-      // 봇에게는 실패를 알리지 않고 성공한 것처럼 보이게 둡니다.
-      setSubmitted(true);
+      if (!response.ok) {
+        throw new Error(`Inquiry request failed with status ${response.status}`);
+      }
+
+      setStatus("success");
       form.reset();
       setDomain("");
-      return;
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
     }
-
-    // TODO: 실제 접수 처리 — 자료정리 7-1 "문의 접수 시 담당 이메일로 자동 알림".
-    //       지금은 화면에만 표시되고 어디로도 전송되지 않습니다.
-    //       서버 라우트(app/api/inquiry/route.ts)와 메일 발송을 붙여야
-    //       Nolan5000@naver.com 으로 알림이 갑니다.
-    setSubmitted(true);
-    form.reset();
-    setDomain("");
   }
 
   return (
@@ -135,7 +122,7 @@ export default function OnlineInquiryForm() {
         </div>
 
         <label className="mb-[60px] flex cursor-pointer items-center gap-3 text-[17px]">
-          <input type="checkbox" required className="h-5 w-5 accent-[#1eac44]" />
+          <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 accent-[#1eac44]" />
           <span>개인정보 수집·이용에 동의합니다.</span>
         </label>
 
@@ -196,14 +183,29 @@ export default function OnlineInquiryForm() {
           </FormRow>
         </div>
 
-        {submitted && (
+        {status === "success" && (
           <p role="status" className="mt-8 text-center font-medium text-brand-500">
-            문의가 접수되었습니다.
+            {INQUIRY_FORM_MESSAGES.success}
           </p>
         )}
 
-        <button type="submit" className="mx-auto mt-[50px] block h-[60px] w-[220px] bg-ink-900 text-[18px] font-bold text-white transition-colors hover:bg-brand-500">
-          문의하기
+        {status === "error" && (
+          <p role="alert" className="mt-8 text-center font-medium text-red-700">
+            {INQUIRY_FORM_MESSAGES.failure}{" "}
+            <a href={`mailto:${COMPANY.email}`} className="underline">
+              {COMPANY.email}
+            </a>
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="mx-auto mt-[50px] block h-[60px] w-[220px] bg-ink-900 text-[18px] font-bold text-white transition-colors hover:bg-brand-500 disabled:cursor-wait disabled:opacity-60"
+        >
+          {status === "submitting"
+            ? INQUIRY_FORM_MESSAGES.submitting
+            : INQUIRY_FORM_MESSAGES.submit}
         </button>
       </form>
     </section>
