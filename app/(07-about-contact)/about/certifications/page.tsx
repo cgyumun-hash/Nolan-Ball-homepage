@@ -7,8 +7,8 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import {
-  ABOUT_CONTACT_PAGES,
   CERTIFICATIONS,
+  RESOURCES_PAGES,
   SUBHEADER_BG,
   TEST_SUMMARY,
 } from "@/lib/site";
@@ -50,10 +50,10 @@ export default function CertificationsPage() {
       <SubHeader
         eyebrow={CERTIFICATIONS.eyebrow}
         title={CERTIFICATIONS.title}
-        pager={ABOUT_CONTACT_PAGES}
-        current="TEST & DATA"
+        pager={RESOURCES_PAGES}
+        current={CERTIFICATIONS.title}
         breadcrumb={[CERTIFICATIONS.eyebrow, CERTIFICATIONS.title]}
-        bg={SUBHEADER_BG.sub01}
+        bg={SUBHEADER_BG.resources}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">

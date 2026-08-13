@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
 import KakaoRoughMap from "@/components/KakaoRoughMap";
-import { ABOUT_CONTACT_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
+import { COMPANY_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "오시는 길",
@@ -56,10 +56,10 @@ export default function LocationPage() {
       <SubHeader
         eyebrow={LOCATION.eyebrow}
         title={LOCATION.title}
-        pager={ABOUT_CONTACT_PAGES}
+        pager={COMPANY_PAGES}
         current={LOCATION.title}
         breadcrumb={[LOCATION.eyebrow, LOCATION.title]}
-        bg={SUBHEADER_BG.sub01}
+        bg={SUBHEADER_BG.company}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">

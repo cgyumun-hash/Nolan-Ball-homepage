@@ -42,7 +42,13 @@ export default function SubHeader({
   current: string;
   /** Home 다음에 올 항목들 */
   breadcrumb: string[];
-  bg: { image: string; fallback: string };
+  bg: {
+    image: string;
+    fallback: string;
+    position?: string;
+    overlay?: string;
+    selectiveBlur?: boolean;
+  };
 }) {
   return (
     <div className="pt-[80px] max-b1080:pt-[50px]">
@@ -57,10 +63,37 @@ export default function SubHeader({
         {/* bg.image 가 빈 문자열이면 사진 레이어를 아예 그리지 않고
             위 그라디언트만 보여 줍니다 (lib/site.ts 의 SUBHEADER_BG 주석 참고) */}
         {bg.image && (
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${bg.image})` }}
-          />
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `url(${bg.image})`,
+                backgroundPosition: bg.position ?? "center",
+              }}
+            />
+            {bg.selectiveBlur && (
+              <div
+                className="absolute inset-[-3px] bg-cover bg-center bg-no-repeat blur-[1px]"
+                aria-hidden
+                style={{
+                  backgroundImage: `url(${bg.image})`,
+                  backgroundPosition: bg.position ?? "center",
+                  maskImage:
+                    "linear-gradient(90deg, #000 0%, #000 48%, rgba(0,0,0,0.75) 62%, transparent 84%)",
+                  WebkitMaskImage:
+                    "linear-gradient(90deg, #000 0%, #000 48%, rgba(0,0,0,0.75) 62%, transparent 84%)",
+                }}
+              />
+            )}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  bg.overlay ??
+                  "linear-gradient(90deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.04) 52%, rgba(0,0,0,0) 100%)",
+              }}
+            />
+          </>
         )}
 
         {/* .sub_txt_wrap */}

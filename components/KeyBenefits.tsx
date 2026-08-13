@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { KEY_BENEFITS } from "@/lib/site";
 
 /**
@@ -12,21 +14,37 @@ import { KEY_BENEFITS } from "@/lib/site";
  */
 export default function KeyBenefits() {
   return (
-    <section className="w-full py-[160px] max-b1080:py-[100px] max-b580:py-[70px]">
+    <section className="w-full bg-[#f6f7f4] py-[160px] max-b1080:py-[100px] max-b580:py-[70px]">
       <div className="wrap-in2">
-        <h2
-          className="gfont mb-[40px] text-[80px] font-bold leading-[1.15] text-ink-900
-                     max-b1600:text-[64px] max-b1080:text-[48px] max-b580:text-[36px]"
-        >
-          {KEY_BENEFITS.heading}
-        </h2>
+        <div className="mb-[100px] grid grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] items-center gap-[80px]
+                        max-b1080:mb-[70px] max-b1080:grid-cols-1 max-b1080:gap-[45px]">
+          <div>
+            <h2
+              className="gfont mb-[35px] text-[76px] font-bold leading-[1.15] text-ink-900
+                         max-b1600:text-[62px] max-b1080:text-[48px] max-b580:text-[36px]"
+            >
+              {KEY_BENEFITS.heading}
+            </h2>
+            <p className="mb-6 max-w-[780px] text-[30px] font-bold leading-[1.55] text-ink-900
+                          max-b1080:text-[24px] max-b580:text-[20px]">
+              {KEY_BENEFITS.keyMessage}
+            </p>
+            <p className="max-w-[780px] text-[17px] leading-[1.85] text-ink-500
+                          max-b1080:text-[15px] max-b580:text-[14px]">
+              {KEY_BENEFITS.supportingText}
+            </p>
+          </div>
 
-        <p
-          className="mb-[100px] max-w-[900px] text-[20px] leading-[1.8] text-ink-500
-                     max-b1080:mb-[60px] max-b1080:text-[17px] max-b580:text-[15px]"
-        >
-          {KEY_BENEFITS.lead}
-        </p>
+          <div className="flex justify-center max-b1080:row-start-1">
+            <Image
+              src={KEY_BENEFITS.image}
+              alt={KEY_BENEFITS.imageAlt}
+              width={561}
+              height={445}
+              className="h-auto w-full max-w-[561px] object-contain"
+            />
+          </div>
+        </div>
 
         {/* 4개 장점 — 2×2 그리드, 860px 이하 1열 */}
         <ul className="grid grid-cols-2 gap-x-[60px] max-b860:grid-cols-1">
@@ -53,25 +71,6 @@ export default function KeyBenefits() {
             </li>
           ))}
         </ul>
-
-        <div
-          className="mt-[70px] grid grid-cols-[220px_1fr] gap-[50px] border-y border-brand-500
-                     bg-[#f4f8f3] px-[50px] py-[45px]
-                     max-b860:grid-cols-1 max-b860:gap-4 max-b860:px-[30px]
-                     max-b580:mt-[45px] max-b580:px-5 max-b580:py-[30px]"
-        >
-          <p className="gfont text-[17px] font-bold tracking-[0.08em] text-brand-500">
-            {KEY_BENEFITS.sustainability.eyebrow}
-          </p>
-          <div>
-            <h3 className="mb-3 text-[28px] font-bold text-ink-900 max-b1080:text-[22px] max-b580:text-[19px]">
-              {KEY_BENEFITS.sustainability.title}
-            </h3>
-            <p className="text-[17px] leading-[1.8] text-ink-500 max-b1080:text-[15px] max-b580:text-[14px]">
-              {KEY_BENEFITS.sustainability.body}
-            </p>
-          </div>
-        </div>
 
       </div>
     </section>

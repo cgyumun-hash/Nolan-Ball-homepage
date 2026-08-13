@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import OnlineInquiryForm from "@/components/OnlineInquiryForm";
 import SubHeader from "@/components/SubHeader";
-import { ABOUT_CONTACT_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { COMPANY_PAGES, SUBHEADER_BG } from "@/lib/site";
 
 const title = "온라인 문의";
 
@@ -19,12 +19,12 @@ export default function OnlineInquiryPage() {
       <InquiryButton />
       <Header forceSolid />
       <SubHeader
-        eyebrow="ABOUT / CONTACT"
+        eyebrow="COMPANY"
         title={title}
-        pager={ABOUT_CONTACT_PAGES}
+        pager={COMPANY_PAGES}
         current={title}
-        breadcrumb={["ABOUT / CONTACT", title]}
-        bg={SUBHEADER_BG.sub04}
+        breadcrumb={["COMPANY", title]}
+        bg={SUBHEADER_BG.company}
       />
       <main>
         <OnlineInquiryForm />

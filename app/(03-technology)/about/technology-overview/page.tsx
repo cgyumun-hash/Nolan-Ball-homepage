@@ -61,7 +61,7 @@ export default function TechnologyPage() {
         pager={TECHNOLOGY_PAGES}
         current={TECHNOLOGY.title}
         breadcrumb={[TECHNOLOGY.eyebrow, TECHNOLOGY.title]}
-        bg={SUBHEADER_BG.sub01}
+        bg={SUBHEADER_BG.technology}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">

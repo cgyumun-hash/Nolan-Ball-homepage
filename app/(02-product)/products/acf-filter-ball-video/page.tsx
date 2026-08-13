@@ -45,7 +45,7 @@ export default function AcfFilterBallVideoPage() {
         pager={PRODUCTS_PAGES}
         current={PRODUCT_VIDEO.title}
         breadcrumb={[PRODUCT_VIDEO.eyebrow, PRODUCT_VIDEO.title]}
-        bg={SUBHEADER_BG.sub03}
+        bg={SUBHEADER_BG.product}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
