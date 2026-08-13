@@ -29,7 +29,7 @@ export default function HowToUsePage() {
         pager={PRODUCTS_PAGES}
         current="HOW TO USE"
         breadcrumb={[HOW_TO_USE.eyebrow]}
-        bg={SUBHEADER_BG.sub03}
+        bg={SUBHEADER_BG.product}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
