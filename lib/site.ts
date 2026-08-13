@@ -141,13 +141,13 @@ export const SLIDES = [
     lines: ["내시경 세척의 새로운 기준", "Nolan Ball"],
     image: "/images/main/1.webp",
     /** 사진이 없을 때 대신 보일 배경 */
-    fallback: "linear-gradient(115deg, #6b7a3a 0%, #a99b5e 55%, #d8c68a 100%)",
+    fallback: "linear-gradient(115deg, #0b3261 0%, #217fc1 55%, #8ed7f2 100%)",
   },
   {
     id: "slide_2",
     lines: ["내시경 세척의", "새로운 혁신을 제공합니다"],
     image: "/images/main/3.webp",
-    fallback: "linear-gradient(115deg, #23433a 0%, #4c7a63 55%, #9dc3a4 100%)",
+    fallback: "linear-gradient(115deg, #092c52 0%, #1c6fa8 55%, #8bc9e8 100%)",
   },
   {
     id: "slide_3",
@@ -164,7 +164,7 @@ export const PRODUCTS = {
   cta: "제품 알아보기",
   href: "/products/filter-ball-for-gastroscopes",
   image: "/images/main/6.webp",
-  fallback: "linear-gradient(110deg, #2f4a1f 0%, #6d9440 50%, #b9cf86 100%)",
+  fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
 
 /** section_2 — Why Nolan Ball? (원본 .section_2) */
@@ -353,7 +353,7 @@ export const SUBHEADER_BG = {
   /** TEST & DATA · ABOUT / CONTACT */
   sub01: {
     image: "",
-    fallback: "linear-gradient(120deg, #12351f 0%, #2f6b3f 55%, #6ba15f 100%)",
+    fallback: "linear-gradient(120deg, #0b2c55 0%, #1667a5 55%, #73bde5 100%)",
   },
   /** (현재 메뉴에서 빠진 사업분야 페이지가 씁니다) */
   sub02: {
@@ -368,7 +368,7 @@ export const SUBHEADER_BG = {
   /** DOWNLOAD */
   sub04: {
     image: "",
-    fallback: "linear-gradient(120deg, #17241b 0%, #435d4b 55%, #8ca391 100%)",
+    fallback: "linear-gradient(120deg, #0a2947 0%, #275f8f 55%, #8fbcd8 100%)",
   },
 } as const;
 
@@ -618,7 +618,7 @@ export const OVERVIEW = {
   ],
   photo: "/images/sub11_img.webp",
   photoFallback:
-    "linear-gradient(135deg, #1f3d24 0%, #3f7a45 55%, #8bc07a 100%)",
+    "linear-gradient(135deg, #0b3157 0%, #2877ad 55%, #8cc7e5 100%)",
   /**
    * 회사 개요 표.
    * 자료정리 5-2 기준. 설립일·사업자등록번호·대표자명은 "공개 여부 및 최종 정보 확인"
@@ -637,7 +637,7 @@ export const OVERVIEW = {
   ],
   companyBg: "/images/sub11_bg.webp",
   companyBgFallback:
-    "linear-gradient(120deg, #0d2a17 0%, #1e5b30 55%, #35804a 100%)",
+    "linear-gradient(120deg, #061f3d 0%, #0f4f83 55%, #267fba 100%)",
 } as const;
 
 /**
@@ -1038,5 +1038,5 @@ export const ABOUT = {
   cta: "자세히 보기",
   href: "/about/overview",
   image: "/images/main/9.webp",
-  fallback: "linear-gradient(150deg, #1f2f3d 0%, #4a6b7a 60%, #8fb56a 100%)",
+  fallback: "linear-gradient(150deg, #102d4a 0%, #386d98 60%, #83b9d7 100%)",
 } as const;

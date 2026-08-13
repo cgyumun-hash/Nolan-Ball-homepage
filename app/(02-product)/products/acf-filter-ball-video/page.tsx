@@ -77,7 +77,7 @@ export default function AcfFilterBallVideoPage() {
               /* 영상 파일이 없을 때 — 자리와 파일명을 알려줍니다 */
               <div
                 className="flex aspect-video w-full flex-col items-center justify-center gap-3
-                           rounded-lg border border-dashed border-line bg-[#f4f6f3] text-center"
+                           rounded-lg border border-dashed border-line bg-[#f4f7fb] text-center"
               >
                 <span className="grid h-16 w-16 place-items-center rounded-full bg-brand-500 text-white">
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden>

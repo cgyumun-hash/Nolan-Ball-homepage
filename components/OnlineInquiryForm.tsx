@@ -122,7 +122,7 @@ export default function OnlineInquiryForm() {
         </div>
 
         <label className="mb-[60px] flex cursor-pointer items-center gap-3 text-[17px]">
-          <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 accent-[#1eac44]" />
+          <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 accent-brand-500" />
           <span>개인정보 수집·이용에 동의합니다.</span>
         </label>
 
@@ -184,7 +184,7 @@ export default function OnlineInquiryForm() {
         </div>
 
         {status === "success" && (
-          <p role="status" className="mt-8 text-center font-medium text-brand-500">
+          <p role="status" className="mt-8 text-center font-medium text-sky-700">
             {INQUIRY_FORM_MESSAGES.success}
           </p>
         )}

@@ -14,7 +14,7 @@ import { KEY_BENEFITS } from "@/lib/site";
  */
 export default function KeyBenefits() {
   return (
-    <section className="w-full bg-[#f6f7f4] py-[160px] max-b1080:py-[100px] max-b580:py-[70px]">
+    <section className="w-full bg-[#f4f8fb] py-[160px] max-b1080:py-[100px] max-b580:py-[70px]">
       <div className="wrap-in2">
         <div className="mb-[100px] grid grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] items-center gap-[80px]
                         max-b1080:mb-[70px] max-b1080:grid-cols-1 max-b1080:gap-[45px]">
@@ -53,7 +53,7 @@ export default function KeyBenefits() {
               key={item.no}
               className="border-t border-ink-900 py-[40px] max-b580:py-[28px]"
             >
-              <span className="gfont mb-4 block text-[18px] font-bold text-brand-500">
+              <span className="gfont mb-4 block text-[18px] font-bold text-sky-600">
                 {item.no}
               </span>
               <h3

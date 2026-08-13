@@ -59,7 +59,7 @@ export default function HowToUsePage() {
                            max-b980:flex-col max-b980:gap-4 max-b980:py-[30px]"
               >
                 <span
-                  className="gfont w-[120px] shrink-0 text-[46px] font-bold leading-none text-brand-500
+                  className="gfont w-[120px] shrink-0 text-[46px] font-bold leading-none text-sky-600
                              max-b1080:text-[36px] max-b980:w-auto"
                 >
                   {step.no}
@@ -111,7 +111,7 @@ export default function HowToUsePage() {
           </h3>
           <div
             className="flex aspect-video w-full items-center justify-center border border-line
-                       bg-[linear-gradient(160deg,#f7f8f6_0%,#e8ece6_100%)] p-8 text-center
+                       bg-[linear-gradient(160deg,#f7f9fc_0%,#e8f0f7_100%)] p-8 text-center
                        text-[15px] leading-[1.8] text-ink-500 max-b520:text-[13px]"
           >
             {HOW_TO_USE.videoNote}

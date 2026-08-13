@@ -70,7 +70,7 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
       ) : (
         /* 원본 아이콘 28×30 */
         <span
-          className="mt-0.5 grid h-[30px] w-[28px] shrink-0 place-items-center text-brand-500
+          className="mt-0.5 grid h-[30px] w-[28px] shrink-0 place-items-center text-sky-600
                      max-b980:h-5 max-b980:w-5 max-b860:mt-2.5"
           aria-hidden
         >

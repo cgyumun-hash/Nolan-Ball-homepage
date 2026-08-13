@@ -64,7 +64,7 @@ export default function BusinessAreasPage() {
           {/* .s1 — 상단 리드 */}
           <div className="mb-[250px] max-b1600:mb-[150px] max-b1200:mb-[100px]">
             <h4
-              className="font-display mb-2.5 text-[48px] text-brand-500
+              className="font-display mb-2.5 text-[48px] text-blue-700
                          max-b1600:text-[40px] max-b1200:text-[28px]"
             >
               {BUSINESS.leadTitle}
@@ -92,7 +92,7 @@ export default function BusinessAreasPage() {
                     /* 원본 이미지는 669×704 */
                     <div
                       className="flex aspect-[669/704] w-[669px] max-w-full items-center justify-center
-                                 bg-[linear-gradient(150deg,#e9efe6_0%,#c3d6bd_60%,#8fae86_100%)]
+                                 bg-[linear-gradient(150deg,#eaf2f8_0%,#c6dcec_60%,#8fbdda_100%)]
                                  text-[13px] text-white/90
                                  max-b1600:w-[500px] max-b548:w-full"
                     >

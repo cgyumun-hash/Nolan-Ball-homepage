@@ -58,7 +58,7 @@ export default function ResourcesDownloadsPage() {
                 {/* 문서 아이콘 (원본 아이콘 파일이 없어 인라인 SVG 로 그립니다) */}
                 <span
                   className={`grid h-[52px] w-[52px] shrink-0 place-items-center rounded-[10px] ${
-                    item.ready ? "bg-brand-500/10 text-brand-500" : "bg-line/60 text-ink-500"
+                    item.ready ? "bg-brand-500/10 text-sky-700" : "bg-line/60 text-ink-500"
                   }`}
                   aria-hidden
                 >

@@ -73,7 +73,7 @@ export default function OverviewPage() {
           {/* 초록 헤딩 — 980px 이하에서 absolute 를 풀고 흐름 안으로 들어옵니다 */}
           <RevealBottom className="absolute top-0 left-[38%] max-b1400:left-[43%] max-b1080:left-[38%] max-b980:static max-b980:left-0">
             <h2
-              className="gfont text-[100px] leading-[110px] text-[#0EC53F]
+              className="gfont text-[100px] leading-[110px] text-blue-700
                          max-b1600:text-[80px] max-b1600:leading-[100px]
                          max-b1400:text-[68px] max-b1400:leading-[83px]
                          max-b1080:text-[64px] max-b1080:leading-[72px]

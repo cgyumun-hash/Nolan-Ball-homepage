@@ -144,7 +144,7 @@ export default function SubHeader({
       <div className="wrap-in mt-5">
         <ul className="flex items-center text-ink-900 max-b860:text-[14px] max-b520:text-[12px]">
           <li className="mr-2.5">
-            <Link href="/" className="hover:text-brand-500">
+            <Link href="/" className="hover:text-sky-600">
               Home
             </Link>
           </li>

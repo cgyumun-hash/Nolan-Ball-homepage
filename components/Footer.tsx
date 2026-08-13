@@ -44,7 +44,7 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
             <a
               key={item.label}
               href={item.href}
-              className="transition-colors hover:text-brand-500"
+              className="transition-colors hover:text-sky-600"
             >
               {item.label}
             </a>

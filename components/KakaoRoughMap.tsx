@@ -93,7 +93,7 @@ export default function KakaoRoughMap({
 
   return (
     <div
-      className="relative w-full overflow-hidden bg-[#eef1ee]"
+      className="relative w-full overflow-hidden bg-[#eef4f8]"
       style={{ minHeight: `${height}px` }}
     >
       {/* 지도가 로드되면 이 위를 덮습니다 */}

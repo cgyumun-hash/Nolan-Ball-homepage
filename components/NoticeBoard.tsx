@@ -20,7 +20,7 @@ export default function NoticeBoard({
         <button
           type="button"
           onClick={() => setSearchOpen(true)}
-          className="grid h-10 w-10 place-items-center border border-line text-ink-900 transition-colors hover:border-brand-500 hover:text-brand-500"
+          className="grid h-10 w-10 place-items-center border border-line text-ink-900 transition-colors hover:border-brand-500 hover:text-sky-600"
           aria-label={`Search ${boardName}`}
         >
           <SearchIcon />
@@ -59,7 +59,7 @@ export default function NoticeBoard({
                 </strong>
               </td>
               <td className="px-5 text-left">
-                <button className="transition-colors hover:text-brand-500">Notice example</button>
+                <button className="transition-colors hover:text-sky-600">Notice example</button>
               </td>
               <td>hakambio</td>
               <td>94</td>

@@ -149,7 +149,7 @@ export default function TechnologyPage() {
                   ) : (
                     <div
                       className="flex aspect-[16/9] w-full items-center justify-center
-                                 border border-line bg-[linear-gradient(160deg,#f7f8f6_0%,#e8ece6_100%)]
+                                 border border-line bg-[linear-gradient(160deg,#f7f9fc_0%,#e8f0f7_100%)]
                                  p-6 text-center text-[13px] text-ink-500"
                     >
                       public{fig.image}
@@ -180,7 +180,7 @@ export default function TechnologyPage() {
                              max-b980:flex-col max-b980:gap-3 max-b980:py-[30px]"
                 >
                   <span
-                    className="gfont w-[100px] shrink-0 text-[40px] font-bold leading-none text-brand-500
+                    className="gfont w-[100px] shrink-0 text-[40px] font-bold leading-none text-blue-700
                                max-b1200:text-[32px] max-b980:w-auto"
                   >
                     {f.no}

@@ -111,7 +111,7 @@ export default function CertificationsPage() {
                 /* 원본 인증서 이미지는 406×550 (세로형) */
                 <div
                   className="flex aspect-[406/550] w-full items-center justify-center
-                             border border-line bg-[linear-gradient(160deg,#f7f8f6_0%,#e8ece6_100%)]
+                             border border-line bg-[linear-gradient(160deg,#f7f9fc_0%,#e8f0f7_100%)]
                              p-6 text-center text-[13px] text-ink-500"
                 >
                   public{cert.image}
