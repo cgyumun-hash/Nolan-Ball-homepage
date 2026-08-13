@@ -74,7 +74,6 @@ export const PRODUCTS_PAGES = [
     href: "/products/filter-ball-for-bronchoscopes",
   },
   { label: "HOW TO USE", href: "/how-to-use" },
-  { label: "제품 영상", href: "/products/acf-filter-ball-video" },
 ] as const;
 
 /** RESOURCES — 시험·데이터와 다운로드 자료를 한곳에 모읍니다. */
@@ -243,19 +242,85 @@ export const PRODUCT_SPECS = {
   note: "포장단위와 제품코드는 최종 확정 전이므로 실제 발주 전 담당자에게 확인해 주세요.",
 } as const;
 
-/** 시험 결과 요약 — 자료정리 4-1 표 그대로 */
-export const TEST_SUMMARY = {
-  heading: "시험 결과 요약",
-  rows: [
+/** 시험 결과 페이지 — 자료정리 4장과 제공된 9페이지 시험성적서 기준 */
+export const TEST_RESULTS = {
+  eyebrow: "MICROBIOLOGICAL TEST",
+  heading: "시험 결과",
+  lead:
+    "Nolan Ball의 채널 세척 공정 이후 시료를 외부 전문 검사기관의 일반세균배양 시험으로 확인했습니다. 아래 내용은 제공된 시험성적서 9건에 기록된 결과를 정리한 것입니다.",
+  resultLabel: "공통 결과",
+  result: "2일 배양 후 미생물 증식 없음",
+  resultEn: "No growth of microorganisms after 2-day culture.",
+  metrics: [
+    { value: "9건", label: "미생물검사 결과보고서" },
+    { value: "2.8 / 3.7 mm", label: "관련 시료 규격" },
+    { value: "3개 보고일", label: "2026.02.27 · 03.16 · 03.18" },
+  ],
+  details: [
     { label: "시험기관", value: "씨젠의료재단 씨젠의원" },
     { label: "시험 유형", value: "일반세균배양(MIC, 기타검체)" },
-    { label: "결과 표현", value: "2일 배양 후 미생물 증식 없음(No growth)" },
-    { label: "보고일", value: "2026.02.27 / 2026.03.16 / 2026.03.18" },
-    { label: "시료", value: "2.8 mm · 3.7 mm 관련 시료 (구형·와플형 포함) 총 9건" },
+    { label: "검사 코드", value: "D5854004Z" },
+    { label: "확인 범위", value: "2.8 mm · 3.7 mm 관련 시료, 구형·와플형 표기 시료" },
   ],
-  /** md 4-1 "필수 표기" */
+  batchesEyebrow: "TEST SERIES",
+  batchesTitle: "시험 구성과 결과",
+  batchesLead:
+    "제공된 자료의 시료명과 접수일을 기준으로 2.8 mm 시험군과 3.7 mm 시험군을 구분했습니다. 별도의 기초 확인 자료 1건을 포함해 총 9건의 원문이 제공되었습니다.",
+  batches: [
+    {
+      no: "01",
+      title: "1차 테스트",
+      spec: "2.8 mm",
+      received: "접수 2026.03.12",
+      reported: "보고 2026.03.16",
+      count: "2건",
+      image: "/images/sub14_4.webp",
+      body: "1-1, 1-2로 구분된 2.8 mm 관련 시료의 일반세균배양 결과를 확인했습니다.",
+    },
+    {
+      no: "02",
+      title: "2차 테스트",
+      spec: "2.8 mm",
+      received: "접수 2026.03.12",
+      reported: "보고 2026.03.16",
+      count: "2건",
+      image: "/images/sub14_2.webp",
+      body: "10-1, 10-2로 구분된 2.8 mm 관련 시료에서도 동일한 검사 결과 문구가 기록되었습니다.",
+    },
+    {
+      no: "03",
+      title: "3차 테스트",
+      spec: "3.7 mm",
+      received: "접수 2026.03.16",
+      reported: "보고 2026.03.18",
+      count: "4건",
+      image: "/images/sub14_6.webp",
+      body: "3.7 mm 구형·와플형 표기 시료를 각각 확인했으며, 4건 모두 같은 결과 문구가 기록되었습니다.",
+    },
+  ],
+  interpretationEyebrow: "CFU RESULT & INTERPRETATION",
+  interpretationTitle: "CFU 시험 결과 및 해석",
+  method:
+    "본 시험은 내시경 채널 세척 공정 후 채취한 시료에서 일반세균의 증식 여부를 확인하는 방식으로 진행되었습니다. 제공된 결과보고서에는 각 시료에 대해 2일 배양 후 미생물 증식 없음이 기재되어 있습니다.",
+  interpretations: [
+    {
+      no: "01",
+      title: "제공된 9건에서 동일한 결과 확인",
+      body: "2.8 mm 및 3.7 mm 관련 시료와 구형·와플형 표기 시료를 포함한 9건의 결과보고서 모두에서 동일한 ‘No growth’ 결과가 확인됩니다.",
+    },
+    {
+      no: "02",
+      title: "구조적 세정 메커니즘과 함께 해석",
+      body: "구형 본체의 전주면 접촉, 연속 와이핑과 밀어내기 작용은 채널 내 잔류 유기물을 물리적으로 제거하고 외부로 배출하는 세척 과정을 지원합니다.",
+    },
+    {
+      no: "03",
+      title: "시험 범위 안에서 결과 확인",
+      body: "이 결과는 해당 시료와 시험 조건에서 수행된 일반세균배양 결과입니다. 제품의 멸균 효과나 모든 임상 환경에서의 감염 예방을 의미하지 않으며, 세부 조건은 원문으로 확인해야 합니다.",
+    },
+  ],
   disclaimer:
-    "시험 조건과 시료 정보에 따라 결과가 달라질 수 있으며, 상세 내용은 시험성적서 원문을 참조해 주세요.",
+    "시험 조건과 시료 정보에 따라 결과가 달라질 수 있으며, 최종 판단에는 시험성적서 원문의 시료명·접수일·보고일과 검사 조건을 함께 확인해 주세요.",
 } as const;
 
 /**
@@ -282,13 +347,11 @@ export const DOWNLOADS = {
       ready: true,
     },
     {
-      name: "미생물검사 결과보고서",
+      name: "시험 성적서",
       desc: "씨젠의료재단 일반세균배양 시험성적서 9건",
       file: "/downloads/nolan-ball-test-report.pdf",
       size: "2.7 MB",
-      /** md 6장 공개 전 조치: "개인·기관 정보 공개 범위 확인" — 미완료 */
-      ready: false,
-      pending: "검사기관 담당자 실명·서명이 포함되어 있어 공개 범위 확인 후 게시합니다.",
+      ready: true,
     },
     {
       name: "사용설명서 (IFU)",
@@ -592,18 +655,6 @@ export const VALVE_PORT_BRUSH: FilterBall = {
     "Improves cleaning efficiency and convenience of maintenance",
   ],
 };
-
-/**
- * /sub/sub30.php — 제품소개 ▸ 제품 영상
- * 영상 파일(sub30_video.mp4)은 아직 없습니다. 자료정리 3-4 에 따라
- * 제품 가이드 영상을 확보하면 public/images/ 에 넣으세요.
- */
-export const PRODUCT_VIDEO = {
-  eyebrow: "PRODUCT",
-  title: "제품 영상",
-  sectionTitle: "Nolan Ball 알아보기",
-  video: "/images/sub30_video.mp4",
-} as const;
 
 /** /sub/sub11.php — About Us ▸ Overview */
 export const OVERVIEW = {

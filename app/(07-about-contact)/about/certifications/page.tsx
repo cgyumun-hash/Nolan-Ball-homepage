@@ -1,46 +1,23 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
+import Image from "next/image";
 
-import Header from "@/components/Header";
-import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
+import SubHeader from "@/components/SubHeader";
 import {
   CERTIFICATIONS,
   RESOURCES_PAGES,
   SUBHEADER_BG,
-  TEST_SUMMARY,
+  TEST_RESULTS,
 } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "인증·시험성적",
+  title: "시험 결과·성적서",
+  description:
+    "Nolan Ball 미생물검사 결과와 CFU 시험 결과 및 해석을 확인할 수 있습니다.",
 };
 
-function hasImage(src: string) {
-  return fs.existsSync(path.join(process.cwd(), "public", src));
-}
-
-/**
- * 원본 /sub/sub14.php
- *
- *   .sub14.pt250.pb300               250/300px → 1080↓ 150/200px
- *     .wrap_in2 { display:flex; flex-wrap:wrap;
- *                 justify-content:space-between; align-items:center; gap:15px }
- *                 860↓ justify-content:center
- *       ul   { width:400px; margin-bottom:60px; position:relative; cursor:pointer }
- *       img  { width:100% }                       원본 이미지 406×550
- *       li   { position:absolute; top:0; left:0; width:100%; height:100%;
- *              background:rgba(0,0,0,.8); padding:30px; display:none }
- *       li div { width:100%; height:100%; color:#fff; font-size:22px;
- *                text-align:center; GmarketSans; display:flex; 가운데 정렬 }
- *       ul:hover li { display:block }             ← 순수 CSS, JS 불필요
- *
- * 이 페이지에는 data-aos 속성이 없습니다 (AOS.init() 은 호출하지만 대상이 없음).
- * 그래서 스크롤 등장 효과를 넣지 않았습니다.
- *
- * hover 만 쓰므로 서버 컴포넌트입니다.
- */
 export default function CertificationsPage() {
   return (
     <>
@@ -56,77 +33,119 @@ export default function CertificationsPage() {
         bg={SUBHEADER_BG.resources}
       />
 
-      <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
-        {/* 자료정리 4-2 권장 표현 — 시험 결과를 단정하지 않고 원문 확인을 함께 안내합니다 */}
-        <p
-          className="wrap-in2 mb-[60px] text-[17px] leading-[1.8] text-ink-500
-                     max-b580:text-[15px]"
-        >
-          {CERTIFICATIONS.note}
-        </p>
-
-        {/* 시험 결과 요약 — 자료정리 4-1 */}
-        <div className="wrap-in2 mb-[100px] max-b1080:mb-[60px]">
-          <h3
-            className="gfont mb-[30px] text-[32px] font-bold text-ink-900
-                       max-b1080:text-[26px] max-b520:text-[21px]"
-          >
-            {TEST_SUMMARY.heading}
-          </h3>
-          <dl className="border-t border-ink-900">
-            {TEST_SUMMARY.rows.map((row) => (
-              <div
-                key={row.label}
-                className="flex border-b border-line py-[22px]
-                           max-b580:flex-col max-b580:gap-1.5 max-b580:py-4"
-              >
-                <dt className="w-[200px] shrink-0 text-[17px] font-bold text-ink-900 max-b580:w-full max-b580:text-[15px]">
-                  {row.label}
-                </dt>
-                <dd className="min-w-0 flex-1 text-[17px] leading-[1.7] text-ink-500 max-b580:text-[15px]">
-                  {row.value}
-                </dd>
+      <main>
+        <section aria-labelledby="test-results-title" className="py-[160px] max-b1080:py-[110px] max-b580:py-20">
+          <div className="wrap-in2">
+            <div className="grid grid-cols-[0.85fr_1.15fr] items-end gap-[90px] max-b1080:grid-cols-1 max-b1080:gap-8">
+              <div>
+                <p className="gfont mb-4 text-[14px] font-bold tracking-[0.2em] text-sky-600">
+                  {TEST_RESULTS.eyebrow}
+                </p>
+                <h2 id="test-results-title" className="gfont text-[64px] font-bold leading-[1.12] text-ink-900 max-b1080:text-[48px] max-b580:text-[36px]">
+                  {TEST_RESULTS.heading}
+                </h2>
               </div>
-            ))}
-          </dl>
-          {/* md 4-1 "필수 표기" — 빼면 안 됩니다 */}
-          <p className="mt-5 text-[15px] leading-[1.7] text-ink-500 max-b520:text-[13px]">
-            {TEST_SUMMARY.disclaimer}
-          </p>
-        </div>
+              <p className="text-[18px] leading-[1.85] text-ink-500 max-b580:text-[15px]">
+                {TEST_RESULTS.lead}
+              </p>
+            </div>
 
-        <div
-          className="wrap-in2 flex flex-wrap items-center justify-between gap-[15px]
-                     max-b860:justify-center"
-        >
-          {CERTIFICATIONS.items.map((cert) => (
-            <div
-              key={cert.image}
-              className="group relative mb-[60px] w-[400px] max-w-full cursor-pointer"
-            >
-              {hasImage(cert.image) ? (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={cert.image} alt={cert.label} className="w-full" />
-              ) : (
-                /* 원본 인증서 이미지는 406×550 (세로형) */
-                <div
-                  className="flex aspect-[406/550] w-full items-center justify-center
-                             border border-line bg-[linear-gradient(160deg,#f7f9fc_0%,#e8f0f7_100%)]
-                             p-6 text-center text-[13px] text-ink-500"
-                >
-                  public{cert.image}
+            <div className="mt-[80px] overflow-hidden rounded-[32px] bg-[linear-gradient(125deg,#092f58_0%,#075f9d_68%,#159ad6_100%)] text-white shadow-[0_25px_70px_rgba(8,65,112,0.2)] max-b580:mt-12 max-b580:rounded-[22px]">
+              <div className="grid grid-cols-[1.25fr_0.75fr] max-b860:grid-cols-1">
+                <div className="p-[60px] max-b1080:p-10 max-b580:p-7">
+                  <p className="mb-5 text-[13px] font-bold tracking-[0.16em] text-sky-200">
+                    {TEST_RESULTS.resultLabel}
+                  </p>
+                  <h3 className="max-w-[700px] text-[42px] font-bold leading-[1.3] max-b1080:text-[34px] max-b580:text-[27px]">
+                    {TEST_RESULTS.result}
+                  </h3>
+                  <p className="mt-5 text-[17px] text-sky-100 max-b580:text-[14px]">
+                    {TEST_RESULTS.resultEn}
+                  </p>
                 </div>
-              )}
-
-              {/* 원본 li — hover 시에만 나타나는 검은 오버레이 */}
-              <div className="absolute inset-0 hidden bg-black/80 p-[30px] group-hover:block">
-                <div className="gfont flex h-full w-full items-center justify-center text-center text-[22px] text-white">
-                  {cert.label}
+                <div className="grid border-l border-white/20 max-b860:grid-cols-3 max-b860:border-l-0 max-b860:border-t max-b580:grid-cols-1">
+                  {TEST_RESULTS.metrics.map((metric) => (
+                    <div key={metric.label} className="flex flex-col justify-center border-b border-white/20 p-7 last:border-b-0 max-b860:border-b-0 max-b860:border-r max-b860:last:border-r-0 max-b580:border-b max-b580:border-r-0 max-b580:last:border-b-0">
+                      <strong className="gfont text-[28px] font-bold max-b580:text-[23px]">{metric.value}</strong>
+                      <span className="mt-2 text-[13px] leading-[1.5] text-sky-100">{metric.label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+
+            <dl className="mt-10 grid grid-cols-4 border-y border-ink-900 max-b1080:grid-cols-2 max-b580:grid-cols-1">
+              {TEST_RESULTS.details.map((detail) => (
+                <div key={detail.label} className="border-r border-line px-7 py-7 last:border-r-0 max-b1080:even:border-r-0 max-b580:border-b max-b580:border-r-0 max-b580:last:border-b-0">
+                  <dt className="text-[13px] font-bold text-sky-700">{detail.label}</dt>
+                  <dd className="mt-3 text-[16px] font-medium leading-[1.65] text-ink-900 max-b580:text-[14px]">{detail.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        <section aria-labelledby="test-series-title" className="bg-[#f4f8fb] py-[150px] max-b1080:py-[100px] max-b580:py-20">
+          <div className="wrap-in2">
+            <div className="mb-[70px] grid grid-cols-[0.8fr_1.2fr] items-end gap-[80px] max-b1080:grid-cols-1 max-b1080:gap-7 max-b580:mb-12">
+              <div>
+                <p className="gfont mb-4 text-[14px] font-bold tracking-[0.2em] text-sky-600">{TEST_RESULTS.batchesEyebrow}</p>
+                <h2 id="test-series-title" className="gfont text-[54px] font-bold text-ink-900 max-b1080:text-[42px] max-b580:text-[32px]">{TEST_RESULTS.batchesTitle}</h2>
+              </div>
+              <p className="text-[17px] leading-[1.8] text-ink-500 max-b580:text-[14px]">{TEST_RESULTS.batchesLead}</p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6 max-b1080:grid-cols-1">
+              {TEST_RESULTS.batches.map((batch) => (
+                <article key={batch.no} className="overflow-hidden rounded-[24px] border border-sky-100 bg-white shadow-[0_12px_38px_rgba(9,67,112,0.08)]">
+                  <div className="relative aspect-[1073/760] overflow-hidden border-b border-line bg-white">
+                    <Image src={batch.image} alt={`${batch.title} ${batch.spec} 시험성적서 일부`} fill sizes="(max-width: 1080px) 100vw, 33vw" className="object-cover object-top" />
+                    <span className="absolute left-5 top-5 rounded-full bg-brand-500 px-4 py-2 text-[12px] font-bold text-white">{batch.count}</span>
+                  </div>
+                  <div className="p-8 max-b580:p-6">
+                    <div className="mb-5 flex items-start justify-between gap-5">
+                      <div>
+                        <p className="gfont mb-2 text-[13px] font-bold text-sky-600">TEST {batch.no}</p>
+                        <h3 className="text-[26px] font-bold text-ink-900 max-b580:text-[21px]">{batch.title}</h3>
+                      </div>
+                      <strong className="gfont whitespace-nowrap text-[24px] font-bold text-brand-500 max-b580:text-[20px]">{batch.spec}</strong>
+                    </div>
+                    <p className="min-h-[58px] text-[15px] leading-[1.75] text-ink-500 max-b1080:min-h-0 max-b580:text-[14px]">{batch.body}</p>
+                    <div className="mt-6 flex flex-wrap gap-2 text-[12px] text-sky-700">
+                      <span className="rounded-full bg-sky-50 px-3 py-2">{batch.received}</span>
+                      <span className="rounded-full bg-sky-50 px-3 py-2">{batch.reported}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="interpretation-title" className="py-[150px] max-b1080:py-[100px] max-b580:py-20">
+          <div className="wrap-in2 grid grid-cols-[0.82fr_1.18fr] gap-[90px] max-b1080:grid-cols-1 max-b1080:gap-12">
+            <div>
+              <p className="gfont mb-4 text-[14px] font-bold tracking-[0.16em] text-sky-600">{TEST_RESULTS.interpretationEyebrow}</p>
+              <h2 id="interpretation-title" className="gfont text-[52px] font-bold leading-[1.2] text-ink-900 max-b1080:text-[42px] max-b580:text-[31px]">{TEST_RESULTS.interpretationTitle}</h2>
+              <p className="mt-8 text-[17px] leading-[1.9] text-ink-500 max-b580:text-[14px]">{TEST_RESULTS.method}</p>
+            </div>
+
+            <ol className="border-t border-ink-900">
+              {TEST_RESULTS.interpretations.map((item) => (
+                <li key={item.no} className="grid grid-cols-[66px_1fr] gap-5 border-b border-line py-8 max-b580:grid-cols-[44px_1fr] max-b580:gap-3 max-b580:py-6">
+                  <span className="gfont text-[18px] font-bold text-brand-500">{item.no}</span>
+                  <div>
+                    <h3 className="text-[23px] font-bold text-ink-900 max-b580:text-[19px]">{item.title}</h3>
+                    <p className="mt-3 text-[16px] leading-[1.8] text-ink-500 max-b580:text-[14px]">{item.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="col-span-2 border-l-2 border-sky-300 pl-5 text-[14px] leading-[1.75] text-ink-500 max-b1080:col-span-1">
+              {TEST_RESULTS.disclaimer}
+            </p>
+          </div>
+        </section>
       </main>
 
       <Footer bordered />
