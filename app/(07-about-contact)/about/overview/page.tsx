@@ -7,10 +7,10 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import RevealBottom from "@/components/RevealBottom";
-import { ABOUT_CONTACT_PAGES, OVERVIEW, SUBHEADER_BG } from "@/lib/site";
+import { COMPANY_PAGES, OVERVIEW, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "회사 개요",
+  title: "회사소개",
 };
 
 function hasImage(src: string) {
@@ -62,10 +62,10 @@ export default function OverviewPage() {
       <SubHeader
         eyebrow={OVERVIEW.eyebrow}
         title={OVERVIEW.title}
-        pager={ABOUT_CONTACT_PAGES}
+        pager={COMPANY_PAGES}
         current={OVERVIEW.title}
         breadcrumb={[OVERVIEW.eyebrow, OVERVIEW.title]}
-        bg={SUBHEADER_BG.sub01}
+        bg={SUBHEADER_BG.company}
       />
 
       <main className="relative pt-[250px] max-b1080:pt-[150px]">

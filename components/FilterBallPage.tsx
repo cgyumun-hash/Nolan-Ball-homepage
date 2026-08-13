@@ -100,7 +100,7 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
         pager={PRODUCTS_PAGES}
         current={data.title}
         breadcrumb={[data.eyebrow, data.title]}
-        bg={SUBHEADER_BG.sub03}
+        bg={SUBHEADER_BG.product}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">

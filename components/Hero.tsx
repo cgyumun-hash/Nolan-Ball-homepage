@@ -89,11 +89,11 @@ export default function Hero() {
 
             {/* 원본은 h2 가 슬라이드 안에 있어 이미지와 함께 넘어갑니다 */}
             <h2
-              className="headline-font absolute bottom-[160px] left-[8%] right-[8%]
-                         text-[60px] leading-[100px] text-white
-                         max-b1600:text-[48px] max-b1600:leading-[75px]
-                         max-b1080:text-[38px] max-b1080:leading-[56px]
-                         max-b856:bottom-[130px] max-b856:text-[28px] max-b856:leading-[45px]"
+              className="absolute bottom-[160px] left-[8%] right-[8%] font-display font-bold
+                         text-[64px] leading-[1.42] tracking-[-0.025em] text-white
+                         max-b1600:text-[52px]
+                         max-b1080:text-[40px]
+                         max-b856:bottom-[130px] max-b856:text-[29px] max-b856:leading-[1.5]"
             >
               {slide.lines[0]}
               {/* 원본 br.mo_br — 580px 이하에서 숨겨져 한 줄로 흐릅니다 */}

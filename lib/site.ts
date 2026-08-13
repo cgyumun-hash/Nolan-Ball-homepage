@@ -49,9 +49,8 @@ export type NavItem = {
 };
 
 /**
- * 상단 메뉴는 MAIN · PRODUCT · TECHNOLOGY · ABOUT / CONTACT 4개로 구성합니다.
- * HOW TO USE는 PRODUCT에,
- * TEST & DATA와 DOWNLOAD는 ABOUT / CONTACT에 포함합니다.
+ * 상단 메뉴는 MAIN · PRODUCT · TECHNOLOGY · RESOURCES · COMPANY 5개로 구성합니다.
+ * HOW TO USE는 PRODUCT에 포함합니다.
  * GNB · 사이드바 · 푸터 · 서브페이지 탭(.sub_pager)이 모두 아래를 씁니다.
  * 라우트는 하캄바이오 구조를 최대한 재사용해 페이지 이동을 최소화했습니다.
  * (신규 라우트는 /how-to-use 하나뿐입니다.)
@@ -78,14 +77,21 @@ export const PRODUCTS_PAGES = [
   { label: "제품 영상", href: "/products/acf-filter-ball-video" },
 ] as const;
 
-/** ABOUT / CONTACT — 자료정리 5장 */
-export const ABOUT_CONTACT_PAGES = [
-  { label: "회사 소개", href: "/about/overview" },
+/** RESOURCES — 시험·데이터와 다운로드 자료를 한곳에 모읍니다. */
+export const RESOURCES_PAGES = [
+  { label: "시험 결과·성적서", href: "/about/certifications" },
+  { label: "자료 다운로드", href: "/customer-support/resources-downloads" },
+] as const;
+
+/** COMPANY — 회사 정보와 문의 */
+export const COMPANY_PAGES = [
+  { label: "회사소개", href: "/about/overview" },
   { label: "오시는 길", href: "/about/location" },
   { label: "온라인 문의", href: "/customer-support/online-inquiry" },
-  { label: "TEST & DATA", href: "/about/certifications" },
-  { label: "DOWNLOAD", href: "/customer-support/resources-downloads" },
 ] as const;
+
+/** 메뉴에서 제외된 이전 페이지와의 호환용 목록 */
+export const ABOUT_CONTACT_PAGES = COMPANY_PAGES;
 
 /** 서브페이지 탭(.sub_pager)이 단독 페이지에서도 필요해 배열로 둡니다 */
 export const TECHNOLOGY_PAGES = [
@@ -106,9 +112,14 @@ export const NAV: NavItem[] = [
     children: [],
   },
   {
-    label: "ABOUT / CONTACT",
+    label: "RESOURCES",
+    href: "/about/certifications",
+    children: [...RESOURCES_PAGES],
+  },
+  {
+    label: "COMPANY",
     href: "/about/overview",
-    children: [...ABOUT_CONTACT_PAGES],
+    children: [...COMPANY_PAGES],
   },
 ];
 
@@ -127,20 +138,20 @@ export const LANGS = [
 export const SLIDES = [
   {
     id: "slide_1",
-    lines: ["안전하고 지속 가능한", "내시경 위생 환경을 향해"],
+    lines: ["내시경 세척의 새로운 기준", "Nolan Ball"],
     image: "/images/main/1.webp",
     /** 사진이 없을 때 대신 보일 배경 */
     fallback: "linear-gradient(115deg, #6b7a3a 0%, #a99b5e 55%, #d8c68a 100%)",
   },
   {
     id: "slide_2",
-    lines: ["내시경 재처리 전 과정의", "위생 기준을 혁신합니다"],
+    lines: ["내시경 세척의", "새로운 혁신을 제공합니다"],
     image: "/images/main/3.webp",
     fallback: "linear-gradient(115deg, #23433a 0%, #4c7a63 55%, #9dc3a4 100%)",
   },
   {
     id: "slide_3",
-    lines: ["환자 중심의 혁신,", "책임과 협력으로 이어갑니다"],
+    lines: ["세척을 넘어", "책임과 협력으로 신뢰를 이어갑니다"],
     image: "/images/main/4.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
@@ -183,8 +194,9 @@ export const HERO_ACTIONS: {
  * 4-3 표현 수위에 따라 "10초"는 "회사 자료 기준"이라는 단서를 붙여 씁니다.
  */
 export const KEY_BENEFITS = {
-  heading: "핵심 장점",
-  lead: "Nolan Ball 은 내시경 채널의 굴곡과 내벽에 밀착하여 연속적인 와이핑과 밀어내기 작용을 구현합니다. 기존 브러시 방식에서 발생할 수 있는 세척 편차와 사각지대를 줄이고, 보다 신속하고 균일한 수동 세척 공정을 지원합니다.",
+  heading: "4대 핵심 장점",
+  keyMessage: "사용자의 숙련도와 관계없이 빠르고 균일한 고품질 세척을 제공합니다.",
+  supportingText: "Nolan Ball은 내시경 채널 내벽에 360° 밀착하여 혈액, 점액, 단백질 등 잔류 오염물의 물리적 제거를 돕는 일회용 채널 세척 솔루션입니다.",
   items: [
     {
       no: "01",
@@ -207,15 +219,8 @@ export const KEY_BENEFITS = {
       body: "수분 반응형 비가역 변색 구조를 통해 사용 여부를 직관적으로 확인하도록 설계되었습니다.",
     },
   ],
-  sustainability: {
-    eyebrow: "SUSTAINABILITY",
-    title: "폐기물 부피 부담 완화",
-    body: "Nolan Ball은 기존 일회용 채널 세척 브러시보다 작고 단순한 볼 형태로 설계되어, 사용 후 발생하는 폐기물의 부피 부담을 줄이는 데 도움을 줄 수 있습니다. 실제 감소 정도는 사용량과 기관별 폐기 기준에 따라 달라질 수 있습니다.",
-  },
-  /* 제품소개서 8쪽을 통째로 렌더한 것이라 제목·라벨·설명이 이미지 안에 들어 있습니다.
-     캡션에서 같은 내용을 되풀이하지 않고 출처만 밝힙니다. */
-  image: "/images/product_before_after.webp",
-  imageCaption: "출처 — Nolan Ball 제품소개서",
+  image: "/images/main/11.webp",
+  imageAlt: "Nolan Ball 내시경 채널 세척 제품",
 } as const;
 
 /**
@@ -320,6 +325,31 @@ export const DOWNLOADS = {
  * 배너 사진 고를 때: 제목이 왼쪽에 흰색으로 얹히므로 왼쪽 절반이 어두워야 읽힙니다.
  */
 export const SUBHEADER_BG = {
+  /** COMPANY */
+  company: {
+    image: "/images/company/3.webp",
+    position: "center 25%",
+    overlay: "linear-gradient(90deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.10) 52%, rgba(0,0,0,0.07) 100%)",
+    fallback: "linear-gradient(120deg, #173247 0%, #47758f 55%, #9bc2d2 100%)",
+  },
+  /** RESOURCES */
+  resources: {
+    image: "/images/resources/1.webp",
+    position: "center 66%",
+    selectiveBlur: true,
+    fallback: "linear-gradient(120deg, #163247 0%, #3c7189 55%, #8cb4c1 100%)",
+  },
+  /** PRODUCT */
+  product: {
+    image: "/images/product/1.webp",
+    position: "center 56%",
+    fallback: "linear-gradient(120deg, #061b2d 0%, #0d4e74 55%, #258eac 100%)",
+  },
+  /** TECHNOLOGY */
+  technology: {
+    image: "/images/technology/1.webp",
+    fallback: "linear-gradient(120deg, #102c4a 0%, #285d8c 55%, #6aa2c8 100%)",
+  },
   /** TEST & DATA · ABOUT / CONTACT */
   sub01: {
     image: "",
@@ -577,8 +607,8 @@ export const PRODUCT_VIDEO = {
 
 /** /sub/sub11.php — About Us ▸ Overview */
 export const OVERVIEW = {
-  eyebrow: "회사소개",
-  title: "Overview",
+  eyebrow: "COMPANY",
+  title: "회사소개",
   /** 초록 100px 헤딩 — 원본은 <br class="no_br"> 로 3줄, 980px 이하에서 한 줄로 흐름 */
   headline: ["내시경 세척의", "새로운 기준,", "Nolan Ball"],
   paragraphs: [
@@ -882,7 +912,7 @@ const TRANSIT: TransitRow[] = [
 
 /** /sub/sub15.php — 회사소개 ▸ 오시는 길 */
 export const LOCATION = {
-  eyebrow: "ABOUT / CONTACT",
+  eyebrow: "COMPANY",
   title: "오시는 길",
   officeTitle: "본사",
   officeAddress: "부산광역시 금정구 서부곡로 16번길 8-1, 알찬빌딩 1층",
@@ -907,7 +937,7 @@ export const LOCATION = {
  * hover 하면 rgba(0,0,0,.8) 오버레이 위에 제목이 뜹니다 (순수 CSS).
  */
 export const CERTIFICATIONS = {
-  eyebrow: "TEST & DATA",
+  eyebrow: "RESOURCES",
   title: "시험 결과·성적서",
   /**
    * 자료정리 4-1 기준 안내 문구.
