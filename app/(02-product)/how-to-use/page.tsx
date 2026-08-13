@@ -4,14 +4,14 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
-import { HOW_TO_USE, HOW_TO_USE_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { HOW_TO_USE, PRODUCTS_PAGES, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "사용 방법",
 };
 
 /**
- * 자료정리 1-2 의 HOW TO USE 메뉴에 해당하는 신규 페이지입니다.
+ * PRODUCT 하위의 HOW TO USE 페이지입니다.
  * 레이아웃은 기존 서브페이지(sub21 계열)와 같은 뼈대를 씁니다.
  *   .subheader_outer → SubHeader
  *   main.pt250.pb300 → 1080px 이하 150/200
@@ -26,8 +26,8 @@ export default function HowToUsePage() {
       <SubHeader
         eyebrow={HOW_TO_USE.eyebrow}
         title={HOW_TO_USE.title}
-        pager={HOW_TO_USE_PAGES}
-        current={HOW_TO_USE.title}
+        pager={PRODUCTS_PAGES}
+        current="HOW TO USE"
         breadcrumb={[HOW_TO_USE.eyebrow]}
         bg={SUBHEADER_BG.sub03}
       />

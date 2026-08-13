@@ -49,7 +49,9 @@ export type NavItem = {
 };
 
 /**
- * 메뉴는 자료정리 1-2 "추천 홈페이지 메뉴" 7개를 따릅니다.
+ * 상단 메뉴는 MAIN · PRODUCT · TECHNOLOGY · ABOUT / CONTACT 4개로 구성합니다.
+ * HOW TO USE는 PRODUCT에,
+ * TEST & DATA와 DOWNLOAD는 ABOUT / CONTACT에 포함합니다.
  * GNB · 사이드바 · 푸터 · 서브페이지 탭(.sub_pager)이 모두 아래를 씁니다.
  * 라우트는 하캄바이오 구조를 최대한 재사용해 페이지 이동을 최소화했습니다.
  * (신규 라우트는 /how-to-use 하나뿐입니다.)
@@ -72,6 +74,7 @@ export const PRODUCTS_PAGES = [
     label: "기관지 내시경용 2.8mm",
     href: "/products/filter-ball-for-bronchoscopes",
   },
+  { label: "HOW TO USE", href: "/how-to-use" },
   { label: "제품 영상", href: "/products/acf-filter-ball-video" },
 ] as const;
 
@@ -80,23 +83,13 @@ export const ABOUT_CONTACT_PAGES = [
   { label: "회사 소개", href: "/about/overview" },
   { label: "오시는 길", href: "/about/location" },
   { label: "온라인 문의", href: "/customer-support/online-inquiry" },
+  { label: "TEST & DATA", href: "/about/certifications" },
+  { label: "DOWNLOAD", href: "/customer-support/resources-downloads" },
 ] as const;
 
 /** 서브페이지 탭(.sub_pager)이 단독 페이지에서도 필요해 배열로 둡니다 */
 export const TECHNOLOGY_PAGES = [
   { label: "기술 개요", href: "/about/technology-overview" },
-] as const;
-
-export const HOW_TO_USE_PAGES = [
-  { label: "사용 방법", href: "/how-to-use" },
-] as const;
-
-export const TEST_DATA_PAGES = [
-  { label: "시험 결과·성적서", href: "/about/certifications" },
-] as const;
-
-export const DOWNLOAD_PAGES = [
-  { label: "자료 다운로드", href: "/customer-support/resources-downloads" },
 ] as const;
 
 /** 상단 GNB · 좌측 사이드바 · 푸터가 공유합니다 */
@@ -110,13 +103,6 @@ export const NAV: NavItem[] = [
   {
     label: "TECHNOLOGY",
     href: "/about/technology-overview",
-    children: [],
-  },
-  { label: "HOW TO USE", href: "/how-to-use", children: [] },
-  { label: "TEST & DATA", href: "/about/certifications", children: [] },
-  {
-    label: "DOWNLOAD",
-    href: "/customer-support/resources-downloads",
     children: [],
   },
   {
@@ -221,6 +207,11 @@ export const KEY_BENEFITS = {
       body: "수분 반응형 비가역 변색 구조를 통해 사용 여부를 직관적으로 확인하도록 설계되었습니다.",
     },
   ],
+  sustainability: {
+    eyebrow: "SUSTAINABILITY",
+    title: "폐기물 부피 부담 완화",
+    body: "Nolan Ball은 기존 일회용 채널 세척 브러시보다 작고 단순한 볼 형태로 설계되어, 사용 후 발생하는 폐기물의 부피 부담을 줄이는 데 도움을 줄 수 있습니다. 실제 감소 정도는 사용량과 기관별 폐기 기준에 따라 달라질 수 있습니다.",
+  },
   /* 제품소개서 8쪽을 통째로 렌더한 것이라 제목·라벨·설명이 이미지 안에 들어 있습니다.
      캡션에서 같은 내용을 되풀이하지 않고 출처만 밝힙니다. */
   image: "/images/product_before_after.webp",

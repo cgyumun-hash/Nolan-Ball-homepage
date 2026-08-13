@@ -62,8 +62,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
           </Link>
 
           {/* ── GNB ─────────────────────────────────────────────── */}
-          {/* 메뉴가 4개에서 7개로 늘어 고정 폭(w-1/5) 대신 flex-1 로 나눕니다.
-              글자 수 차이가 커서 whitespace-nowrap 으로 줄바꿈을 막습니다. */}
+          {/* 4개 대분류를 동일한 폭으로 나누고 줄바꿈을 막습니다. */}
           <nav className="hidden w-[74%] items-center justify-between text-center b1080:flex">
             {NAV.map((item) => (
               <div

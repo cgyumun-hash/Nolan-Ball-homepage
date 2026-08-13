@@ -8,7 +8,7 @@ import { ABOUT } from "@/lib/site";
  * 원본 .section_4
  *   padding-top:100px; margin-top:60px   1400↓ margin-top:0
  *   h2  .gfont.fs80 → 80px · margin-left:120px
- *       1600↓ 64px + ml:100px · 1080↓ 50px + ml:0 + 가운데
+ *       2200↓ 68px · 1600↓ 64px + ml:100px · 1080↓ 50px + ml:0 + 가운데
  *   .w1 { border-top/bottom:1px solid #333; display:flex; position:relative }
  *       1200↓ align-items:center · 1080↓ flex-direction:column-reverse
  *   .s1 { padding:60px; border-left:1px solid #333; margin-left:100px; width:50% }
@@ -26,6 +26,7 @@ export default function About() {
     <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0">
       <h2
         className="gfont ml-[120px] text-[80px] font-bold uppercase leading-[1.15] text-ink-900
+                   max-[2200px]:text-[68px]
                    max-b1600:ml-[100px] max-b1600:text-[64px]
                    max-b1080:ml-0 max-b1080:text-center max-b1080:text-[50px]"
       >

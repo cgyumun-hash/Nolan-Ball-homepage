@@ -89,7 +89,7 @@ export default function Hero() {
 
             {/* 원본은 h2 가 슬라이드 안에 있어 이미지와 함께 넘어갑니다 */}
             <h2
-              className="absolute bottom-[160px] left-[8%] right-[8%] font-display
+              className="headline-font absolute bottom-[160px] left-[8%] right-[8%]
                          text-[60px] leading-[100px] text-white
                          max-b1600:text-[48px] max-b1600:leading-[75px]
                          max-b1080:text-[38px] max-b1080:leading-[56px]
