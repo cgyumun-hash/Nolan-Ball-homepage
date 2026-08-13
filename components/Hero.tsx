@@ -95,7 +95,7 @@ export default function Hero() {
                          max-b1600:text-[52px]
                          max-b1080:bottom-[220px] max-b1080:text-[40px]
                          max-b856:bottom-[205px] max-b856:text-[29px] max-b856:leading-[1.4]
-                         max-b580:bottom-[105px] max-b580:left-6 max-b580:right-6 max-b580:text-[clamp(25px,7.5vw,31px)] max-b580:leading-[1.3]"
+                         max-b580:bottom-[185px] max-b580:left-6 max-b580:right-6 max-b580:text-[clamp(25px,7.5vw,31px)] max-b580:leading-[1.3]"
             >
               {slide.lines[0]}
               {/* 원본 br.mo_br — 580px 이하에서 숨겨져 한 줄로 흐릅니다 */}
@@ -119,7 +119,7 @@ export default function Hero() {
             <Link
               key={action.href}
               href={action.href}
-              className={`gfont rounded-[50px] px-[26px] py-3 text-[15px] font-extrabold
+              className={`gfont min-w-0 rounded-[50px] px-[26px] py-3 text-[15px] font-extrabold
                         transition-colors max-b1600:px-5 max-b1600:py-2.5 max-b1600:text-[13px]
                         ${
                           action.primary
@@ -132,11 +132,30 @@ export default function Hero() {
           ))}
         </div>
 
+        <nav
+          aria-label="주요 바로가기"
+          className="absolute inset-x-4 bottom-6 z-20 hidden gap-1.5 max-b580:flex"
+        >
+          {HERO_ACTIONS.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className={`gfont flex min-h-10 min-w-0 flex-1 basis-0 items-center justify-center rounded-full px-1 py-2 text-center text-[10px] font-extrabold leading-tight transition-colors ${
+                action.primary
+                  ? "bg-accent-500 text-white hover:bg-accent-500/90"
+                  : "border border-white/70 text-white hover:bg-white hover:text-ink-900"
+              }`}
+            >
+              {action.label}
+            </Link>
+          ))}
+        </nav>
+
       {/* ── .c1 : 진행바 + ‹ 1 / 3 › ─────────────────────────────── */}
         <div
           className="absolute bottom-[100px] left-[160px] z-10 flex items-center gap-5
                      max-b1080:bottom-[50px] max-b1080:left-[60px]
-                     max-b580:bottom-9 max-b580:left-6 max-b580:right-6 max-b580:gap-3"
+                     max-b580:bottom-[82px] max-b580:!left-5 max-b580:!right-5 max-b580:gap-3"
         >
         {/* .autoplay-progress-bar */}
           <div className="relative h-[2px] w-[300px] overflow-hidden rounded-[6px] bg-white/12 max-b856:w-[150px] max-b580:min-w-0 max-b580:flex-1">
@@ -148,7 +167,7 @@ export default function Hero() {
         </div>
 
         {/* .nav_bar */}
-          <div className="flex shrink-0 items-center gap-5 font-display text-[18px] text-white max-b1600:text-[14px] max-b580:gap-3">
+          <div className="flex shrink-0 items-center gap-5 font-display text-[18px] text-white max-b1600:text-[14px] max-b580:gap-2.5 max-b580:text-[12px]">
           <button
             onClick={() => swiper?.slidePrev()}
             aria-label="이전 슬라이드"
@@ -176,23 +195,6 @@ export default function Hero() {
         </div>
       </div>
 
-      <nav aria-label="주요 바로가기" className="hidden border-b border-line bg-white px-5 py-5 max-b580:block">
-        <div className="mx-auto grid max-w-[440px] grid-cols-1 gap-2.5">
-          {HERO_ACTIONS.map((action) => (
-            <Link
-              key={action.href}
-              href={action.href}
-              className={`gfont flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-center text-[14px] font-extrabold transition-colors ${
-                action.primary
-                  ? "bg-accent-500 text-white hover:bg-accent-500/90"
-                  : "border border-brand-500 text-brand-500 hover:bg-brand-500 hover:text-white"
-              }`}
-            >
-              {action.label}
-            </Link>
-          ))}
-        </div>
-      </nav>
     </section>
   );
 }

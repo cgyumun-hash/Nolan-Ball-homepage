@@ -19,6 +19,7 @@ import { PRODUCTS } from "@/lib/site";
 export default function Products() {
   return (
     <section
+      id="products"
       className="relative h-screen min-h-[640px] w-full overflow-hidden max-b1400:h-[80vh] max-b580:h-[72svh] max-b580:min-h-[560px]"
       style={{ backgroundImage: PRODUCTS.fallback }}
     >
@@ -33,21 +34,21 @@ export default function Products() {
                      [text-shadow:0_3px_6px_rgba(0,0,0,0.16),0_3px_6px_rgba(0,0,0,0.23)]
                      max-b1200:right-[100px]
                      max-b1080:right-[50px]
-                     max-b580:left-6 max-b580:right-6 max-b580:top-auto max-b580:bottom-14 max-b580:translate-y-0"
+                     max-b580:left-1/2 max-b580:right-4 max-b580:top-1/2 max-b580:bottom-auto max-b580:-translate-y-1/2"
       >
           <Image
             src="/images/main/logo.webp"
             alt="Nolan Ball Korea"
             width={633}
             height={161}
-            className="h-auto w-[250px] drop-shadow-md max-b1080:w-[210px] max-b580:w-[180px]"
+            className="h-auto w-[250px] max-w-full drop-shadow-md max-b1080:w-[210px] max-b580:w-[140px]"
           />
 
           <h3
             className="gfont mt-[15px] mb-2.5 text-[80px] font-bold leading-none
                        max-b1600:text-[63px]
                        max-b1080:mb-0 max-b1080:text-[48px]
-                       max-b580:text-[clamp(34px,10vw,46px)]"
+                       max-b580:mt-3 max-b580:text-[clamp(24px,7vw,30px)]"
           >
             {PRODUCTS.heading}
           </h3>
@@ -56,7 +57,7 @@ export default function Products() {
             className="mb-[80px] text-[22px]
                        max-b1600:text-[20px]
                        max-b1080:mb-[50px] max-b1080:text-[18px]
-                       max-b580:text-[16px]"
+                       max-b580:mb-7 max-b580:text-[13px] max-b580:leading-[1.45]"
           >
             {PRODUCTS.desc}
           </p>
@@ -65,7 +66,8 @@ export default function Products() {
             href={PRODUCTS.href}
             className="gfont inline-block rounded-[50px] bg-accent-500 px-[30px] py-2.5
                        text-[16px] font-extrabold text-white transition-opacity hover:opacity-90
-                       max-b1600:px-5 max-b1600:py-[5px] max-b1600:text-[14px]"
+                       max-b1600:px-5 max-b1600:py-[5px] max-b1600:text-[14px]
+                       max-b580:px-4 max-b580:py-2 max-b580:text-[12px]"
           >
             {PRODUCTS.cta}
           </Link>
