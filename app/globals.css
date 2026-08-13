@@ -56,6 +56,12 @@
     overflow-x: hidden;
   }
 
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+  }
+
   ::selection {
     @apply bg-brand-500 text-white;
   }
@@ -67,6 +73,12 @@
        max-width:1600  width: 90%                                   */
   .wrap-in {
     @apply relative mx-auto w-[90%];
+  }
+  @media screen and (max-width: 580px) {
+    .wrap-in,
+    .wrap-in2 {
+      width: calc(100% - 40px);
+    }
   }
   @media screen and (min-width: 1601px) {
     .wrap-in {

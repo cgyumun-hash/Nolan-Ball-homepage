@@ -62,10 +62,10 @@ export default function LocationPage() {
         bg={SUBHEADER_BG.company}
       />
 
-      <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
+      <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px] max-b580:pt-20 max-b580:pb-[120px]">
         <div className="wrap-in">
           {/* ── .w1 : 본사 주소 + 지도 ──────────────────────────── */}
-          <div className="mb-[200px]">
+          <div className="mb-[200px] max-b580:mb-[100px]">
             <div className="flex items-center gap-[15px]">
               <div className="h-[50px] w-2.5 shrink-0 bg-brand-500 max-b1200:h-[35px]" />
               <h4 className="gfont text-[48px] max-b1200:text-[36px] max-b520:mb-2.5 max-b520:text-[28px]">
@@ -105,7 +105,7 @@ export default function LocationPage() {
               return (
                 <ul
                   key={row.label}
-                  className={`flex items-start bg-[#FAFAFA] p-10
+                  className={`flex items-start bg-[#FAFAFA] p-10 max-b580:p-6
                               shadow-[0_3px_6px_rgba(0,0,0,0.16),0_3px_6px_rgba(0,0,0,0.23)]
                               max-b860:flex-col
                               ${
@@ -131,7 +131,7 @@ export default function LocationPage() {
                         </svg>
                       </span>
                     )}
-                    <h6 className="gfont mr-[80px] shrink-0 text-[24px] text-[#615B5F] max-b980:mr-[60px] max-b980:text-[20px]">
+                    <h6 className="gfont mr-[80px] shrink-0 text-[24px] text-[#615B5F] max-b980:mr-[60px] max-b980:text-[20px] max-b580:mr-0">
                       {row.label}
                     </h6>
                   </li>

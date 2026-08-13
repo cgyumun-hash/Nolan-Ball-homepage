@@ -19,7 +19,7 @@ import { PRODUCTS } from "@/lib/site";
 export default function Products() {
   return (
     <section
-      className="relative h-screen w-full overflow-hidden max-b1400:h-[80vh]"
+      className="relative h-screen min-h-[640px] w-full overflow-hidden max-b1400:h-[80vh] max-b580:h-[72svh] max-b580:min-h-[560px]"
       style={{ backgroundImage: PRODUCTS.fallback }}
     >
       {/* 사진이 없으면 위 그라디언트가 그대로 보입니다 */}
@@ -33,7 +33,7 @@ export default function Products() {
                      [text-shadow:0_3px_6px_rgba(0,0,0,0.16),0_3px_6px_rgba(0,0,0,0.23)]
                      max-b1200:right-[100px]
                      max-b1080:right-[50px]
-                     max-b580:right-auto max-b580:left-[50px]"
+                     max-b580:left-6 max-b580:right-6 max-b580:top-auto max-b580:bottom-14 max-b580:translate-y-0"
       >
           <Image
             src="/images/main/logo.webp"
@@ -47,7 +47,7 @@ export default function Products() {
             className="gfont mt-[15px] mb-2.5 text-[80px] font-bold leading-none
                        max-b1600:text-[63px]
                        max-b1080:mb-0 max-b1080:text-[48px]
-                       max-b580:text-[36px]"
+                       max-b580:text-[clamp(34px,10vw,46px)]"
           >
             {PRODUCTS.heading}
           </h3>

@@ -14,10 +14,11 @@ import { KEY_BENEFITS } from "@/lib/site";
  */
 export default function KeyBenefits() {
   return (
-    <section className="w-full bg-[#f4f8fb] py-[160px] max-b1080:py-[100px] max-b580:py-[70px]">
+    <section className="w-full bg-[#f4f8fb] py-[160px] max-b1080:py-[100px] max-b580:py-[64px]">
       <div className="wrap-in2">
         <div className="mb-[100px] grid grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] items-center gap-[80px]
-                        max-b1080:mb-[70px] max-b1080:grid-cols-1 max-b1080:gap-[45px]">
+                        max-b1080:mb-[70px] max-b1080:grid-cols-1 max-b1080:gap-[45px]
+                        max-b580:mb-12 max-b580:gap-8">
           <div>
             <h2
               className="gfont mb-[35px] text-[76px] font-bold leading-[1.15] text-ink-900

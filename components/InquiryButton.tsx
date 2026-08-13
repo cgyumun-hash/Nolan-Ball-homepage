@@ -11,20 +11,22 @@ import Link from "next/link";
  * globals.css 에서 같은 움직임을 transform 으로 구현했습니다.
  * CSS 애니메이션만 쓰므로 서버 컴포넌트입니다.
  */
-export default function InquiryButton() {
+export default function InquiryButton({ hideOnMobile = false }: { hideOnMobile?: boolean }) {
   return (
     <Link
       href="/customer-support/online-inquiry"
-      className="group fixed bottom-[30px] right-[50px] z-[999] flex items-center gap-4
-                 rounded-full border border-line bg-white py-2.5 pr-2.5 pl-7
-                 shadow-[0_6px_24px_rgba(0,0,0,0.14)]
-                 [animation:inquiry-float_2s_ease-in-out_infinite]
-                 max-b856:right-[5px]"
+      className={`group fixed bottom-[30px] right-[50px] z-[999] flex items-center gap-4
+                  rounded-full border border-line bg-white py-2.5 pr-2.5 pl-7
+                  shadow-[0_6px_24px_rgba(0,0,0,0.14)]
+                  [animation:inquiry-float_2s_ease-in-out_infinite]
+                  max-b856:right-4 max-b856:bottom-4 max-b856:gap-2 max-b856:py-2 max-b856:pr-2 max-b856:pl-4
+                  max-b580:[animation:none]
+                  ${hideOnMobile ? "max-b580:hidden" : ""}`}
     >
-      <span className="text-[15px] font-medium text-ink-900">
+      <span className="text-[15px] font-medium text-ink-900 max-b580:sr-only">
         도입·샘플 문의
       </span>
-      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-500 text-white">
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-500 text-white max-b580:h-8 max-b580:w-8">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
           <path
             d="M2.5 8h10M9 4.5 12.5 8 9 11.5"

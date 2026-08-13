@@ -26,7 +26,7 @@ import InquiryButton from "@/components/InquiryButton";
 export default function Home() {
   return (
     <>
-      <InquiryButton />
+      <InquiryButton hideOnMobile />
 
       <div className="relative">
         <Header />

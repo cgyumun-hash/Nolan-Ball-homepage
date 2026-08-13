@@ -68,7 +68,7 @@ export default function OverviewPage() {
         bg={SUBHEADER_BG.company}
       />
 
-      <main className="relative pt-[250px] max-b1080:pt-[150px]">
+      <main className="relative pt-[250px] max-b1080:pt-[150px] max-b580:pt-20">
         <div className="wrap-in">
           {/* 초록 헤딩 — 980px 이하에서 absolute 를 풀고 흐름 안으로 들어옵니다 */}
           <RevealBottom className="absolute top-0 left-[38%] max-b1400:left-[43%] max-b1080:left-[38%] max-b980:static max-b980:left-0">
@@ -77,7 +77,7 @@ export default function OverviewPage() {
                          max-b1600:text-[80px] max-b1600:leading-[100px]
                          max-b1400:text-[68px] max-b1400:leading-[83px]
                          max-b1080:text-[64px] max-b1080:leading-[72px]
-                         max-b520:text-[56px] max-b520:leading-[64px]"
+                         max-b520:text-[clamp(34px,10vw,44px)] max-b520:leading-[1.2]"
             >
               {OVERVIEW.headline.map((line, i) => (
                 <span key={line}>
@@ -96,7 +96,7 @@ export default function OverviewPage() {
           <div
             className="mb-[200px] flex items-end justify-between pt-[180px]
                        max-b980:flex-col max-b980:items-center max-b980:pt-[50px]
-                       max-b520:mb-[100px]"
+                       max-b520:mb-20 max-b520:pt-8"
           >
             {photoReady ? (
               /* eslint-disable-next-line @next/next/no-img-element */
@@ -136,8 +136,8 @@ export default function OverviewPage() {
 
         {/* .w2 — 화면 폭 전체를 쓰는 회사 개요 밴드 */}
         <div
-          className="relative flex h-[700px] items-center justify-center bg-cover bg-center
-                     bg-no-repeat text-white max-b520:h-[600px]"
+          className="relative flex min-h-[700px] items-center justify-center bg-cover bg-center
+                     bg-no-repeat py-20 text-white max-b520:min-h-0 max-b520:h-auto max-b520:py-16"
           style={{ backgroundImage: OVERVIEW.companyBgFallback }}
         >
           <div
@@ -159,7 +159,7 @@ export default function OverviewPage() {
               {OVERVIEW.company.map((row, i) => (
                 <ul
                   key={row.label}
-                  className={`flex border-b border-white py-[15px] max-b980:text-[14px] ${
+                  className={`flex border-b border-white py-[15px] max-b980:text-[14px] max-b520:items-start ${
                     /* 원본은 첫 줄에만 인라인으로 border-top 을 붙입니다 */
                     i === 0 ? "border-t" : ""
                   }`}
@@ -170,7 +170,7 @@ export default function OverviewPage() {
                   {/* 원본 .line { width:1px; height:24px } — 높이가 고정이라
                       flex 기본 정렬(stretch)에서 늘어나지 않고 위쪽에 붙습니다 */}
                   <div className="h-6 w-px shrink-0 bg-white" />
-                  <li className="ml-[80px] max-b1400:ml-[50px] max-b1080:ml-[15px] max-b1080:w-[65%]">
+                  <li className="ml-[80px] min-w-0 max-b1400:ml-[50px] max-b1080:ml-[15px] max-b1080:w-[65%] max-b520:break-words">
                     {row.value}
                   </li>
                 </ul>

@@ -33,8 +33,9 @@ export default function Hero() {
   const timeRef = useRef<HTMLSpanElement>(null);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden max-b1400:h-[80vh]">
-      <Swiper
+    <section className="relative h-screen w-full overflow-hidden bg-white max-b1400:h-[80vh] max-b580:h-auto">
+      <div className="relative h-full w-full overflow-hidden max-b580:h-[78svh] max-b580:min-h-[560px]">
+        <Swiper
         modules={[Autoplay]}
         slidesPerView={1}
         spaceBetween={0}
@@ -50,8 +51,8 @@ export default function Hero() {
             timeRef.current.textContent = `${Math.ceil(time / 1000)}s`;
           }
         }}
-        className="h-full w-full"
-      >
+          className="h-full w-full"
+        >
         {SLIDES.map((slide) => (
           <SwiperSlide key={slide.id} className="relative">
             {/* 배경: 그라디언트 위에 사진.
@@ -92,52 +93,53 @@ export default function Hero() {
               className="absolute bottom-[160px] left-[8%] right-[8%] font-display font-bold
                          text-[64px] leading-[1.42] tracking-[-0.025em] text-white
                          max-b1600:text-[52px]
-                         max-b1080:text-[40px]
-                         max-b856:bottom-[130px] max-b856:text-[29px] max-b856:leading-[1.5]"
+                         max-b1080:bottom-[220px] max-b1080:text-[40px]
+                         max-b856:bottom-[205px] max-b856:text-[29px] max-b856:leading-[1.4]
+                         max-b580:bottom-[105px] max-b580:left-6 max-b580:right-6 max-b580:text-[clamp(25px,7.5vw,31px)] max-b580:leading-[1.3]"
             >
               {slide.lines[0]}
               {/* 원본 br.mo_br — 580px 이하에서 숨겨져 한 줄로 흐릅니다 */}
-              <br className="max-b580:hidden" />{" "}
+              <br />{" "}
               {slide.lines[1]}
             </h2>
           </SwiperSlide>
         ))}
-      </Swiper>
+        </Swiper>
 
       {/* ── 버튼 3개 (자료정리 2-1) ───────────────────────────────
           원본에는 없던 영역입니다. 왼쪽 아래 진행바와 부딪히지 않도록
           오른쪽 아래에 두고, 1080px 이하에서는 진행바 위로 올립니다. */}
-      <div
-        className="absolute bottom-[100px] right-[160px] z-10 flex items-center gap-3
+        <div
+          className="absolute bottom-[100px] right-[160px] z-10 flex items-center gap-3
                    max-b1400:right-[60px]
-                   max-b1080:bottom-[160px] max-b1080:left-[60px] max-b1080:right-auto
-                   max-b580:bottom-[150px] max-b580:left-[26px] max-b580:right-[26px]
-                   max-b580:flex-wrap max-b580:gap-2"
-      >
-        {HERO_ACTIONS.map((action) => (
-          <Link
-            key={action.href}
-            href={action.href}
-            className={`gfont rounded-[50px] px-[26px] py-3 text-[15px] font-extrabold
+                   max-b1080:bottom-[110px] max-b1080:left-[60px] max-b1080:right-auto
+                   max-b580:hidden"
+        >
+          {HERO_ACTIONS.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className={`gfont rounded-[50px] px-[26px] py-3 text-[15px] font-extrabold
                         transition-colors max-b1600:px-5 max-b1600:py-2.5 max-b1600:text-[13px]
-                        max-b580:px-4 max-b580:py-2 max-b580:text-[12px] ${
+                        ${
                           action.primary
                             ? "bg-accent-500 text-white hover:bg-accent-500/90"
                             : "border border-white/70 text-white hover:bg-white hover:text-ink-900"
                         }`}
-          >
-            {action.label}
-          </Link>
-        ))}
-      </div>
+            >
+              {action.label}
+            </Link>
+          ))}
+        </div>
 
       {/* ── .c1 : 진행바 + ‹ 1 / 3 › ─────────────────────────────── */}
-      <div
-        className="absolute bottom-[100px] left-[160px] z-10 flex items-center gap-5
-                   max-b1080:left-[60px] max-b580:left-[26px]"
-      >
+        <div
+          className="absolute bottom-[100px] left-[160px] z-10 flex items-center gap-5
+                     max-b1080:bottom-[50px] max-b1080:left-[60px]
+                     max-b580:bottom-9 max-b580:left-6 max-b580:right-6 max-b580:gap-3"
+        >
         {/* .autoplay-progress-bar */}
-        <div className="relative h-[2px] w-[300px] overflow-hidden rounded-[6px] bg-white/12 max-b856:w-[150px]">
+          <div className="relative h-[2px] w-[300px] overflow-hidden rounded-[6px] bg-white/12 max-b856:w-[150px] max-b580:min-w-0 max-b580:flex-1">
           <span
             ref={barRef}
             className="absolute inset-0 origin-left scale-x-0 rounded-[6px] bg-white/90
@@ -146,7 +148,7 @@ export default function Hero() {
         </div>
 
         {/* .nav_bar */}
-        <div className="flex items-center gap-5 font-display text-[18px] text-white max-b1600:text-[14px]">
+          <div className="flex shrink-0 items-center gap-5 font-display text-[18px] text-white max-b1600:text-[14px] max-b580:gap-3">
           <button
             onClick={() => swiper?.slidePrev()}
             aria-label="이전 슬라이드"
@@ -170,8 +172,27 @@ export default function Hero() {
           </button>
 
           <span ref={timeRef} className="ml-1 text-[13px] opacity-60 tabular-nums" />
+          </div>
         </div>
       </div>
+
+      <nav aria-label="주요 바로가기" className="hidden border-b border-line bg-white px-5 py-5 max-b580:block">
+        <div className="mx-auto grid max-w-[440px] grid-cols-1 gap-2.5">
+          {HERO_ACTIONS.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className={`gfont flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-center text-[14px] font-extrabold transition-colors ${
+                action.primary
+                  ? "bg-accent-500 text-white hover:bg-accent-500/90"
+                  : "border border-brand-500 text-brand-500 hover:bg-brand-500 hover:text-white"
+              }`}
+            >
+              {action.label}
+            </Link>
+          ))}
+        </div>
+      </nav>
     </section>
   );
 }
