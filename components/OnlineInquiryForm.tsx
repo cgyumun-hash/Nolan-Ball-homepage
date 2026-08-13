@@ -140,7 +140,7 @@ export default function OnlineInquiryForm() {
           </FormRow>
 
           <FormRow label="연락처">
-            <div className="flex items-center gap-3 max-b580:gap-2">
+            <div className="flex min-w-0 items-center gap-3 max-b580:gap-1.5">
               <PhoneInput name="tel1" maxLength={3} />
               <span>-</span>
               <PhoneInput name="tel2" maxLength={4} />
@@ -151,9 +151,9 @@ export default function OnlineInquiryForm() {
 
           <FormRow label="이메일">
             <div className="flex items-center gap-3 max-b860:flex-wrap max-b580:gap-2">
-              <input name="emailId" required className={`${inputClass} w-[220px] max-b580:w-[calc(50%-16px)]`} />
+              <input name="emailId" required className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
               <span>@</span>
-              <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-[calc(50%-16px)]`} />
+              <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
               <select aria-label="이메일 도메인 선택" value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
                 <option value="">직접 입력</option>
                 {["naver.com", "daum.net", "hanmail.net", "gmail.com", "nate.com", "hotmail.com", "msn.com", "google.com", "dreamwiz.com"].map((item) => <option key={item}>{item}</option>)}

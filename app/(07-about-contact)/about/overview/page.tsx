@@ -26,48 +26,54 @@ export default function OverviewPage() {
         bg={SUBHEADER_BG.company}
       />
 
-      <main className="py-[180px] max-b1080:py-[120px] max-b580:py-[80px]">
-        <section className="wrap-in2 grid grid-cols-2 items-start gap-x-[90px] max-b1080:gap-x-[50px] max-b860:grid-cols-1 max-b860:gap-y-12">
-          <figure className="relative aspect-[4/5] w-full max-w-[560px] overflow-hidden bg-[#edf3f7]">
-            <Image
-              src={OVERVIEW.introImage.src}
-              alt={OVERVIEW.introImage.alt}
-              fill
-              priority
-              sizes="(max-width: 860px) 90vw, 44vw"
-              className="object-cover"
-            />
-          </figure>
-          <div>
-            <div className="mb-8 flex items-start gap-5">
-              <span className="gfont block text-[48px] font-bold leading-none text-[#79b934] max-b580:text-[36px]">01.</span>
-              <h2 className="gfont -mt-0.5 text-[42px] font-bold leading-[1.15] text-ink-900 max-b1080:text-[34px] max-b580:text-[28px]">
-                {OVERVIEW.introTitle}
-              </h2>
-            </div>
-            <div className="mb-8 h-px w-full bg-line" />
-            <div className="space-y-5 text-[18px] leading-[1.85] text-ink-500 max-b1080:text-[16px] max-b580:text-[15px]">
-              {OVERVIEW.intro.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+      <main className="relative pt-[250px] max-b1080:pt-[150px] max-b580:pt-20">
+        <div className="wrap-in">
+          {/* 초록 헤딩 — 980px 이하에서 absolute 를 풀고 흐름 안으로 들어옵니다 */}
+          <RevealBottom className="absolute top-0 left-[38%] max-b1400:left-[43%] max-b1080:left-[38%] max-b980:static max-b980:left-0">
+            <h2
+              className="gfont text-[100px] leading-[110px] text-blue-700
+                         max-b1600:text-[80px] max-b1600:leading-[100px]
+                         max-b1400:text-[68px] max-b1400:leading-[83px]
+                         max-b1080:text-[64px] max-b1080:leading-[72px]
+                         max-b520:text-[clamp(34px,10vw,44px)] max-b520:leading-[1.2]"
+            >
+              {OVERVIEW.headline.map((line, i) => (
+                <span key={line}>
+                  {line}
+                  {/* 원본 br.no_br — 980px 이하에서 숨겨져 한 줄로 흐릅니다 */}
+                  {i < OVERVIEW.headline.length - 1 && (
+                    <br className="max-b980:hidden" />
+                  )}
+                  {i < OVERVIEW.headline.length - 1 && " "}
+                </span>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="wrap-in2 mt-[180px] grid grid-cols-2 items-start gap-x-[90px] max-b1080:gap-x-[50px] max-b860:grid-cols-1 max-b860:gap-y-12 max-b580:mt-[110px]">
-          <div className="max-b860:order-2">
-            <div className="mb-8 flex items-start gap-5">
-              <span className="gfont block text-[48px] font-bold leading-none text-[#79b934] max-b580:text-[36px]">02.</span>
-              <h2 className="gfont -mt-0.5 text-[42px] font-bold leading-[1.15] text-ink-900 max-b1080:text-[34px] max-b580:text-[28px]">
-                비전
-              </h2>
-            </div>
-            <div className="mb-9 h-px w-full bg-line" />
-            <article>
-              <p className="gfont mb-3 text-[14px] font-bold tracking-[0.14em] text-[#58bce7]">{OVERVIEW.vision.label}</p>
-              <h3 className="mb-4 text-[27px] font-bold text-ink-900 max-b580:text-[22px]">{OVERVIEW.vision.title}</h3>
-              <div className="space-y-5 text-[18px] leading-[1.85] text-ink-500 max-b1080:text-[16px] max-b580:text-[15px]">
-                {OVERVIEW.vision.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          {/* .w1.mb200 */}
+          <div
+            className="mb-[200px] flex items-end justify-between pt-[180px]
+                       max-b980:flex-col max-b980:items-center max-b980:pt-[50px]
+                       max-b520:mb-20 max-b520:pt-8"
+          >
+            {photoReady ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={OVERVIEW.photo}
+                alt=""
+                className="w-[45%] max-b980:w-full"
+              />
+            ) : (
+              /* 원본 sub11_img.jpg 는 727×834 (세로형).
+                 .w1 이 align-items:flex-end 라 이 높이가 본문 시작 위치를 정합니다.
+                 자리표시자도 같은 비율로 잡아야 레이아웃이 어긋나지 않습니다. */
+              <div
+                className="flex aspect-[727/834] w-[45%] items-center justify-center
+                           text-center text-[13px] text-white/80 max-b980:w-full"
+                style={{ backgroundImage: OVERVIEW.photoFallback }}
+              >
+                public{OVERVIEW.photo}
               </div>
             </article>
           </div>
@@ -110,37 +116,10 @@ export default function OverviewPage() {
           </div>
         </section>
 
-        <section className="relative mt-[230px] overflow-hidden bg-[linear-gradient(180deg,#f8fcfe_0%,#eef8fc_52%,#ffffff_100%)] py-[110px] max-b580:mt-[140px] max-b580:py-[80px]">
-          <span className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full bg-[#bfe9f7]/30 blur-3xl" />
-          <span className="pointer-events-none absolute -right-20 bottom-8 h-80 w-80 rounded-full bg-[#d9f1df]/35 blur-3xl" />
-          <div className="wrap-in2 relative">
-          <div className="mb-[70px] text-center">
-            <span className="gfont mb-4 block text-[13px] font-bold tracking-[0.2em] text-[#58bce7]">CORE VALUES</span>
-            <h2 className="gfont text-[48px] font-bold text-ink-900 max-b580:text-[32px]">
-            {OVERVIEW.coreValuesTitle}
-            </h2>
-            <span className="mx-auto mt-5 block h-[3px] w-12 rounded-full bg-[#79b934]" />
-          </div>
-          <ul className="grid grid-cols-5 gap-5 max-b1080:grid-cols-3 max-b580:grid-cols-2">
-            {OVERVIEW.coreValues.map((value, index) => (
-              <li
-                key={value.title}
-                className="flex aspect-square flex-col items-center justify-center rounded-full border border-white/90
-                           bg-[linear-gradient(145deg,#f7fcff_0%,#dff2fa_100%)] p-7 text-center
-                           shadow-[0_18px_45px_rgba(55,105,135,0.13),inset_0_0_0_1px_rgba(112,190,224,0.2)]
-                           max-b1080:last:col-start-2 max-b580:last:col-auto"
-              >
-                <span className="gfont mb-3 text-[13px] font-bold text-[#59bde8]">0{index + 1}</span>
-                <h3 className="mb-3 flex h-[58px] items-center justify-center text-[23px] font-bold leading-[1.25] text-ink-900 max-b580:h-[46px] max-b580:text-[18px]">{value.title}</h3>
-                <p className="flex h-[45px] items-start justify-center overflow-hidden text-[14px] leading-[1.6] text-ink-500 max-b580:h-[39px] max-b580:text-[12px]">{value.body}</p>
-              </li>
-            ))}
-          </ul>
-          </div>
-        </section>
-
-        <section
-          className="mt-[150px] bg-[#211c20] bg-cover bg-center py-[110px] text-white max-b580:mt-[90px] max-b580:py-[75px]"
+        {/* .w2 — 화면 폭 전체를 쓰는 회사 개요 밴드 */}
+        <div
+          className="relative flex min-h-[700px] items-center justify-center bg-cover bg-center
+                     bg-no-repeat py-20 text-white max-b520:min-h-0 max-b520:h-auto max-b520:py-16"
           style={{ backgroundImage: OVERVIEW.companyBgFallback }}
         >
           <div className="wrap-in2">
@@ -152,12 +131,21 @@ export default function OverviewPage() {
               {OVERVIEW.company.map((row) => (
                 <div
                   key={row.label}
-                  className="grid grid-cols-[220px_1fr] border-b border-white/40 py-5
-                             max-b580:grid-cols-[105px_1fr] max-b580:text-[14px]"
+                  className={`flex border-b border-white py-[15px] max-b980:text-[14px] max-b520:items-start ${
+                    /* 원본은 첫 줄에만 인라인으로 border-top 을 붙입니다 */
+                    i === 0 ? "border-t" : ""
+                  }`}
                 >
-                  <dt className="border-r border-white/40 px-8 font-bold max-b580:px-3">{row.label}</dt>
-                  <dd className="px-12 text-white/90 max-b580:px-4">{row.value}</dd>
-                </div>
+                  <li className="flex w-1/4 items-center pl-[80px] max-b1400:w-[22%] max-b1400:pl-[50px] max-b1080:w-1/4 max-b1080:pl-[15px] max-b520:w-[38%]">
+                    {row.label}
+                  </li>
+                  {/* 원본 .line { width:1px; height:24px } — 높이가 고정이라
+                      flex 기본 정렬(stretch)에서 늘어나지 않고 위쪽에 붙습니다 */}
+                  <div className="h-6 w-px shrink-0 bg-white" />
+                  <li className="ml-[80px] min-w-0 max-b1400:ml-[50px] max-b1080:ml-[15px] max-b1080:w-[65%] max-b520:break-words">
+                    {row.value}
+                  </li>
+                </ul>
               ))}
             </dl>
           </div>

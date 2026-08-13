@@ -23,12 +23,13 @@ import { ABOUT } from "@/lib/site";
  */
 export default function About() {
   return (
-    <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0">
+    <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0 max-b580:pt-16">
       <h2
         className="gfont ml-[120px] text-[80px] font-bold uppercase leading-[1.15] text-ink-900
                    max-[2200px]:text-[68px]
                    max-b1600:ml-[100px] max-b1600:text-[64px]
-                   max-b1080:ml-0 max-b1080:text-center max-b1080:text-[50px]"
+                   max-b1080:ml-0 max-b1080:px-5 max-b1080:text-center max-b1080:text-[50px]
+                   max-b580:text-[clamp(34px,10vw,46px)]"
       >
         ABOUT
         {/* 원본 br.mo_br — section_4 에서는 580px 이하에서만 줄바꿈 */}
@@ -46,7 +47,7 @@ export default function About() {
                        max-b1600:p-[30px]
                        max-b1200:w-[66%]
                        max-b1080:mx-auto max-b1080:ml-0 max-b1080:w-4/5 max-b1080:border-l-0
-                       max-b856:w-full"
+                       max-b856:w-full max-b580:p-6"
           >
             {ABOUT.paragraphs.map((p, i) => (
               <p
@@ -83,7 +84,7 @@ export default function About() {
                        max-b1200:relative max-b1200:bottom-auto max-b1200:right-auto
                        max-b1200:h-auto max-b1200:min-h-[320px]
                        max-b1080:mx-auto max-b1080:w-4/5
-                       max-b856:w-full"
+                       max-b856:w-full max-b580:min-h-[260px]"
             style={{ backgroundImage: ABOUT.fallback }}
           >
             <div

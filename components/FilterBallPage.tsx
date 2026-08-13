@@ -103,12 +103,12 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
         bg={SUBHEADER_BG.product}
       />
 
-      <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
+      <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px] max-b580:pt-20 max-b580:pb-[120px]">
         <div className="wrap-in2">
           {/* ── .s1 : 제품 이미지 + 설명 ─────────────────────────── */}
           <div
             className="mb-[200px] flex items-center justify-between gap-[50px]
-                       max-b860:mb-[100px] max-b860:flex-col"
+                       max-b860:mb-[100px] max-b860:flex-col max-b580:mb-20 max-b580:gap-8"
           >
             <div className="max-b1400:w-[300px]">
               {hasImage(data.image) ? (
@@ -146,7 +146,7 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
               <h4
                 className="gfont mb-[50px] text-[50px]
                            max-b860:mb-10 max-b860:text-[40px]
-                           max-b520:mb-[30px] max-b520:text-[30px]"
+                           max-b520:mb-[30px] max-b520:text-[clamp(26px,8vw,32px)] max-b520:leading-[1.3]"
               >
                 {data.subtitle}
               </h4>

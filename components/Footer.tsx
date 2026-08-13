@@ -29,7 +29,7 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
 
   return (
     <footer
-      className={`w-full max-b580:text-[14px] ${
+      className={`w-full pb-[env(safe-area-inset-bottom)] max-b580:text-[14px] ${
         bordered ? "border-t border-ink-900" : ""
       }`}
     >
@@ -38,7 +38,7 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
         <nav
           className="mt-[25px] mb-[60px] flex items-center justify-end gap-x-[130px] font-extrabold
                      max-b1200:justify-between max-b1200:gap-x-0
-                     max-b580:mb-[50px] max-b580:flex-col max-b580:items-start max-b580:gap-[15px]"
+                     max-b580:mb-10 max-b580:grid max-b580:grid-cols-2 max-b580:items-start max-b580:gap-x-6 max-b580:gap-y-4"
         >
           {NAV.map((item) => (
             <a

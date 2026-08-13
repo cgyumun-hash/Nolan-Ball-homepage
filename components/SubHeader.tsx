@@ -51,13 +51,14 @@ export default function SubHeader({
   };
 }) {
   return (
-    <div className="pt-[80px] max-b1080:pt-[50px]">
+    <div className="pt-[80px] max-b1080:pt-[50px] max-b580:pt-[46px]">
       <div
         className="relative h-[608px] overflow-hidden rounded-b-[150px] bg-cover bg-center
                    bg-no-repeat text-white
                    max-b1400:h-[65vh] max-b1400:rounded-b-[100px]
                    max-b1080:rounded-b-[50px]
-                   max-b980:rounded-b-[25px]"
+                   max-b980:rounded-b-[25px]
+                   max-b580:h-[430px] max-b580:rounded-b-[20px]"
         style={{ backgroundImage: bg.fallback }}
       >
         {/* bg.image 가 빈 문자열이면 사진 레이어를 아예 그리지 않고
@@ -98,15 +99,17 @@ export default function SubHeader({
 
         {/* .sub_txt_wrap */}
         <div
-          className="absolute top-1/2 left-[160px] -translate-y-1/2
-                     max-b1600:left-[100px] max-b980:left-[50px] max-b520:left-[30px]"
+          className="absolute top-1/2 left-[160px] max-w-[calc(100%-320px)] -translate-y-1/2
+                     max-b1600:left-[100px] max-b1600:max-w-[calc(100%-200px)]
+                     max-b980:left-[50px] max-b980:max-w-[calc(100%-100px)]
+                     max-b520:left-6 max-b520:max-w-[calc(100%-48px)]"
         >
           {eyebrow && (
             <h2 className="headline-font mb-5 text-[36px] leading-tight max-b1600:mb-0 max-b1600:text-[24px] max-b980:text-[20px]">
               {eyebrow}
             </h2>
           )}
-          <h1 className="headline-font text-[80px] leading-none max-b1600:text-[68px] max-b980:text-[36px] max-b520:text-[30px]">
+          <h1 className="headline-font text-[80px] leading-[1.08] max-b1600:text-[68px] max-b980:text-[36px] max-b520:text-[30px]">
             {title}
           </h1>
         </div>
@@ -114,16 +117,17 @@ export default function SubHeader({
         {/* .sub_pager */}
         <nav
           className="absolute bottom-0 left-1/2 w-[80%] -translate-x-1/2 rounded-t-[30px]
-                     bg-black/60 py-2.5 text-center"
+                     bg-black/60 py-2.5 text-center
+                     max-b580:w-[calc(100%-32px)] max-b580:overflow-x-auto max-b580:rounded-t-[18px] max-b580:px-3"
         >
-          <ul>
+          <ul className="max-b580:flex max-b580:w-max max-b580:min-w-full max-b580:items-center max-b580:justify-start">
             {pager.map((item) => {
               const on = item.label === current;
               return (
-                <li key={item.label} className="mx-[30px] inline-block max-b1600:mx-[25px] max-b520:mx-[10px]">
+                <li key={item.label} className="mx-[30px] inline-block max-b1600:mx-[25px] max-b580:mx-3 max-b580:shrink-0">
                   <Link
                     href={item.href}
-                    className={`text-[18px] text-white max-b1400:text-[16px] max-b520:text-[14px] ${
+                    className={`whitespace-nowrap text-[18px] text-white max-b1400:text-[16px] max-b520:text-[13px] ${
                       on ? "font-bold" : "opacity-80 hover:opacity-100"
                     }`}
                   >

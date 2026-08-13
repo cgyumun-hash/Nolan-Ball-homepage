@@ -22,7 +22,7 @@ export default function WhyAcf() {
   return (
     <section
       className="flex h-screen w-full items-center justify-center bg-white
-                 max-b1400:h-[80vh] max-b1080:h-auto max-b1080:py-20"
+                 max-b1400:h-[80vh] max-b1080:h-auto max-b1080:py-20 max-b580:py-16"
     >
       <div className="wrap-in">
         {/* 원본 section_2ball.png 자리 — CSS 그라디언트로 그린 구슬 3개 */}
@@ -50,7 +50,7 @@ export default function WhyAcf() {
                      max-b1600:text-[110px]
                      max-b1080:mb-5
                      max-b856:text-center max-b856:text-[80px]
-                     max-b580:text-[68px]"
+                     max-b580:text-[clamp(46px,14vw,68px)]"
         >
           {WHY.headingLines[0]}
           <br />

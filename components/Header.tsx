@@ -30,8 +30,8 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
   /** 사이드바 아코디언 — 원본은 li 클릭 시 .active 토글 */
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
 
-  const fg = solid ? "text-ink-900" : "text-white";
-  const barBg = solid ? "bg-ink-900" : "bg-white";
+  const fg = solid ? "text-ink-900" : "text-white max-b1080:text-ink-900";
+  const barBg = solid ? "bg-ink-900" : "bg-white max-b1080:bg-ink-900";
 
   return (
     <>
@@ -43,12 +43,12 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
           setLangOpen(false);
         }}
         className={`absolute inset-x-0 top-0 z-[99] w-full transition-colors duration-300
-                    max-b1080:py-[5px] ${solid ? "bg-white" : "bg-transparent"}`}
+                    max-b1080:py-1 ${solid ? "bg-white" : "bg-transparent"}`}
       >
         <div className="wrap-in flex items-center justify-between">
           <Link
             href="/"
-            className="shrink-0 py-3"
+            className="min-w-0 shrink py-3"
             aria-label="놀란볼코리아 메인으로 이동"
           >
             <Image
@@ -57,7 +57,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
               width={633}
               height={161}
               priority
-              className="h-auto w-[230px] max-b1200:w-[190px] max-b1080:w-[180px]"
+              className="h-auto w-[230px] max-b1200:w-[190px] max-b1080:w-[clamp(150px,45vw,180px)] max-b520:w-[145px]"
             />
           </Link>
 
@@ -109,10 +109,10 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
           </nav>
 
           {/* ── 언어 선택 + 햄버거 ──────────────────────────────── */}
-          <div className="flex shrink-0 items-center gap-5">
+          <div className="flex shrink-0 items-center gap-5 max-b520:gap-4">
             {/* 원본 .side_menu — hover 시 .translation-links slideDown */}
             <div
-              className="relative py-6"
+              className="relative py-6 max-b1080:py-4"
               onMouseEnter={() => setLangOpen(true)}
               onMouseLeave={() => setLangOpen(false)}
             >
@@ -156,7 +156,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
             <button
               onClick={() => setSideOpen(true)}
               aria-label="전체 메뉴 열기"
-              className="relative h-[25px] w-[30px]"
+              className="relative h-[25px] w-[30px] max-b520:h-[22px] max-b520:w-[27px]"
             >
               <span className={`absolute left-0 top-0 h-[2.5px] w-full ${barBg}`} />
               <span className={`absolute left-0 top-[40%] h-[2.5px] w-full ${barBg}`} />
