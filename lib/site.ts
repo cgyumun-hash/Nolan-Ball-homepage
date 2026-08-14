@@ -94,7 +94,7 @@ export const ABOUT_CONTACT_PAGES = COMPANY_PAGES;
 
 /** 서브페이지 탭(.sub_pager)이 단독 페이지에서도 필요해 배열로 둡니다 */
 export const TECHNOLOGY_PAGES = [
-  { label: "기술 개요", href: "/about/technology-overview" },
+  { label: "제품 개요", href: "/about/technology-overview" },
 ] as const;
 
 /** 상단 GNB · 좌측 사이드바 · 푸터가 공유합니다 */
@@ -126,8 +126,6 @@ export const NAV: NavItem[] = [
 export const LANGS = [
   { code: "ko", label: "KO" },
   { code: "en", label: "EN" },
-  { code: "zh-CN", label: "CN" },
-  { code: "ja", label: "JP" },
 ] as const;
 
 /**
@@ -244,10 +242,9 @@ export const PRODUCT_SPECS = {
 
 /** 시험 결과 페이지 — 자료정리 4장과 제공된 9페이지 시험성적서 기준 */
 export const TEST_RESULTS = {
-  eyebrow: "MICROBIOLOGICAL TEST",
   heading: "시험 결과",
   lead:
-    "Nolan Ball의 채널 세척 공정 이후 시료를 외부 전문 검사기관의 일반세균배양 시험으로 확인했습니다. 아래 내용은 제공된 시험성적서 9건에 기록된 결과를 정리한 것입니다.",
+    "Nolan Ball 관련 시료를 외부 전문 검사기관의 일반세균배양 시험으로 확인했습니다. 아래 내용은 제공된 시험성적서 9건에 기록된 결과를 정리한 것입니다.",
   resultLabel: "공통 결과",
   result: "2일 배양 후 미생물 증식 없음",
   resultEn: "No growth of microorganisms after 2-day culture.",
@@ -262,61 +259,82 @@ export const TEST_RESULTS = {
     { label: "검사 코드", value: "D5854004Z" },
     { label: "확인 범위", value: "2.8 mm · 3.7 mm 관련 시료, 구형·와플형 표기 시료" },
   ],
-  batchesEyebrow: "TEST SERIES",
   batchesTitle: "시험 구성과 결과",
   batchesLead:
-    "제공된 자료의 시료명과 접수일을 기준으로 2.8 mm 시험군과 3.7 mm 시험군을 구분했습니다. 별도의 기초 확인 자료 1건을 포함해 총 9건의 원문이 제공되었습니다.",
+    "Nolan Ball 관련 시료를 외부 전문 검사기관의 일반세균배양 시험으로 확인했습니다. 제공된 시험성적서의 시료명과 접수일을 기준으로 2.8 mm 시험군과 3.7 mm 시험군을 구분했으며, 별도의 기초 확인 자료 1건을 포함해 총 9건의 결과를 정리했습니다.",
   batches: [
     {
       no: "01",
-      title: "1차 테스트",
+      title: "2.8 mm 관련 결과 ①",
       spec: "2.8 mm",
-      received: "접수 2026.03.12",
+      received: "접수 2026.03.13",
       reported: "보고 2026.03.16",
       count: "2건",
-      image: "/images/sub14_4.webp",
+      images: [
+        "/images/test-results/test-result-04.webp",
+        "/images/test-results/test-result-05.webp",
+      ],
       body: "1-1, 1-2로 구분된 2.8 mm 관련 시료의 일반세균배양 결과를 확인했습니다.",
     },
     {
       no: "02",
-      title: "2차 테스트",
+      title: "2.8 mm 관련 결과 ②",
       spec: "2.8 mm",
-      received: "접수 2026.03.12",
+      received: "접수 2026.03.13",
       reported: "보고 2026.03.16",
       count: "2건",
-      image: "/images/sub14_2.webp",
+      images: [
+        "/images/test-results/test-result-03.webp",
+        "/images/test-results/test-result-02.webp",
+      ],
       body: "10-1, 10-2로 구분된 2.8 mm 관련 시료에서도 동일한 검사 결과 문구가 기록되었습니다.",
     },
     {
       no: "03",
-      title: "3차 테스트",
+      title: "3.7 mm 관련 결과",
       spec: "3.7 mm",
       received: "접수 2026.03.16",
       reported: "보고 2026.03.18",
       count: "4건",
-      image: "/images/sub14_6.webp",
+      images: [
+        "/images/test-results/test-result-06.webp",
+        "/images/test-results/test-result-07.webp",
+        "/images/test-results/test-result-08.webp",
+        "/images/test-results/test-result-09.webp",
+      ],
       body: "3.7 mm 구형·와플형 표기 시료를 각각 확인했으며, 4건 모두 같은 결과 문구가 기록되었습니다.",
     },
   ],
-  interpretationEyebrow: "CFU RESULT & INTERPRETATION",
   interpretationTitle: "CFU 시험 결과 및 해석",
-  method:
-    "본 시험은 내시경 채널 세척 공정 후 채취한 시료에서 일반세균의 증식 여부를 확인하는 방식으로 진행되었습니다. 제공된 결과보고서에는 각 시료에 대해 2일 배양 후 미생물 증식 없음이 기재되어 있습니다.",
+  method: [
+    "시험 결과, Nolan Ball 1회 통과 이후 단계에서 채취한 시료의 결과보고서에는 ‘2일 배양 후 미생물 증식 없음’이 기재되어 있으며, 이후 진행된 2회에서 5회의 반복 통과 단계에서도 확인되었습니다. 이는 제공된 시험 조건에서 1회 통과 이후와 반복 통과 이후의 결과가 일관되게 기록되었음을 보여줍니다. 다만 결과보고서에 CFU 정량값과 검출한계가 명시되어 있지 않아 이를 ‘0 CFU’ 또는 ‘완벽한 세척’으로 단정하지 않습니다.",
+    "Nolan Ball은 채널 내경에 대응하는 구조로 삽입 시점부터 채널 벽면과 360° 전주면 접촉을 형성해 세척 사각지대를 줄이도록 설계되었습니다. 세정 과정에서 발생하는 물리적 접촉과 전단력은 점액·혈액·단백질 등 잔류 유기물을 제거하고 외부로 배출하는 과정을 지원합니다.",
+    "결과적으로 해당 시험 범위에서는 1회 통과 이후 일관된 일반세균배양 결과가 확인되었으며, 구조적 접촉 방식이 세정의 균일성과 안정적인 공정을 지원하는 것으로 해석할 수 있습니다. 세부 조건과 시료 정보는 결과보고서 원문을 함께 확인해야 합니다.",
+  ],
   interpretations: [
     {
       no: "01",
-      title: "제공된 9건에서 동일한 결과 확인",
-      body: "2.8 mm 및 3.7 mm 관련 시료와 구형·와플형 표기 시료를 포함한 9건의 결과보고서 모두에서 동일한 ‘No growth’ 결과가 확인됩니다.",
+      title: "시험군 구성",
+      body: [
+        "1·2차 시험은 2.8 mm 관련 시료, 3차 시험은 3.7 mm 관련 시료를 대상으로 구성했습니다.",
+        "서로 다른 제품 규격과 시험 차수의 결과를 동일한 기준으로 확인했습니다.",
+      ],
     },
     {
       no: "02",
-      title: "구조적 세정 메커니즘과 함께 해석",
-      body: "구형 본체의 전주면 접촉, 연속 와이핑과 밀어내기 작용은 채널 내 잔류 유기물을 물리적으로 제거하고 외부로 배출하는 세척 과정을 지원합니다.",
+      title: "순차 통과 및 단계별 채취",
+      body: [
+        "내시경 채널에 Nolan Ball을 순차적으로 통과시켰습니다.",
+        "1회 통과 후부터 5회 통과 단계까지 시료를 채취해 반복 세척 과정의 변화를 확인하도록 구성했습니다.",
+      ],
     },
     {
       no: "03",
-      title: "시험 범위 안에서 결과 확인",
-      body: "이 결과는 해당 시료와 시험 조건에서 수행된 일반세균배양 결과입니다. 제품의 멸균 효과나 모든 임상 환경에서의 감염 예방을 의미하지 않으며, 세부 조건은 원문으로 확인해야 합니다.",
+      title: "일반세균배양 및 결과 확인",
+      body: [
+        "단계별로 채취한 시료는 외부 전문 검사기관의 일반세균배양 방식으로 확인했습니다.",
+        "제공된 9건의 결과보고서에 기록된 결과 문구를 시험 차수와 시료별로 비교했습니다.",
+      ],
     },
   ],
   disclaimer:
@@ -347,10 +365,10 @@ export const DOWNLOADS = {
       ready: true,
     },
     {
-      name: "시험 성적서",
-      desc: "씨젠의료재단 일반세균배양 시험성적서 9건",
-      file: "/downloads/nolan-ball-test-report.pdf",
-      size: "2.7 MB",
+      name: "미생물검사 결과보고서",
+      desc: "씨젠의료재단 일반세균배양 결과보고서 9건",
+      file: "/downloads/Nolan_Ball_시험성적.pdf",
+      size: "0.4 MB",
       ready: true,
     },
     {
@@ -464,6 +482,20 @@ export const FILTER_BALL_ICONS = {
   effect: "/images/subicon_2.webp",
 } as const;
 
+const ENDOSCOPE_FEATURES = [
+  "색 변화 재사용 차단",
+  "360° 밀착 세정",
+  "바이오필름 형성 환경 감소",
+  "구리 이온 적용 소재",
+];
+
+const ENDOSCOPE_EFFECTS = [
+  "수분 반응형 비가역 염료 시스템으로 사용 전·후 상태를 직관적으로 확인",
+  "채널 내부 벽면에 부착되는 점액·단백질 등 유기물 제거를 지원",
+  "채널 잔류 유기물 제거를 통해 바이오필름 형성 환경 감소에 도움",
+  "구리 이온 관련 성능은 확인 가능한 시험자료 검토 후 반영",
+];
+
 /**
  * 세 제품의 본문은 자료정리 3-1(제품 개요) · 3-2(구조적 특징) · 2-2(핵심 장점)에서
  * 가져왔습니다. 규격·용도만 제품별로 다르고 나머지는 공통입니다.
@@ -502,18 +534,8 @@ export const FILTER_BALL_COLONOSCOPES: FilterBall = {
       },
     ],
   ],
-  features: [
-    "미세 돌기 구조 — 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다",
-    "연속 띠 구조 — 이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다",
-    "비대칭 마찰 구조 — 이동 시 회전을 유도하여 내벽과의 접촉 범위를 넓힙니다",
-    "유연한 탄성 구조 — 굴곡부를 통과하면서도 내벽과의 접촉을 유지합니다",
-  ],
-  effects: [
-    "360° 밀착 접촉으로 세척 사각지대를 줄이는 구조",
-    "짧은 공정으로 세척 업무의 효율 향상을 지원",
-    "숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원",
-    "수분 반응형 비가역 변색 구조로 사용 여부를 직관적으로 확인",
-  ],
+  features: [...ENDOSCOPE_FEATURES],
+  effects: [...ENDOSCOPE_EFFECTS],
 };
 
 /**
@@ -554,18 +576,8 @@ export const FILTER_BALL_GASTROSCOPES: FilterBall = {
       },
     ],
   ],
-  features: [
-    "미세 돌기 구조 — 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다",
-    "연속 띠 구조 — 이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다",
-    "비대칭 마찰 구조 — 이동 시 회전을 유도하여 내벽과의 접촉 범위를 넓힙니다",
-    "유연한 탄성 구조 — 굴곡부를 통과하면서도 내벽과의 접촉을 유지합니다",
-  ],
-  effects: [
-    "360° 밀착 접촉으로 세척 사각지대를 줄이는 구조",
-    "짧은 공정으로 세척 업무의 효율 향상을 지원",
-    "숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원",
-    "수분 반응형 비가역 변색 구조로 사용 여부를 직관적으로 확인",
-  ],
+  features: [...ENDOSCOPE_FEATURES],
+  effects: [...ENDOSCOPE_EFFECTS],
 };
 
 /**
@@ -599,18 +611,8 @@ export const FILTER_BALL_BRONCHOSCOPES: FilterBall = {
       { t: " 설계되어 균일한 수동 세척 공정을 지원합니다." },
     ],
   ],
-  features: [
-    "미세 돌기 구조 — 채널 내벽에 접촉해 부착된 오염물의 물리적 제거를 돕습니다",
-    "연속 띠 구조 — 이동 과정에서 연속적인 와이핑 작용이 이어지도록 설계되었습니다",
-    "비대칭 마찰 구조 — 이동 시 회전을 유도하여 내벽과의 접촉 범위를 넓힙니다",
-    "유연한 탄성 구조 — 굴곡부를 통과하면서도 내벽과의 접촉을 유지합니다",
-  ],
-  effects: [
-    "360° 밀착 접촉으로 세척 사각지대를 줄이는 구조",
-    "짧은 공정으로 세척 업무의 효율 향상을 지원",
-    "숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원",
-    "수분 반응형 비가역 변색 구조로 사용 여부를 직관적으로 확인",
-  ],
+  features: [...ENDOSCOPE_FEATURES],
+  effects: [...ENDOSCOPE_EFFECTS],
 };
 
 /**
@@ -712,7 +714,7 @@ export const OVERVIEW = {
     },
   ],
   companyBgFallback:
-    "radial-gradient(circle at 72% 12%, rgba(255,224,168,0.12), transparent 18%), linear-gradient(120deg, #17141a 0%, #292126 55%, #21191d 100%)",
+    "radial-gradient(circle at 78% 20%, rgba(255,224,168,0.1), transparent 20%), linear-gradient(120deg, #17141a 0%, #292126 55%, #21191d 100%)",
 } as const;
 
 /**
@@ -724,13 +726,13 @@ export const OVERVIEW = {
  */
 export const TECHNOLOGY = {
   eyebrow: "TECHNOLOGY",
-  title: "기술 개요",
+  title: "제품 개요",
   overview: {
     eyebrow: "TECHNOLOGY OVERVIEW",
-    title: "기술 개요",
+    title: "제품 개요",
     headline: "채널 입구부터 말단까지 이어지는 전면 접촉 세정",
     intro:
-      "Nolan Ball은 유연성 내시경의 내부 채널을 수동으로 세척할 때 사용하는 구형 채널 세척 구조입니다. 채널 내경에 대응하는 크기로 설계되어 삽입 순간부터 내벽과 360° 접촉하고, 굴곡진 구간에서도 접촉을 이어가며 혈액·점액·단백질 등 잔류 유기물의 물리적 제거와 외부 배출을 돕습니다.",
+      "NOLAN BALL은 내시경 석션 채널의 내경에 대응하는 치수로 설계된 구형 채널 세척 구조입니다. 채널에 삽입되는 순간부터 내벽과 연속적인 면 접촉을 형성해 입구부터 말단까지 밀착 접촉 세정을 지원하며, 기존 브러시 방식에서 접근이 어려울 수 있는 구간의 세정 사각지대를 줄이도록 설계되었습니다.",
     principles: [
       {
         no: "01",
@@ -764,16 +766,65 @@ export const TECHNOLOGY = {
       },
     ],
     image: {
-      src: "/images/technology/technology-overview.png",
-      alt: "2.8mm Nolan Ball이 내시경 채널 입구에 삽입되는 구조를 나타낸 기술 개요 이미지",
+      src: "/images/technology/제품.webp",
+      alt: "Nolan Ball 제품 이미지",
+    },
+    measurement: {
+      title: "석션 채널 입구의 초기 오염물 접촉 구간",
+      body: "시술 직후 혈액·점액·단백질 등의 유기물이 채널 입구로 유입되고, 채널 벽면에 잔류할 수 있습니다.",
+      quote: "Nolan Ball은 삽입 순간부터 360° 밀착 접촉을 지원",
     },
   },
-  featuresEyebrow: "MICRO-ANATOMY",
-  featuresTitle: "기술 특징",
+  featuresEyebrow: "",
+  featuresTitle: "제품 구조",
   featuresLead:
-    "구형 본체 위에 설계된 여섯 가지 구조가 서로 연동되어 접촉, 이동, 포획 및 사용 확인을 지원합니다. 항목을 선택해 각 구조의 역할을 확인해 보세요.",
-  interactionHint: "마우스를 올리거나 터치하여 특징을 확인하세요.",
+    "구형 본체 위에 설계된 여섯 가지 구조가 서로 연동되어 접촉, 이동, 포획 및 사용 확인을 지원합니다.\n구조 이름을 누르면 세부 내용을 메모 형식으로 확인할 수 있습니다.",
+  interactionHint: "",
   features: [
+    {
+      no: "01",
+      name: "오염물 포획 표면",
+      en: "Debris Capture & Anti-Reattachment",
+      body: "개질된 극성 표면은 분리된 오염 입자를 흡착 및 포획하여 채널 내 재부착을 방지합니다.",
+      points: [],
+    },
+    {
+      no: "02",
+      name: "미세 돌기 구조",
+      en: "Localized Shear Cleaning",
+      body: "띠 사이에 분산된 다점 돌기는 국소 접촉 압력을 증가시켜 부착된 오염물과 바이오필름에 압착 및 전단 작용을 유도합니다.",
+      points: ["점액·단백질·혈액 잔사 분리", "표면 요철 내부 오염물 제거", "미세 데드존 세정 강화"],
+    },
+    {
+      no: "03",
+      name: "편마찰 유도 비대칭 표면",
+      en: "Self-Rotating Cleaning Action",
+      body: "반구 영역의 표면 개질을 통해 고마찰 영역과 저마찰 영역을 형성함으로써 이동 시 자가 회전을 유도합니다.",
+      points: ["정면의 동적 재배치", "반복 경로에서도 전주면 균일 세정", "바이오필름 제거 효율 향상"],
+    },
+    {
+      no: "04",
+      name: "구형 본체",
+      en: "Full-Contact Cleaning Base",
+      body: "입구부터 말단까지 균일한 면 접촉 세정을 수행하며, 채널 곡률 변화에도 일정한 접촉 압력을 유지하여 채널 손상 없이 안정적으로 이동합니다.",
+      points: [],
+    },
+    {
+      no: "05",
+      name: "연속 띠 구조",
+      en: "Continuous Surface Wiping",
+      body: "볼 표면을 따라 형성된 가로·세로 교차형 띠는 채널 내부 이동 시 연속적인 와이핑 작용을 합니다.",
+      points: ["일정 폭의 면 접촉 유지", "채널 전 구간 균일 세정력 전달", "이동 중 접촉 위치 변화로 세정 사각지대 최소화"],
+    },
+    {
+      no: "06",
+      name: "비가역 색상 인디케이터",
+      en: "Visual Single-Use Verification",
+      body: "볼 내부에 수분 반응형 비가역 안료 시스템을 적용하여 세척 공정 중 유입된 수분에 의해 색상이 영구적으로 변화합니다.",
+      points: ["실제 세척 공정 수행 여부 시각적 확인", "1회용 사용 준수 검증", "감염관리 프로세스 표준화 지원"],
+    },
+  ],
+  legacyFeatures: [
     {
       no: "01",
       name: "오염물 포획 표면",
@@ -1031,7 +1082,7 @@ export const LOCATION = {
 /**
  * /sub/sub14.php — About Us ▸ Certifications
  * 인증서 이미지는 세로형입니다. 원본 사이트는 406×550,
- * sub14_1~9 는 PDF 를 150dpi 로 렌더한 1073×1517 (A4 비율).
+ * test-result-01~09 는 현재 Nolan_Ball_시험성적.pdf 원문을 렌더한 A4 비율 이미지입니다.
  * <img className="w-full"> 로 원본 비율 그대로 그려지므로 비율은 달라도 됩니다.
  * hover 하면 rgba(0,0,0,.8) 오버레이 위에 제목이 뜹니다 (순수 CSS).
  */
@@ -1044,18 +1095,16 @@ export const CERTIFICATIONS = {
    */
   note: "외부 전문 검사기관의 일반세균배양 시험에서 2일 배양 후 미생물 증식 없음이 확인되었습니다. 자세한 시험 조건과 시료 정보는 시험성적서 원문을 확인해 주세요.",
   items: [
-    /* sub14_1 ~ sub14_9 — 씨젠의료재단 미생물검사 결과보고서 9건.
-       모두 일반세균배양(MIC) 결과 "No growth of microorganisms after 2-day culture".
-       라벨의 괄호 안은 원본 보고서의 수진자명(시료 구분)입니다. */
-    { image: "/images/sub14_1.webp", label: "미생물검사 결과보고서 — 시료 2" },
-    { image: "/images/sub14_2.webp", label: "미생물검사 결과보고서 — nolan 2.8 (10-2)" },
-    { image: "/images/sub14_3.webp", label: "미생물검사 결과보고서 — nolan 2.8 (10-1)" },
-    { image: "/images/sub14_4.webp", label: "미생물검사 결과보고서 — nolan 2.8 (1-1)" },
-    { image: "/images/sub14_5.webp", label: "미생물검사 결과보고서 — nolan 2.8 (1-2)" },
-    { image: "/images/sub14_6.webp", label: "미생물검사 결과보고서 — nolan 3.7 구형 (2)" },
-    { image: "/images/sub14_7.webp", label: "미생물검사 결과보고서 — nolan 3.7 와플 (2)" },
-    { image: "/images/sub14_8.webp", label: "미생물검사 결과보고서 — nolan 3.7 구형 (1)" },
-    { image: "/images/sub14_9.webp", label: "미생물검사 결과보고서 — nolan 3.7 와플 (1)" },
+    /* 현재 공개용 PDF에서 개인정보가 가려진 결과보고서 9페이지를 추출했습니다. */
+    { image: "/images/test-results/test-result-01.webp", label: "미생물검사 결과보고서 1" },
+    { image: "/images/test-results/test-result-02.webp", label: "미생물검사 결과보고서 2" },
+    { image: "/images/test-results/test-result-03.webp", label: "미생물검사 결과보고서 3" },
+    { image: "/images/test-results/test-result-04.webp", label: "미생물검사 결과보고서 4" },
+    { image: "/images/test-results/test-result-05.webp", label: "미생물검사 결과보고서 5" },
+    { image: "/images/test-results/test-result-06.webp", label: "미생물검사 결과보고서 6" },
+    { image: "/images/test-results/test-result-07.webp", label: "미생물검사 결과보고서 7" },
+    { image: "/images/test-results/test-result-08.webp", label: "미생물검사 결과보고서 8" },
+    { image: "/images/test-results/test-result-09.webp", label: "미생물검사 결과보고서 9" },
   ],
 } as const;
 
