@@ -59,48 +59,23 @@ export default function HowToUsePage() {
                            max-b980:flex-col max-b980:gap-4 max-b980:py-[30px]"
               >
                 <span
-                  className="gfont w-[120px] shrink-0 text-[46px] font-bold leading-none text-sky-600
+                  className="gfont w-[120px] shrink-0 text-[46px] font-bold leading-none text-ink-900
                              max-b1080:text-[36px] max-b980:w-auto"
                 >
                   {step.no}
                 </span>
-                <div className="min-w-0">
-                  <h4
-                    className="mb-3 text-[26px] font-bold text-ink-900
-                               max-b1080:text-[21px] max-b520:text-[18px]"
-                  >
-                    {step.title}
-                  </h4>
-                  <p
-                    className="text-[18px] leading-[1.8] text-ink-500
-                               max-b1080:text-[16px] max-b520:text-[15px]"
-                  >
-                    {step.body}
-                  </p>
-                </div>
               </li>
             ))}
           </ol>
 
           {/* 주의사항 */}
           <h3
-            className="gfont mb-[40px] text-[40px] font-bold text-ink-900
+            className="gfont mb-[160px] text-[40px] font-bold text-ink-900
+                       max-b1080:mb-[90px]
                        max-b1080:text-[30px] max-b520:text-[24px]"
           >
             {HOW_TO_USE.cautionTitle}
           </h3>
-          <ul className="mb-[160px] max-b1080:mb-[90px]">
-            {HOW_TO_USE.cautions.map((caution) => (
-              <li
-                key={caution}
-                className="mb-4 flex gap-3 text-[18px] leading-[1.8] text-ink-500
-                           max-b1080:text-[16px] max-b520:text-[15px]"
-              >
-                <span className="mt-[13px] h-[5px] w-[5px] shrink-0 rounded-full bg-brand-500" />
-                <span>{caution}</span>
-              </li>
-            ))}
-          </ul>
 
           {/* 제품 가이드 영상 — 파일·링크가 없어 자리만 잡아 둡니다 */}
           <h3

@@ -26,7 +26,7 @@ export default function InquiryButton({ hideOnMobile = false }: { hideOnMobile?:
       <span className="text-[15px] font-medium text-ink-900 max-b580:sr-only">
         도입·샘플 문의
       </span>
-      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brand-500 text-white max-b580:h-8 max-b580:w-8">
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#3182F6] text-white max-b580:h-8 max-b580:w-8">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
           <path
             d="M2.5 8h10M9 4.5 12.5 8 9 11.5"

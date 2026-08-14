@@ -15,18 +15,20 @@ export default function FadeDown({
   children,
   className,
   duration = 1.5,
+  once = true,
 }: {
   children: ReactNode;
   className?: string;
   /** 초 단위. 원본 data-aos-duration 을 1000 으로 나눈 값 */
   duration?: number;
+  once?: boolean;
 }) {
   return (
     <motion.div
       className={className}
       initial={{ opacity: 0, y: -100 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once, amount: 0.2 }}
       /* 원본 data-aos-easing="linear" */
       transition={{ duration, ease: "linear" }}
     >

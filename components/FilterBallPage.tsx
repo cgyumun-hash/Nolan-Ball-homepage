@@ -6,7 +6,6 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import {
-  FILTER_BALL_ICONS,
   PRODUCTS_PAGES,
   PRODUCT_SPECS,
   SUBHEADER_BG,
@@ -51,7 +50,7 @@ function hasImage(src: string) {
  * 이 페이지에는 data-aos 속성이 없어 스크롤 등장 효과를 넣지 않았습니다.
  */
 export default function FilterBallPage({ data }: { data: FilterBall }) {
-  const listItem = (text: string, icon: string) => (
+  const listItem = (text: string, index: number) => (
     <li
       key={text}
       className="mb-[30px] flex items-center gap-[50px] text-[22px] last:mb-0
@@ -60,31 +59,9 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
                  max-b860:items-start
                  max-b520:text-[16px]"
     >
-      {hasImage(icon) ? (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={icon}
-          alt=""
-          className="shrink-0 max-b980:w-5 max-b860:mt-2.5"
-        />
-      ) : (
-        /* 원본 아이콘 28×30 */
-        <span
-          className="mt-0.5 grid h-[30px] w-[28px] shrink-0 place-items-center text-sky-600
-                     max-b980:h-5 max-b980:w-5 max-b860:mt-2.5"
-          aria-hidden
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M4 12.5 9.5 18 20 6.5"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
-      )}
+      <span className="gfont w-[28px] shrink-0 text-center text-[22px] font-bold text-black max-b980:w-5 max-b980:text-[18px]" aria-hidden>
+        {String.fromCharCode(0x2460 + index)}
+      </span>
       <p>{text}</p>
     </li>
   );
@@ -107,8 +84,8 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
         <div className="wrap-in2">
           {/* ── .s1 : 제품 이미지 + 설명 ─────────────────────────── */}
           <div
-            className="mb-[200px] flex items-center justify-between gap-[50px]
-                       max-b860:mb-[100px] max-b860:flex-col max-b580:mb-20 max-b580:gap-8"
+            className="mb-[320px] flex items-center justify-between gap-[50px]
+                       max-b1080:mb-[240px] max-b860:mb-[180px] max-b860:flex-col max-b580:mb-[130px] max-b580:gap-8"
           >
             <div className="max-b1400:w-[300px]">
               {hasImage(data.image) ? (
@@ -173,25 +150,38 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
           </div>
 
           {/* ── .s2 : Features / Effects ────────────────────────── */}
-          <div>
+          <div className="relative">
+            <svg
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-0 h-full w-full max-b860:hidden"
+              viewBox="0 0 1400 720"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 420 553 C 650 628, 755 578, 820 365 C 870 215, 970 170, 1050 170"
+                fill="none"
+                stroke="#111111"
+                strokeWidth="10"
+                strokeLinecap="round"
+              />
+            </svg>
             {/* .c1 — 목록이 왼쪽, 초록 라벨이 오른쪽 (860↓ 라벨이 위로) */}
             <div
-              className="mb-[50px] flex justify-between
+              className="relative z-10 mb-[50px] flex justify-between
                          max-b1400:mb-[30px] max-b860:flex-col-reverse"
             >
               <ul
-                className="w-[71%] rounded-[50px] bg-[#F7F8FD] p-[50px]
+                className="w-[71%] bg-[#f2f4f6] p-[50px]
                            max-b1400:w-[73%]
-                           max-b860:w-full max-b860:rounded-none
+                           max-b860:w-full
                            max-b520:p-[25px]"
               >
-                {data.features.map((f) => listItem(f, FILTER_BALL_ICONS.feature))}
+                {data.features.map((f, index) => listItem(f, index))}
               </ul>
               <div
-                className="gfont flex w-1/4 items-center justify-center rounded-[50px]
-                           bg-brand-500 text-[40px] font-bold text-white
+                className="gfont flex w-1/4 items-center justify-center bg-[#3182F6] pl-[7%] text-center text-[36px] font-bold text-white [clip-path:polygon(18%_0,100%_0,100%_100%,18%_100%,0_50%)]
                            max-b1400:text-[30px]
-                           max-b860:w-full max-b860:rounded-none
+                           max-b860:w-full max-b860:pl-0 max-b860:[clip-path:none]
                            max-b520:py-2.5 max-b520:text-[24px]"
               >
                 Features
@@ -199,22 +189,21 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
             </div>
 
             {/* .c2 — 주황 라벨이 왼쪽, 목록이 오른쪽 */}
-            <div className="flex justify-between max-b860:flex-col">
+            <div className="relative z-10 flex justify-between max-b860:flex-col">
               <div
-                className="gfont flex w-[30%] items-center justify-center rounded-[50px]
-                           bg-accent-500 text-[40px] font-bold text-white
+                className="gfont flex w-[30%] items-center justify-center bg-[#0064FF] pr-[7%] text-center text-[36px] font-bold text-white [clip-path:polygon(0_0,82%_0,100%_50%,82%_100%,0_100%)]
                            max-b1400:text-[30px]
-                           max-b860:w-full max-b860:rounded-none
+                           max-b860:w-full max-b860:pr-0 max-b860:[clip-path:none]
                            max-b520:py-2.5 max-b520:text-[24px]"
               >
                 Effects
               </div>
               <ul
-                className="w-[66%] rounded-[50px] bg-[#F7F8FD] p-[50px]
-                           max-b860:w-full max-b860:rounded-none
+                className="w-[66%] bg-[#f2f4f6] p-[50px]
+                           max-b860:w-full
                            max-b520:p-[25px]"
               >
-                {data.effects.map((e) => listItem(e, FILTER_BALL_ICONS.effect))}
+                {data.effects.map((e, index) => listItem(e, index))}
               </ul>
             </div>
           </div>
@@ -223,8 +212,8 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
               세 제품 페이지가 같은 표를 공유합니다. 현재 페이지 규격에
               해당하는 줄을 굵게 표시합니다. */}
           <h3
-            className="gfont mt-[200px] mb-[40px] text-[40px] font-bold text-ink-900
-                       max-b1080:mt-[100px] max-b1080:text-[30px] max-b520:text-[24px]"
+            className="gfont mt-[410px] mb-[40px] text-[40px] font-bold text-ink-900
+                       max-b1080:mt-[240px] max-b1080:text-[30px] max-b520:mt-[160px] max-b520:text-[24px]"
           >
             {PRODUCT_SPECS.heading}
           </h3>
