@@ -1,80 +1,84 @@
-"use client";
-
 import Link from "next/link";
 
 import { WHY } from "@/lib/site";
 
 /**
- * 원본 .section_2
- *   height:100vh (1400↓ 80vh · 1080↓ auto + padding 80px 0)
- *   display:flex; align-items:center; justify-content:center; background:#fff
- *   .img_box { position:absolute; right:0; top:50%; transform:translateY(-50%) }
- *             1600↓ top:42%; width:70%    856↓ relative · width:60% · margin:0 auto
- *   h2 { font-size:160px; margin-bottom:90px }
- *        1600↓ 110px · 1080↓ mb:20px · 856↓ 80px+가운데 · 580↓ 68px
- *   a  { display:flex; gap:30px; width:fit-content; margin:0 auto }
- *   a:hover .view_btn { animation: bounce_513 1s infinite }
+ * 메인 기술 소개 섹션.
+ * 데스크톱에서는 3행 타이틀과 360° 모티프를 좌우로 배치하고,
+ * 작은 화면에서는 모티프를 타이틀 아래로 내려 읽기 흐름을 유지합니다.
  */
-
-const BALLS = ["ball-light", "ball-mid", "ball-dark"] as const;
-
 export default function WhyAcf() {
   return (
     <section
-      className="flex h-screen w-full items-center justify-center bg-white
-                 max-b1400:h-[80vh] max-b1080:h-auto max-b1080:py-20 max-b580:py-16"
+      id="why-nolan-ball"
+      aria-labelledby="why-nolan-ball-title"
+      className="flex min-h-screen w-full items-center overflow-hidden bg-white py-24
+                 max-b1080:min-h-0 max-b1080:py-[140px]
+                 max-b580:py-[100px]"
     >
-      <div className="wrap-in">
-        {/* 원본 section_2ball.png 자리 — CSS 그라디언트로 그린 구슬 3개 */}
-        <div
-          className="absolute right-0 top-1/2 flex -translate-y-1/2 items-center
-                     max-b1600:top-[42%]
-                     max-b856:relative max-b856:top-0 max-b856:mx-auto max-b856:mb-8
-                     max-b856:w-fit max-b856:translate-y-0 max-b856:justify-center"
-        >
-          {BALLS.map((cls) => (
-            <span
-              key={cls}
-              className={`${cls} -ml-8 block rounded-full shadow-[0_16px_44px_rgba(0,0,0,0.28)]
-                          first:ml-0 max-b856:-ml-5`}
-              style={{
-                width: "clamp(3.5rem, 8.5vw, 9rem)",
-                height: "clamp(3.5rem, 8.5vw, 9rem)",
-              }}
-            />
-          ))}
+      <div
+        className="wrap-in flex items-center justify-between pr-[1.9%]
+                   max-b1200:pr-0
+                   max-b856:flex-col max-b856:items-stretch"
+      >
+        <div className="shrink-0">
+          <h2
+            id="why-nolan-ball-title"
+            className="font-sans text-[108px] font-extrabold leading-none tracking-[-0.045em] text-[#222]
+                       max-b1600:text-[96px]
+                       max-b1200:text-[84px]
+                       max-b856:text-[64px]
+                       max-b580:text-[clamp(48px,15vw,60px)]"
+          >
+            {WHY.headingLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h2>
+
+          <Link
+            href={WHY.href}
+            className="group ml-[3px] mt-[54px] flex w-fit items-center gap-[22px]
+                       text-[16px] font-bold tracking-[0.13em] text-brand-500
+                       max-b1200:mt-10 max-b1200:text-[14px]
+                       max-b580:mt-8 max-b580:gap-4 max-b580:text-[12px]"
+          >
+            <span className="gfont">{WHY.cta}</span>
+            <span className="inline-flex group-hover:[animation:arrow-bounce_1s_infinite]">
+              <svg
+                width="34"
+                height="12"
+                viewBox="0 0 34 12"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0 6h32M27 1l5 5-5 5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+              </svg>
+            </span>
+          </Link>
         </div>
 
-        <h2
-          className="gfont mb-[90px] text-[160px] font-bold leading-[1.05] text-ink-900
-                     max-b1600:text-[110px]
-                     max-b1080:mb-5
-                     max-b856:text-center max-b856:text-[80px]
-                     max-b580:text-[clamp(46px,14vw,68px)]"
+        <div
+          className="flex w-[324px] shrink-0 -translate-y-[45px] items-center gap-7 text-brand-500
+                     max-b1600:w-[290px]
+                     max-b1200:w-[250px] max-b1200:gap-5
+                     max-b856:mt-16 max-b856:w-[min(100%,290px)] max-b856:translate-y-0 max-b856:self-end
+                     max-b580:mt-14 max-b580:w-[min(78%,260px)] max-b580:gap-4"
+          aria-label={WHY.contact}
         >
-          {WHY.headingLines[0]}
-          <br />
-          {WHY.headingLines[1]}
-        </h2>
-
-        {/* 원본 a.gfont.fs16.fw800 — 16px / 800 (1600↓ 14px) */}
-        <Link
-          href={WHY.href}
-          className="group mx-auto flex w-fit items-center gap-[30px]
-                     text-[16px] font-extrabold text-ink-900 max-b1600:text-[14px]"
-        >
-          <p className="gfont">{WHY.cta}</p>
-          {/* 원본 view_btn.png — hover 시 bounce_513 */}
-          <span className="inline-block group-hover:[animation:arrow-bounce_1s_infinite]">
-            <svg width="46" height="10" viewBox="0 0 46 10" fill="none" aria-hidden>
-              <path
-                d="M0 5h44M39.5 1 44 5l-4.5 4"
-                stroke="currentColor"
-                strokeWidth="1.4"
-              />
-            </svg>
+          <span
+            className="gfont shrink-0 text-[28px] font-bold leading-none tracking-[0.04em]
+                       max-b1200:text-[24px] max-b580:text-[20px]"
+          >
+            {WHY.contact}
           </span>
-        </Link>
+          <span className="h-0.5 flex-1 bg-current" aria-hidden="true" />
+        </div>
       </div>
     </section>
   );
