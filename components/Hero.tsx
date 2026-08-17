@@ -7,6 +7,8 @@ import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import { HERO_ACTIONS, SLIDES } from "@/lib/site";
+import { EN_HERO_ACTIONS, EN_SLIDES } from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 .section_1
@@ -23,7 +25,9 @@ import { HERO_ACTIONS, SLIDES } from "@/lib/site";
  *   autoplay:{ delay:3000, disableOnInteraction:false }
  *   onAutoplayTimeLeft → 진행바 scaleX(1-progress) · 남은 초 표시
  */
-export default function Hero() {
+export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
+  const slides = locale === "en" ? EN_SLIDES : SLIDES;
+  const heroActions = locale === "en" ? EN_HERO_ACTIONS : HERO_ACTIONS;
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [index, setIndex] = useState(0);
 
@@ -53,7 +57,7 @@ export default function Hero() {
         }}
           className="h-full w-full"
         >
-        {SLIDES.map((slide) => (
+        {slides.map((slide) => (
           <SwiperSlide key={slide.id} className="relative">
             {/* 배경: 그라디언트 위에 사진.
                 사진이 없어도 그라디언트가 보여 레이아웃이 깨지지 않습니다. */}
@@ -115,7 +119,7 @@ export default function Hero() {
                    max-b1080:bottom-[110px] max-b1080:left-[60px] max-b1080:right-auto
                    max-b580:hidden"
         >
-          {HERO_ACTIONS.map((action) => (
+          {heroActions.map((action) => (
             <Link
               key={action.href}
               href={action.href}
@@ -133,10 +137,10 @@ export default function Hero() {
         </div>
 
         <nav
-          aria-label="주요 바로가기"
+          aria-label={locale === "en" ? "Primary links" : "주요 바로가기"}
           className="absolute inset-x-4 bottom-6 z-20 hidden gap-1.5 max-b580:flex"
         >
-          {HERO_ACTIONS.map((action) => (
+          {heroActions.map((action) => (
             <Link
               key={action.href}
               href={action.href}
@@ -170,7 +174,7 @@ export default function Hero() {
           <div className="flex shrink-0 items-center gap-5 font-display text-[18px] text-white max-b1600:text-[14px] max-b580:gap-2.5 max-b580:text-[12px]">
           <button
             onClick={() => swiper?.slidePrev()}
-            aria-label="이전 슬라이드"
+            aria-label={locale === "en" ? "Previous slide" : "이전 슬라이드"}
             className="transition-opacity hover:opacity-60"
           >
             ‹
@@ -179,12 +183,12 @@ export default function Hero() {
           <span className="tabular-nums">
             {index + 1}
             {/* 원본 .swiper-pagination-total { opacity: 0.6 } */}
-            <span className="opacity-60"> / {SLIDES.length}</span>
+            <span className="opacity-60"> / {slides.length}</span>
           </span>
 
           <button
             onClick={() => swiper?.slideNext()}
-            aria-label="다음 슬라이드"
+            aria-label={locale === "en" ? "Next slide" : "다음 슬라이드"}
             className="transition-opacity hover:opacity-60"
           >
             ›

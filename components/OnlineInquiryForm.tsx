@@ -3,6 +3,13 @@
 import { FormEvent, useState } from "react";
 
 import { COMPANY, INQUIRY_FORM_MESSAGES, INQUIRY_TYPES } from "@/lib/site";
+import {
+  EN_COMPANY,
+  EN_INQUIRY_COPY,
+  EN_INQUIRY_FORM_MESSAGES,
+  EN_INQUIRY_TYPE_OPTIONS,
+} from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
 const inputClass =
   "h-[54px] border border-line bg-white px-4 outline-none transition-colors focus:border-brand-500";
@@ -48,7 +55,14 @@ const policySections = [
   },
 ] as const;
 
-export default function OnlineInquiryForm() {
+export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLocale }) {
+  const english = locale === "en";
+  const company = english ? EN_COMPANY : COMPANY;
+  const messages = english ? EN_INQUIRY_FORM_MESSAGES : INQUIRY_FORM_MESSAGES;
+  const inquiryTypeOptions = english
+    ? EN_INQUIRY_TYPE_OPTIONS
+    : INQUIRY_TYPES.map((value) => ({ label: value, value }));
+  const localizedPolicySections = english ? EN_INQUIRY_COPY.policySections : policySections;
   const [domain, setDomain] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
@@ -92,54 +106,54 @@ export default function OnlineInquiryForm() {
         />
 
         <h2 className="gfont mb-[30px] text-[38px] max-b580:text-[30px]">
-          개인정보 수집·이용 동의
+          {english ? EN_INQUIRY_COPY.consentTitle : "개인정보 수집·이용 동의"}
         </h2>
 
         <div className="mb-5 leading-[30px]">
-          <p>동의하시기 전에 개인정보의 수집·이용에 관한 아래 내용을 자세히 읽어 주세요.</p>
-          <p className="mb-2.5">수집 항목: 기관명, 담당자명, 부서·직책, 연락처, 이메일</p>
-          <p className="text-[16px]">※ 수집 목적이 달성되면 개인정보는 지체 없이 파기되며, 보유 기간은 최대 3년입니다.</p>
+          <p>{english ? EN_INQUIRY_COPY.consentIntro : "동의하시기 전에 개인정보의 수집·이용에 관한 아래 내용을 자세히 읽어 주세요."}</p>
+          <p className="mb-2.5">{english ? EN_INQUIRY_COPY.collectedItems : "수집 항목: 기관명, 담당자명, 부서·직책, 연락처, 이메일"}</p>
+          <p className="text-[16px]">{english ? EN_INQUIRY_COPY.retentionSummary : "※ 수집 목적이 달성되면 개인정보는 지체 없이 파기되며, 보유 기간은 최대 3년입니다."}</p>
         </div>
 
         <div className="mb-[30px] h-[400px] overflow-y-auto border border-line bg-[#fafafa] p-[30px] text-[16px] leading-[26px] max-b580:p-5">
-          <p className="mb-7">놀란볼코리아는 이용자의 개인정보를 소중하게 생각합니다. 본 방침은 웹사이트·제품·서비스 이용 과정에서 개인정보를 어떻게 수집·이용·보관·파기하는지 설명합니다.</p>
-          {policySections.map((section) => (
+          <p className="mb-7">{english ? EN_INQUIRY_COPY.policyIntro : "놀란볼코리아는 이용자의 개인정보를 소중하게 생각합니다. 본 방침은 웹사이트·제품·서비스 이용 과정에서 개인정보를 어떻게 수집·이용·보관·파기하는지 설명합니다."}</p>
+          {localizedPolicySections.map((section) => (
             <div key={section.title} className="mb-7">
               <h3 className="mb-2 font-bold">{section.title}</h3>
               <p>{section.body}</p>
             </div>
           ))}
           <div>
-            <h3 className="mb-2 font-bold">9. 문의처</h3>
-            <p className="mb-5">본 개인정보처리방침에 관한 문의는 아래로 연락해 주세요.</p>
-            <strong className="gfont text-[21px]">{COMPANY.legal}</strong>
-            <p className="mt-2">{COMPANY.address}</p>
-            <p>{COMPANY.email}</p>
+            <h3 className="mb-2 font-bold">{english ? EN_INQUIRY_COPY.contactTitle : "9. 문의처"}</h3>
+            <p className="mb-5">{english ? EN_INQUIRY_COPY.contactBody : "본 개인정보처리방침에 관한 문의는 아래로 연락해 주세요."}</p>
+            <strong className="gfont text-[21px]">{company.legal}</strong>
+            <p className="mt-2">{company.address}</p>
+            <p>{company.email}</p>
             <p>
-              {COMPANY.tel} (팩스 {COMPANY.fax})
+              {company.tel} ({english ? EN_INQUIRY_COPY.faxLabel : "팩스"} {company.fax})
             </p>
           </div>
         </div>
 
         <label className="mb-[60px] flex cursor-pointer items-center gap-3 text-[17px]">
           <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 accent-brand-500" />
-          <span>개인정보 수집·이용에 동의합니다.</span>
+          <span>{english ? EN_INQUIRY_COPY.agree : "개인정보 수집·이용에 동의합니다."}</span>
         </label>
 
         <div className="border-t-2 border-ink-900">
-          <FormRow label="기관명">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.organization : "기관명"}>
             <input name="organization" required className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label="담당자명">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.name : "담당자명"}>
             <input name="name" required className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label="부서·직책">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.department : "부서·직책"}>
             <input name="department" className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label="연락처">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.phone : "연락처"}>
             <div className="flex min-w-0 items-center gap-3 max-b580:gap-1.5">
               <PhoneInput name="tel1" maxLength={3} />
               <span>-</span>
@@ -149,51 +163,51 @@ export default function OnlineInquiryForm() {
             </div>
           </FormRow>
 
-          <FormRow label="이메일">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.email : "이메일"}>
             <div className="flex items-center gap-3 max-b860:flex-wrap max-b580:gap-2">
               <input name="emailId" required className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
               <span>@</span>
               <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
-              <select aria-label="이메일 도메인 선택" value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
-                <option value="">직접 입력</option>
+              <select aria-label={english ? EN_INQUIRY_COPY.emailDomainLabel : "이메일 도메인 선택"} value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
+                <option value="">{english ? EN_INQUIRY_COPY.emailDomainCustom : "직접 입력"}</option>
                 {["naver.com", "daum.net", "hanmail.net", "gmail.com", "nate.com", "hotmail.com", "msn.com", "google.com", "dreamwiz.com"].map((item) => <option key={item}>{item}</option>)}
               </select>
             </div>
           </FormRow>
 
-          <FormRow label="문의 유형">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.inquiryType : "문의 유형"}>
             <select name="inquiryType" required className={`${inputClass} w-full max-w-[320px]`}>
-              <option value="">선택해 주세요</option>
-              {INQUIRY_TYPES.map((item) => (
-                <option key={item}>{item}</option>
+              <option value="">{english ? EN_INQUIRY_COPY.selectPrompt : "선택해 주세요"}</option>
+              {inquiryTypeOptions.map((item) => (
+                <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
           </FormRow>
 
-          <FormRow label="사용 내시경 종류·채널 규격">
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.endoscope : "사용 내시경 종류·채널 규격"}>
             <input
               name="endoscope"
-              placeholder="예) 대장 내시경 · 채널 3.7 mm"
+              placeholder={english ? EN_INQUIRY_COPY.endoscopePlaceholder : "예) 대장 내시경 · 채널 3.7 mm"}
               className={`${inputClass} w-full max-w-[520px]`}
             />
           </FormRow>
 
-          <FormRow label="문의 내용" alignTop>
+          <FormRow label={english ? EN_INQUIRY_COPY.fields.message : "문의 내용"} alignTop>
             <textarea name="message" required className="min-h-[240px] w-full resize-y border border-line p-4 outline-none transition-colors focus:border-brand-500" />
           </FormRow>
         </div>
 
         {status === "success" && (
           <p role="status" className="mt-8 text-center font-medium text-sky-700">
-            {INQUIRY_FORM_MESSAGES.success}
+            {messages.success}
           </p>
         )}
 
         {status === "error" && (
           <p role="alert" className="mt-8 text-center font-medium text-red-700">
-            {INQUIRY_FORM_MESSAGES.failure}{" "}
-            <a href={`mailto:${COMPANY.email}`} className="underline">
-              {COMPANY.email}
+            {messages.failure}{" "}
+            <a href={`mailto:${company.email}`} className="underline">
+              {company.email}
             </a>
           </p>
         )}
@@ -204,8 +218,8 @@ export default function OnlineInquiryForm() {
           className="mx-auto mt-[50px] block h-[60px] w-[220px] bg-ink-900 text-[18px] font-bold text-white transition-colors hover:bg-brand-500 disabled:cursor-wait disabled:opacity-60"
         >
           {status === "submitting"
-            ? INQUIRY_FORM_MESSAGES.submitting
-            : INQUIRY_FORM_MESSAGES.submit}
+            ? messages.submitting
+            : messages.submit}
         </button>
       </form>
     </section>

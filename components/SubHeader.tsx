@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { SiteLocale } from "@/lib/locale";
 
 /**
  * 서브페이지 공통 상단 — About Us 5개 · Business Areas · Products … 모두 공유합니다.
@@ -33,6 +34,7 @@ export default function SubHeader({
   current,
   breadcrumb,
   bg,
+  locale = "ko",
 }: {
   /** Business Areas 처럼 대분류 표기가 없는 페이지는 생략합니다 (원본은 h2 를 주석 처리) */
   eyebrow?: string;
@@ -49,6 +51,7 @@ export default function SubHeader({
     overlay?: string;
     selectiveBlur?: boolean;
   };
+  locale?: SiteLocale;
 }) {
   return (
     <div className="pt-[80px] max-b1080:pt-[50px] max-b580:pt-[46px]">
@@ -148,7 +151,7 @@ export default function SubHeader({
       <div className="wrap-in mt-5">
         <ul className="flex items-center text-ink-900 max-b860:text-[14px] max-b520:text-[12px]">
           <li className="mr-2.5">
-            <Link href="/" className="hover:text-sky-600">
+            <Link href={locale === "en" ? "/en" : "/"} className="hover:text-sky-600">
               Home
             </Link>
           </li>

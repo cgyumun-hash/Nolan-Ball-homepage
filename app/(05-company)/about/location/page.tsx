@@ -8,7 +8,9 @@ import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
 import KakaoRoughMap from "@/components/KakaoRoughMap";
+import type { SiteLocale } from "@/lib/locale";
 import { COMPANY_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
+import { EN_COMPANY_PAGES, EN_LOCATION } from "@/lib/site.en";
 
 export const metadata: Metadata = {
   title: "오시는 길",
@@ -47,19 +49,23 @@ function hasImage(src: string) {
  *           .c1 p { margin-bottom:60px }   1200↓ 30px   마지막 줄은 0
  *           .lh50 { line-height:50px }     1200↓ 35px
  */
-export default function LocationPage() {
+export function LocationPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_LOCATION : LOCATION;
+  const pages = locale === "en" ? EN_COMPANY_PAGES : COMPANY_PAGES;
+
   return (
     <>
-      <InquiryButton />
-      <Header forceSolid />
+      <InquiryButton locale={locale} />
+      <Header forceSolid locale={locale} />
 
       <SubHeader
-        eyebrow={LOCATION.eyebrow}
-        title={LOCATION.title}
-        pager={COMPANY_PAGES}
-        current={LOCATION.title}
-        breadcrumb={[LOCATION.eyebrow, LOCATION.title]}
+        eyebrow={content.eyebrow}
+        title={content.title}
+        pager={pages}
+        current={content.title}
+        breadcrumb={[content.eyebrow, content.title]}
         bg={SUBHEADER_BG.company}
+        locale={locale}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px] max-b580:pt-20 max-b580:pb-[120px]">
@@ -69,24 +75,25 @@ export default function LocationPage() {
             <div className="flex items-center gap-[15px]">
               <div className="h-[50px] w-2.5 shrink-0 bg-brand-500 max-b1200:h-[35px]" />
               <h4 className="gfont text-[48px] max-b1200:text-[36px] max-b520:mb-2.5 max-b520:text-[28px]">
-                {LOCATION.officeTitle}
+                {content.officeTitle}
               </h4>
             </div>
 
             <p className="gfont mb-[50px] ml-[30px] text-[24px] max-b1200:text-[20px] max-b520:text-[18px]">
-              {LOCATION.officeAddress}
+              {content.officeAddress}
             </p>
 
             {/* 원본 data-aos="fade-up" data-aos-duration="3000" — 3초짜리 느린 페이드 */}
             <FadeUp duration={3}>
               <KakaoRoughMap
-                timestamp={LOCATION.map.timestamp}
-                mapKey={LOCATION.map.key}
-                height={LOCATION.map.height}
-                address={LOCATION.officeAddress}
-                placeName={LOCATION.map.name}
-                latitude={LOCATION.map.latitude}
-                longitude={LOCATION.map.longitude}
+                timestamp={content.map.timestamp}
+                mapKey={content.map.key}
+                height={content.map.height}
+                address={content.officeAddress}
+                placeName={content.map.name}
+                latitude={content.map.latitude}
+                longitude={content.map.longitude}
+                linkLabel={locale === "en" ? "Open in Kakao Map" : undefined}
               />
             </FadeUp>
           </div>
@@ -96,12 +103,12 @@ export default function LocationPage() {
             <div className="mb-[80px] flex items-center gap-[15px] max-b520:mb-[50px]">
               <div className="h-[50px] w-2.5 shrink-0 bg-brand-500 max-b1200:h-[35px]" />
               <h4 className="gfont text-[48px] max-b1200:text-[36px] max-b520:mb-2.5 max-b520:text-[28px]">
-                {LOCATION.transitTitle}
+                {content.transitTitle}
               </h4>
             </div>
 
-            {LOCATION.transit.map((row, rowIndex) => {
-              const last = rowIndex === LOCATION.transit.length - 1;
+            {content.transit.map((row, rowIndex) => {
+              const last = rowIndex === content.transit.length - 1;
               return (
                 <ul
                   key={row.label}
@@ -171,7 +178,11 @@ export default function LocationPage() {
         </div>
       </main>
 
-      <Footer bordered />
+      <Footer bordered locale={locale} />
     </>
   );
+}
+
+export default function LocationPage() {
+  return <LocationPageContent />;
 }

@@ -11,6 +11,8 @@ import {
   SUBHEADER_BG,
   type FilterBall,
 } from "@/lib/site";
+import { EN_PRODUCTS_PAGES, EN_PRODUCT_SPECS } from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
 function hasImage(src: string) {
   return fs.existsSync(path.join(process.cwd(), "public", src));
@@ -49,7 +51,9 @@ function hasImage(src: string) {
  *
  * 이 페이지에는 data-aos 속성이 없어 스크롤 등장 효과를 넣지 않았습니다.
  */
-export default function FilterBallPage({ data }: { data: FilterBall }) {
+export default function FilterBallPage({ data, locale = "ko" }: { data: FilterBall; locale?: SiteLocale }) {
+  const productPages = locale === "en" ? EN_PRODUCTS_PAGES : PRODUCTS_PAGES;
+  const productSpecs = locale === "en" ? EN_PRODUCT_SPECS : PRODUCT_SPECS;
   const listItem = (text: string, index: number) => (
     <li
       key={text}
@@ -68,16 +72,17 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
 
   return (
     <>
-      <InquiryButton />
-      <Header forceSolid />
+      <InquiryButton locale={locale} />
+      <Header forceSolid locale={locale} />
 
       <SubHeader
         eyebrow={data.eyebrow}
         title={data.title}
-        pager={PRODUCTS_PAGES}
+        pager={productPages}
         current={data.title}
         breadcrumb={[data.eyebrow, data.title]}
         bg={SUBHEADER_BG.product}
+        locale={locale}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px] max-b580:pt-20 max-b580:pb-[120px]">
@@ -215,13 +220,13 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
             className="gfont mt-[410px] mb-[40px] text-[40px] font-bold text-ink-900
                        max-b1080:mt-[240px] max-b1080:text-[30px] max-b520:mt-[160px] max-b520:text-[24px]"
           >
-            {PRODUCT_SPECS.heading}
+            {productSpecs.heading}
           </h3>
           <div className="overflow-x-auto">
             <table className="w-full min-w-[560px] border-collapse text-center">
               <thead>
                 <tr className="h-[60px] border-y border-ink-900 bg-[#fafafa] text-[16px] font-bold">
-                  {PRODUCT_SPECS.columns.map((c) => (
+                  {productSpecs.columns.map((c) => (
                     <th key={c} className="px-3">
                       {c}
                     </th>
@@ -229,7 +234,7 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
                 </tr>
               </thead>
               <tbody>
-                {PRODUCT_SPECS.rows.map((r) => {
+                {productSpecs.rows.map((r) => {
                   const on = data.title.startsWith(r.use.replace(" 내시경", ""));
                   return (
                     <tr
@@ -250,12 +255,12 @@ export default function FilterBallPage({ data }: { data: FilterBall }) {
             </table>
           </div>
           <p className="mt-5 text-[15px] leading-[1.7] text-ink-500 max-b520:text-[13px]">
-            {PRODUCT_SPECS.note}
+            {productSpecs.note}
           </p>
         </div>
       </main>
 
-      <Footer bordered />
+      <Footer bordered locale={locale} />
     </>
   );
 }

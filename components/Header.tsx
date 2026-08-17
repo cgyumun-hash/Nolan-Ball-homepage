@@ -3,8 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { LANGS, NAV } from "@/lib/site";
+import { NAV } from "@/lib/site";
+import { EN_NAV } from "@/lib/site.en";
+import { getLanguageHref, type SiteLocale } from "@/lib/locale";
+
+const LANGUAGE_OPTIONS = [
+  { code: "ko", label: "KO" },
+  { code: "en", label: "EN" },
+] as const;
 
 /**
  * 원본 .header
@@ -21,7 +29,15 @@ import { LANGS, NAV } from "@/lib/site";
  * 서브페이지(sub13.php 등)는 인라인 <style> 로 항상 흰 배경이고
  * mouseout 핸들러를 주석 처리해 두었습니다 → forceSolid 로 재현합니다.
  */
-export default function Header({ forceSolid = false }: { forceSolid?: boolean }) {
+export default function Header({
+  forceSolid = false,
+  locale = "ko",
+}: {
+  forceSolid?: boolean;
+  locale?: SiteLocale;
+}) {
+  const pathname = usePathname();
+  const nav = locale === "en" ? EN_NAV : NAV;
   const [hovered, setHovered] = useState(false);
   const solid = forceSolid || hovered;
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -47,9 +63,9 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
       >
         <div className="wrap-in flex items-center justify-between">
           <Link
-            href="/"
+            href={locale === "en" ? "/en" : "/"}
             className="min-w-0 shrink py-3"
-            aria-label="놀란볼코리아 메인으로 이동"
+            aria-label={locale === "en" ? "Go to the Nolan Ball Korea home page" : "놀란볼코리아 메인으로 이동"}
           >
             <Image
               src="/images/main/logo.webp"
@@ -64,10 +80,14 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
           {/* ── GNB ─────────────────────────────────────────────── */}
           {/* 4개 대분류를 동일한 폭으로 나누고 줄바꿈을 막습니다. */}
           <nav className="hidden w-[74%] items-center justify-between text-center b1080:flex">
-            {NAV.map((item) => (
+            {nav.map((item) => (
               <div
                 key={item.label}
-                onMouseEnter={() => setOpenMenu(item.label)}
+                onMouseEnter={() => {
+                  setLangOpen(false);
+                  setOpenMenu(item.label);
+                }}
+                onMouseLeave={() => setOpenMenu(null)}
                 className="relative flex-1 cursor-pointer px-2 py-[25px]
                            max-b1600:px-1"
               >
@@ -113,10 +133,13 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
             {/* 원본 .side_menu — hover 시 .translation-links slideDown */}
             <div
               className="relative py-6 max-b1080:py-4"
-              onMouseEnter={() => setLangOpen(true)}
+              onMouseEnter={() => {
+                setOpenMenu(null);
+                setLangOpen(true);
+              }}
               onMouseLeave={() => setLangOpen(false)}
             >
-              <button aria-label="언어 선택" className={`block ${fg}`}>
+              <button aria-label={locale === "en" ? "Select language" : "언어 선택"} className={`block ${fg}`}>
                 {/* 원본 lang.png / b_lang.png (지구본) */}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.5" />
@@ -132,18 +155,25 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
                     animate={{ height: "auto" }}
                     exit={{ height: 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute right-0 top-[57px] overflow-hidden
-                               border-t-[3px] border-brand-500 bg-white"
+                    className="absolute right-0 top-[57px] overflow-hidden bg-white"
                   >
+                    <span
+                      aria-hidden
+                      className="absolute right-0 top-0 h-[3px] w-6 bg-brand-500"
+                    />
                     <div className="px-5 py-[15px]">
-                      {LANGS.map((l) => (
+                      {LANGUAGE_OPTIONS.map((l) => (
                         <li key={l.code} className="mb-2.5 last:mb-0">
-                          <button
-                            className="block w-[30px] text-left text-[13px] font-bold
-                                       text-ink-500 hover:text-ink-900"
+                          <Link
+                            href={getLanguageHref(pathname, l.code)}
+                            hrefLang={l.code}
+                            aria-current={locale === l.code ? "page" : undefined}
+                            className={`block w-[30px] text-left text-[13px] font-bold hover:text-ink-900 ${
+                              locale === l.code ? "text-ink-900" : "text-ink-500"
+                            }`}
                           >
                             {l.label}
-                          </button>
+                          </Link>
                         </li>
                       ))}
                     </div>
@@ -155,7 +185,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
             {/* 원본 .ico — 30×25, 막대 3개(높이 10%), active 시 X 로 변형 */}
             <button
               onClick={() => setSideOpen(true)}
-              aria-label="전체 메뉴 열기"
+              aria-label={locale === "en" ? "Open full menu" : "전체 메뉴 열기"}
               className="relative h-[25px] w-[30px] max-b520:h-[22px] max-b520:w-[27px]"
             >
               <span className={`absolute left-0 top-0 h-[2.5px] w-full ${barBg}`} />
@@ -188,7 +218,7 @@ export default function Header({ forceSolid = false }: { forceSolid?: boolean })
               className="h-full w-[300px] cursor-default overflow-y-auto bg-white
                          pt-[70px] text-[24px] text-ink-900 max-b580:w-[250px]"
             >
-              {NAV.map((item) => (
+              {nav.map((item) => (
                 <div key={item.label}>
                   {/* 하위 항목이 없으면 아코디언 대신 바로 이동하는 링크로 둡니다 */}
                   {item.children.length === 0 ? (

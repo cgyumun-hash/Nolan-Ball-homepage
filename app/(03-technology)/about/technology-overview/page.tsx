@@ -6,27 +6,32 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
 import TechnologyFeatures from "@/components/TechnologyFeatures";
+import type { SiteLocale } from "@/lib/locale";
 import { SUBHEADER_BG, TECHNOLOGY, TECHNOLOGY_PAGES } from "@/lib/site";
+import { EN_TECHNOLOGY, EN_TECHNOLOGY_PAGES } from "@/lib/site.en";
 
 export const metadata: Metadata = {
   title: "제품 개요",
 };
 
-export default function TechnologyPage() {
-  const overview = TECHNOLOGY.overview;
+export function TechnologyPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_TECHNOLOGY : TECHNOLOGY;
+  const pages = locale === "en" ? EN_TECHNOLOGY_PAGES : TECHNOLOGY_PAGES;
+  const overview = content.overview;
 
   return (
     <>
-      <InquiryButton />
-      <Header forceSolid />
+      <InquiryButton locale={locale} />
+      <Header forceSolid locale={locale} />
 
       <SubHeader
-        eyebrow={TECHNOLOGY.eyebrow}
-        title={TECHNOLOGY.title}
-        pager={TECHNOLOGY_PAGES}
-        current={TECHNOLOGY.title}
-        breadcrumb={[TECHNOLOGY.eyebrow, TECHNOLOGY.title]}
+        eyebrow={content.eyebrow}
+        title={content.title}
+        pager={pages}
+        current={content.title}
+        breadcrumb={[content.eyebrow, content.title]}
         bg={SUBHEADER_BG.technology}
+        locale={locale}
       />
 
       <main>
@@ -110,11 +115,15 @@ export default function TechnologyPage() {
           </div>
         </section>
 
-        <TechnologyFeatures />
+        <TechnologyFeatures locale={locale} />
         <div aria-hidden className="h-[240px] bg-white max-b1080:h-[180px] max-b580:h-[120px]" />
       </main>
 
-      <Footer bordered />
+      <Footer bordered locale={locale} />
     </>
   );
+}
+
+export default function TechnologyPage() {
+  return <TechnologyPageContent />;
 }

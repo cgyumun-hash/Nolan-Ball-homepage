@@ -4,7 +4,9 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
+import type { SiteLocale } from "@/lib/locale";
 import { HOW_TO_USE, PRODUCTS_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { EN_HOW_TO_USE, EN_PRODUCTS_PAGES } from "@/lib/site.en";
 
 export const metadata: Metadata = {
   title: "사용 방법",
@@ -17,19 +19,23 @@ export const metadata: Metadata = {
  *   main.pt250.pb300 → 1080px 이하 150/200
  *   .wrap_in2        → 본문 폭 1400px
  */
-export default function HowToUsePage() {
+export function HowToUsePageContent({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_HOW_TO_USE : HOW_TO_USE;
+  const pages = locale === "en" ? EN_PRODUCTS_PAGES : PRODUCTS_PAGES;
+
   return (
     <>
-      <InquiryButton />
-      <Header forceSolid />
+      <InquiryButton locale={locale} />
+      <Header forceSolid locale={locale} />
 
       <SubHeader
-        eyebrow={HOW_TO_USE.eyebrow}
-        title={HOW_TO_USE.title}
-        pager={PRODUCTS_PAGES}
+        eyebrow={content.eyebrow}
+        title={content.title}
+        pager={pages}
         current="HOW TO USE"
-        breadcrumb={[HOW_TO_USE.eyebrow]}
+        breadcrumb={[content.eyebrow]}
         bg={SUBHEADER_BG.product}
+        locale={locale}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
@@ -38,7 +44,7 @@ export default function HowToUsePage() {
             className="mb-[40px] text-[24px] leading-[1.7] text-ink-900
                        max-b1080:text-[19px] max-b520:text-[17px]"
           >
-            {HOW_TO_USE.lead}
+            {content.lead}
           </p>
 
           {/* 최종 IFU 확정 전까지 노출하는 안내 — 확정되면 이 블록을 지웁니다 */}
@@ -47,12 +53,12 @@ export default function HowToUsePage() {
                        text-[16px] leading-[1.7] text-ink-500
                        max-b1080:mb-[70px] max-b520:text-[14px]"
           >
-            {HOW_TO_USE.notice}
+            {content.notice}
           </p>
 
           {/* 단계 목록 */}
           <ol className="mb-[160px] max-b1080:mb-[90px]">
-            {HOW_TO_USE.steps.map((step) => (
+            {content.steps.map((step) => (
               <li
                 key={step.no}
                 className="flex gap-[50px] border-t border-line py-[45px] last:border-b
@@ -64,37 +70,57 @@ export default function HowToUsePage() {
                 >
                   {step.no}
                 </span>
+                <div>
+                  <h3 className="mb-3 text-[25px] font-bold text-ink-900 max-b520:text-[20px]">
+                    {step.title}
+                  </h3>
+                  <p className="text-[16px] leading-[1.8] text-ink-500 max-b520:text-[14px]">
+                    {step.body}
+                  </p>
+                </div>
               </li>
             ))}
           </ol>
 
           {/* 주의사항 */}
           <h3
-            className="gfont mb-[160px] text-[40px] font-bold text-ink-900
-                       max-b1080:mb-[90px]
+            className="gfont mb-[40px] text-[40px] font-bold text-ink-900
+                       max-b1080:mb-[30px]
                        max-b1080:text-[30px] max-b520:text-[24px]"
           >
-            {HOW_TO_USE.cautionTitle}
+            {content.cautionTitle}
           </h3>
+
+          <ul className="mb-[160px] border-y border-line px-7 py-7 max-b1080:mb-[90px] max-b520:px-5">
+            {content.cautions.map((caution) => (
+              <li key={caution} className="relative py-2 pl-5 text-[16px] leading-[1.7] text-ink-500 before:absolute before:left-0 before:top-[1em] before:h-1 before:w-1 before:rounded-full before:bg-ink-900 max-b520:text-[14px]">
+                {caution}
+              </li>
+            ))}
+          </ul>
 
           {/* 제품 가이드 영상 — 파일·링크가 없어 자리만 잡아 둡니다 */}
           <h3
             className="gfont mb-[40px] text-[40px] font-bold text-ink-900
                        max-b1080:text-[30px] max-b520:text-[24px]"
           >
-            {HOW_TO_USE.videoTitle}
+            {content.videoTitle}
           </h3>
           <div
             className="flex aspect-video w-full items-center justify-center border border-line
                        bg-[linear-gradient(160deg,#f7f9fc_0%,#e8f0f7_100%)] p-8 text-center
                        text-[15px] leading-[1.8] text-ink-500 max-b520:text-[13px]"
           >
-            {HOW_TO_USE.videoNote}
+            {content.videoNote}
           </div>
         </div>
       </main>
 
-      <Footer bordered />
+      <Footer bordered locale={locale} />
     </>
   );
+}
+
+export default function HowToUsePage() {
+  return <HowToUsePageContent />;
 }

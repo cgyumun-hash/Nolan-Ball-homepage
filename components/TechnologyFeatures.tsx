@@ -4,8 +4,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { TECHNOLOGY } from "@/lib/site";
+import { EN_TECHNOLOGY } from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
-type Feature = (typeof TECHNOLOGY.features)[number];
+type Feature = (typeof TECHNOLOGY.features)[number] | (typeof EN_TECHNOLOGY.features)[number];
 
 const LABEL_POSITIONS = [
   "-left-[6%] top-[11%]",
@@ -43,13 +45,13 @@ function StructureLabel({ feature, open, onClick, position }: { feature: Feature
   );
 }
 
-function Memo({ feature, position, side, zIndex, onClose }: { feature: Feature; position: string; side: "left" | "right"; zIndex: number; onClose: () => void }) {
+function Memo({ feature, position, side, zIndex, onClose, closeLabel }: { feature: Feature; position: string; side: "left" | "right"; zIndex: number; onClose: () => void; closeLabel: string }) {
   return (
     <article
       className={`structure-panel absolute w-[45%] border border-[#d8dee7] bg-white px-10 pb-9 pt-10 shadow-[0_22px_55px_rgba(35,61,89,0.18)] ${side === "left" ? "structure-panel-left" : "structure-panel-right"} ${position}`}
       style={{ zIndex }}
     >
-      <button type="button" aria-label={`${feature.name} 메모 닫기`} onClick={onClose} className="absolute right-5 top-4 text-[26px] leading-none text-ink-900">
+      <button type="button" aria-label={closeLabel} onClick={onClose} className="absolute right-5 top-4 text-[26px] leading-none text-ink-900">
         ×
       </button>
       <p className="gfont mb-3 text-[15px] font-bold tracking-[0.1em] text-ink-900">{feature.no}</p>
@@ -69,7 +71,8 @@ function Memo({ feature, position, side, zIndex, onClose }: { feature: Feature; 
   );
 }
 
-export default function TechnologyFeatures() {
+export default function TechnologyFeatures({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_TECHNOLOGY : TECHNOLOGY;
   const [openOrder, setOpenOrder] = useState<number[]>([]);
 
   const toggleMemo = (index: number) => {
@@ -81,9 +84,9 @@ export default function TechnologyFeatures() {
       <div className="wrap-in2">
         <div className="mx-auto mb-[140px] max-w-[900px] text-center max-b1080:mb-[100px] max-b580:mb-[70px]">
           <h2 id="technology-features-title" className="gfont mb-7 text-[64px] font-bold leading-[1.12] text-ink-900 max-b1080:text-[48px] max-b580:text-[36px]">
-            {TECHNOLOGY.featuresTitle}
+            {content.featuresTitle}
           </h2>
-          <p className="whitespace-pre-line text-[18px] leading-[1.8] text-ink-500 max-b1080:text-[16px] max-b580:text-[14px]">{TECHNOLOGY.featuresLead}</p>
+          <p className="whitespace-pre-line text-[18px] leading-[1.8] text-ink-500 max-b1080:text-[16px] max-b580:text-[14px]">{content.featuresLead}</p>
         </div>
 
         <div className="relative min-h-[760px] max-b980:hidden">
@@ -96,29 +99,30 @@ export default function TechnologyFeatures() {
             <path d="M924 543 L790 543 L610 363" fill="none" stroke="#191f28" strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter" />
           </svg>
 
-          {TECHNOLOGY.features.map((feature, index) => (
+          {content.features.map((feature, index) => (
             <StructureLabel key={feature.no} feature={feature} open={openOrder.includes(index)} position={LABEL_POSITIONS[index]} onClick={() => toggleMemo(index)} />
           ))}
 
           <div className="absolute left-1/2 top-[82px] z-10 aspect-square w-[430px] -translate-x-1/2 max-b1200:w-[390px]">
-            <Image src="/images/technology/파란볼-v2.webp" alt="Nolan Ball 제품 구조" fill sizes="430px" className="object-contain mix-blend-multiply" />
+            <Image src="/images/technology/파란볼-v2.webp" alt={locale === "en" ? "Nolan Ball product structure" : "Nolan Ball 제품 구조"} fill sizes="430px" className="object-contain mix-blend-multiply" />
           </div>
 
           {openOrder.map((featureIndex, orderIndex) => (
             <Memo
-              key={TECHNOLOGY.features[featureIndex].no}
-              feature={TECHNOLOGY.features[featureIndex]}
+              key={content.features[featureIndex].no}
+              feature={content.features[featureIndex]}
               position={NOTE_POSITIONS[featureIndex]}
               side={featureIndex < 3 ? "left" : "right"}
               zIndex={30 + orderIndex}
               onClose={() => toggleMemo(featureIndex)}
+              closeLabel={locale === "en" ? `Close ${content.features[featureIndex].name} details` : `${content.features[featureIndex].name} 메모 닫기`}
             />
           ))}
 
         </div>
 
         <div className="hidden space-y-3 max-b980:block">
-          {TECHNOLOGY.features.map((feature, index) => {
+          {content.features.map((feature, index) => {
             const open = openOrder.includes(index);
             return (
               <div key={feature.no} className="border-y border-line bg-white">

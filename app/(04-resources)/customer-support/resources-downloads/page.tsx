@@ -4,7 +4,9 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
+import type { SiteLocale } from "@/lib/locale";
 import { DOWNLOADS, RESOURCES_PAGES, SUBHEADER_BG } from "@/lib/site";
+import { EN_DOWNLOADS, EN_RESOURCES_PAGES } from "@/lib/site.en";
 
 const title = "자료실";
 
@@ -25,18 +27,23 @@ export const metadata: Metadata = {
  * 레이아웃은 기존 게시판(NoticeBoard) 대신 자료 목록 형태로 바꿨습니다.
  * 서브헤더·푸터·본문 폭 규칙은 다른 서브페이지와 같습니다.
  */
-export default function ResourcesDownloadsPage() {
+export function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_DOWNLOADS : DOWNLOADS;
+  const pages = locale === "en" ? EN_RESOURCES_PAGES : RESOURCES_PAGES;
+  const pageTitle = locale === "en" ? "Downloads" : title;
+
   return (
     <>
-      <InquiryButton />
-      <Header forceSolid />
+      <InquiryButton locale={locale} />
+      <Header forceSolid locale={locale} />
       <SubHeader
         eyebrow="RESOURCES"
-        title={title}
-        pager={RESOURCES_PAGES}
-        current="자료 다운로드"
-        breadcrumb={["RESOURCES", title]}
+        title={pageTitle}
+        pager={pages}
+        current={pageTitle}
+        breadcrumb={["RESOURCES", pageTitle]}
         bg={SUBHEADER_BG.resources}
+        locale={locale}
       />
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
@@ -45,11 +52,11 @@ export default function ResourcesDownloadsPage() {
             className="gfont mb-[50px] text-[40px] font-bold text-ink-900
                        max-b1080:text-[30px] max-b520:text-[24px]"
           >
-            {DOWNLOADS.heading}
+            {content.heading}
           </h2>
 
           <ul className="border-t border-ink-900">
-            {DOWNLOADS.items.map((item) => (
+            {content.items.map((item) => (
               <li
                 key={item.name}
                 className="flex items-center gap-6 border-b border-line py-[30px]
@@ -95,14 +102,14 @@ export default function ResourcesDownloadsPage() {
                                font-extrabold text-white transition-colors hover:bg-brand-500
                                max-b520:px-5 max-b520:py-2.5 max-b520:text-[13px]"
                   >
-                    PDF 내려받기 <span className="ml-1 font-normal">({item.size})</span>
+                    {locale === "en" ? "Download PDF" : "PDF 내려받기"} <span className="ml-1 font-normal">({item.size})</span>
                   </a>
                 ) : (
                   <span
                     className="shrink-0 rounded-[50px] border border-line px-[26px] py-3
                                text-[15px] text-ink-500 max-b520:px-5 max-b520:py-2.5 max-b520:text-[13px]"
                   >
-                    준비 중
+                    {locale === "en" ? "Coming Soon" : "준비 중"}
                   </span>
                 )}
               </li>
@@ -110,12 +117,16 @@ export default function ResourcesDownloadsPage() {
           </ul>
 
           <p className="mt-[30px] text-[15px] leading-[1.7] text-ink-500 max-b520:text-[13px]">
-            {DOWNLOADS.note}
+            {content.note}
           </p>
         </div>
       </main>
 
-      <Footer bordered />
+      <Footer bordered locale={locale} />
     </>
   );
+}
+
+export default function ResourcesDownloadsPage() {
+  return <ResourcesDownloadsPageContent />;
 }

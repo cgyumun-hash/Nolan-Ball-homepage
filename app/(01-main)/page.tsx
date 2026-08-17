@@ -6,6 +6,7 @@ import Products from "@/components/Products";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
+import type { SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 index.html 의 순서를 따르되, 자료정리 2-2 "핵심 장점 4개"가
@@ -23,23 +24,27 @@ import InquiryButton from "@/components/InquiryButton";
  *
  * 헤더가 absolute 로 히어로 위에 얹히므로 main 에 상단 여백을 주지 않습니다.
  */
-export default function Home() {
+export function HomeContent({ locale = "ko" }: { locale?: SiteLocale }) {
   return (
     <>
-      <InquiryButton hideOnMobile />
+      <InquiryButton hideOnMobile locale={locale} />
 
       <div className="relative">
-        <Header />
+        <Header locale={locale} />
         <main>
-          <Hero />
-          <WhyAcf />
-          <KeyBenefits />
-          <Products />
-          <About />
+          <Hero locale={locale} />
+          <WhyAcf locale={locale} />
+          <KeyBenefits locale={locale} />
+          <Products locale={locale} />
+          <About locale={locale} />
         </main>
       </div>
 
-      <Footer />
+      <Footer locale={locale} />
     </>
   );
+}
+
+export default function Home() {
+  return <HomeContent />;
 }

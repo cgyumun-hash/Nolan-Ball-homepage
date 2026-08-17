@@ -41,6 +41,7 @@ export default function KakaoRoughMap({
   placeName,
   latitude,
   longitude,
+  linkLabel = "카카오맵에서 열기",
 }: {
   timestamp: string;
   mapKey: string;
@@ -50,6 +51,7 @@ export default function KakaoRoughMap({
   placeName: string;
   latitude: number;
   longitude: number;
+  linkLabel?: string;
 }) {
   const rendered = useRef(false);
 
@@ -105,7 +107,7 @@ export default function KakaoRoughMap({
           rel="noopener noreferrer"
           className="text-[14px] text-ink-500 underline"
         >
-          카카오맵에서 열기
+          {linkLabel}
         </a>
       </div>
 

@@ -3,6 +3,8 @@
 import Link from "next/link";
 
 import { ABOUT } from "@/lib/site";
+import { EN_ABOUT } from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 .section_4
@@ -21,7 +23,8 @@ import { ABOUT } from "@/lib/site";
  *         margin-top:30px; float:right; hover → 배경 #333 흰 글씨 }
  *       1600↓ mt:15px + padding 5px 20px · 1080↓ mt:50px + float:left
  */
-export default function About() {
+export default function About({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_ABOUT : ABOUT;
   return (
     <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0 max-b580:pt-16">
       <h2
@@ -49,7 +52,7 @@ export default function About() {
                        max-b1080:mx-auto max-b1080:ml-0 max-b1080:w-4/5 max-b1080:border-l-0
                        max-b856:w-full max-b580:p-6"
           >
-            {ABOUT.paragraphs.map((p, i) => (
+            {content.paragraphs.map((p, i) => (
               <p
                 key={i}
                 className="mb-10 text-[20px] leading-[35px] last:mb-0
@@ -67,13 +70,13 @@ export default function About() {
                          max-b1080:mt-[50px] max-b1080:justify-start"
             >
               <Link
-                href={ABOUT.href}
+                href={content.href}
                 className="gfont inline-block rounded-[50px] border border-ink-900 px-[30px] py-2.5
                            text-[16px] font-extrabold transition-colors
                            hover:bg-ink-900 hover:text-white
                            max-b1600:px-5 max-b1600:py-[5px] max-b1600:text-[14px]"
               >
-                {ABOUT.cta}
+                {content.cta}
               </Link>
             </div>
           </div>
@@ -85,11 +88,11 @@ export default function About() {
                        max-b1200:h-auto max-b1200:min-h-[320px]
                        max-b1080:mx-auto max-b1080:w-4/5
                        max-b856:w-full max-b580:min-h-[260px]"
-            style={{ backgroundImage: ABOUT.fallback }}
+            style={{ backgroundImage: content.fallback }}
           >
             <div
               className="h-full min-h-[inherit] w-full bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${ABOUT.image})` }}
+              style={{ backgroundImage: `url(${content.image})` }}
             />
           </div>
       </div>

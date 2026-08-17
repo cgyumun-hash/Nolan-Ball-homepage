@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { PRODUCTS } from "@/lib/site";
+import { EN_PRODUCTS } from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 .section_3
@@ -16,17 +18,18 @@ import { PRODUCTS } from "@/lib/site";
  *        1600↓ 20px · 1080↓ 18px+mb:50px · 580↓ 16px
  *   a  { background:#FF9D00; border-radius:50px; padding:10px 30px }  1600↓ 5px 20px
  */
-export default function Products() {
+export default function Products({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = locale === "en" ? EN_PRODUCTS : PRODUCTS;
   return (
     <section
       id="products"
       className="relative h-screen min-h-[640px] w-full overflow-hidden max-b1400:h-[80vh] max-b580:h-[72svh] max-b580:min-h-[560px]"
-      style={{ backgroundImage: PRODUCTS.fallback }}
+      style={{ backgroundImage: content.fallback }}
     >
       {/* 사진이 없으면 위 그라디언트가 그대로 보입니다 */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-right bg-no-repeat"
-        style={{ backgroundImage: `url(${PRODUCTS.image})` }}
+        style={{ backgroundImage: `url(${content.image})` }}
       />
 
       <div
@@ -50,7 +53,7 @@ export default function Products() {
                        max-b1080:mb-0 max-b1080:text-[48px]
                        max-b580:mt-3 max-b580:text-[clamp(24px,7vw,30px)]"
           >
-            {PRODUCTS.heading}
+            {content.heading}
           </h3>
 
           <p
@@ -59,17 +62,17 @@ export default function Products() {
                        max-b1080:mb-[50px] max-b1080:text-[18px]
                        max-b580:mb-7 max-b580:text-[13px] max-b580:leading-[1.45]"
           >
-            {PRODUCTS.desc}
+            {content.desc}
           </p>
 
           <Link
-            href={PRODUCTS.href}
+            href={content.href}
             className="gfont inline-block rounded-[50px] bg-accent-500 px-[30px] py-2.5
                        text-[16px] font-extrabold text-white transition-opacity hover:opacity-90
                        max-b1600:px-5 max-b1600:py-[5px] max-b1600:text-[14px]
                        max-b580:px-4 max-b580:py-2 max-b580:text-[12px]"
           >
-            {PRODUCTS.cta}
+            {content.cta}
           </Link>
       </div>
     </section>

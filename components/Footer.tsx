@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { COMPANY, NAV } from "@/lib/site";
+import { EN_COMPANY, EN_NAV } from "@/lib/site.en";
+import type { SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 .footer
@@ -19,12 +21,14 @@ import { COMPANY, NAV } from "@/lib/site";
  *
  * 애니메이션이 없으므로 서버 컴포넌트입니다 ("use client" 불필요).
  */
-export default function Footer({ bordered = false }: { bordered?: boolean }) {
+export default function Footer({ bordered = false, locale = "ko" }: { bordered?: boolean; locale?: SiteLocale }) {
+  const company = locale === "en" ? EN_COMPANY : COMPANY;
+  const nav = locale === "en" ? EN_NAV : NAV;
   const info = [
-    { label: "주소", lines: COMPANY.addressLines },
-    { label: "대표전화", lines: [COMPANY.tel] },
-    { label: "팩스", lines: [COMPANY.fax] },
-    { label: "이메일", lines: [COMPANY.email] },
+    { label: locale === "en" ? "Address" : "주소", lines: company.addressLines },
+    { label: locale === "en" ? "Telephone" : "대표전화", lines: [company.tel] },
+    { label: locale === "en" ? "Fax" : "팩스", lines: [company.fax] },
+    { label: locale === "en" ? "Email" : "이메일", lines: [company.email] },
   ];
 
   return (
@@ -40,7 +44,7 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
                      max-b1200:justify-between max-b1200:gap-x-0
                      max-b580:mb-10 max-b580:grid max-b580:grid-cols-2 max-b580:items-start max-b580:gap-x-6 max-b580:gap-y-4"
         >
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <a
               key={item.label}
               href={item.href}
@@ -87,7 +91,7 @@ export default function Footer({ bordered = false }: { bordered?: boolean }) {
               height={161}
               className="h-auto w-[240px] max-b580:w-[200px]"
             />
-            <p className="mt-4 text-[14px] text-ink-500">{COMPANY.copyright}</p>
+            <p className="mt-4 text-[14px] text-ink-500">{company.copyright}</p>
           </div>
         </div>
       </div>
