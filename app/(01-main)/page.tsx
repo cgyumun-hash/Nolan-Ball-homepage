@@ -15,7 +15,7 @@ import InquiryButton from "@/components/InquiryButton";
  *   .header        absolute — 히어로 위에 겹침 (스크롤하면 사라짐)
  *   .main
  *     .section_1   히어로 슬라이더 + 버튼 3개 (md 2-1)
- *     .section_2   Why Nolan Ball?
+ *     .section_2   CONTACT · WIPE · CHANGE 기술 소개
  *     ─ 신규 ─     핵심 장점 4개 (md 2-2 · 2-3)
  *     .section_3   PRODUCTS
  *     .section_4   ABOUT

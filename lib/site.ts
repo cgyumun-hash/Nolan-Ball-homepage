@@ -164,10 +164,11 @@ export const PRODUCTS = {
   fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
 
-/** section_2 — Why Nolan Ball? (원본 .section_2) */
+/** section_2 — 기술 소개 타이포그래피 섹션 */
 export const WHY = {
-  headingLines: ["Why", "Nolan Ball?"],
-  cta: "VIEW MORE",
+  headingLines: ["CONTACT.", "WIPE.", "CHANGE."],
+  contact: "360°",
+  cta: "VIEW TECHNOLOGY",
   href: "/about/technology-overview",
 } as const;
 
