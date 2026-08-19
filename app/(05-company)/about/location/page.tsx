@@ -7,7 +7,7 @@ import SubHeader from "@/components/SubHeader";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
-import KakaoRoughMap from "@/components/KakaoRoughMap";
+import KakaoMap from "@/components/KakaoMap";
 import type { SiteLocale } from "@/lib/locale";
 import { COMPANY_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
 import { EN_COMPANY_PAGES, EN_LOCATION } from "@/lib/site.en";
@@ -33,7 +33,7 @@ function hasImage(src: string) {
  *         p  { font-size:24px; GmarketSans; margin-left:30px; margin-bottom:50px }
  *             1200↓ 20px · 520↓ 18px
  *         .map_box  data-aos="fade-up" data-aos-duration="3000"
- *                   카카오맵 roughmap · mapHeight 579
+ *                   카카오맵 · mapHeight 579
  *       .w2
  *         .title_box.mb80                                  520↓ mb:50px
  *         ul { display:flex; background:#FAFAFA; padding:40px; align-items:flex-start;
@@ -85,15 +85,16 @@ export function LocationPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
 
             {/* 원본 data-aos="fade-up" data-aos-duration="3000" — 3초짜리 느린 페이드 */}
             <FadeUp duration={3}>
-              <KakaoRoughMap
-                timestamp={content.map.timestamp}
-                mapKey={content.map.key}
+              <KakaoMap
+                appKey={process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY ?? ""}
                 height={content.map.height}
                 address={content.officeAddress}
                 placeName={content.map.name}
                 latitude={content.map.latitude}
                 longitude={content.map.longitude}
                 linkLabel={locale === "en" ? "Open in Kakao Map" : undefined}
+                loadingLabel={locale === "en" ? "Loading the map." : undefined}
+                errorLabel={locale === "en" ? "Unable to load the map." : undefined}
               />
             </FadeUp>
           </div>

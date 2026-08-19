@@ -21,7 +21,7 @@ export const COMPANY = {
   ],
   tel: "051-516-5064",
   fax: "051-516-5065",
-  email: "Nolan5000@naver.com",
+  email: "nolan5000@naver.com",
   copyright: "COPYRIGHT 2026 BY Nolan Ball Korea ALL RIGHT RESERVED.",
 } as const;
 
@@ -1067,13 +1067,11 @@ export const LOCATION = {
   title: "오시는 길",
   officeTitle: "본사",
   officeAddress: "부산광역시 금정구 서부곡로 16번길 8-1, 알찬빌딩 1층",
-  /** 놀란볼코리아 본사 좌표로 새로 발급한 카카오맵 지도 퍼가기 값 */
+  /** 놀란볼코리아 본사 좌표 */
   map: {
     name: "놀란볼코리아",
     latitude: 35.2266414394281,
     longitude: 129.090490710535,
-    timestamp: "1786522726463",
-    key: "sgc5gi2x9ij",
     height: "579",
   },
   transitTitle: "대중교통",

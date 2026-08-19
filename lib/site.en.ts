@@ -19,7 +19,7 @@ export const EN_COMPANY = {
   ],
   tel: "+82-51-516-5064",
   fax: "+82-51-516-5065",
-  email: "Nolan5000@naver.com",
+  email: "nolan5000@naver.com",
   copyright: "COPYRIGHT 2026 BY NOLAN BALL KOREA. ALL RIGHTS RESERVED.",
 } as const;
 
@@ -640,8 +640,6 @@ export const EN_LOCATION = {
     name: "Nolan Ball Korea",
     latitude: 35.2266414394281,
     longitude: 129.090490710535,
-    timestamp: "1786522726463",
-    key: "sgc5gi2x9ij",
     height: "579",
   },
   transitTitle: "Public Transportation",
