@@ -28,10 +28,10 @@ export default function About({ locale = "ko" }: { locale?: SiteLocale }) {
   return (
     <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0 max-b580:pt-16">
       <h2
-        className="gfont ml-[120px] text-[80px] font-bold uppercase leading-[1.15] text-ink-900
-                   max-[2200px]:text-[68px]
-                   max-b1600:ml-[100px] max-b1600:text-[64px]
-                   max-b1080:ml-0 max-b1080:px-5 max-b1080:text-center max-b1080:text-[50px]
+        className="gfont box-border w-[57%] pl-[120px] text-[clamp(42px,3.5vw,80px)] font-bold uppercase leading-[1.15] text-ink-900
+                   max-b1600:pl-[100px]
+                   max-b1200:w-full
+                   max-b1080:px-5 max-b1080:text-center max-b1080:text-[50px]
                    max-b580:text-[clamp(34px,10vw,46px)]"
       >
         ABOUT
