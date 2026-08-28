@@ -105,8 +105,8 @@ export const EN_SLIDES = [
     eyebrow: "ENDOSCOPE CHANNEL CLEANING",
     lines: ["A New Standard in", "Endoscope Cleaning"],
     description: "A single-use cleaning solution designed for 360° contact with the channel wall",
-    image: "/images/revision/main/hero-1-desktop.webp",
-    imageMobile: "/images/revision/main/hero-1-mobile.webp",
+    image: "/images/main/메인1_pc.webp",
+    imageMobile: "/images/main/메인1_moblie.webp",
     fallback: "linear-gradient(115deg, #0b3261 0%, #217fc1 55%, #8ed7f2 100%)",
   },
   {
@@ -114,8 +114,8 @@ export const EN_SLIDES = [
     eyebrow: "CONSISTENT WORKFLOW",
     lines: ["A Faster, More", "Consistent Workflow"],
     description: "Designed to reduce operator-dependent variation and support workflow efficiency",
-    image: "/images/revision/main/hero-2-desktop.webp",
-    imageMobile: "/images/revision/main/hero-2-mobile.webp",
+    image: "/images/main/메인2_pc.webp",
+    imageMobile: "/images/main/메인2_mobile.webp",
     fallback: "linear-gradient(115deg, #092c52 0%, #1c6fa8 55%, #8bc9e8 100%)",
   },
   {
@@ -123,8 +123,8 @@ export const EN_SLIDES = [
     eyebrow: "BEYOND CLEANING",
     lines: ["Beyond Cleaning,", "Toward a Safer Future"],
     description: "Building a trusted healthcare environment through responsible technology and collaboration",
-    image: "/images/revision/main/hero-3-desktop.webp",
-    imageMobile: "/images/revision/main/hero-3-mobile.webp",
+    image: "/images/main/메인3_pc.webp",
+    imageMobile: "/images/main/메인3_moblie.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
@@ -135,8 +135,8 @@ export const EN_PRODUCTS = {
   desc: "A single-use solution for endoscope channel cleaning",
   cta: "Explore Products",
   href: "/en/products/filter-ball-for-gastroscopes",
-  image: "/images/revision/main/products-desktop.webp",
-  imageMobile: "/images/revision/main/products-mobile.webp",
+  image: "/images/main/홈페이지_product_pc.webp",
+  imageMobile: "/images/main/홈페이지_product_moblie.webp",
   disclaimer: "Product appearance and scale in the image may differ from the actual product.",
   fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
@@ -148,8 +148,8 @@ export const EN_WHY = {
   contact: "360°",
   cta: "VIEW TECHNOLOGY",
   href: "/en/about/technology-overview",
-  image: "/images/revision/main/contact-desktop.webp",
-  imageMobile: "/images/revision/main/contact-mobile.webp",
+  image: "/images/main/360_pc.webp",
+  imageMobile: "/images/main/360_moblie.webp",
 } as const;
 
 export const EN_HERO_ACTIONS = [
@@ -197,8 +197,8 @@ export const EN_KEY_BENEFITS = {
       body: "A post-use color change supports visual confirmation of use and helps prevent reuse.",
     },
   ],
-  image: "/images/revision/main/core-desktop.webp",
-  imageMobile: "/images/revision/main/core-mobile.webp",
+  image: "/images/main/4가지기술_pc.webp",
+  imageMobile: "/images/main/4가지기술_moblie.webp",
   imageAlt: "Nolan Ball single-use endoscope channel-cleaning product",
 } as const;
 
@@ -218,12 +218,12 @@ export const EN_TEST_RESULTS = {
   lead:
     "Nolan Ball-related specimens were evaluated through general bacterial culture testing conducted by an independent professional laboratory. The summary below reflects the results recorded in the nine reports provided.",
   resultLabel: "Test Results",
-  result: "No growth of microorganisms after 2-day culture",
-  resultEn: "No growth of microorganisms after 2-day culture.",
+  result: "0 CFU",
+  resultEn: "0 CFU",
   summary: {
-    lead: "The general bacterial culture reports for Nolan Ball-related 2.8 mm and 3.7 mm specimens recorded ‘No growth of microorganisms after 2-day culture.’",
-    body: "The tests reviewed the cleaning performance of a channel-matched structure designed to contact the inner wall and support removal of residual organic matter and contaminants.",
-    note: "These findings were observed under the stated test conditions.\nResults may vary with actual use and reprocessing conditions.",
+    lead: "In tests conducted under 2.8 mm and 3.7 mm conditions, Nolan Ball showed a result of 0 CFU, with no microbial growth detected.",
+    body: "The results demonstrate the pre-cleaning performance of Nolan Ball, whose structure is designed to fit the channel inner diameter, maintain contact with the inner wall, and support the removal of residual organic matter and contaminants from inside the channel.",
+    note: "※ These results were obtained under the specified test conditions and may vary depending on the actual conditions of use and reprocessing.",
     specs: [
       { value: "2.8 mm", label: "Test Result" },
       { value: "3.7 mm", label: "Test Result" },
@@ -286,7 +286,7 @@ export const EN_TEST_RESULTS = {
       body: "Four 3.7 mm specimens bearing round and waffle-pattern labels were reviewed, and all four reports contained the same result wording.",
     },
   ],
-  interpretationTitle: "CFU Test Results and Interpretation",
+  interpretationTitle: "CFU Test Results & Interpretation",
   method: [
     "The reports for specimens collected after one Nolan Ball pass state, ‘No growth of microorganisms after 2-day culture.’ The same wording was recorded for specimens collected after subsequent passes through the fifth pass. The reported results were consistent under the stated test conditions.",
     "Nolan Ball is dimensioned for the internal channel diameter and is designed to establish 360° circumferential contact with the channel wall upon insertion. The resulting physical contact and shear action support the removal and outward transport of residual organic matter, including mucus, blood, and protein.",
@@ -625,8 +625,8 @@ export const EN_TECHNOLOGY = {
   featuresLead:
     "Six coordinated structural elements support contact, movement, debris capture, and visual verification of use.\nSelect a structure name to view its details.",
   interactionHint: "",
-  structureImage: "/images/revision/technology/structure-desktop-clean.webp",
-  structureImageMobile: "/images/revision/technology/structure-mobile-clean.webp",
+  structureImage: "/images/technology/제품구조_pc.webp",
+  structureImageMobile: "/images/technology/제품구조_moblie.webp",
   features: [
     {
       no: "01",

@@ -21,8 +21,12 @@ function splitParagraphs(text: string) {
   return text.split(/(?<=[.!?。])\s+/).filter(Boolean);
 }
 
-function OverviewArtwork({ content }: { content: typeof TECHNOLOGY | typeof EN_TECHNOLOGY | typeof CN_TECHNOLOGY }) {
+function OverviewArtwork({ content, locale }: { content: typeof TECHNOLOGY | typeof EN_TECHNOLOGY | typeof CN_TECHNOLOGY; locale: SiteLocale }) {
   const overview = content.overview;
+  const isEnglish = locale === "en";
+  const principlePositions = isEnglish
+    ? ["top-[11.5%]", "top-[40.5%]", "top-[68.5%]"]
+    : ["top-[12.5%]", "top-[41.5%]", "top-[70.5%]"];
 
   return (
     <>
@@ -30,20 +34,19 @@ function OverviewArtwork({ content }: { content: typeof TECHNOLOGY | typeof EN_T
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={overview.image.src} alt="" className="absolute inset-0 h-full w-full object-cover" />
 
-        <div className="absolute left-[4%] top-[7.2%] z-10 w-[45%] text-blue-950">
-          <p className="gfont text-[clamp(10px,0.8vw,14px)] font-bold tracking-[-0.03em] text-blue-700">{content.eyebrow}</p>
-          <h2 id="technology-overview-title" className="gfont mt-[1.1vw] text-[clamp(30px,3.2vw,56px)] font-extrabold leading-[1.08] tracking-[-0.04em]">{overview.title}</h2>
+        <div className="absolute left-[2%] top-[7.2%] z-10 w-[47%] text-blue-950">
+          <h2 id="technology-overview-title" className="gfont text-[clamp(30px,3.2vw,56px)] font-extrabold leading-[1.08] tracking-[-0.04em]">{overview.title}</h2>
         </div>
 
-        <div className="absolute left-[4%] top-[24.5%] z-10 w-[43%] text-blue-950">
+        <div className="absolute left-[2%] top-[24.5%] z-10 w-[45%] text-blue-950">
           <h3 className="max-w-[88%] whitespace-pre-line text-[clamp(16px,1.55vw,27px)] font-bold leading-[1.35]">{overview.headline}</h3>
           <div className="mt-[1vw] max-w-[84%] space-y-[0.55vw] text-[clamp(11px,0.9vw,16px)] leading-[1.7] text-slate-600">
             {splitParagraphs(overview.intro).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </div>
 
-        <div className="absolute left-[5.4%] top-[76.4%] z-10 w-[45.7%] text-blue-950">
-          <p className="text-[clamp(10px,0.83vw,15px)] font-bold">{overview.specifications.title}</p>
+        <div className="absolute left-[3.5%] top-[76.4%] z-10 w-[47.6%] text-blue-950">
+          <p className="pl-[1.55vw] text-[clamp(10px,0.83vw,15px)] font-bold">{overview.specifications.title}</p>
           <div className="mt-[0.35vw] grid grid-cols-3 border-t border-blue-900/30 pt-[0.65vw]">
             {overview.specifications.items.map((item, index) => (
               <div key={item.size} className="border-r border-blue-900/15 px-[1.55vw] first:pl-[1.45vw] last:border-r-0">
@@ -54,18 +57,18 @@ function OverviewArtwork({ content }: { content: typeof TECHNOLOGY | typeof EN_T
             ))}
           </div>
         </div>
-        <p className="absolute bottom-[2.8%] left-[4.2%] z-10 text-[clamp(9px,0.68vw,12px)] text-slate-500">{overview.specifications.note}</p>
+        <p className="absolute bottom-[2.8%] left-[2.2%] z-10 text-[clamp(9px,0.68vw,12px)] text-slate-500">{overview.specifications.note}</p>
 
         <ol className="absolute inset-0 z-10">
           {overview.principles.map((principle, index) => (
             <li
               key={principle.no}
-              className={`absolute left-[80%] right-[2%] ${index === 0 ? "top-[12.5%]" : index === 1 ? "top-[41.5%]" : "top-[70.5%]"}`}
+              className={`absolute left-[81.5%] right-[0.2%] ${principlePositions[index]}`}
             >
-              <h3 className="text-[clamp(13px,1.05vw,19px)] font-bold leading-[1.3] text-blue-700">{principle.title}</h3>
-              <p className="mt-[0.7vw] text-[clamp(10px,0.68vw,12px)] leading-[1.55] text-slate-700">{principle.body}</p>
-              <ul className="mt-[0.6vw] space-y-[0.25vw]">
-                {principle.points.map((point) => <li key={point} className="relative pl-[0.9vw] text-[clamp(9px,0.62vw,11px)] leading-[1.4] text-blue-700 before:absolute before:left-0 before:top-[0.55em] before:h-[0.28vw] before:w-[0.28vw] before:rounded-full before:bg-blue-600">{point}</li>)}
+              <h3 className="text-[clamp(14px,1.1vw,21px)] font-bold leading-[1.3] text-black">{principle.title}</h3>
+              <p className={`${isEnglish ? "mt-[0.5vw] leading-[1.4]" : "mt-[0.7vw] leading-[1.5]"} text-[clamp(11px,0.72vw,14px)] text-black`}>{principle.body}</p>
+              <ul className={isEnglish ? "mt-[0.4vw] space-y-[0.12vw]" : "mt-[0.6vw] space-y-[0.25vw]"}>
+                {principle.points.map((point) => <li key={point} className={`relative pl-[0.9vw] text-[clamp(10px,0.65vw,12px)] text-black before:absolute before:left-0 before:top-[0.55em] before:h-[0.28vw] before:w-[0.28vw] before:rounded-full before:bg-black ${isEnglish ? "leading-[1.3]" : "leading-[1.4]"}`}>{point}</li>)}
               </ul>
             </li>
           ))}
@@ -74,8 +77,7 @@ function OverviewArtwork({ content }: { content: typeof TECHNOLOGY | typeof EN_T
 
       <div className="hidden overflow-hidden rounded-[28px] border border-sky-100 bg-[#f5faff] max-b1080:block max-b580:rounded-[20px]">
         <div className="px-10 pb-8 pt-10 text-blue-950 max-b580:px-5 max-b580:pb-6 max-b580:pt-7">
-          <p className="gfont text-[12px] font-bold tracking-[0.12em] text-blue-700 max-b580:text-[10px]">{content.eyebrow}</p>
-          <h2 className="gfont mt-3 text-[44px] font-extrabold tracking-[-0.04em] max-b580:text-[34px]">{overview.title}</h2>
+          <h2 className="gfont text-[44px] font-extrabold tracking-[-0.04em] max-b580:text-[34px]">{overview.title}</h2>
           <h3 className="mt-8 whitespace-pre-line text-[24px] font-bold leading-[1.4] max-b580:mt-6 max-b580:text-[18px]">{overview.headline}</h3>
           <div className="mt-4 max-w-[720px] space-y-3 text-[15px] leading-[1.75] text-slate-600 max-b580:text-[13px]">
             {splitParagraphs(overview.intro).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -106,10 +108,10 @@ function OverviewArtwork({ content }: { content: typeof TECHNOLOGY | typeof EN_T
             <li key={principle.no} className="grid grid-cols-[52px_1fr] gap-4 rounded-2xl border border-sky-100 bg-white p-5 max-b580:grid-cols-[38px_1fr] max-b580:gap-3 max-b580:p-4">
               <span className="gfont text-[20px] font-extrabold text-sky-600 max-b580:text-[16px]">{principle.no}</span>
               <div>
-                <h3 className="text-[19px] font-bold text-blue-950 max-b580:text-[16px]">{principle.title}</h3>
-                <p className="mt-2 text-[14px] leading-[1.65] text-slate-600 max-b580:text-[12px]">{principle.body}</p>
+                <h3 className="text-[19px] font-bold text-black max-b580:text-[16px]">{principle.title}</h3>
+                <p className="mt-2 text-[14px] leading-[1.65] text-black max-b580:text-[12px]">{principle.body}</p>
                 <ul className="mt-3 grid gap-1.5">
-                  {principle.points.map((point) => <li key={point} className="relative pl-3 text-[12px] leading-[1.5] text-blue-700 before:absolute before:left-0 before:top-[0.65em] before:h-1 before:w-1 before:rounded-full before:bg-sky-600 max-b580:text-[11px]">{point}</li>)}
+                  {principle.points.map((point) => <li key={point} className="relative pl-3 text-[12px] leading-[1.5] text-black before:absolute before:left-0 before:top-[0.65em] before:h-1 before:w-1 before:rounded-full before:bg-black max-b580:text-[11px]">{point}</li>)}
                 </ul>
               </div>
             </li>
@@ -132,8 +134,8 @@ export function TechnologyPageContent({ locale = "ko" }: { locale?: SiteLocale }
 
       <main>
         <section aria-labelledby="technology-overview-title" className="py-[150px] max-b1080:py-[100px] max-b580:py-16">
-          <div className="wrap-in2">
-            <OverviewArtwork content={content} />
+          <div className="relative mx-auto w-[calc(100%_-_40px)] max-w-[1800px] max-b1080:w-[90%] max-b580:w-[calc(100%_-_40px)]">
+            <OverviewArtwork content={content} locale={locale} />
           </div>
         </section>
         <TechnologyFeatures locale={locale} />

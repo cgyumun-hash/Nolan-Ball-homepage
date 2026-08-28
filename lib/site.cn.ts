@@ -58,8 +58,8 @@ export const CN_SLIDES = [
     eyebrow: "ENDOSCOPE CHANNEL CLEANING",
     lines: ["内镜清洗的", "全新标准"],
     description: "与管腔内壁形成360°贴合的一次性清洗解决方案",
-    image: "/images/revision/main/hero-1-desktop.webp",
-    imageMobile: "/images/revision/main/hero-1-mobile.webp",
+    image: "/images/main/메인1_pc.webp",
+    imageMobile: "/images/main/메인1_moblie.webp",
     fallback: "linear-gradient(115deg, #0b3261 0%, #217fc1 55%, #8ed7f2 100%)",
   },
   {
@@ -67,8 +67,8 @@ export const CN_SLIDES = [
     eyebrow: "CONSISTENT WORKFLOW",
     lines: ["更快速、更一致的", "清洗流程"],
     description: "有助于减少操作人员熟练度带来的差异并提升现场效率",
-    image: "/images/revision/main/hero-2-desktop.webp",
-    imageMobile: "/images/revision/main/hero-2-mobile.webp",
+    image: "/images/main/메인2_pc.webp",
+    imageMobile: "/images/main/메인2_mobile.webp",
     fallback: "linear-gradient(115deg, #092c52 0%, #1c6fa8 55%, #8bc9e8 100%)",
   },
   {
@@ -76,8 +76,8 @@ export const CN_SLIDES = [
     eyebrow: "BEYOND CLEANING",
     lines: ["超越清洗，", "迈向更安全的未来"],
     description: "以负责任的技术与合作，共同打造值得信赖的医疗环境",
-    image: "/images/revision/main/hero-3-desktop.webp",
-    imageMobile: "/images/revision/main/hero-3-mobile.webp",
+    image: "/images/main/메인3_pc.webp",
+    imageMobile: "/images/main/메인3_moblie.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
@@ -95,8 +95,8 @@ export const CN_WHY = {
   contact: "360°",
   cta: "VIEW TECHNOLOGY",
   href: "/cn/about/technology-overview",
-  image: "/images/revision/main/contact-desktop.webp",
-  imageMobile: "/images/revision/main/contact-mobile.webp",
+  image: "/images/main/360_pc.webp",
+  imageMobile: "/images/main/360_moblie.webp",
 } as const;
 
 export const CN_KEY_BENEFITS = {
@@ -110,8 +110,8 @@ export const CN_KEY_BENEFITS = {
     { no: "03", title: "有助于减少生物膜形成环境", body: "去除早期污染物和有机物，帮助减少有利于生物膜形成的环境。" },
     { no: "04", title: "不可逆颜色变化", body: "使用后的颜色变化便于确认使用状态，并有助于防止重复使用。" },
   ],
-  image: "/images/revision/main/core-desktop.webp",
-  imageMobile: "/images/revision/main/core-mobile.webp",
+  image: "/images/main/4가지기술_pc.webp",
+  imageMobile: "/images/main/4가지기술_moblie.webp",
   imageAlt: "Nolan Ball内镜管腔清洗产品",
 } as const;
 
@@ -121,8 +121,8 @@ export const CN_PRODUCTS = {
   desc: "用于内镜管腔清洗的一次性解决方案",
   cta: "查看产品",
   href: "/cn/products/filter-ball-for-gastroscopes",
-  image: "/images/revision/main/products-desktop.webp",
-  imageMobile: "/images/revision/main/products-mobile.webp",
+  image: "/images/main/홈페이지_product_pc.webp",
+  imageMobile: "/images/main/홈페이지_product_moblie.webp",
   disclaimer: "图片中的产品外观与比例可能与实际产品有所不同。",
   fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
@@ -205,17 +205,18 @@ export const CN_TEST_RESULTS = {
   ...EN_TEST_RESULTS,
   heading: "试验结果",
   resultLabel: "试验结果",
-  result: "培养2天后未检出微生物生长",
+  result: "0 CFU",
+  resultEn: "0 CFU",
   summary: {
-    lead: "Nolan Ball相关2.8 mm及3.7 mm样本的一般细菌培养报告记录为‘培养2天后未检出微生物生长’。",
-    body: "该试验确认了与管腔内径匹配的结构通过接触内壁，支持去除管腔内残留有机物及污染物的清洗性能。",
-    note: "本结果是在所述试验条件下确认的结果。\n实际使用及再处理条件不同，结果可能有所差异。",
+    lead: "在 2.8 mm 和 3.7 mm 条件下进行的试验中，Nolan Ball 的结果为 0 CFU，未检测到微生物生长。",
+    body: "该试验结果体现了 Nolan Ball 的预清洗性能。其结构与通道内径相适配，可与内壁形成接触，并有助于去除通道内部残留的有机物及污染物。",
+    note: "※ 以上结果是在特定试验条件下获得的，实际结果可能因使用环境及再处理条件不同而有所差异。",
     specs: [
       { value: "2.8 mm", label: "试验结果" },
       { value: "3.7 mm", label: "试验结果" },
     ],
   },
-  interpretationTitle: "CFU试验结果与解读",
+  interpretationTitle: "CFU 试验结果与解读",
   method: [
     "在所述试验条件下，2.8 mm和3.7 mm试验组的报告均记录为培养2天后未检出微生物生长。该结果应结合各报告中的样本信息与试验条件进行确认。",
     "Nolan Ball的接触与剪切作用支持去除黏液、血液及蛋白质等残留有机物，并将其向外带出。",
