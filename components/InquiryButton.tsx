@@ -15,7 +15,7 @@ import type { SiteLocale } from "@/lib/locale";
 export default function InquiryButton({ hideOnMobile = false, locale = "ko" }: { hideOnMobile?: boolean; locale?: SiteLocale }) {
   return (
     <Link
-      href={locale === "en" ? "/en/customer-support/online-inquiry" : "/customer-support/online-inquiry"}
+      href={locale === "ko" ? "/customer-support/online-inquiry" : `/${locale}/customer-support/online-inquiry`}
       className={`group fixed bottom-[30px] right-[50px] z-[999] flex items-center gap-4
                   rounded-full border border-line bg-white py-2.5 pr-2.5 pl-7
                   shadow-[0_6px_24px_rgba(0,0,0,0.14)]
@@ -25,7 +25,7 @@ export default function InquiryButton({ hideOnMobile = false, locale = "ko" }: {
                   ${hideOnMobile ? "max-b580:hidden" : ""}`}
     >
       <span className="text-[15px] font-medium text-ink-900 max-b580:sr-only">
-        {locale === "en" ? "Samples & Inquiries" : "도입·샘플 문의"}
+        {locale === "en" ? "Samples & Inquiries" : locale === "cn" ? "样品·导入咨询" : "도입·샘플 문의"}
       </span>
       <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#3182F6] text-white max-b580:h-8 max-b580:w-8">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>

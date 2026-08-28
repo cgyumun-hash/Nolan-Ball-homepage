@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { COMPANY, NAV } from "@/lib/site";
 import { EN_COMPANY, EN_NAV } from "@/lib/site.en";
-import type { SiteLocale } from "@/lib/locale";
+import { CN_COMPANY, CN_NAV } from "@/lib/site.cn";
+import { selectLocale, type SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 .footer
@@ -22,13 +23,18 @@ import type { SiteLocale } from "@/lib/locale";
  * 애니메이션이 없으므로 서버 컴포넌트입니다 ("use client" 불필요).
  */
 export default function Footer({ bordered = false, locale = "ko" }: { bordered?: boolean; locale?: SiteLocale }) {
-  const company = locale === "en" ? EN_COMPANY : COMPANY;
-  const nav = locale === "en" ? EN_NAV : NAV;
+  const company = selectLocale(locale, COMPANY, EN_COMPANY, CN_COMPANY);
+  const nav = selectLocale(locale, NAV, EN_NAV, CN_NAV);
+  const labels = locale === "cn"
+    ? ["地址", "电话", "传真", "电子邮箱"]
+    : locale === "en"
+      ? ["Address", "Telephone", "Fax", "Email"]
+      : ["주소", "대표전화", "팩스", "이메일"];
   const info = [
-    { label: locale === "en" ? "Address" : "주소", lines: company.addressLines },
-    { label: locale === "en" ? "Telephone" : "대표전화", lines: [company.tel] },
-    { label: locale === "en" ? "Fax" : "팩스", lines: [company.fax] },
-    { label: locale === "en" ? "Email" : "이메일", lines: [company.email] },
+    { label: labels[0], lines: company.addressLines },
+    { label: labels[1], lines: [company.tel] },
+    { label: labels[2], lines: [company.fax] },
+    { label: labels[3], lines: [company.email] },
   ];
 
   return (

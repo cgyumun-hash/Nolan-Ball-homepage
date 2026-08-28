@@ -9,11 +9,15 @@ import InquiryButton from "@/components/InquiryButton";
 import FadeUp from "@/components/FadeUp";
 import KakaoMap from "@/components/KakaoMap";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
 import { COMPANY_PAGES, LOCATION, SUBHEADER_BG } from "@/lib/site";
 import { EN_COMPANY_PAGES, EN_LOCATION } from "@/lib/site.en";
+import { CN_COMPANY_PAGES, CN_LOCATION } from "@/lib/site.cn";
+import { selectLocale } from "@/lib/locale";
 
 export const metadata: Metadata = {
   title: "오시는 길",
+  alternates: getLanguageAlternates("/about/location"),
 };
 
 function hasImage(src: string) {
@@ -50,8 +54,8 @@ function hasImage(src: string) {
  *           .lh50 { line-height:50px }     1200↓ 35px
  */
 export function LocationPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_LOCATION : LOCATION;
-  const pages = locale === "en" ? EN_COMPANY_PAGES : COMPANY_PAGES;
+  const content = selectLocale(locale, LOCATION, EN_LOCATION, CN_LOCATION);
+  const pages = selectLocale(locale, COMPANY_PAGES, EN_COMPANY_PAGES, CN_COMPANY_PAGES);
 
   return (
     <>

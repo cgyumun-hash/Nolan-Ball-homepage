@@ -12,7 +12,8 @@ import {
   type FilterBall,
 } from "@/lib/site";
 import { EN_PRODUCTS_PAGES, EN_PRODUCT_SPECS } from "@/lib/site.en";
-import type { SiteLocale } from "@/lib/locale";
+import { CN_PRODUCTS_PAGES, CN_PRODUCT_SPECS } from "@/lib/site.cn";
+import { selectLocale, type SiteLocale } from "@/lib/locale";
 
 function hasImage(src: string) {
   return fs.existsSync(path.join(process.cwd(), "public", src));
@@ -52,8 +53,8 @@ function hasImage(src: string) {
  * 이 페이지에는 data-aos 속성이 없어 스크롤 등장 효과를 넣지 않았습니다.
  */
 export default function FilterBallPage({ data, locale = "ko" }: { data: FilterBall; locale?: SiteLocale }) {
-  const productPages = locale === "en" ? EN_PRODUCTS_PAGES : PRODUCTS_PAGES;
-  const productSpecs = locale === "en" ? EN_PRODUCT_SPECS : PRODUCT_SPECS;
+  const productPages = selectLocale(locale, PRODUCTS_PAGES, EN_PRODUCTS_PAGES, CN_PRODUCTS_PAGES);
+  const productSpecs = selectLocale(locale, PRODUCT_SPECS, EN_PRODUCT_SPECS, CN_PRODUCT_SPECS);
   const listItem = (text: string, index: number) => (
     <li
       key={text}
@@ -235,7 +236,7 @@ export default function FilterBallPage({ data, locale = "ko" }: { data: FilterBa
               </thead>
               <tbody>
                 {productSpecs.rows.map((r) => {
-                  const on = data.title.startsWith(r.use.replace(" 내시경", ""));
+                  const on = data.title.includes(r.spec);
                   return (
                     <tr
                       key={r.use}

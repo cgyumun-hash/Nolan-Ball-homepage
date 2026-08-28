@@ -2,86 +2,31 @@ import Link from "next/link";
 
 import { WHY } from "@/lib/site";
 import { EN_WHY } from "@/lib/site.en";
-import type { SiteLocale } from "@/lib/locale";
+import { CN_WHY } from "@/lib/site.cn";
+import { selectLocale, type SiteLocale } from "@/lib/locale";
 
-/**
- * 메인 기술 소개 섹션.
- * 데스크톱에서는 3행 타이틀과 360° 모티프를 좌우로 배치하고,
- * 작은 화면에서는 모티프를 타이틀 아래로 내려 읽기 흐름을 유지합니다.
- */
 export default function WhyAcf({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_WHY : WHY;
+  const content = selectLocale(locale, WHY, EN_WHY, CN_WHY);
+
   return (
-    <section
-      id="why-nolan-ball"
-      aria-labelledby="why-nolan-ball-title"
-      className="flex min-h-screen w-full items-center overflow-hidden bg-white py-24
-                 max-b1080:min-h-0 max-b1080:py-[140px]
-                 max-b580:py-[100px]"
-    >
-      <div
-        className="wrap-in flex items-center justify-between pr-[1.9%]
-                   max-b1200:pr-0
-                   max-b856:flex-col max-b856:items-stretch"
-      >
-        <div className="shrink-0">
-          <h2
-            id="why-nolan-ball-title"
-            className="font-sans text-[108px] font-extrabold leading-none tracking-[-0.045em] text-[#222]
-                       max-b1600:text-[96px]
-                       max-b1200:text-[84px]
-                       max-b856:text-[64px]
-                       max-b580:text-[clamp(48px,15vw,60px)]"
-          >
-            {content.headingLines.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h2>
+    <section id="why-nolan-ball" aria-labelledby="why-nolan-ball-title" className="relative aspect-[1994/940] w-full overflow-hidden bg-[#eef8fd] max-b580:aspect-[941/1672]">
+      <picture className="absolute inset-0 block">
+        <source media="(max-width: 580px)" srcSet={content.imageMobile} />
+        <img src={content.image} alt="" className="h-full w-full object-cover" />
+      </picture>
 
-          <Link
-            href={content.href}
-            className="group ml-[3px] mt-[54px] flex w-fit items-center gap-[22px]
-                       text-[16px] font-bold tracking-[0.13em] text-brand-500
-                       max-b1200:mt-10 max-b1200:text-[14px]
-                       max-b580:mt-8 max-b580:gap-4 max-b580:text-[12px]"
-          >
-            <span className="gfont">{content.cta}</span>
-            <span className="inline-flex group-hover:[animation:arrow-bounce_1s_infinite]">
-              <svg
-                width="34"
-                height="12"
-                viewBox="0 0 34 12"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M0 6h32M27 1l5 5-5 5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-              </svg>
-            </span>
-          </Link>
-        </div>
+      <div className="absolute left-[3.2%] top-[22%] z-10 max-w-[42%] text-[#222] max-b580:left-7 max-b580:right-7 max-b580:top-[12%] max-b580:max-w-none">
+        <h2 id="why-nolan-ball-title" className="gfont text-[clamp(52px,5.9vw,118px)] font-extrabold leading-[0.94] tracking-[-0.06em] max-b580:text-[clamp(50px,15vw,72px)]">
+          {content.headingLines.map((line) => <span key={line} className="block">{line}</span>)}
+        </h2>
+        <Link href={content.href} className="gfont mt-[12%] inline-flex items-center gap-7 text-[clamp(12px,1.2vw,22px)] font-bold tracking-[0.08em] text-blue-700 transition-colors hover:text-sky-600 max-b580:mt-12 max-b580:text-[14px]">
+          {content.cta}<span aria-hidden="true" className="text-[1.7em] font-light">→</span>
+        </Link>
+      </div>
 
-        <div
-          className="flex w-[324px] shrink-0 -translate-y-[45px] items-center gap-7 text-brand-500
-                     max-b1600:w-[290px]
-                     max-b1200:w-[250px] max-b1200:gap-5
-                     max-b856:mt-16 max-b856:w-[min(100%,290px)] max-b856:translate-y-0 max-b856:self-end
-                     max-b580:mt-14 max-b580:w-[min(78%,260px)] max-b580:gap-4"
-          aria-label={content.contact}
-        >
-          <span
-            className="gfont shrink-0 text-[28px] font-bold leading-none tracking-[0.04em]
-                       max-b1200:text-[24px] max-b580:text-[20px]"
-          >
-            {content.contact}
-          </span>
-          <span className="h-0.5 flex-1 bg-current" aria-hidden="true" />
-        </div>
+      <div className="absolute right-[5.5%] top-1/2 z-10 flex w-[21%] -translate-y-1/2 items-center gap-7 text-blue-700 max-b580:bottom-[17%] max-b580:left-7 max-b580:right-7 max-b580:top-auto max-b580:w-auto max-b580:translate-y-0">
+        <strong className="gfont text-[clamp(24px,2.6vw,52px)]">{content.contact}</strong>
+        <span className="h-px flex-1 bg-blue-600" />
       </div>
     </section>
   );

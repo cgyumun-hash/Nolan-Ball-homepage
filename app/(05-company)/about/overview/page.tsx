@@ -8,8 +8,11 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
 import { COMPANY_PAGES, OVERVIEW, SUBHEADER_BG } from "@/lib/site";
 import { EN_COMPANY_PAGES, EN_OVERVIEW } from "@/lib/site.en";
+import { CN_COMPANY_PAGES, CN_OVERVIEW } from "@/lib/site.cn";
+import { selectLocale } from "@/lib/locale";
 
 const COMPANY_STARS = [
   [61.8, 14.2, 2, 0.35], [68.4, 5.1, 3, 0.48], [72.7, 18.9, 5, 0.7],
@@ -22,11 +25,14 @@ const COMPANY_STARS = [
   [99.2, 96.4, 2, 0.48],
 ] as const;
 
-export const metadata: Metadata = { title: "회사소개" };
+export const metadata: Metadata = {
+  title: "회사소개",
+  alternates: getLanguageAlternates("/about/overview"),
+};
 
 export function OverviewPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_OVERVIEW : OVERVIEW;
-  const pages = locale === "en" ? EN_COMPANY_PAGES : COMPANY_PAGES;
+  const content = selectLocale(locale, OVERVIEW, EN_OVERVIEW, CN_OVERVIEW);
+  const pages = selectLocale(locale, COMPANY_PAGES, EN_COMPANY_PAGES, CN_COMPANY_PAGES);
 
   return (
     <>

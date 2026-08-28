@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
 import {
   CERTIFICATIONS,
   RESOURCES_PAGES,
@@ -17,17 +19,25 @@ import {
   EN_RESOURCES_PAGES,
   EN_TEST_RESULTS,
 } from "@/lib/site.en";
+import { CN_CERTIFICATIONS, CN_RESOURCES_PAGES, CN_TEST_RESULTS } from "@/lib/site.cn";
+import { selectLocale } from "@/lib/locale";
 
 export const metadata: Metadata = {
   title: "시험 결과·성적서",
   description:
     "Nolan Ball 미생물검사 결과와 CFU 시험 결과 및 해석을 확인할 수 있습니다.",
+  alternates: getLanguageAlternates("/about/certifications"),
 };
 
+function splitResultParagraphs(text: string) {
+  return text.split(/(?<=[.!?。])\s+/).filter(Boolean);
+}
+
 export function CertificationsPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_CERTIFICATIONS : CERTIFICATIONS;
-  const pages = locale === "en" ? EN_RESOURCES_PAGES : RESOURCES_PAGES;
-  const results = locale === "en" ? EN_TEST_RESULTS : TEST_RESULTS;
+  const content = selectLocale(locale, CERTIFICATIONS, EN_CERTIFICATIONS, CN_CERTIFICATIONS);
+  const pages = selectLocale(locale, RESOURCES_PAGES, EN_RESOURCES_PAGES, CN_RESOURCES_PAGES);
+  const results = selectLocale(locale, TEST_RESULTS, EN_TEST_RESULTS, CN_TEST_RESULTS);
+  const downloadPage = pages.find((page) => page.href.includes("resources-downloads"));
 
   return (
     <>
@@ -52,7 +62,21 @@ export function CertificationsPageContent({ locale = "ko" }: { locale?: SiteLoca
               <div>
                 <h2 id="test-series-title" className="gfont text-[54px] font-bold text-ink-900 max-b1080:text-[42px] max-b580:text-[32px]">{results.batchesTitle}</h2>
               </div>
-              <p className="text-[17px] leading-[1.8] text-ink-500 max-b580:text-[14px]">{results.batchesLead}</p>
+              <div>
+                <p className="text-[17px] leading-[1.8] text-ink-500 max-b580:text-[14px]">{results.batchesLead}</p>
+                {downloadPage && (
+                  <Link
+                    href={downloadPage.href}
+                    className="mt-5 inline-flex min-h-10 items-center gap-3 rounded-full border border-blue-600 bg-white px-5 py-2 text-[13px] font-bold text-blue-700 transition-colors hover:bg-blue-600 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 max-b580:mt-4 max-b580:min-h-9 max-b580:px-4 max-b580:text-[12px]"
+                  >
+                    <span>{downloadPage.label}</span>
+                    <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M3 8h9" />
+                      <path d="m9 4 4 4-4 4" />
+                    </svg>
+                  </Link>
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-3 gap-6 max-b1080:grid-cols-1">
@@ -113,36 +137,52 @@ export function CertificationsPageContent({ locale = "ko" }: { locale?: SiteLoca
           </div>
         </section>
 
-        <section aria-labelledby="interpretation-title" className="relative overflow-hidden bg-white pb-[150px] pt-[560px] max-b1080:pb-[100px] max-b1080:pt-[410px] max-b580:pb-[110px] max-b580:pt-[280px]">
-          <div className="wrap-in2 relative z-10 grid grid-cols-[0.82fr_1.18fr] gap-[150px] max-b1400:gap-[110px] max-b1080:grid-cols-1 max-b1080:gap-12">
-            <div className="relative -mt-[70px] min-h-[570px] max-b1080:mt-0 max-b1080:min-h-0">
-              <span aria-hidden className="pointer-events-none absolute left-1/2 top-[48%] z-0 h-[940px] w-[940px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#3182F6]/20 bg-[#3182F6]/[0.04] max-b1400:h-[880px] max-b1400:w-[880px] max-b1080:h-[760px] max-b1080:w-[760px] max-b580:h-[560px] max-b580:w-[560px]" />
-              <h2 id="interpretation-title" className="gfont relative z-10 text-[40px] font-bold leading-[1.25] text-ink-900 max-b1080:text-[34px] max-b580:text-[28px]">{results.interpretationTitle}</h2>
-              <div className="relative z-10 mt-8 space-y-3 text-[16px] leading-[1.9] text-ink-900 max-b580:text-[14px]">
-                {results.method.map((sentence) => (
-                  <p key={sentence}>{sentence}</p>
-                ))}
+        <section aria-labelledby="cfu-summary-title" className="bg-white py-[150px] max-b1080:py-[100px] max-b580:py-16">
+          <div className="wrap-in2">
+            <div className="relative aspect-[1672/941] overflow-hidden max-b580:hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/revision/resources/cfu-desktop.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute left-[14.9%] top-[25.6%] w-[28.2%] text-blue-950">
+                <h2 id="cfu-summary-title" className="gfont text-[clamp(24px,2.15vw,38px)] font-extrabold leading-[1.18] tracking-[-0.04em]">{results.interpretationTitle}</h2>
+                <div className="mt-[1.55vw] space-y-[0.25vw] text-[clamp(10px,0.83vw,15px)] leading-[1.72] text-slate-700">
+                  {splitResultParagraphs(results.summary.lead).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                </div>
+                <div className="mt-[1.65vw] border-t border-blue-900/15 pt-[1.55vw]">
+                  <p className="text-[clamp(10px,0.83vw,15px)] leading-[1.72] text-slate-700">{results.summary.body}</p>
+                </div>
               </div>
+              <p className="absolute left-[16.4%] top-[68.5%] w-[25.2%] whitespace-pre-line text-center text-[clamp(9px,0.72vw,13px)] leading-[1.65] text-slate-500">{results.summary.note}</p>
+
+              <div className="absolute left-[56.5%] top-[18.4%] w-[31%] text-center">
+                <p className="gfont text-[clamp(13px,1.15vw,20px)] font-bold text-blue-700">{results.resultLabel}</p>
+              </div>
+              {results.summary.specs.map((spec, index) => (
+                <div key={spec.value} className={`absolute top-[66.5%] text-left ${index === 0 ? "left-[65.8%] w-[7.3%]" : "left-[80.8%] w-[8%]"}`}>
+                  <strong className="gfont block whitespace-nowrap text-[clamp(12px,1.05vw,19px)] font-bold text-blue-700">{spec.value}</strong>
+                  <span className="mt-[0.15vw] block text-[clamp(9px,0.73vw,13px)] leading-[1.35] text-blue-950">{spec.label}</span>
+                </div>
+              ))}
             </div>
 
-            <ol className="translate-x-[170px] border-t border-ink-900 max-b1400:translate-x-[105px] max-b1080:translate-x-0">
-              {results.interpretations.map((item) => (
-                <li key={item.no} className="grid grid-cols-[66px_1fr] gap-5 border-b border-line py-8 max-b580:grid-cols-[44px_1fr] max-b580:gap-3 max-b580:py-6">
-                  <span className="gfont text-[18px] font-bold text-ink-900">{item.no}</span>
-                  <div>
-                    <h3 className="text-[23px] font-bold text-ink-900 max-b580:text-[19px]">{item.title}</h3>
-                    <div className="mt-3 space-y-2 text-[16px] leading-[1.8] text-ink-900 max-b580:text-[14px]">
-                      {item.body.map((sentence) => (
-                        <p key={sentence} className="[text-indent:1em]">{sentence}</p>
-                      ))}
-                    </div>
-                  </div>
-                </li>
+            <div className="relative hidden aspect-[941/1672] overflow-hidden max-b580:block">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/revision/resources/cfu-mobile.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+              <div className="absolute left-[13%] right-[13%] top-[12%] text-center text-blue-950">
+                <h2 className="gfont text-[28px] font-extrabold leading-[1.15]">{results.interpretationTitle}</h2>
+                <p className="mt-5 text-[11px] leading-[1.65] text-slate-700">{results.summary.lead}</p>
+                <p className="mt-4 border-t border-blue-900/15 pt-4 text-[11px] leading-[1.65] text-slate-700">{results.summary.body}</p>
+                <p className="mt-5 whitespace-pre-line text-[10px] leading-[1.55] text-slate-500">{results.summary.note}</p>
+              </div>
+              <div className="absolute inset-x-[14%] top-[52.1%] text-center">
+                <p className="text-[13px] font-bold text-blue-700">{results.resultLabel}</p>
+              </div>
+              {results.summary.specs.map((spec, index) => (
+                <p key={spec.value} className={`absolute top-[84.7%] text-left text-[9px] leading-[1.35] text-blue-950 ${index === 0 ? "left-[37.5%] w-[11.5%]" : "left-[67.3%] w-[14%]"}`}>
+                  <strong className="block whitespace-nowrap text-[12px] font-bold text-blue-700">{spec.value}</strong>
+                  {spec.label}
+                </p>
               ))}
-            </ol>
-            <p className="col-span-2 mt-[150px] border-l-2 border-ink-900 pl-5 text-[14px] leading-[1.75] text-ink-900 max-b1080:col-span-1 max-b1080:mt-[100px] max-b580:mt-[70px]">
-              {results.disclaimer}
-            </p>
+            </div>
           </div>
         </section>
       </main>

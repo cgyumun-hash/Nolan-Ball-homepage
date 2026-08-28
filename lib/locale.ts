@@ -1,10 +1,11 @@
-export type SiteLocale = "ko" | "en";
+export type SiteLocale = "ko" | "en" | "cn";
 
-const ENGLISH_PATHS = new Set([
+const LOCALIZED_PATHS = new Set([
   "/",
   "/products/filter-ball-for-gastroscopes",
+  "/products/nolan-ball-3-2mm",
   "/products/filter-ball-for-colonoscopes",
-  "/products/filter-ball-for-bronchoscopes",
+  "/products/endoscopic-valve-port-brush",
   "/about/technology-overview",
   "/how-to-use",
   "/about/certifications",
@@ -14,16 +15,23 @@ const ENGLISH_PATHS = new Set([
   "/customer-support/online-inquiry",
 ]);
 
-export function stripEnglishPrefix(pathname: string) {
-  if (pathname === "/en") return "/";
-  if (pathname.startsWith("/en/")) return pathname.slice(3);
+export function stripLocalePrefix(pathname: string) {
+  if (pathname === "/en" || pathname === "/cn") return "/";
+  if (pathname.startsWith("/en/") || pathname.startsWith("/cn/")) return pathname.slice(3);
   return pathname || "/";
 }
+
 export function getLanguageHref(pathname: string, targetLocale: SiteLocale) {
-  const koreanPath = stripEnglishPrefix(pathname);
+  const basePath = stripLocalePrefix(pathname);
 
-  if (targetLocale === "ko") return koreanPath;
-  if (!ENGLISH_PATHS.has(koreanPath)) return "/en";
+  if (targetLocale === "ko") return basePath;
+  if (!LOCALIZED_PATHS.has(basePath)) return `/${targetLocale}`;
 
-  return koreanPath === "/" ? "/en" : `/en${koreanPath}`;
+  return basePath === "/" ? `/${targetLocale}` : `/${targetLocale}${basePath}`;
+}
+
+export function selectLocale<K, E, C>(locale: SiteLocale, ko: K, en: E, cn: C): K | E | C {
+  if (locale === "en") return en;
+  if (locale === "cn") return cn;
+  return ko;
 }

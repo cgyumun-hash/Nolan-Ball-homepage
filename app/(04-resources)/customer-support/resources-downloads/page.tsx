@@ -5,8 +5,11 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
 import { DOWNLOADS, RESOURCES_PAGES, SUBHEADER_BG } from "@/lib/site";
 import { EN_DOWNLOADS, EN_RESOURCES_PAGES } from "@/lib/site.en";
+import { CN_DOWNLOADS, CN_RESOURCES_PAGES } from "@/lib/site.cn";
+import { selectLocale } from "@/lib/locale";
 
 const title = "자료실";
 
@@ -14,6 +17,7 @@ export const metadata: Metadata = {
   title: `${title}`,
   description:
     "놀란볼코리아 Nolan Ball 카탈로그, 제품소개서, 시험성적서를 내려받을 수 있습니다.",
+  alternates: getLanguageAlternates("/customer-support/resources-downloads"),
 };
 
 /**
@@ -28,9 +32,9 @@ export const metadata: Metadata = {
  * 서브헤더·푸터·본문 폭 규칙은 다른 서브페이지와 같습니다.
  */
 export function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_DOWNLOADS : DOWNLOADS;
-  const pages = locale === "en" ? EN_RESOURCES_PAGES : RESOURCES_PAGES;
-  const pageTitle = locale === "en" ? "Downloads" : title;
+  const content = selectLocale(locale, DOWNLOADS, EN_DOWNLOADS, CN_DOWNLOADS);
+  const pages = selectLocale(locale, RESOURCES_PAGES, EN_RESOURCES_PAGES, CN_RESOURCES_PAGES);
+  const pageTitle = locale === "en" ? "Downloads" : locale === "cn" ? "资料下载" : title;
 
   return (
     <>
@@ -102,14 +106,14 @@ export function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?: Site
                                font-extrabold text-white transition-colors hover:bg-brand-500
                                max-b520:px-5 max-b520:py-2.5 max-b520:text-[13px]"
                   >
-                    {locale === "en" ? "Download PDF" : "PDF 내려받기"} <span className="ml-1 font-normal">({item.size})</span>
+                    {locale === "en" ? "Download PDF" : locale === "cn" ? "下载PDF" : "PDF 내려받기"} <span className="ml-1 font-normal">({item.size})</span>
                   </a>
                 ) : (
                   <span
                     className="shrink-0 rounded-[50px] border border-line px-[26px] py-3
                                text-[15px] text-ink-500 max-b520:px-5 max-b520:py-2.5 max-b520:text-[13px]"
                   >
-                    {locale === "en" ? "Coming Soon" : "준비 중"}
+                    {locale === "en" ? "Coming Soon" : locale === "cn" ? "准备中" : "준비 중"}
                   </span>
                 )}
               </li>

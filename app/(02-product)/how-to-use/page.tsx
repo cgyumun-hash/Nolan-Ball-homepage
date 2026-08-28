@@ -5,11 +5,15 @@ import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
 import { HOW_TO_USE, PRODUCTS_PAGES, SUBHEADER_BG } from "@/lib/site";
 import { EN_HOW_TO_USE, EN_PRODUCTS_PAGES } from "@/lib/site.en";
+import { CN_HOW_TO_USE, CN_PRODUCTS_PAGES } from "@/lib/site.cn";
+import { selectLocale } from "@/lib/locale";
 
 export const metadata: Metadata = {
   title: "사용 방법",
+  alternates: getLanguageAlternates("/how-to-use"),
 };
 
 /**
@@ -20,8 +24,8 @@ export const metadata: Metadata = {
  *   .wrap_in2        → 본문 폭 1400px
  */
 export function HowToUsePageContent({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_HOW_TO_USE : HOW_TO_USE;
-  const pages = locale === "en" ? EN_PRODUCTS_PAGES : PRODUCTS_PAGES;
+  const content = selectLocale(locale, HOW_TO_USE, EN_HOW_TO_USE, CN_HOW_TO_USE);
+  const pages = selectLocale(locale, PRODUCTS_PAGES, EN_PRODUCTS_PAGES, CN_PRODUCTS_PAGES);
 
   return (
     <>

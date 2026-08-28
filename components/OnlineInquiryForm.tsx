@@ -10,6 +10,7 @@ import {
   EN_INQUIRY_TYPE_OPTIONS,
 } from "@/lib/site.en";
 import type { SiteLocale } from "@/lib/locale";
+import { CN_COMPANY } from "@/lib/site.cn";
 
 const inputClass =
   "h-[54px] border border-line bg-white px-4 outline-none transition-colors focus:border-brand-500";
@@ -55,14 +56,34 @@ const policySections = [
   },
 ] as const;
 
+const cnPolicySections = [
+  { title: "1. 收集的个人信息", body: "为处理咨询，我们收集机构名称、联系人姓名、部门或职务、电话号码及电子邮箱。" },
+  { title: "2. 使用目的", body: "用于回复产品、样品及报价咨询，提供和改进服务，并履行法律义务。" },
+  { title: "3. 提供及委托处理", body: "我们不出售个人信息，仅在法律要求或履行业务所需的范围内向受保密义务约束的受托方提供。" },
+  { title: "4. 保留与删除", body: "达到收集目的后将及时删除，最长保留期限为三年；法律另有规定的除外。" },
+  { title: "5. 信息主体的权利", body: "您可以申请查阅、更正、删除或停止处理个人信息，并可撤回同意。" },
+  { title: "6. 安全措施", body: "Nolan Ball Korea采取必要的技术和管理措施，防止个人信息丢失、被盗、泄露或损坏。" },
+  { title: "7. Cookie", body: "本网站可能使用Cookie或类似技术，您可以通过浏览器设置拒绝保存Cookie。" },
+  { title: "8. 政策变更", body: "本政策可能更新，变更时将在网站上公布最新内容及生效日期。" },
+] as const;
+
 export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLocale }) {
   const english = locale === "en";
-  const company = english ? EN_COMPANY : COMPANY;
-  const messages = english ? EN_INQUIRY_FORM_MESSAGES : INQUIRY_FORM_MESSAGES;
+  const chinese = locale === "cn";
+  const tr = (en: string, ko: string, cn: string) => english ? en : chinese ? cn : ko;
+  const company = english ? EN_COMPANY : chinese ? CN_COMPANY : COMPANY;
+  const messages = english
+    ? EN_INQUIRY_FORM_MESSAGES
+    : chinese
+      ? { submit: "提交咨询", submitting: "提交中...", success: "您的咨询已提交。确认后我们会与您联系。", failure: "提交失败，请稍后重试或通过电子邮件联系我们。" }
+      : INQUIRY_FORM_MESSAGES;
   const inquiryTypeOptions = english
     ? EN_INQUIRY_TYPE_OPTIONS
-    : INQUIRY_TYPES.map((value) => ({ label: value, value }));
-  const localizedPolicySections = english ? EN_INQUIRY_COPY.policySections : policySections;
+    : INQUIRY_TYPES.map((value, index) => ({
+        label: chinese ? ["产品咨询", "样品申请", "报价咨询", "经销·合作", "海外出口"][index] : value,
+        value,
+      }));
+  const localizedPolicySections = english ? EN_INQUIRY_COPY.policySections : chinese ? cnPolicySections : policySections;
   const [domain, setDomain] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
@@ -106,17 +127,17 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
         />
 
         <h2 className="gfont mb-[30px] text-[38px] max-b580:text-[30px]">
-          {english ? EN_INQUIRY_COPY.consentTitle : "개인정보 수집·이용 동의"}
+          {tr(EN_INQUIRY_COPY.consentTitle, "개인정보 수집·이용 동의", "个人信息收集与使用同意")}
         </h2>
 
         <div className="mb-5 leading-[30px]">
-          <p>{english ? EN_INQUIRY_COPY.consentIntro : "동의하시기 전에 개인정보의 수집·이용에 관한 아래 내용을 자세히 읽어 주세요."}</p>
-          <p className="mb-2.5">{english ? EN_INQUIRY_COPY.collectedItems : "수집 항목: 기관명, 담당자명, 부서·직책, 연락처, 이메일"}</p>
-          <p className="text-[16px]">{english ? EN_INQUIRY_COPY.retentionSummary : "※ 수집 목적이 달성되면 개인정보는 지체 없이 파기되며, 보유 기간은 최대 3년입니다."}</p>
+          <p>{tr(EN_INQUIRY_COPY.consentIntro, "동의하시기 전에 개인정보의 수집·이용에 관한 아래 내용을 자세히 읽어 주세요.", "同意前请仔细阅读以下个人信息收集与使用说明。")}</p>
+          <p className="mb-2.5">{tr(EN_INQUIRY_COPY.collectedItems, "수집 항목: 기관명, 담당자명, 부서·직책, 연락처, 이메일", "收集项目：机构名称、联系人、部门·职务、电话、电子邮箱")}</p>
+          <p className="text-[16px]">{tr(EN_INQUIRY_COPY.retentionSummary, "※ 수집 목적이 달성되면 개인정보는 지체 없이 파기되며, 보유 기간은 최대 3년입니다.", "达到收集目的后将及时删除，最长保留期限为三年。")}</p>
         </div>
 
         <div className="mb-[30px] h-[400px] overflow-y-auto border border-line bg-[#fafafa] p-[30px] text-[16px] leading-[26px] max-b580:p-5">
-          <p className="mb-7">{english ? EN_INQUIRY_COPY.policyIntro : "놀란볼코리아는 이용자의 개인정보를 소중하게 생각합니다. 본 방침은 웹사이트·제품·서비스 이용 과정에서 개인정보를 어떻게 수집·이용·보관·파기하는지 설명합니다."}</p>
+          <p className="mb-7">{tr(EN_INQUIRY_COPY.policyIntro, "놀란볼코리아는 이용자의 개인정보를 소중하게 생각합니다. 본 방침은 웹사이트·제품·서비스 이용 과정에서 개인정보를 어떻게 수집·이용·보관·파기하는지 설명합니다.", "Nolan Ball Korea重视您的个人信息。本说明介绍在网站及咨询服务中如何收集、使用、保存和删除个人信息。")}</p>
           {localizedPolicySections.map((section) => (
             <div key={section.title} className="mb-7">
               <h3 className="mb-2 font-bold">{section.title}</h3>
@@ -124,36 +145,36 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
             </div>
           ))}
           <div>
-            <h3 className="mb-2 font-bold">{english ? EN_INQUIRY_COPY.contactTitle : "9. 문의처"}</h3>
-            <p className="mb-5">{english ? EN_INQUIRY_COPY.contactBody : "본 개인정보처리방침에 관한 문의는 아래로 연락해 주세요."}</p>
+            <h3 className="mb-2 font-bold">{tr(EN_INQUIRY_COPY.contactTitle, "9. 문의처", "9. 联系方式")}</h3>
+            <p className="mb-5">{tr(EN_INQUIRY_COPY.contactBody, "본 개인정보처리방침에 관한 문의는 아래로 연락해 주세요.", "如对个人信息处理有疑问，请通过以下方式联系我们。")}</p>
             <strong className="gfont text-[21px]">{company.legal}</strong>
             <p className="mt-2">{company.address}</p>
             <p>{company.email}</p>
             <p>
-              {company.tel} ({english ? EN_INQUIRY_COPY.faxLabel : "팩스"} {company.fax})
+              {company.tel} ({tr(EN_INQUIRY_COPY.faxLabel, "팩스", "传真")} {company.fax})
             </p>
           </div>
         </div>
 
         <label className="mb-[60px] flex cursor-pointer items-center gap-3 text-[17px]">
           <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 accent-brand-500" />
-          <span>{english ? EN_INQUIRY_COPY.agree : "개인정보 수집·이용에 동의합니다."}</span>
+          <span>{tr(EN_INQUIRY_COPY.agree, "개인정보 수집·이용에 동의합니다.", "我同意收集和使用个人信息。")}</span>
         </label>
 
         <div className="border-t-2 border-ink-900">
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.organization : "기관명"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.organization, "기관명", "机构名称")}>
             <input name="organization" required className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.name : "담당자명"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.name, "담당자명", "联系人")}>
             <input name="name" required className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.department : "부서·직책"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.department, "부서·직책", "部门·职务")}>
             <input name="department" className={`${inputClass} w-full max-w-[520px]`} />
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.phone : "연락처"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.phone, "연락처", "联系电话")}>
             <div className="flex min-w-0 items-center gap-3 max-b580:gap-1.5">
               <PhoneInput name="tel1" maxLength={3} />
               <span>-</span>
@@ -163,36 +184,36 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
             </div>
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.email : "이메일"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.email, "이메일", "电子邮箱")}>
             <div className="flex items-center gap-3 max-b860:flex-wrap max-b580:gap-2">
               <input name="emailId" required className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
               <span>@</span>
               <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
-              <select aria-label={english ? EN_INQUIRY_COPY.emailDomainLabel : "이메일 도메인 선택"} value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
-                <option value="">{english ? EN_INQUIRY_COPY.emailDomainCustom : "직접 입력"}</option>
+              <select aria-label={tr(EN_INQUIRY_COPY.emailDomainLabel, "이메일 도메인 선택", "选择邮箱域名")} value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
+                <option value="">{tr(EN_INQUIRY_COPY.emailDomainCustom, "직접 입력", "手动输入")}</option>
                 {["naver.com", "daum.net", "hanmail.net", "gmail.com", "nate.com", "hotmail.com", "msn.com", "google.com", "dreamwiz.com"].map((item) => <option key={item}>{item}</option>)}
               </select>
             </div>
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.inquiryType : "문의 유형"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.inquiryType, "문의 유형", "咨询类型")}>
             <select name="inquiryType" required className={`${inputClass} w-full max-w-[320px]`}>
-              <option value="">{english ? EN_INQUIRY_COPY.selectPrompt : "선택해 주세요"}</option>
+              <option value="">{tr(EN_INQUIRY_COPY.selectPrompt, "선택해 주세요", "请选择")}</option>
               {inquiryTypeOptions.map((item) => (
                 <option key={item.value} value={item.value}>{item.label}</option>
               ))}
             </select>
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.endoscope : "사용 내시경 종류·채널 규격"}>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.endoscope, "사용 내시경 종류·채널 규격", "内镜类型·管腔规格")}>
             <input
               name="endoscope"
-              placeholder={english ? EN_INQUIRY_COPY.endoscopePlaceholder : "예) 대장 내시경 · 채널 3.7 mm"}
+              placeholder={tr(EN_INQUIRY_COPY.endoscopePlaceholder, "예) 대장 내시경 · 채널 3.7 mm", "例：肠镜 · 管腔3.7 mm")}
               className={`${inputClass} w-full max-w-[520px]`}
             />
           </FormRow>
 
-          <FormRow label={english ? EN_INQUIRY_COPY.fields.message : "문의 내용"} alignTop>
+          <FormRow label={tr(EN_INQUIRY_COPY.fields.message, "문의 내용", "咨询内容")} alignTop>
             <textarea name="message" required className="min-h-[240px] w-full resize-y border border-line p-4 outline-none transition-colors focus:border-brand-500" />
           </FormRow>
         </div>

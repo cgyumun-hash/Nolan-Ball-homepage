@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 import FilterBallPage from "@/components/FilterBallPage";
+import { getLanguageAlternates } from "@/lib/seo";
 import { VALVE_PORT_BRUSH } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "밸브·포트 브러시",
+  title: "Valve Brush",
+  alternates: getLanguageAlternates("/products/endoscopic-valve-port-brush"),
 };
 
 /**

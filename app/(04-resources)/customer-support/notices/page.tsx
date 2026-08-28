@@ -9,6 +9,7 @@ import { ABOUT_CONTACT_PAGES, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "공지사항",
+  robots: { index: false, follow: false },
 };
 
 export default function NoticesPage() {

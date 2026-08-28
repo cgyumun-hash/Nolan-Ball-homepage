@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Goblin_One, Noto_Sans_KR } from "next/font/google";
+
+import { SITE_URL } from "@/lib/seo";
+
 import "./globals.css";
 
 /**
@@ -34,7 +37,7 @@ const noto = Noto_Sans_KR({
  *    OG 이미지가 절대경로로 나갑니다.
  */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nolanball.co.kr"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "놀란볼코리아 | 내시경 세척의 새로운 기준, Nolan Ball",
     template: "%s | 놀란볼코리아",

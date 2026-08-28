@@ -4,7 +4,8 @@ import Link from "next/link";
 
 import { ABOUT } from "@/lib/site";
 import { EN_ABOUT } from "@/lib/site.en";
-import type { SiteLocale } from "@/lib/locale";
+import { CN_ABOUT } from "@/lib/site.cn";
+import { selectLocale, type SiteLocale } from "@/lib/locale";
 
 /**
  * 원본 .section_4
@@ -24,7 +25,7 @@ import type { SiteLocale } from "@/lib/locale";
  *       1600↓ mt:15px + padding 5px 20px · 1080↓ mt:50px + float:left
  */
 export default function About({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_ABOUT : ABOUT;
+  const content = selectLocale(locale, ABOUT, EN_ABOUT, CN_ABOUT);
   return (
     <section className="mt-[60px] w-full pt-[100px] max-b1400:mt-0 max-b580:pt-16">
       <h2

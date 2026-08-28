@@ -42,16 +42,20 @@ export const EN_INQUIRY_TYPE_OPTIONS = [
 
 export const EN_PRODUCTS_PAGES = [
   {
-    label: "Gastroscope · 2.8 mm",
+    label: "2.8 mm / Gastroscope",
     href: "/en/products/filter-ball-for-gastroscopes",
   },
   {
-    label: "Colonoscope · 3.7 mm",
+    label: "3.2 mm / Gastroscope & Colonoscope",
+    href: "/en/products/nolan-ball-3-2mm",
+  },
+  {
+    label: "3.7 mm / Colonoscope",
     href: "/en/products/filter-ball-for-colonoscopes",
   },
   {
-    label: "Bronchoscope · 2.8 mm",
-    href: "/en/products/filter-ball-for-bronchoscopes",
+    label: "Valve Brush",
+    href: "/en/products/endoscopic-valve-port-brush",
   },
   { label: "HOW TO USE", href: "/en/how-to-use" },
 ] as const;
@@ -98,38 +102,54 @@ export const EN_NAV: NavItem[] = [
 export const EN_SLIDES = [
   {
     id: "slide_1",
-    lines: ["A New Standard in Endoscope Cleaning", "Nolan Ball"],
-    image: "/images/main/1.webp",
+    eyebrow: "ENDOSCOPE CHANNEL CLEANING",
+    lines: ["A New Standard in", "Endoscope Cleaning"],
+    description: "A single-use cleaning solution designed for 360° contact with the channel wall",
+    image: "/images/revision/main/hero-1-desktop.webp",
+    imageMobile: "/images/revision/main/hero-1-mobile.webp",
     fallback: "linear-gradient(115deg, #0b3261 0%, #217fc1 55%, #8ed7f2 100%)",
   },
   {
     id: "slide_2",
-    lines: ["Advancing Endoscope Cleaning", "Through Purposeful Innovation"],
-    image: "/images/main/3.webp",
+    eyebrow: "CONSISTENT WORKFLOW",
+    lines: ["A Faster, More", "Consistent Workflow"],
+    description: "Designed to reduce operator-dependent variation and support workflow efficiency",
+    image: "/images/revision/main/hero-2-desktop.webp",
+    imageMobile: "/images/revision/main/hero-2-mobile.webp",
     fallback: "linear-gradient(115deg, #092c52 0%, #1c6fa8 55%, #8bc9e8 100%)",
   },
   {
     id: "slide_3",
-    lines: ["Beyond Cleaning", "Building Trust Through Responsibility and Partnership"],
-    image: "/images/main/4.webp",
+    eyebrow: "BEYOND CLEANING",
+    lines: ["Beyond Cleaning,", "Toward a Safer Future"],
+    description: "Building a trusted healthcare environment through responsible technology and collaboration",
+    image: "/images/revision/main/hero-3-desktop.webp",
+    imageMobile: "/images/revision/main/hero-3-mobile.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
 
 export const EN_PRODUCTS = {
+  brand: "Nolan Ball Korea",
   heading: "PRODUCTS",
   desc: "A single-use solution for endoscope channel cleaning",
   cta: "Explore Products",
   href: "/en/products/filter-ball-for-gastroscopes",
-  image: "/images/main/6.webp",
+  image: "/images/revision/main/products-desktop.webp",
+  imageMobile: "/images/revision/main/products-mobile.webp",
+  disclaimer: "Product appearance and scale in the image may differ from the actual product.",
   fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
 
 export const EN_WHY = {
+  eyebrow: "",
   headingLines: ["CONTACT.", "WIPE.", "CHANGE."],
+  description: "",
   contact: "360°",
   cta: "VIEW TECHNOLOGY",
   href: "/en/about/technology-overview",
+  image: "/images/revision/main/contact-desktop.webp",
+  imageMobile: "/images/revision/main/contact-mobile.webp",
 } as const;
 
 export const EN_HERO_ACTIONS = [
@@ -151,34 +171,34 @@ export const EN_HERO_ACTIONS = [
 ] as const;
 
 export const EN_KEY_BENEFITS = {
-  heading: "Four Core Benefits",
-  keyMessage:
-    "Designed to support fast, consistent, high-quality cleaning regardless of operator experience.",
-  supportingText:
-    "Nolan Ball is a single-use channel-cleaning solution designed for 360° contact with the inner wall of an endoscope channel, supporting the physical removal of residual contaminants such as blood, mucus, and protein.",
+  eyebrow: "WHY NOLAN BALL",
+  heading: "Four Core Technologies\nThat Make a Difference",
+  keyMessage: "",
+  supportingText: "",
   items: [
     {
       no: "01",
-      title: "360° Circumferential Contact",
-      body: "Continuous contact across the channel wall is designed to reduce potential cleaning blind spots.",
+      title: "360° Full Contact",
+      body: "A spherical structure matched to the channel diameter contacts the full circumference to reduce cleaning blind spots.",
     },
     {
       no: "02",
-      title: "Efficient Cleaning Process",
-      body: "Company materials indicate a process time of approximately 10 seconds, supporting greater workflow efficiency.",
+      title: "Self-Rotating Continuous Wiping",
+      body: "Micro-protrusions and contact bands wipe and carry out blood, mucus, and fine particles during movement.",
     },
     {
       no: "03",
-      title: "Consistent Cleaning Performance",
-      body: "The contact-based design helps reduce operator-dependent variation and supports consistent cleaning outcomes.",
+      title: "Helps Reduce Biofilm-Forming Conditions",
+      body: "Removing early contaminants and organic matter helps reduce conditions in which biofilm may form.",
     },
     {
       no: "04",
-      title: "Single-Use Management",
-      body: "A water-responsive, irreversible color-change system is designed to provide an intuitive visual indication of prior use.",
+      title: "Irreversible Color Change",
+      body: "A post-use color change supports visual confirmation of use and helps prevent reuse.",
     },
   ],
-  image: "/images/main/11.webp",
+  image: "/images/revision/main/core-desktop.webp",
+  imageMobile: "/images/revision/main/core-mobile.webp",
   imageAlt: "Nolan Ball single-use endoscope channel-cleaning product",
 } as const;
 
@@ -187,10 +207,8 @@ export const EN_PRODUCT_SPECS = {
   columns: ["Application", "Configuration", "Size", "Availability", "Pack Size"] as const,
   rows: [
     { use: "Gastroscope", purpose: "Dedicated", spec: "2.8 mm", status: "Available", pack: "500 pcs" },
+    { use: "Gastroscope & Colonoscope", purpose: "Dual-use", spec: "3.2 mm", status: "Available", pack: "500 pcs" },
     { use: "Colonoscope", purpose: "Dedicated", spec: "3.7 mm", status: "Available", pack: "500 pcs" },
-    { use: "Bronchoscope", purpose: "Dedicated", spec: "2.8 mm", status: "Available", pack: "500 pcs" },
-    { use: "ERCP", purpose: "Dedicated", spec: "—", status: "Planned", pack: "—" },
-    { use: "Urological Endoscope", purpose: "Dedicated", spec: "—", status: "Planned", pack: "—" },
   ],
   note: "Pack sizes and product codes are pending final confirmation. Please verify the applicable information with our team before placing an order.",
 } as const;
@@ -199,9 +217,18 @@ export const EN_TEST_RESULTS = {
   heading: "Test Results",
   lead:
     "Nolan Ball-related specimens were evaluated through general bacterial culture testing conducted by an independent professional laboratory. The summary below reflects the results recorded in the nine reports provided.",
-  resultLabel: "Result Reported Across Samples",
+  resultLabel: "Test Results",
   result: "No growth of microorganisms after 2-day culture",
   resultEn: "No growth of microorganisms after 2-day culture.",
+  summary: {
+    lead: "The general bacterial culture reports for Nolan Ball-related 2.8 mm and 3.7 mm specimens recorded ‘No growth of microorganisms after 2-day culture.’",
+    body: "The tests reviewed the cleaning performance of a channel-matched structure designed to contact the inner wall and support removal of residual organic matter and contaminants.",
+    note: "These findings were observed under the stated test conditions.\nResults may vary with actual use and reprocessing conditions.",
+    specs: [
+      { value: "2.8 mm", label: "Test Result" },
+      { value: "3.7 mm", label: "Test Result" },
+    ],
+  },
   metrics: [
     { value: "9", label: "Microbiology Test Reports" },
     { value: "2.8 / 3.7 mm", label: "Related Specimen Sizes" },
@@ -261,7 +288,7 @@ export const EN_TEST_RESULTS = {
   ],
   interpretationTitle: "CFU Test Results and Interpretation",
   method: [
-    "The reports for specimens collected after one Nolan Ball pass state, ‘No growth of microorganisms after 2-day culture.’ The same wording was recorded for specimens collected after subsequent passes through the fifth pass. This indicates consistency across the reported results under the stated test conditions. Because the reports do not specify quantitative CFU values or a detection limit, these findings are not presented as ‘0 CFU’ or ‘complete cleaning.’",
+    "The reports for specimens collected after one Nolan Ball pass state, ‘No growth of microorganisms after 2-day culture.’ The same wording was recorded for specimens collected after subsequent passes through the fifth pass. The reported results were consistent under the stated test conditions.",
     "Nolan Ball is dimensioned for the internal channel diameter and is designed to establish 360° circumferential contact with the channel wall upon insertion. The resulting physical contact and shear action support the removal and outward transport of residual organic matter, including mucus, blood, and protein.",
     "Within the scope of the reported tests, consistent general bacterial culture results were recorded after the first and subsequent passes. This may support an interpretation that the contact-based structure contributes to a consistent cleaning process. The original reports should be reviewed for the complete specimen information and test conditions.",
   ],
@@ -351,9 +378,9 @@ export const EN_FILTER_BALL_COLONOSCOPES: FilterBall = {
   brand: "Nolan Ball",
   brandColor: "#E84E79",
   subtitle: "Dedicated for colonoscope channels · 3.7 mm",
-  image: "/images/sub31_img.webp",
-  imageWidth: 408,
-  imageHeight: 408,
+  image: "/images/revision/products/nolan-ball-3-7.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
   intro: [
     [
       {
@@ -383,9 +410,9 @@ export const EN_FILTER_BALL_GASTROSCOPES: FilterBall = {
   brand: "Nolan Ball",
   brandColor: "#999",
   subtitle: "Dedicated for gastroscope channels · 2.8 mm",
-  image: "/images/sub32_img.webp",
-  imageWidth: 408,
-  imageHeight: 408,
+  image: "/images/revision/products/nolan-ball-2-8.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
   intro: [
     [
       {
@@ -403,6 +430,32 @@ export const EN_FILTER_BALL_GASTROSCOPES: FilterBall = {
       { t: "The flexible structure is designed to maintain contact through curved sections, helping " },
       { t: "reduce operator-dependent variation", b: true },
       { t: " and support a more consistent manual cleaning process." },
+    ],
+  ],
+  features: [...EN_ENDOSCOPE_FEATURES],
+  effects: [...EN_ENDOSCOPE_EFFECTS],
+};
+
+export const EN_FILTER_BALL_GASTRO_COLONOSCOPES: FilterBall = {
+  eyebrow: "PRODUCT",
+  title: "3.2 mm / Gastroscope & Colonoscope",
+  brand: "Nolan Ball",
+  brandColor: "#f59e0b",
+  subtitle: "Dual-use for gastroscope and colonoscope channels · 3.2 mm",
+  image: "/images/revision/products/nolan-ball-3-2.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
+  intro: [
+    [{ t: "The 3.2 mm Nolan Ball is a single-use channel-cleaning ball designed for compatible gastroscope and colonoscope channels." }],
+    [
+      { t: "Its channel-matched spherical structure supports " },
+      { t: "360° full-surface contact from the entrance to the distal end", b: true },
+      { t: ", helping reduce cleaning blind spots and physically remove residual contaminants." },
+    ],
+    [
+      { t: "Continuous wiping and debris-pushing action support a " },
+      { t: "consistent reprocessing workflow", b: true },
+      { t: " for compatible gastroscope and colonoscope channels." },
     ],
   ],
   features: [...EN_ENDOSCOPE_FEATURES],
@@ -434,6 +487,24 @@ export const EN_FILTER_BALL_BRONCHOSCOPES: FilterBall = {
   ],
   features: [...EN_ENDOSCOPE_FEATURES],
   effects: [...EN_ENDOSCOPE_EFFECTS],
+};
+
+export const EN_VALVE_PORT_BRUSH: FilterBall = {
+  eyebrow: "PRODUCT",
+  title: "Valve Brush",
+  brand: "Nolan Ball",
+  brandColor: "#1479c9",
+  subtitle: "Single-use brush for endoscope valve and port cleaning",
+  image: "/images/revision/products/valve-brush.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
+  intro: [
+    [{ t: "The Valve Brush is a single-use cleaning brush designed for endoscope valve and port areas where residue can remain." }],
+    [{ t: "Its flexible bristles and ergonomic handle support controlled physical removal of contaminants from narrow or irregular internal surfaces." }],
+    [{ t: "Single-use application supports hygienic management and helps reduce the risk of cross-use during the reprocessing workflow." }],
+  ],
+  features: ["Flexible bristles for valve and port geometry", "Ergonomic handle for controlled cleaning", "Single-use configuration", "Supports access to narrow internal surfaces"],
+  effects: ["Supports physical removal of visible residue", "Helps standardize valve and port cleaning tasks", "Supports hygienic single-use management", "Designed to complement the endoscope reprocessing workflow"],
 };
 
 export const EN_OVERVIEW = {
@@ -530,7 +601,8 @@ export const EN_TECHNOLOGY = {
       },
     ],
     image: {
-      src: "/images/technology/제품.webp",
+      src: "/images/revision/technology/overview-desktop.webp",
+      mobile: "/images/revision/technology/overview-mobile-clean.webp",
       alt: "Nolan Ball product",
     },
     measurement: {
@@ -538,12 +610,23 @@ export const EN_TECHNOLOGY = {
       body: "Following a procedure, organic matter such as blood, mucus, and protein may enter through the channel opening and remain on the channel wall.",
       quote: "Nolan Ball supports 360° contact from the moment of insertion",
     },
+    specifications: {
+      title: "Specifications (based on channel inner diameter)",
+      items: [
+        { size: "2.8 mm", application: "Gastroscope only", code: "GASTRO" },
+        { size: "3.2 mm", application: "Gastroscope & colonoscope", code: "GASTRO & COLONO" },
+        { size: "3.7 mm", application: "Colonoscope only", code: "COLONO" },
+      ],
+      note: "※ The illustration may not represent the actual product size.",
+    },
   },
   featuresEyebrow: "",
   featuresTitle: "Product Structure",
   featuresLead:
     "Six coordinated structural elements support contact, movement, debris capture, and visual verification of use.\nSelect a structure name to view its details.",
   interactionHint: "",
+  structureImage: "/images/revision/technology/structure-desktop-clean.webp",
+  structureImageMobile: "/images/revision/technology/structure-mobile-clean.webp",
   features: [
     {
       no: "01",
@@ -665,7 +748,7 @@ export const EN_HOW_TO_USE = {
     {
       no: "01",
       title: "Select the Correct Channel Size",
-      body: "Use the 2.8 mm product for gastroscopes and bronchoscopes and the 3.7 mm product for colonoscopes. An incorrect size may result in inconsistent channel contact.",
+      body: "Select the product that corresponds to the intended endoscope channel: 2.8 mm for gastroscopes, 3.2 mm for compatible gastroscope and colonoscope channels, or 3.7 mm for colonoscopes. An incorrect size may result in inconsistent channel contact.",
     },
     {
       no: "02",
@@ -775,8 +858,9 @@ export const EN_INQUIRY_COPY = {
 export const EN_SUPPORTED_PATHS = [
   "/",
   "/products/filter-ball-for-gastroscopes",
+  "/products/nolan-ball-3-2mm",
   "/products/filter-ball-for-colonoscopes",
-  "/products/filter-ball-for-bronchoscopes",
+  "/products/endoscopic-valve-port-brush",
   "/about/technology-overview",
   "/how-to-use",
   "/about/certifications",

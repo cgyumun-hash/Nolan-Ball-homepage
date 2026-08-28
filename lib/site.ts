@@ -62,16 +62,20 @@ export type NavItem = {
 /** PRODUCT — 자료정리 3-3 제품 규격 기준. 출시 3종 + 보류 2개 */
 export const PRODUCTS_PAGES = [
   {
-    label: "위 내시경용 2.8mm",
+    label: "2.8 mm / 위내시경 전용",
     href: "/products/filter-ball-for-gastroscopes",
   },
   {
-    label: "대장 내시경용 3.7mm",
+    label: "3.2 mm / 위·대장내시경 겸용",
+    href: "/products/nolan-ball-3-2mm",
+  },
+  {
+    label: "3.7 mm / 대장내시경 전용",
     href: "/products/filter-ball-for-colonoscopes",
   },
   {
-    label: "기관지 내시경용 2.8mm",
-    href: "/products/filter-ball-for-bronchoscopes",
+    label: "Valve Brush",
+    href: "/products/endoscopic-valve-port-brush",
   },
   { label: "HOW TO USE", href: "/how-to-use" },
 ] as const;
@@ -126,6 +130,7 @@ export const NAV: NavItem[] = [
 export const LANGS = [
   { code: "ko", label: "KO" },
   { code: "en", label: "EN" },
+  { code: "cn", label: "CN" },
 ] as const;
 
 /**
@@ -135,41 +140,57 @@ export const LANGS = [
 export const SLIDES = [
   {
     id: "slide_1",
-    lines: ["내시경 세척의 새로운 기준", "Nolan Ball"],
-    image: "/images/main/1.webp",
+    eyebrow: "ENDOSCOPE CHANNEL CLEANING",
+    lines: ["내시경 세척의", "새로운 기준"],
+    description: "채널 내벽에 360° 밀착하는 일회용 세척 솔루션",
+    image: "/images/revision/main/hero-1-desktop.webp",
+    imageMobile: "/images/revision/main/hero-1-mobile.webp",
     /** 사진이 없을 때 대신 보일 배경 */
     fallback: "linear-gradient(115deg, #0b3261 0%, #217fc1 55%, #8ed7f2 100%)",
   },
   {
     id: "slide_2",
-    lines: ["내시경 세척의", "새로운 혁신을 제공합니다"],
-    image: "/images/main/3.webp",
+    eyebrow: "CONSISTENT WORKFLOW",
+    lines: ["더 빠르고", "일관된 세척 공정"],
+    description: "사용자의 숙련도에 따른 편차를 줄이고 현장의 효율을 높입니다",
+    image: "/images/revision/main/hero-2-desktop.webp",
+    imageMobile: "/images/revision/main/hero-2-mobile.webp",
     fallback: "linear-gradient(115deg, #092c52 0%, #1c6fa8 55%, #8bc9e8 100%)",
   },
   {
     id: "slide_3",
-    lines: ["세척을 넘어", "책임과 협력으로 신뢰를 이어갑니다"],
-    image: "/images/main/4.webp",
+    eyebrow: "BEYOND CLEANING",
+    lines: ["세척을 넘어", "더 안전한 내일로"],
+    description: "책임 있는 기술과 협력으로 신뢰할 수 있는 의료 환경을 만듭니다",
+    image: "/images/revision/main/hero-3-desktop.webp",
+    imageMobile: "/images/revision/main/hero-3-mobile.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
 
 /** section_3 — PRODUCTS. cta 를 누르면 첫 제품 페이지로 갑니다 */
 export const PRODUCTS = {
+  brand: "Nolan Ball Korea",
   heading: "PRODUCTS",
   desc: "내시경 채널 세척을 위한 일회용 솔루션",
   cta: "제품 알아보기",
   href: "/products/filter-ball-for-gastroscopes",
-  image: "/images/main/6.webp",
+  image: "/images/revision/main/products-desktop.webp",
+  imageMobile: "/images/revision/main/products-mobile.webp",
+  disclaimer: "※ 이미지 속 제품은 실제 제품과 크기가 다를 수 있습니다.",
   fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
 
 /** section_2 — 기술 소개 타이포그래피 섹션 */
 export const WHY = {
+  eyebrow: "",
   headingLines: ["CONTACT.", "WIPE.", "CHANGE."],
+  description: "",
   contact: "360°",
   cta: "VIEW TECHNOLOGY",
   href: "/about/technology-overview",
+  image: "/images/revision/main/contact-desktop.webp",
+  imageMobile: "/images/revision/main/contact-mobile.webp",
 } as const;
 
 /**
@@ -192,32 +213,34 @@ export const HERO_ACTIONS: {
  * 4-3 표현 수위에 따라 "10초"는 "회사 자료 기준"이라는 단서를 붙여 씁니다.
  */
 export const KEY_BENEFITS = {
-  heading: "4대 핵심 장점",
-  keyMessage: "사용자의 숙련도와 관계없이 빠르고 균일한 고품질 세척을 제공합니다.",
-  supportingText: "Nolan Ball은 내시경 채널 내벽에 360° 밀착하여 혈액, 점액, 단백질 등 잔류 오염물의 물리적 제거를 돕는 일회용 채널 세척 솔루션입니다.",
+  eyebrow: "WHY NOLAN BALL",
+  heading: "세척의 차이를 만드는\n4가지 핵심 기술",
+  keyMessage: "",
+  supportingText: "",
   items: [
     {
       no: "01",
-      title: "360° 밀착 접촉",
-      body: "채널 내벽 전면에 연속적으로 접촉하여 세척 사각지대를 줄이는 구조입니다.",
+      title: "내경 일치 360° 밀착",
+      body: "채널 내경에 맞춘 구형 구조가 전주면에 밀착해 세척 사각지대를 줄입니다.",
     },
     {
       no: "02",
-      title: "빠른 세척 공정",
-      body: "회사 자료 기준 약 10초의 짧은 공정으로 세척 업무의 효율 향상을 지원합니다.",
+      title: "자가회전 연속 와이핑",
+      body: "미세 돌기와 접촉 밴드가 이동하며 혈액·점액·미세 입자를 닦아 배출합니다.",
     },
     {
       no: "03",
-      title: "균일한 세척 성능",
-      body: "사용자의 숙련도에 따른 편차를 줄여 일관된 세척 결과를 지원합니다.",
+      title: "바이오필름 형성 억제에 도움",
+      body: "초기 오염물과 유기물을 제거해 바이오필름이 형성될 환경을 줄입니다.",
     },
     {
       no: "04",
-      title: "일회용 관리",
-      body: "수분 반응형 비가역 변색 구조를 통해 사용 여부를 직관적으로 확인하도록 설계되었습니다.",
+      title: "비가역 색상 변화",
+      body: "사용 후 색상 변화로 사용 여부를 확인하고 재사용을 방지합니다.",
     },
   ],
-  image: "/images/main/11.webp",
+  image: "/images/revision/main/core-desktop.webp",
+  imageMobile: "/images/revision/main/core-mobile.webp",
   imageAlt: "Nolan Ball 내시경 채널 세척 제품",
 } as const;
 
@@ -233,10 +256,8 @@ export const PRODUCT_SPECS = {
   columns: ["구분", "용도", "규격", "상태", "포장단위"] as const,
   rows: [
     { use: "위 내시경", purpose: "전용", spec: "2.8 mm", status: "출시", pack: "500 pcs" },
+    { use: "위·대장 내시경", purpose: "겸용", spec: "3.2 mm", status: "출시", pack: "500 pcs" },
     { use: "대장 내시경", purpose: "전용", spec: "3.7 mm", status: "출시", pack: "500 pcs" },
-    { use: "기관지 내시경", purpose: "전용", spec: "2.8 mm", status: "출시", pack: "500 pcs" },
-    { use: "ERCP", purpose: "전용", spec: "—", status: "출시 예정", pack: "—" },
-    { use: "비뇨 내시경", purpose: "전용", spec: "—", status: "출시 예정", pack: "—" },
   ],
   note: "포장단위와 제품코드는 최종 확정 전이므로 실제 발주 전 담당자에게 확인해 주세요.",
 } as const;
@@ -246,9 +267,18 @@ export const TEST_RESULTS = {
   heading: "시험 결과",
   lead:
     "Nolan Ball 관련 시료를 외부 전문 검사기관의 일반세균배양 시험으로 확인했습니다. 아래 내용은 제공된 시험성적서 9건에 기록된 결과를 정리한 것입니다.",
-  resultLabel: "공통 결과",
+  resultLabel: "시험 결과",
   result: "2일 배양 후 미생물 증식 없음",
   resultEn: "No growth of microorganisms after 2-day culture.",
+  summary: {
+    lead: "Nolan Ball 관련 2.8 mm 및 3.7 mm 시료의 일반세균배양 결과에서 ‘2일 배양 후 미생물 증식 없음’이 기록되었습니다.",
+    body: "채널 내경에 맞춘 구조가 내벽과의 접촉을 형성하며, 채널 내부의 잔류 유기물과 오염물 제거를 지원하는 세정 성능을 확인한 시험 결과입니다.",
+    note: "본 결과는 해당 시험 조건에서 확인된 결과이며,\n실제 사용 환경 및 재처리 조건에 따라 달라질 수 있습니다.",
+    specs: [
+      { value: "2.8 mm", label: "시험 결과" },
+      { value: "3.7 mm", label: "시험 결과" },
+    ],
+  },
   metrics: [
     { value: "9건", label: "미생물검사 결과보고서" },
     { value: "2.8 / 3.7 mm", label: "관련 시료 규격" },
@@ -308,7 +338,7 @@ export const TEST_RESULTS = {
   ],
   interpretationTitle: "CFU 시험 결과 및 해석",
   method: [
-    "시험 결과, Nolan Ball 1회 통과 이후 단계에서 채취한 시료의 결과보고서에는 ‘2일 배양 후 미생물 증식 없음’이 기재되어 있으며, 이후 진행된 2회에서 5회의 반복 통과 단계에서도 확인되었습니다. 이는 제공된 시험 조건에서 1회 통과 이후와 반복 통과 이후의 결과가 일관되게 기록되었음을 보여줍니다. 다만 결과보고서에 CFU 정량값과 검출한계가 명시되어 있지 않아 이를 ‘0 CFU’ 또는 ‘완벽한 세척’으로 단정하지 않습니다.",
+    "시험 결과, Nolan Ball 1회 통과 이후 단계에서 채취한 시료의 결과보고서에는 ‘2일 배양 후 미생물 증식 없음’이 기재되어 있으며, 이후 진행된 2회에서 5회의 반복 통과 단계에서도 확인되었습니다. 제공된 시험 조건에서 1회 통과 이후와 반복 통과 이후의 결과가 일관되게 기록되었습니다.",
     "Nolan Ball은 채널 내경에 대응하는 구조로 삽입 시점부터 채널 벽면과 360° 전주면 접촉을 형성해 세척 사각지대를 줄이도록 설계되었습니다. 세정 과정에서 발생하는 물리적 접촉과 전단력은 점액·혈액·단백질 등 잔류 유기물을 제거하고 외부로 배출하는 과정을 지원합니다.",
     "결과적으로 해당 시험 범위에서는 1회 통과 이후 일관된 일반세균배양 결과가 확인되었으며, 구조적 접촉 방식이 세정의 균일성과 안정적인 공정을 지원하는 것으로 해석할 수 있습니다. 세부 조건과 시료 정보는 결과보고서 원문을 함께 확인해야 합니다.",
   ],
@@ -423,13 +453,18 @@ export const SUBHEADER_BG = {
   },
   /** PRODUCT */
   product: {
-    image: "/images/product/1.webp",
-    position: "center 56%",
+    image: "/images/revision/products/banner.webp",
+    position: "center",
+    overlay: "linear-gradient(90deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 65%)",
+    darkText: true,
     fallback: "linear-gradient(120deg, #061b2d 0%, #0d4e74 55%, #258eac 100%)",
   },
   /** TECHNOLOGY */
   technology: {
-    image: "/images/technology/1.webp",
+    image: "/images/revision/technology/banner.webp",
+    position: "center",
+    overlay: "linear-gradient(90deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 68%)",
+    darkText: true,
     fallback: "linear-gradient(120deg, #102c4a 0%, #285d8c 55%, #6aa2c8 100%)",
   },
   /** TEST & DATA · ABOUT / CONTACT */
@@ -506,13 +541,13 @@ const ENDOSCOPE_EFFECTS = [
  */
 export const FILTER_BALL_COLONOSCOPES: FilterBall = {
   eyebrow: "PRODUCT",
-  title: "대장 내시경용 3.7mm",
+  title: "3.7 mm / 대장내시경 전용",
   brand: "Nolan Ball",
   brandColor: "#E84E79",
   subtitle: "대장 내시경 전용 · 3.7 mm",
-  image: "/images/sub31_img.webp",
-  imageWidth: 408,
-  imageHeight: 408,
+  image: "/images/revision/products/nolan-ball-3-7.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
   intro: [
     [
       {
@@ -548,13 +583,13 @@ export const FILTER_BALL_COLONOSCOPES: FilterBall = {
  */
 export const FILTER_BALL_GASTROSCOPES: FilterBall = {
   eyebrow: "PRODUCT",
-  title: "위 내시경용 2.8mm",
+  title: "2.8 mm / 위내시경 전용",
   brand: "Nolan Ball",
   brandColor: "#999",
   subtitle: "위 내시경 전용 · 2.8 mm",
-  image: "/images/sub32_img.webp",
-  imageWidth: 408,
-  imageHeight: 408,
+  image: "/images/revision/products/nolan-ball-2-8.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
   intro: [
     [
       {
@@ -575,6 +610,36 @@ export const FILTER_BALL_GASTROSCOPES: FilterBall = {
       {
         t: " 보다 균일한 수동 세척 공정을 지원합니다.",
       },
+    ],
+  ],
+  features: [...ENDOSCOPE_FEATURES],
+  effects: [...ENDOSCOPE_EFFECTS],
+};
+
+export const FILTER_BALL_GASTRO_COLONOSCOPES: FilterBall = {
+  eyebrow: "PRODUCT",
+  title: "3.2 mm / 위·대장내시경 겸용",
+  brand: "Nolan Ball",
+  brandColor: "#f59e0b",
+  subtitle: "위·대장내시경 겸용 · 3.2 mm",
+  image: "/images/revision/products/nolan-ball-3-2.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
+  intro: [
+    [
+      {
+        t: "위·대장내시경 겸용 Nolan Ball은 두 내시경 채널에 사용할 수 있도록 설계된 3.2 mm 규격의 일회용 채널 세척 볼입니다.",
+      },
+    ],
+    [
+      { t: "채널 내경에 적합한 구형 구조가 " },
+      { t: "입구부터 말단까지 360° 전면 접촉", b: true },
+      { t: "을 형성하여 세척 사각지대를 줄이고 잔류 오염물의 물리적 제거를 돕습니다." },
+    ],
+    [
+      { t: "연속 와이핑과 밀어내기 작용으로 " },
+      { t: "위·대장내시경 재처리 공정의 일관성", b: true },
+      { t: "을 지원합니다." },
     ],
   ],
   features: [...ENDOSCOPE_FEATURES],
@@ -627,35 +692,32 @@ export const FILTER_BALL_BRONCHOSCOPES: FilterBall = {
    제품 자료가 확보되면 위 세 제품과 같은 방식으로 교체하세요. */
 export const VALVE_PORT_BRUSH: FilterBall = {
   eyebrow: "PRODUCT",
-  title: "밸브·포트 브러시",
-  subtitle: "Endoscopic Valve/Port Brush",
-  image: "/images/sub34_img.webp",
-  imageWidth: 398,
-  imageHeight: 298,
+  title: "Valve Brush",
+  subtitle: "Valve Brush",
+  image: "/images/revision/products/valve-brush.webp",
+  imageWidth: 1254,
+  imageHeight: 1254,
   intro: [
     [
-      { t: "The valve brush is a single-use,", b: true },
-      {
-        t: " specialized brush developed for precise cleaning of the suction valve and biopsy port areas of endoscopes.",
-      },
+      { t: "Valve Brush는 내시경의 흡인 밸브 및 겸자공 주변처럼 세척이 어려운 좁은 부위를 효과적으로 세척하기 위한 일회용 전용 세척 브러시입니다." },
     ],
     [
-      {
-        t: "Its delicate brush head and flexible shaft design allow thorough cleaning of narrow areas without causing damage, while the disposable design ensures a hygienic and ",
-      },
-      { t: "safe infection control environment.", b: true },
+      { t: "부드러운 브러시 헤드와 유연한 샤프트 구조로 좁고 복잡한 부위까지 쉽게 접근하여 잔류 오염물 제거를 돕습니다." },
+    ],
+    [
+      { t: "일회용으로 사용 후 폐기하는 방식으로 교차오염 위험을 줄이고, 위생적인 내시경 재처리 환경을 지원합니다." },
     ],
   ],
   features: [
-    "Specially designed for suction valves and fine areas",
-    "Gentle material for safe cleaning without damage",
-    "Hygienic single-use design to minimize the risk of infection",
-    "Broad compatibility with major endoscope brands",
+    "흡인 밸브 및 겸자공 주변의 좁은 부위에 적합한 전용 구조",
+    "부드러운 브러시 헤드와 유연한 샤프트",
+    "잔류 오염물의 물리적 제거 지원",
+    "위생적인 일회용 관리",
   ],
   effects: [
-    "Minimizes infection risk and enhances hygiene control",
-    "Maintains endoscope performance and longevity",
-    "Improves cleaning efficiency and convenience of maintenance",
+    "접근하기 어려운 밸브·포트 주변의 세척 지원",
+    "좁고 복잡한 부위에 대한 접근성 향상",
+    "재사용 과정에서 발생할 수 있는 교차오염 위험 감소 지원",
   ],
 };
 
@@ -731,43 +793,44 @@ export const TECHNOLOGY = {
   overview: {
     eyebrow: "TECHNOLOGY OVERVIEW",
     title: "제품 개요",
-    headline: "채널 입구부터 말단까지 이어지는 전면 접촉 세정",
+    headline: "채널 입구부터 말단까지 이어지는\n전면 접촉 세정",
     intro:
-      "NOLAN BALL은 내시경 석션 채널의 내경에 대응하는 치수로 설계된 구형 채널 세척 구조입니다. 채널에 삽입되는 순간부터 내벽과 연속적인 면 접촉을 형성해 입구부터 말단까지 밀착 접촉 세정을 지원하며, 기존 브러시 방식에서 접근이 어려울 수 있는 구간의 세정 사각지대를 줄이도록 설계되었습니다.",
+      "NOLAN BALL은 내시경 채널 내경에 적합한 치수로 설계된 구형 채널 세척 볼입니다. 채널 입구부터 말단까지 전면 접촉을 형성해 마찰력을 높이고, 기존 브러시 방식에서 접근이 어려울 수 있는 구간의 세정 사각지대를 줄이도록 설계되었습니다.",
     principles: [
       {
         no: "01",
         title: "내경 일치 360° 밀착 세정",
-        body: "채널 내경에 대응하는 구형 구조가 삽입 순간 전면 접촉을 형성해 입구부부터 말단까지 세척 사각지대를 줄이도록 설계되었습니다.",
+        body: "채널 내경에 대응하는 구형 구조가 채널 입구부터 말단까지 전면 접촉을 형성해 세정 사각지대를 줄입니다.",
         points: [
-          "채널 내경에 대응하는 구형 구조",
-          "삽입 순간부터 전면 접촉 형성",
-          "입구부를 포함한 전 구간의 접촉 범위 확보",
+          "채널 내경에 대응하는 구형 치수",
+          "360° 전주면 밀착 접촉 형성",
+          "입구부터 말단까지 균일한 접촉 범위 확보",
         ],
       },
       {
         no: "02",
         title: "전세척 단계 이물 배출",
-        body: "이동하는 동안 연속 와이핑과 밀어내기 작용이 이어져 채널 내부의 잔류 유기물을 분리하고 외부로 배출하는 과정을 지원합니다.",
+        body: "이동하는 동안 연속 와이핑과 밀어내기 작용이 이어져 채널 내부의 잔류 유기물과 오염물을 효과적으로 배출합니다.",
         points: [
           "연속 와이핑과 밀어내기 작용",
-          "혈액·점액·단백질·미세 입자의 외부 배출 지원",
+          "짧은 접촉·반복과 내벽 전주면 와이핑",
           "채널 내부에 남은 잔류 유기물 제거 보조",
         ],
       },
       {
         no: "03",
         title: "바이오필름 형성 환경 감소",
-        body: "재처리 초기에 잔류 유기물과 초기 기질을 제거하여 미생물 부착과 EPS가 형성되기 쉬운 환경을 줄이고 후속 재처리의 효율 향상을 돕습니다.",
+        body: "전세척 초기부터 채널 표면의 초기 기질을 제거하여 미생물 부착과 EPS가 형성되기 쉬운 환경을 줄입니다.",
         points: [
-          "재처리 초기의 잔류 유기물과 초기 기질 제거 지원",
+          "세척 초기부터 내벽 유기물·초기 기질 제거 지원",
           "미생물 부착과 EPS 형성에 유리한 환경 감소",
-          "후속 세척 공정의 편차 감소와 효율 향상 지원",
+          "후속 세척 효율성 및 채널 건전성 유지에 도움",
         ],
       },
     ],
     image: {
-      src: "/images/technology/제품.webp",
+      src: "/images/revision/technology/overview-desktop.webp",
+      mobile: "/images/revision/technology/overview-mobile-clean.webp",
       alt: "Nolan Ball 제품 이미지",
     },
     measurement: {
@@ -775,12 +838,23 @@ export const TECHNOLOGY = {
       body: "시술 직후 혈액·점액·단백질 등의 유기물이 채널 입구로 유입되고, 채널 벽면에 잔류할 수 있습니다.",
       quote: "Nolan Ball은 삽입 순간부터 360° 밀착 접촉을 지원",
     },
+    specifications: {
+      title: "규격 (내시경 채널 내경 기준)",
+      items: [
+        { size: "2.8 mm", application: "위내시경 전용", code: "GASTRO" },
+        { size: "3.2 mm", application: "위·대장내시경 겸용", code: "GASTRO & COLONO" },
+        { size: "3.7 mm", application: "대장내시경 전용", code: "COLONO" },
+      ],
+      note: "※ 실제 제품 사이즈와 동일하지 않을 수 있습니다.",
+    },
   },
   featuresEyebrow: "",
   featuresTitle: "제품 구조",
   featuresLead:
     "구형 본체 위에 설계된 여섯 가지 구조가 서로 연동되어 접촉, 이동, 포획 및 사용 확인을 지원합니다.\n구조 이름을 누르면 세부 내용을 메모 형식으로 확인할 수 있습니다.",
   interactionHint: "",
+  structureImage: "/images/revision/technology/structure-desktop-clean.webp",
+  structureImageMobile: "/images/revision/technology/structure-mobile-clean.webp",
   features: [
     {
       no: "01",
@@ -1139,7 +1213,7 @@ export const HOW_TO_USE = {
     {
       no: "01",
       title: "채널 규격에 맞는 제품 선택",
-      body: "위·기관지 내시경은 2.8 mm, 대장 내시경은 3.7 mm 제품을 사용합니다. 채널 내경과 맞지 않는 규격을 쓰면 세척 편차가 생길 수 있습니다.",
+      body: "위내시경 전용 2.8 mm, 위·대장내시경 겸용 3.2 mm, 대장내시경 전용 3.7 mm 중 사용하려는 내시경 채널에 맞는 제품을 선택합니다. 채널 내경과 맞지 않는 규격을 쓰면 접촉과 세척 결과에 편차가 생길 수 있습니다.",
     },
     {
       no: "02",

@@ -10,11 +10,13 @@ import { LocationPageContent } from "@/app/(05-company)/about/location/page";
 import { OverviewPageContent } from "@/app/(05-company)/about/overview/page";
 import { OnlineInquiryPageContent } from "@/app/(05-company)/customer-support/online-inquiry/page";
 import FilterBallPage from "@/components/FilterBallPage";
+import { getLanguageAlternates } from "@/lib/seo";
 import {
-  EN_FILTER_BALL_BRONCHOSCOPES,
   EN_FILTER_BALL_COLONOSCOPES,
+  EN_FILTER_BALL_GASTRO_COLONOSCOPES,
   EN_FILTER_BALL_GASTROSCOPES,
   EN_SUPPORTED_PATHS,
+  EN_VALVE_PORT_BRUSH,
 } from "@/lib/site.en";
 
 type PageProps = {
@@ -36,6 +38,14 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     title: "Nolan Ball for Colonoscopes · 3.7 mm",
     description:
       "A 3.7 mm single-use channel-cleaning ball designed for colonoscope channels.",
+  },
+  "/products/nolan-ball-3-2mm": {
+    title: "Nolan Ball · 3.2 mm for Gastroscope & Colonoscope",
+    description: "A 3.2 mm single-use channel-cleaning ball designed for compatible gastroscope and colonoscope channels.",
+  },
+  "/products/endoscopic-valve-port-brush": {
+    title: "Valve Brush",
+    description: "A single-use cleaning brush designed for endoscope valve and port areas.",
   },
   "/products/filter-ball-for-bronchoscopes": {
     title: "Nolan Ball for Bronchoscopes · 2.8 mm",
@@ -98,18 +108,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: pathname === "/" ? { absolute: page.title } : page.title,
     description: page.description,
-    alternates: {
-      canonical: englishUrl,
-      languages: {
-        ko: pathname,
-        en: englishUrl,
-      },
-    },
+    alternates: getLanguageAlternates(pathname, "en"),
     openGraph: {
       title: page.title,
       description: page.description,
       url: englishUrl,
+      siteName: "Nolan Ball Korea",
+      type: "website",
       locale: "en_US",
+      images: ["/images/og.webp"],
     },
   };
 }
@@ -125,8 +132,10 @@ export default async function EnglishPage({ params }: PageProps) {
       return <FilterBallPage data={EN_FILTER_BALL_GASTROSCOPES} locale="en" />;
     case "/products/filter-ball-for-colonoscopes":
       return <FilterBallPage data={EN_FILTER_BALL_COLONOSCOPES} locale="en" />;
-    case "/products/filter-ball-for-bronchoscopes":
-      return <FilterBallPage data={EN_FILTER_BALL_BRONCHOSCOPES} locale="en" />;
+    case "/products/nolan-ball-3-2mm":
+      return <FilterBallPage data={EN_FILTER_BALL_GASTRO_COLONOSCOPES} locale="en" />;
+    case "/products/endoscopic-valve-port-brush":
+      return <FilterBallPage data={EN_VALVE_PORT_BRUSH} locale="en" />;
     case "/about/technology-overview":
       return <TechnologyPageContent locale="en" />;
     case "/how-to-use":

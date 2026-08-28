@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 import FilterBallPage from "@/components/FilterBallPage";
+import { getLanguageAlternates } from "@/lib/seo";
 import { FILTER_BALL_COLONOSCOPES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "대장 내시경용 3.7mm",
+  title: "3.7 mm / 대장내시경 전용",
+  alternates: getLanguageAlternates("/products/filter-ball-for-colonoscopes"),
 };
 
 /**

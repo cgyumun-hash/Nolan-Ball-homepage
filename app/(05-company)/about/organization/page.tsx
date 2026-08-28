@@ -11,6 +11,7 @@ import { ABOUT_CONTACT_PAGES, ORGANIZATION, SUBHEADER_BG } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "조직도",
+  robots: { index: false, follow: false },
 };
 
 /** 조직도 이미지가 실제로 있는지 빌드 시점에 확인합니다 */

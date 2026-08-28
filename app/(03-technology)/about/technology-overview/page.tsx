@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -7,123 +6,143 @@ import InquiryButton from "@/components/InquiryButton";
 import SubHeader from "@/components/SubHeader";
 import TechnologyFeatures from "@/components/TechnologyFeatures";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
 import { SUBHEADER_BG, TECHNOLOGY, TECHNOLOGY_PAGES } from "@/lib/site";
 import { EN_TECHNOLOGY, EN_TECHNOLOGY_PAGES } from "@/lib/site.en";
+import { CN_TECHNOLOGY, CN_TECHNOLOGY_PAGES } from "@/lib/site.cn";
+import { selectLocale } from "@/lib/locale";
 
 export const metadata: Metadata = {
   title: "제품 개요",
+  alternates: getLanguageAlternates("/about/technology-overview"),
 };
 
-export function TechnologyPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_TECHNOLOGY : TECHNOLOGY;
-  const pages = locale === "en" ? EN_TECHNOLOGY_PAGES : TECHNOLOGY_PAGES;
+function splitParagraphs(text: string) {
+  return text.split(/(?<=[.!?。])\s+/).filter(Boolean);
+}
+
+function OverviewArtwork({ content }: { content: typeof TECHNOLOGY | typeof EN_TECHNOLOGY | typeof CN_TECHNOLOGY }) {
   const overview = content.overview;
+
+  return (
+    <>
+      <div className="relative mx-auto aspect-[1672/941] w-full overflow-hidden max-b1080:hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={overview.image.src} alt="" className="absolute inset-0 h-full w-full object-cover" />
+
+        <div className="absolute left-[4%] top-[7.2%] z-10 w-[45%] text-blue-950">
+          <p className="gfont text-[clamp(10px,0.8vw,14px)] font-bold tracking-[-0.03em] text-blue-700">{content.eyebrow}</p>
+          <h2 id="technology-overview-title" className="gfont mt-[1.1vw] text-[clamp(30px,3.2vw,56px)] font-extrabold leading-[1.08] tracking-[-0.04em]">{overview.title}</h2>
+        </div>
+
+        <div className="absolute left-[4%] top-[24.5%] z-10 w-[43%] text-blue-950">
+          <h3 className="max-w-[88%] whitespace-pre-line text-[clamp(16px,1.55vw,27px)] font-bold leading-[1.35]">{overview.headline}</h3>
+          <div className="mt-[1vw] max-w-[84%] space-y-[0.55vw] text-[clamp(11px,0.9vw,16px)] leading-[1.7] text-slate-600">
+            {splitParagraphs(overview.intro).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+        </div>
+
+        <div className="absolute left-[5.4%] top-[76.4%] z-10 w-[45.7%] text-blue-950">
+          <p className="text-[clamp(10px,0.83vw,15px)] font-bold">{overview.specifications.title}</p>
+          <div className="mt-[0.35vw] grid grid-cols-3 border-t border-blue-900/30 pt-[0.65vw]">
+            {overview.specifications.items.map((item, index) => (
+              <div key={item.size} className="border-r border-blue-900/15 px-[1.55vw] first:pl-[1.45vw] last:border-r-0">
+                <strong className={`gfont text-[clamp(16px,1.55vw,27px)] ${index === 0 ? "text-lime-600" : index === 1 ? "text-amber-500" : "text-blue-500"}`}>{item.size}</strong>
+                <p className="mt-[0.25vw] text-[clamp(10px,0.78vw,14px)] font-medium leading-[1.35]">{item.application}</p>
+                <p className="mt-[0.08vw] text-[clamp(9px,0.7vw,13px)] leading-[1.3] text-slate-600">({item.code})</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="absolute bottom-[2.8%] left-[4.2%] z-10 text-[clamp(9px,0.68vw,12px)] text-slate-500">{overview.specifications.note}</p>
+
+        <ol className="absolute inset-0 z-10">
+          {overview.principles.map((principle, index) => (
+            <li
+              key={principle.no}
+              className={`absolute left-[80%] right-[2%] ${index === 0 ? "top-[12.5%]" : index === 1 ? "top-[41.5%]" : "top-[70.5%]"}`}
+            >
+              <h3 className="text-[clamp(13px,1.05vw,19px)] font-bold leading-[1.3] text-blue-700">{principle.title}</h3>
+              <p className="mt-[0.7vw] text-[clamp(10px,0.68vw,12px)] leading-[1.55] text-slate-700">{principle.body}</p>
+              <ul className="mt-[0.6vw] space-y-[0.25vw]">
+                {principle.points.map((point) => <li key={point} className="relative pl-[0.9vw] text-[clamp(9px,0.62vw,11px)] leading-[1.4] text-blue-700 before:absolute before:left-0 before:top-[0.55em] before:h-[0.28vw] before:w-[0.28vw] before:rounded-full before:bg-blue-600">{point}</li>)}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="hidden overflow-hidden rounded-[28px] border border-sky-100 bg-[#f5faff] max-b1080:block max-b580:rounded-[20px]">
+        <div className="px-10 pb-8 pt-10 text-blue-950 max-b580:px-5 max-b580:pb-6 max-b580:pt-7">
+          <p className="gfont text-[12px] font-bold tracking-[0.12em] text-blue-700 max-b580:text-[10px]">{content.eyebrow}</p>
+          <h2 className="gfont mt-3 text-[44px] font-extrabold tracking-[-0.04em] max-b580:text-[34px]">{overview.title}</h2>
+          <h3 className="mt-8 whitespace-pre-line text-[24px] font-bold leading-[1.4] max-b580:mt-6 max-b580:text-[18px]">{overview.headline}</h3>
+          <div className="mt-4 max-w-[720px] space-y-3 text-[15px] leading-[1.75] text-slate-600 max-b580:text-[13px]">
+            {splitParagraphs(overview.intro).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+        </div>
+
+        <div className="relative aspect-[16/9] overflow-hidden max-b580:aspect-[4/3]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={overview.image.mobile} alt={overview.image.alt} className="absolute inset-x-0 top-0 h-auto w-full -translate-y-[20%] max-b580:-translate-y-[17%]" />
+        </div>
+
+        <div className="mx-8 -mt-3 rounded-2xl border border-sky-100 bg-white/95 p-6 shadow-[0_12px_35px_rgba(40,116,178,0.08)] max-b580:mx-4 max-b580:p-4">
+          <p className="text-[14px] font-bold text-blue-950 max-b580:text-[12px]">{overview.specifications.title}</p>
+          <div className="mt-3 grid grid-cols-3 border-t border-blue-900/20 pt-4">
+          {overview.specifications.items.map((item, index) => (
+            <div key={item.size} className="border-r border-blue-900/15 px-4 last:border-r-0 max-b580:px-2">
+              <strong className={`gfont text-[24px] max-b580:text-[18px] ${index === 0 ? "text-lime-600" : index === 1 ? "text-amber-500" : "text-blue-500"}`}>{item.size}</strong>
+              <p className="mt-2 text-[13px] font-medium leading-[1.45] text-blue-950 max-b580:text-[10px]">{item.application}</p>
+              <p className="mt-1 text-[11px] leading-[1.35] text-slate-500 max-b580:text-[9px]">({item.code})</p>
+            </div>
+          ))}
+          </div>
+          <p className="mt-4 text-[11px] text-slate-500 max-b580:text-[9px]">{overview.specifications.note}</p>
+        </div>
+
+        <ol className="grid gap-4 p-8 max-b580:p-4">
+          {overview.principles.map((principle) => (
+            <li key={principle.no} className="grid grid-cols-[52px_1fr] gap-4 rounded-2xl border border-sky-100 bg-white p-5 max-b580:grid-cols-[38px_1fr] max-b580:gap-3 max-b580:p-4">
+              <span className="gfont text-[20px] font-extrabold text-sky-600 max-b580:text-[16px]">{principle.no}</span>
+              <div>
+                <h3 className="text-[19px] font-bold text-blue-950 max-b580:text-[16px]">{principle.title}</h3>
+                <p className="mt-2 text-[14px] leading-[1.65] text-slate-600 max-b580:text-[12px]">{principle.body}</p>
+                <ul className="mt-3 grid gap-1.5">
+                  {principle.points.map((point) => <li key={point} className="relative pl-3 text-[12px] leading-[1.5] text-blue-700 before:absolute before:left-0 before:top-[0.65em] before:h-1 before:w-1 before:rounded-full before:bg-sky-600 max-b580:text-[11px]">{point}</li>)}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </>
+  );
+}
+
+export function TechnologyPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
+  const content = selectLocale(locale, TECHNOLOGY, EN_TECHNOLOGY, CN_TECHNOLOGY);
+  const pages = selectLocale(locale, TECHNOLOGY_PAGES, EN_TECHNOLOGY_PAGES, CN_TECHNOLOGY_PAGES);
 
   return (
     <>
       <InquiryButton locale={locale} />
       <Header forceSolid locale={locale} />
-
-      <SubHeader
-        eyebrow={content.eyebrow}
-        title={content.title}
-        pager={pages}
-        current={content.title}
-        breadcrumb={[content.eyebrow, content.title]}
-        bg={SUBHEADER_BG.technology}
-        locale={locale}
-      />
+      <SubHeader eyebrow={content.eyebrow} title={content.title} pager={pages} current={content.title} breadcrumb={[content.eyebrow, content.title]} bg={SUBHEADER_BG.technology} locale={locale} />
 
       <main>
-        <section aria-labelledby="technology-overview-title" className="pb-[280px] pt-[240px] max-b1080:pb-[200px] max-b1080:pt-[140px] max-b580:pb-[140px] max-b580:pt-[100px]">
+        <section aria-labelledby="technology-overview-title" className="py-[150px] max-b1080:py-[100px] max-b580:py-16">
           <div className="wrap-in2">
-            <div className="grid grid-cols-[1.08fr_0.92fr] items-stretch gap-[60px] max-b1080:grid-cols-1 max-b1080:gap-10">
-              <div className="flex h-full flex-col">
-                <h2 id="technology-overview-title" className="gfont text-[64px] font-bold leading-[1.12] text-ink-900 max-b1080:text-[48px] max-b580:text-[36px]">
-                  {overview.title}
-                </h2>
-
-                <div className="mt-[70px] max-b1080:mt-10 max-b580:mt-8">
-                  <h3 className="mb-5 text-[30px] font-bold leading-[1.4] text-ink-900 max-b580:text-[22px]">
-                    {overview.headline}
-                  </h3>
-                  <p className="text-[17px] leading-[1.85] text-ink-500 max-b580:text-[14px]">
-                    {overview.intro}
-                  </p>
-                </div>
-
-                <div className="mt-10 flex flex-1 -translate-x-[35px] flex-col max-b1080:translate-x-0 max-b580:mt-7">
-                  <Image
-                    src={overview.image.src}
-                    alt={overview.image.alt}
-                    width={2400}
-                    height={1267}
-                    priority
-                    sizes="(max-width: 1080px) 100vw, 52vw"
-                    className="h-auto w-full"
-                  />
-                  <div className="relative mt-10 flex flex-1 flex-col overflow-hidden max-b580:mt-7">
-                    <span aria-hidden className="pointer-events-none absolute left-[35%] top-0 h-44 w-28 overflow-hidden max-b580:left-[28%]">
-                      <span className="absolute -left-20 top-1 h-44 w-44 rounded-full bg-[radial-gradient(circle_at_58%_48%,rgba(242,140,40,0.34)_0%,rgba(255,181,102,0.22)_38%,rgba(255,224,190,0.11)_62%,transparent_78%)] blur-[9px]" />
-                    </span>
-                    <div className="relative z-10 ml-auto flex h-10 w-[65%] items-center max-b580:w-[72%]">
-                      <span className="absolute left-0 top-1/2 h-5 w-[4px] -translate-y-1/2 bg-[#f28c28]" />
-                      <span className="h-[4px] w-full bg-[#f28c28]" />
-                      <span className="absolute right-0 top-1/2 h-5 w-[4px] -translate-y-1/2 bg-[#f28c28]" />
-                      <strong className="absolute left-1/2 max-w-[88%] -translate-x-1/2 bg-white px-4 text-center text-[16px] font-bold leading-[1.35] text-[#f28c28] max-b580:px-2 max-b580:text-[12px]">
-                        {overview.measurement.title}
-                      </strong>
-                    </div>
-                    <div className="relative z-10 ml-auto mt-8 flex w-[65%] flex-1 flex-col max-b580:w-[72%]">
-                      <p className="relative z-10 px-6 text-left text-[16px] leading-[1.8] text-ink-900 max-b580:px-3 max-b580:text-[14px]">
-                        {overview.measurement.body}
-                      </p>
-                      <p className="relative z-10 mt-auto px-4 pt-8 text-center text-[18px] font-bold leading-[1.65] text-[#f28c28] max-b1080:mt-5 max-b1080:pt-0 max-b580:px-2 max-b580:text-[15px]">
-                        “{overview.measurement.quote}”
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <ol className="mt-[145px] translate-x-[45px] border-t border-ink-900 max-b1080:mt-0 max-b1080:translate-x-0">
-                {overview.principles.map((principle) => (
-                  <li key={principle.no} className="relative grid grid-cols-[68px_1fr] gap-5 overflow-hidden border-b border-line py-8 max-b580:grid-cols-[48px_1fr] max-b580:gap-3 max-b580:py-6">
-                    <span aria-hidden className="pointer-events-none absolute -left-20 top-1/2 h-52 w-52 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_45%_50%,rgba(74,190,238,0.3)_0%,rgba(118,213,246,0.18)_38%,rgba(193,238,252,0.08)_60%,transparent_74%)] blur-[10px]" />
-                    <span className="gfont relative z-10 text-[20px] font-bold text-ink-900 max-b580:text-[16px]">
-                      {principle.no}
-                    </span>
-                    <div className="relative z-10">
-                      <h3 className="mb-3 text-[25px] font-bold text-ink-900 max-b580:text-[20px]">
-                        {principle.title}
-                      </h3>
-                      <p className="text-[16px] leading-[1.8] text-ink-500 max-b580:text-[14px]">
-                        {principle.body}
-                      </p>
-                      <ul className="mt-5 space-y-2.5 pl-5 max-b580:mt-4 max-b580:pl-4">
-                        {principle.points.map((point) => (
-                          <li key={point} className="relative pl-4 text-[14px] leading-[1.65] text-ink-500 before:absolute before:left-0 before:top-[0.7em] before:h-1 before:w-1 before:rounded-full before:bg-ink-900 max-b580:text-[13px]">
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
+            <OverviewArtwork content={content} />
           </div>
         </section>
-
         <TechnologyFeatures locale={locale} />
-        <div aria-hidden className="h-[240px] bg-white max-b1080:h-[180px] max-b580:h-[120px]" />
       </main>
-
       <Footer bordered locale={locale} />
     </>
   );
 }
 
-export default function TechnologyPage() {
+export default function TechnologyOverviewPage() {
   return <TechnologyPageContent />;
 }

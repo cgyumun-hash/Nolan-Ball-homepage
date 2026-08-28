@@ -7,11 +7,13 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { NAV } from "@/lib/site";
 import { EN_NAV } from "@/lib/site.en";
-import { getLanguageHref, type SiteLocale } from "@/lib/locale";
+import { CN_NAV } from "@/lib/site.cn";
+import { getLanguageHref, selectLocale, type SiteLocale } from "@/lib/locale";
 
 const LANGUAGE_OPTIONS = [
   { code: "ko", label: "KO" },
   { code: "en", label: "EN" },
+  { code: "cn", label: "CN" },
 ] as const;
 
 /**
@@ -31,13 +33,15 @@ const LANGUAGE_OPTIONS = [
  */
 export default function Header({
   forceSolid = false,
+  darkOnTransparent = false,
   locale = "ko",
 }: {
   forceSolid?: boolean;
+  darkOnTransparent?: boolean;
   locale?: SiteLocale;
 }) {
   const pathname = usePathname();
-  const nav = locale === "en" ? EN_NAV : NAV;
+  const nav = selectLocale(locale, NAV, EN_NAV, CN_NAV);
   const [hovered, setHovered] = useState(false);
   const solid = forceSolid || hovered;
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -46,8 +50,9 @@ export default function Header({
   /** 사이드바 아코디언 — 원본은 li 클릭 시 .active 토글 */
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
 
-  const fg = solid ? "text-ink-900" : "text-white max-b1080:text-ink-900";
-  const barBg = solid ? "bg-ink-900" : "bg-white max-b1080:bg-ink-900";
+  const dark = solid || darkOnTransparent;
+  const fg = dark ? "text-ink-900" : "text-white max-b1080:text-ink-900";
+  const barBg = dark ? "bg-ink-900" : "bg-white max-b1080:bg-ink-900";
 
   return (
     <>
@@ -63,9 +68,9 @@ export default function Header({
       >
         <div className="wrap-in flex items-center justify-between">
           <Link
-            href={locale === "en" ? "/en" : "/"}
+            href={locale === "ko" ? "/" : `/${locale}`}
             className="min-w-0 shrink py-3"
-            aria-label={locale === "en" ? "Go to the Nolan Ball Korea home page" : "놀란볼코리아 메인으로 이동"}
+            aria-label={locale === "ko" ? "놀란볼코리아 메인으로 이동" : "Go to the Nolan Ball Korea home page"}
           >
             <Image
               src="/images/main/logo.webp"

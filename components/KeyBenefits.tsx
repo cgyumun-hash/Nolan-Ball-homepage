@@ -1,82 +1,37 @@
-import Image from "next/image";
-
 import { KEY_BENEFITS } from "@/lib/site";
 import { EN_KEY_BENEFITS } from "@/lib/site.en";
-import type { SiteLocale } from "@/lib/locale";
+import { CN_KEY_BENEFITS } from "@/lib/site.cn";
+import { selectLocale, type SiteLocale } from "@/lib/locale";
 
-/**
- * 자료정리 2-2 "핵심 장점 4개" + 2-3 "짧은 소개 문구"와
- * 사용자 요청으로 추가한 지속가능성 보조 문구.
- *
- * 원본 하캄바이오 메인에는 없던 섹션이라, 기존 서브페이지에서 쓰던
- * 뼈대(.wrap_in2 · 40px 헤딩 · 구분선 리스트)를 그대로 가져와 맞췄습니다.
- * section_2(Why) 와 section_3(PRODUCTS) 사이에 들어갑니다.
- *
- * 애니메이션이 없어 서버 컴포넌트입니다.
- */
 export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) {
-  const content = locale === "en" ? EN_KEY_BENEFITS : KEY_BENEFITS;
+  const content = selectLocale(locale, KEY_BENEFITS, EN_KEY_BENEFITS, CN_KEY_BENEFITS);
+
   return (
-    <section className="w-full bg-[#f4f8fb] py-[160px] max-b1080:py-[100px] max-b580:py-[64px]">
-      <div className="wrap-in2">
-        <div className="mb-[100px] grid grid-cols-[minmax(0,1.12fr)_minmax(360px,0.88fr)] items-center gap-[80px]
-                        max-b1080:mb-[70px] max-b1080:grid-cols-1 max-b1080:gap-[45px]
-                        max-b580:mb-12 max-b580:gap-8">
-          <div>
-            <h2
-              className="gfont mb-[35px] text-[76px] font-bold leading-[1.15] text-ink-900
-                         max-b1600:text-[62px] max-b1080:text-[48px] max-b580:text-[36px]"
-            >
-              {content.heading}
-            </h2>
-            <p className="mb-6 max-w-[780px] text-[30px] font-bold leading-[1.55] text-ink-900
-                          max-b1080:text-[24px] max-b580:text-[20px]">
-              {content.keyMessage}
-            </p>
-            <p className="max-w-[780px] text-[17px] leading-[1.85] text-ink-500
-                          max-b1080:text-[15px] max-b580:text-[14px]">
-              {content.supportingText}
-            </p>
-          </div>
+    <section aria-labelledby="key-benefits-title" className="relative aspect-[1672/941] w-full overflow-hidden bg-[#f3f9fd] max-b580:aspect-[1003/1568]">
+      <picture className="absolute inset-0 block">
+        <source media="(max-width: 580px)" srcSet={content.imageMobile} />
+        <img src={content.image} alt="" className="h-full w-full object-cover" />
+      </picture>
 
-          <div className="flex justify-center max-b1080:row-start-1">
-            <Image
-              src={content.image}
-              alt={content.imageAlt}
-              width={561}
-              height={445}
-              className="h-auto w-full max-w-[561px] object-contain"
-            />
-          </div>
-        </div>
-
-        {/* 4개 장점 — 2×2 그리드, 860px 이하 1열 */}
-        <ul className="grid grid-cols-2 gap-x-[60px] max-b860:grid-cols-1">
-          {content.items.map((item) => (
-            <li
-              key={item.no}
-              className="border-t border-ink-900 py-[40px] max-b580:py-[28px]"
-            >
-              <span className="gfont mb-4 block text-[18px] font-bold text-sky-600">
-                {item.no}
-              </span>
-              <h3
-                className="mb-3 text-[28px] font-bold text-ink-900
-                           max-b1080:text-[22px] max-b580:text-[19px]"
-              >
-                {item.title}
-              </h3>
-              <p
-                className="text-[17px] leading-[1.8] text-ink-500
-                           max-b1080:text-[15px] max-b580:text-[14px]"
-              >
-                {item.body}
-              </p>
-            </li>
-          ))}
-        </ul>
-
+      <div className="absolute left-[4.3%] top-[8.2%] z-10 max-w-[34%] text-blue-950 max-b580:left-6 max-b580:right-6 max-b580:top-7 max-b580:max-w-none">
+        <p className="gfont mb-4 text-[clamp(11px,1vw,17px)] font-bold tracking-[0.08em] text-blue-700">{content.eyebrow}</p>
+        <h2 id="key-benefits-title" className="gfont whitespace-pre-line text-[clamp(34px,3.9vw,66px)] font-extrabold leading-[1.12] tracking-[-0.04em] max-b580:text-[clamp(28px,8vw,40px)]">{content.heading}</h2>
       </div>
+
+      <ol className="absolute inset-0 z-10">
+        {content.items.map((item, index) => (
+          <li
+            key={item.no}
+            className={`absolute pr-3 text-blue-950 ${index === 0 ? "left-[12.6%] top-[47%] w-[20%]" : index === 1 ? "left-[12.6%] top-[75.4%] w-[20%]" : index === 2 ? "left-[43.2%] top-[75.4%] w-[22%]" : "left-[70.8%] top-[85.2%] w-[24%]"} max-b580:left-[29%] max-b580:right-[6%] max-b580:w-auto ${index === 0 ? "max-b580:top-[39.5%]" : index === 1 ? "max-b580:top-[54.5%]" : index === 2 ? "max-b580:top-[69.5%]" : "max-b580:top-[84.5%]"}`}
+          >
+            <div className="flex items-baseline gap-[clamp(7px,0.65vw,12px)]">
+              <span className="gfont shrink-0 text-[clamp(11px,0.9vw,17px)] font-bold text-blue-700 max-b580:text-[11px]">{item.no}</span>
+              <h3 className="text-[clamp(15px,1.35vw,25px)] font-bold leading-[1.2] tracking-[-0.025em] max-b580:text-[clamp(14px,4vw,18px)]">{item.title}</h3>
+            </div>
+            <p className="mt-3 pl-[clamp(29px,2.05vw,39px)] text-[clamp(11px,0.92vw,17px)] leading-[1.55] text-slate-700 max-b580:mt-1.5 max-b580:pl-0 max-b580:text-[clamp(10px,3vw,13px)] max-b580:leading-[1.45]">{item.body}</p>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }

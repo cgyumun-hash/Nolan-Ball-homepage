@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 import FilterBallPage from "@/components/FilterBallPage";
+import { getLanguageAlternates } from "@/lib/seo";
 import { FILTER_BALL_GASTROSCOPES } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "위 내시경용 2.8mm",
+  title: "2.8 mm / 위내시경 전용",
+  alternates: getLanguageAlternates("/products/filter-ball-for-gastroscopes"),
 };
 
 /**

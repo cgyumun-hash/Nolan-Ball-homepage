@@ -10,6 +10,7 @@ import { BUSINESS, SUBHEADER_BG, TECHNOLOGY_PAGES } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "사업분야",
+  robots: { index: false, follow: false },
 };
 
 function hasImage(src: string) {

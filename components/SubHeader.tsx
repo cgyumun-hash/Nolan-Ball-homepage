@@ -50,18 +50,19 @@ export default function SubHeader({
     position?: string;
     overlay?: string;
     selectiveBlur?: boolean;
+    darkText?: boolean;
   };
   locale?: SiteLocale;
 }) {
   return (
     <div className="pt-[80px] max-b1080:pt-[50px] max-b580:pt-[46px]">
       <div
-        className="relative h-[608px] overflow-hidden rounded-b-[150px] bg-cover bg-center
-                   bg-no-repeat text-white
+        className={`relative h-[608px] overflow-hidden rounded-b-[150px] bg-cover bg-center
+                   bg-no-repeat ${bg.darkText ? "text-blue-950" : "text-white"}
                    max-b1400:h-[65vh] max-b1400:rounded-b-[100px]
                    max-b1080:rounded-b-[50px]
                    max-b980:rounded-b-[25px]
-                   max-b580:h-[430px] max-b580:rounded-b-[20px]"
+                   max-b580:h-[430px] max-b580:rounded-b-[20px]`}
         style={{ backgroundImage: bg.fallback }}
       >
         {/* bg.image 가 빈 문자열이면 사진 레이어를 아예 그리지 않고
@@ -151,7 +152,7 @@ export default function SubHeader({
       <div className="wrap-in mt-5">
         <ul className="flex items-center text-ink-900 max-b860:text-[14px] max-b520:text-[12px]">
           <li className="mr-2.5">
-            <Link href={locale === "en" ? "/en" : "/"} className="hover:text-sky-600">
+            <Link href={locale === "ko" ? "/" : `/${locale}`} className="hover:text-sky-600">
               Home
             </Link>
           </li>

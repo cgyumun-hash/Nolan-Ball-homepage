@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhyAcf from "@/components/WhyAcf";
@@ -7,6 +9,11 @@ import About from "@/components/About";
 import Footer from "@/components/Footer";
 import InquiryButton from "@/components/InquiryButton";
 import type { SiteLocale } from "@/lib/locale";
+import { getLanguageAlternates } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  alternates: getLanguageAlternates("/"),
+};
 
 /**
  * 원본 index.html 의 순서를 따르되, 자료정리 2-2 "핵심 장점 4개"가
