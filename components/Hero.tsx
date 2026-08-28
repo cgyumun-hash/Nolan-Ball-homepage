@@ -44,7 +44,7 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
                 alt=""
                 className={`h-full w-full object-cover ${
                   slide.id === "slide_3"
-                    ? "max-b580:bg-[#69afe6] max-b580:object-contain max-b580:object-bottom"
+                    ? "max-b580:bg-[#86abc7] max-b580:object-contain max-b580:object-bottom"
                     : ""
                 }`}
               />
