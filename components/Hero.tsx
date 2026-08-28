@@ -37,6 +37,11 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className="relative">
+            {slide.id === "slide_3" && (
+              <picture className="absolute inset-0 hidden max-b580:block">
+                <img src={slide.imageMobile} alt="" className="h-full w-full object-cover object-top" />
+              </picture>
+            )}
             <picture className="absolute inset-0 block">
               <source media="(max-width: 580px)" srcSet={slide.imageMobile} />
               <img
@@ -44,7 +49,7 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
                 alt=""
                 className={`h-full w-full object-cover ${
                   slide.id === "slide_3"
-                    ? "max-b580:bg-[#86abc7] max-b580:object-contain max-b580:object-bottom"
+                    ? "max-b580:object-contain max-b580:object-bottom max-b580:[-webkit-mask-image:linear-gradient(to_bottom,transparent_30%,#000_43%)] max-b580:[mask-image:linear-gradient(to_bottom,transparent_30%,#000_43%)]"
                     : ""
                 }`}
               />
