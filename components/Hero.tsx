@@ -15,6 +15,7 @@ import { selectLocale, type SiteLocale } from "@/lib/locale";
 export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
   const slides = selectLocale(locale, SLIDES, EN_SLIDES, CN_SLIDES);
   const actions = selectLocale(locale, HERO_ACTIONS, EN_HERO_ACTIONS, CN_HERO_ACTIONS);
+  const isEnglish = locale === "en";
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [index, setIndex] = useState(0);
   const barRef = useRef<HTMLSpanElement>(null);
@@ -57,10 +58,34 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
               />
             )}
 
-            <div className="absolute left-[7.5%] top-[30%] z-10 max-w-[660px] text-white drop-shadow-[0_2px_16px_rgba(0,43,94,0.28)] max-b1400:max-w-[540px] max-b1080:top-[27%] max-b1080:max-w-[460px] max-b580:left-6 max-b580:right-6 max-b580:top-[145px] max-b580:max-w-none">
+            <div
+              className={`absolute left-[7.5%] z-10 text-white drop-shadow-[0_2px_16px_rgba(0,43,94,0.28)] ${
+                isEnglish
+                  ? "bottom-[150px] max-w-[800px] max-b1400:max-w-[660px] max-b1080:bottom-auto max-b1080:left-[5%] max-b1080:top-[48%] max-b1080:max-w-[560px] max-b580:left-6 max-b580:right-6 max-b580:top-[330px] max-b580:max-w-none"
+                  : "top-[60%] max-w-[660px] max-b1400:max-w-[540px] max-b1080:top-[59%] max-b1080:max-w-[460px] max-b580:left-6 max-b580:right-6 max-b580:top-[360px] max-b580:max-w-none"
+              }`}
+            >
               <p className="gfont mb-5 text-[15px] font-bold tracking-[0.23em] text-cyan-200 max-b580:mb-3 max-b580:text-[11px]">{slide.eyebrow}</p>
-              <h2 className="gfont whitespace-pre-line text-[clamp(48px,4.4vw,78px)] font-extrabold leading-[1.08] tracking-[-0.045em] max-b580:text-[clamp(34px,10vw,48px)]">{slide.lines.join("\n")}</h2>
-              <p className="mt-7 max-w-[590px] text-[20px] font-medium leading-[1.7] text-white/90 max-b1080:text-[17px] max-b580:mt-4 max-b580:max-w-[300px] max-b580:text-[14px]">{slide.description}</p>
+              <h2
+                className={`gfont whitespace-pre-line font-extrabold tracking-[-0.045em] ${
+                  isEnglish
+                    ? slide.id === "slide_3"
+                      ? "min-h-[clamp(82px,9.5vw,168px)] text-[clamp(36px,3.3vw,58px)] leading-[1.14] max-b1080:text-[36px] max-b580:min-h-[78px] max-b580:text-[clamp(27px,7vw,32px)] max-b580:leading-[1.16]"
+                      : "min-h-[clamp(82px,9.5vw,168px)] text-[clamp(38px,3.6vw,64px)] leading-[1.06] max-b1080:text-[38px] max-b580:min-h-[78px] max-b580:text-[clamp(29px,7.5vw,34px)] max-b580:leading-[1.08]"
+                    : "text-[clamp(48px,4.4vw,78px)] leading-[1.08] max-b580:text-[clamp(34px,10vw,48px)]"
+                }`}
+              >
+                {slide.lines.join("\n")}
+              </h2>
+              <p
+                className={
+                  isEnglish
+                    ? "mt-5 max-w-[640px] text-[18px] font-medium leading-[1.55] text-white/90 max-b1080:mt-4 max-b1080:text-[15px] max-b580:max-w-[320px] max-b580:text-[13px] max-b580:leading-[1.45]"
+                    : "mt-7 max-w-[590px] text-[20px] font-medium leading-[1.7] text-white/90 max-b1080:text-[17px] max-b580:mt-4 max-b580:max-w-[300px] max-b580:text-[14px]"
+                }
+              >
+                {slide.description}
+              </p>
             </div>
           </SwiperSlide>
         ))}

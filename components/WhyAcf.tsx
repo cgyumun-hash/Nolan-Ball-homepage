@@ -9,17 +9,17 @@ export default function WhyAcf({ locale = "ko" }: { locale?: SiteLocale }) {
   const content = selectLocale(locale, WHY, EN_WHY, CN_WHY);
 
   return (
-    <section id="why-nolan-ball" aria-labelledby="why-nolan-ball-title" className="relative aspect-[1994/940] w-full overflow-hidden bg-[#eef8fd] max-b580:aspect-[941/1672]">
+    <section id="why-nolan-ball" aria-labelledby="why-nolan-ball-title" className="relative aspect-[1994/1100] w-full overflow-hidden bg-[#eef8fd] max-b580:aspect-[941/1672]">
       <picture className="absolute inset-0 block">
         <source media="(max-width: 580px)" srcSet={content.imageMobile} />
         <img src={content.image} alt="" className="h-full w-full object-cover" />
       </picture>
 
-      <div className="absolute left-[3.2%] top-[22%] z-10 max-w-[42%] text-[#222] max-b580:left-7 max-b580:right-7 max-b580:top-[12%] max-b580:max-w-none">
+      <div className="absolute left-[7%] top-[30%] z-10 max-w-[42%] text-[#222] max-b580:left-7 max-b580:right-7 max-b580:top-[12%] max-b580:max-w-none">
         <h2 id="why-nolan-ball-title" className="gfont text-[clamp(52px,5.9vw,118px)] font-extrabold leading-[0.94] tracking-[-0.06em] max-b580:text-[clamp(50px,15vw,72px)]">
           {content.headingLines.map((line) => <span key={line} className="block">{line}</span>)}
         </h2>
-        <Link href={content.href} className="gfont mt-[12%] inline-flex items-center gap-7 text-[clamp(12px,1.2vw,22px)] font-bold tracking-[0.08em] text-blue-700 transition-colors hover:text-sky-600 max-b580:mt-12 max-b580:text-[14px]">
+        <Link href={content.href} className="gfont mt-[12%] inline-flex items-center gap-7 pl-[0.25vw] text-[clamp(12px,1.2vw,22px)] font-bold tracking-[0.08em] text-blue-700 transition-colors hover:text-sky-600 max-b580:mt-12 max-b580:pl-0 max-b580:text-[14px]">
           {content.cta}<span aria-hidden="true" className="text-[1.7em] font-light">→</span>
         </Link>
       </div>

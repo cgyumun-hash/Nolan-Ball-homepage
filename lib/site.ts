@@ -143,8 +143,8 @@ export const SLIDES = [
     eyebrow: "ENDOSCOPE CHANNEL CLEANING",
     lines: ["내시경 세척의", "새로운 기준"],
     description: "채널 내벽에 360° 밀착하는 일회용 세척 솔루션",
-    image: "/images/revision/main/hero-1-desktop.webp",
-    imageMobile: "/images/revision/main/hero-1-mobile.webp",
+    image: "/images/main/메인1_pc.webp",
+    imageMobile: "/images/main/메인1_moblie.webp",
     /** 사진이 없을 때 대신 보일 배경 */
     fallback: "linear-gradient(115deg, #0b3261 0%, #217fc1 55%, #8ed7f2 100%)",
   },
@@ -153,8 +153,8 @@ export const SLIDES = [
     eyebrow: "CONSISTENT WORKFLOW",
     lines: ["더 빠르고", "일관된 세척 공정"],
     description: "사용자의 숙련도에 따른 편차를 줄이고 현장의 효율을 높입니다",
-    image: "/images/revision/main/hero-2-desktop.webp",
-    imageMobile: "/images/revision/main/hero-2-mobile.webp",
+    image: "/images/main/메인2_pc.webp",
+    imageMobile: "/images/main/메인2_mobile.webp",
     fallback: "linear-gradient(115deg, #092c52 0%, #1c6fa8 55%, #8bc9e8 100%)",
   },
   {
@@ -162,8 +162,8 @@ export const SLIDES = [
     eyebrow: "BEYOND CLEANING",
     lines: ["세척을 넘어", "더 안전한 내일로"],
     description: "책임 있는 기술과 협력으로 신뢰할 수 있는 의료 환경을 만듭니다",
-    image: "/images/revision/main/hero-3-desktop.webp",
-    imageMobile: "/images/revision/main/hero-3-mobile.webp",
+    image: "/images/main/메인3_pc.webp",
+    imageMobile: "/images/main/메인3_moblie.webp",
     fallback: "linear-gradient(115deg, #1d3345 0%, #3f6c86 55%, #8fb3c6 100%)",
   },
 ] as const;
@@ -175,8 +175,8 @@ export const PRODUCTS = {
   desc: "내시경 채널 세척을 위한 일회용 솔루션",
   cta: "제품 알아보기",
   href: "/products/filter-ball-for-gastroscopes",
-  image: "/images/revision/main/products-desktop.webp",
-  imageMobile: "/images/revision/main/products-mobile.webp",
+  image: "/images/main/홈페이지_product_pc.webp",
+  imageMobile: "/images/main/홈페이지_product_moblie.webp",
   disclaimer: "※ 이미지 속 제품은 실제 제품과 크기가 다를 수 있습니다.",
   fallback: "linear-gradient(110deg, #071f3d 0%, #145f9c 50%, #73bde5 100%)",
 } as const;
@@ -189,8 +189,8 @@ export const WHY = {
   contact: "360°",
   cta: "VIEW TECHNOLOGY",
   href: "/about/technology-overview",
-  image: "/images/revision/main/contact-desktop.webp",
-  imageMobile: "/images/revision/main/contact-mobile.webp",
+  image: "/images/main/360_pc.webp",
+  imageMobile: "/images/main/360_moblie.webp",
 } as const;
 
 /**
@@ -239,8 +239,8 @@ export const KEY_BENEFITS = {
       body: "사용 후 색상 변화로 사용 여부를 확인하고 재사용을 방지합니다.",
     },
   ],
-  image: "/images/revision/main/core-desktop.webp",
-  imageMobile: "/images/revision/main/core-mobile.webp",
+  image: "/images/main/4가지기술_pc.webp",
+  imageMobile: "/images/main/4가지기술_moblie.webp",
   imageAlt: "Nolan Ball 내시경 채널 세척 제품",
 } as const;
 
@@ -268,12 +268,12 @@ export const TEST_RESULTS = {
   lead:
     "Nolan Ball 관련 시료를 외부 전문 검사기관의 일반세균배양 시험으로 확인했습니다. 아래 내용은 제공된 시험성적서 9건에 기록된 결과를 정리한 것입니다.",
   resultLabel: "시험 결과",
-  result: "2일 배양 후 미생물 증식 없음",
-  resultEn: "No growth of microorganisms after 2-day culture.",
+  result: "0 CFU",
+  resultEn: "0 CFU",
   summary: {
-    lead: "Nolan Ball 관련 2.8 mm 및 3.7 mm 시료의 일반세균배양 결과에서 ‘2일 배양 후 미생물 증식 없음’이 기록되었습니다.",
-    body: "채널 내경에 맞춘 구조가 내벽과의 접촉을 형성하며, 채널 내부의 잔류 유기물과 오염물 제거를 지원하는 세정 성능을 확인한 시험 결과입니다.",
-    note: "본 결과는 해당 시험 조건에서 확인된 결과이며,\n실제 사용 환경 및 재처리 조건에 따라 달라질 수 있습니다.",
+    lead: "Nolan Ball은 2.8 mm 및 3.7 mm 조건에서 진행한 시험에서 미생물 증식이 확인되지 않는 0 CFU 결과를 보였습니다.",
+    body: "채널 내경에 적합한 구조를 통해 내벽과의 접촉을 형성하고, 채널 내부의 잔류 유기물 및 오염물 제거를 지원하는 Nolan Ball의 전세척 성능을 확인한 시험 결과입니다.",
+    note: "※ 본 결과는 해당 시험 조건에서 확인된 결과이며, 실제 사용 환경 및 재처리 조건에 따라 결과가 달라질 수 있습니다.",
     specs: [
       { value: "2.8 mm", label: "시험 결과" },
       { value: "3.7 mm", label: "시험 결과" },
@@ -453,18 +453,18 @@ export const SUBHEADER_BG = {
   },
   /** PRODUCT */
   product: {
-    image: "/images/revision/products/banner.webp",
+    image: "/images/product/배너.webp",
     position: "center",
-    overlay: "linear-gradient(90deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 65%)",
-    darkText: true,
+    overlay: "linear-gradient(90deg, rgba(0,51,110,0.34) 0%, rgba(0,76,153,0.16) 38%, rgba(0,0,0,0) 68%)",
+    darkText: false,
     fallback: "linear-gradient(120deg, #061b2d 0%, #0d4e74 55%, #258eac 100%)",
   },
   /** TECHNOLOGY */
   technology: {
-    image: "/images/revision/technology/banner.webp",
+    image: "/images/technology/TECHNOLOGY_배너1.webp",
     position: "center",
     overlay: "linear-gradient(90deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 68%)",
-    darkText: true,
+    darkText: false,
     fallback: "linear-gradient(120deg, #102c4a 0%, #285d8c 55%, #6aa2c8 100%)",
   },
   /** TEST & DATA · ABOUT / CONTACT */
@@ -853,8 +853,8 @@ export const TECHNOLOGY = {
   featuresLead:
     "구형 본체 위에 설계된 여섯 가지 구조가 서로 연동되어 접촉, 이동, 포획 및 사용 확인을 지원합니다.\n구조 이름을 누르면 세부 내용을 메모 형식으로 확인할 수 있습니다.",
   interactionHint: "",
-  structureImage: "/images/revision/technology/structure-desktop-clean.webp",
-  structureImageMobile: "/images/revision/technology/structure-mobile-clean.webp",
+  structureImage: "/images/technology/제품구조_pc.webp",
+  structureImageMobile: "/images/technology/제품구조_moblie.webp",
   features: [
     {
       no: "01",
