@@ -39,7 +39,15 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
           <SwiperSlide key={slide.id} className="relative">
             <picture className="absolute inset-0 block">
               <source media="(max-width: 580px)" srcSet={slide.imageMobile} />
-              <img src={slide.image} alt="" className="h-full w-full object-cover" />
+              <img
+                src={slide.image}
+                alt=""
+                className={`h-full w-full object-cover ${
+                  slide.id === "slide_3"
+                    ? "max-b580:bg-[#69afe6] max-b580:object-contain max-b580:object-bottom"
+                    : ""
+                }`}
+              />
             </picture>
 
             {slide.id === "slide_1" && (

@@ -167,11 +167,11 @@ export function CertificationsPageContent({ locale = "ko" }: { locale?: SiteLoca
             <div className="relative hidden aspect-[941/1672] overflow-hidden max-b580:block">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/revision/resources/cfu-mobile.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute left-[13%] right-[13%] top-[12%] text-center text-blue-950">
-                <h2 className="gfont text-[28px] font-extrabold leading-[1.15]">{results.interpretationTitle}</h2>
-                <p className="mt-5 text-[11px] leading-[1.65] text-slate-700">{results.summary.lead}</p>
-                <p className="mt-4 border-t border-blue-900/15 pt-4 text-[11px] leading-[1.65] text-slate-700">{results.summary.body}</p>
-                <p className="mt-5 whitespace-pre-line text-[10px] leading-[1.55] text-slate-500">{results.summary.note}</p>
+              <div className="absolute left-[4.5%] right-[4.5%] top-[2.5%] flex h-[47.5%] flex-col items-center justify-center rounded-[50%] border border-blue-200/80 bg-[#f4f8ff]/95 px-[8%] py-[5%] text-center text-blue-950 shadow-[0_18px_45px_rgba(29,78,216,0.04)]">
+                <h2 className="gfont text-[clamp(23px,7.2vw,32px)] font-extrabold leading-[1.12] tracking-[-0.045em]">{results.interpretationTitle}</h2>
+                <p className="mt-[clamp(10px,3vw,17px)] text-[clamp(10px,2.7vw,13px)] leading-[1.55] text-slate-700">{results.summary.lead}</p>
+                <p className="mt-[clamp(9px,2.7vw,16px)] border-t border-blue-900/15 pt-[clamp(9px,2.7vw,16px)] text-[clamp(10px,2.7vw,13px)] leading-[1.55] text-slate-700">{results.summary.body}</p>
+                <p className="mt-[clamp(9px,2.5vw,14px)] whitespace-pre-line text-[clamp(8px,2.25vw,11px)] leading-[1.45] text-slate-500">{results.summary.note}</p>
               </div>
               <div className="absolute inset-x-[14%] top-[52.1%] text-center">
                 <p className="text-[13px] font-bold text-blue-700">{results.resultLabel}</p>
