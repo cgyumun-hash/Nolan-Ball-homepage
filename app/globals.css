@@ -26,7 +26,9 @@
      max-b1600:(max-width) 이 함께 생성됩니다.                  */
   --breakpoint-b520: 520px;
   --breakpoint-b548: 548px;
-  --breakpoint-b580: 580px;
+  /* Tailwind의 max-* 변형은 경계값 미만으로 계산됩니다.
+     581px로 선언해 CSS 너비 580px까지 모바일 규칙에 포함합니다. */
+  --breakpoint-b580: 581px;
   --breakpoint-b856: 856px;
   --breakpoint-b860: 860px;
   --breakpoint-b980: 980px;
@@ -47,13 +49,42 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-white text-ink-900 font-sans antialiased;
     /* 원본 * { word-break: keep-all } — 한글이 단어 단위로 줄바꿈됩니다 */
     word-break: keep-all;
+    max-width: 100%;
     overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  /* 한국어용 keep-all을 번역 페이지까지 상속하면 공백이 적은 중국어가
+     카드 밖으로 밀려납니다. 문서 언어별 표준 줄바꿈 기회를 사용하고,
+     긴 영문 토큰·URL에만 anywhere를 마지막 안전망으로 둡니다. */
+  :where(:lang(en)) {
+    word-break: normal;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  :where(:lang(zh), :lang(zh-CN)) {
+    word-break: normal;
+    overflow-wrap: anywhere;
+    line-break: strict;
+  }
+
+  .locale-root,
+  .locale-root * {
+    min-width: 0;
+  }
+
+  .locale-root :where(h1, h2, h3) {
+    text-wrap: balance;
   }
 
   img,

@@ -114,12 +114,12 @@ export function OverviewPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
               <h2 className="gfont text-[48px] font-bold text-ink-900 max-b580:text-[32px]">{content.coreValuesTitle}</h2>
               <span className="mx-auto mt-5 block h-[3px] w-12 rounded-full bg-[#3182F6]" />
             </div>
-            <ul className="grid grid-cols-5 gap-5 max-b1080:grid-cols-3 max-b580:grid-cols-2">
+            <ul className="grid grid-cols-5 gap-5 max-b1080:grid-cols-3 max-b580:grid-cols-1">
               {content.coreValues.map((value, index) => (
-                <li key={value.title} className="flex aspect-square flex-col items-center justify-center rounded-full border border-white bg-white p-7 text-center shadow-[0_18px_45px_rgba(16,65,140,0.2)] max-b1080:last:col-start-2 max-b580:last:col-auto">
+                <li key={value.title} className="flex aspect-square min-w-0 flex-col items-center justify-center rounded-full border border-white bg-white p-7 text-center shadow-[0_18px_45px_rgba(16,65,140,0.2)] max-b1080:last:col-start-2 max-b580:aspect-auto max-b580:items-start max-b580:rounded-[28px] max-b580:p-6 max-b580:text-left max-b580:last:col-auto">
                   <span className="gfont mb-3 text-[13px] font-bold text-[#3182F6]">0{index + 1}</span>
-                  <h3 className="mb-3 flex h-[58px] items-center justify-center text-[23px] font-bold leading-[1.25] text-ink-900 max-b580:h-[46px] max-b580:text-[18px]">{value.title}</h3>
-                  <p className="flex h-[45px] items-start justify-center overflow-hidden text-[14px] leading-[1.6] text-ink-500 max-b580:h-[39px] max-b580:text-[12px]">{value.body}</p>
+                  <h3 className="mb-3 text-[23px] font-bold leading-[1.25] text-ink-900 [overflow-wrap:anywhere] max-b580:text-[19px]">{value.title}</h3>
+                  <p className="text-[14px] leading-[1.6] text-ink-500 [overflow-wrap:anywhere] max-b580:text-[13px]">{value.body}</p>
                 </li>
               ))}
             </ul>

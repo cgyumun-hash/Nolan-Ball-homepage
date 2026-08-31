@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function ChineseLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div lang="zh-CN">
+    <div lang="zh-CN" className="locale-root w-full min-w-0">
       <DocumentLanguage locale="cn" />
       {children}
     </div>

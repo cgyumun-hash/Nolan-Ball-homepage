@@ -67,19 +67,19 @@ export default function Footer({ bordered = false, locale = "ko" }: { bordered?:
                      max-b1200:flex-col max-b1200:items-start"
         >
           {/* .c1 */}
-          <div className="max-b1200:mb-[50px]">
+          <div className="min-w-0 max-b1200:mb-[50px] max-b1200:w-full">
             {info.map((row) => (
               <ul
                 key={row.label}
-                className="mb-[15px] flex items-start gap-10 last:mb-0
+                className="mb-[15px] flex min-w-0 items-start gap-10 last:mb-0
                            max-b580:flex-col max-b580:gap-2.5"
               >
                 <h6 className="w-[72px] shrink-0 text-[16px] font-bold">
                   {row.label}
                 </h6>
-                <li className="leading-relaxed">
+                <li className="min-w-0 flex-1 break-words leading-relaxed [overflow-wrap:anywhere]">
                   {row.lines.map((line, i) => (
-                    <span key={i} className="block">
+                    <span key={i} className="block min-w-0">
                       {line}
                     </span>
                   ))}

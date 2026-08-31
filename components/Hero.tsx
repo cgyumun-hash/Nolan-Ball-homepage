@@ -22,7 +22,7 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
   const timeRef = useRef<HTMLSpanElement>(null);
 
   return (
-    <section className="relative h-[min(100svh,1080px)] min-h-[720px] overflow-hidden bg-[#eef7fc] max-b1080:min-h-[680px] max-b580:h-[780px] max-b580:min-h-0">
+    <section className="relative h-[min(100svh,1080px)] min-h-[720px] w-full min-w-0 overflow-hidden bg-[#eef7fc] max-b1080:min-h-[680px] max-b580:h-[780px] max-b580:min-h-0">
       <Swiper
         modules={[Autoplay]}
         slidesPerView={1}
@@ -38,15 +38,13 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className="relative">
-            <picture className="absolute inset-0 block">
+            <picture className="absolute inset-0 block min-w-0 overflow-hidden">
               <source media="(max-width: 580px)" srcSet={slide.imageMobile} />
               <img
                 src={slide.image}
                 alt=""
-                className={`h-full w-full object-cover ${
-                  slide.id === "slide_3"
-                    ? "max-b580:object-fill"
-                    : ""
+                className={`h-full w-full object-cover object-center ${
+                  slide.id === "slide_3" ? "max-b580:object-[62%_center]" : ""
                 }`}
               />
             </picture>
@@ -59,15 +57,15 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
             )}
 
             <div
-              className={`absolute left-[7.5%] z-10 text-white drop-shadow-[0_2px_16px_rgba(0,43,94,0.28)] ${
+              className={`absolute left-[7.5%] z-10 min-w-0 text-white drop-shadow-[0_2px_16px_rgba(0,43,94,0.28)] ${
                 isEnglish
                   ? "bottom-[150px] max-w-[800px] max-b1400:max-w-[660px] max-b1080:bottom-auto max-b1080:left-[5%] max-b1080:top-[48%] max-b1080:max-w-[560px] max-b580:left-6 max-b580:right-6 max-b580:top-[330px] max-b580:max-w-none"
                   : "top-[60%] max-w-[660px] max-b1400:max-w-[540px] max-b1080:top-[59%] max-b1080:max-w-[460px] max-b580:left-6 max-b580:right-6 max-b580:top-[360px] max-b580:max-w-none"
               }`}
             >
-              <p className="gfont mb-5 text-[15px] font-bold tracking-[0.23em] text-cyan-200 max-b580:mb-3 max-b580:text-[11px]">{slide.eyebrow}</p>
+              <p className="gfont mb-5 min-w-0 max-w-full break-words text-[15px] font-bold tracking-[0.23em] text-cyan-200 max-b580:mb-3 max-b580:text-[11px]">{slide.eyebrow}</p>
               <h2
-                className={`gfont whitespace-pre-line font-extrabold tracking-[-0.045em] ${
+                className={`gfont min-w-0 max-w-full break-words whitespace-pre-line font-extrabold tracking-[-0.045em] ${
                   isEnglish
                     ? slide.id === "slide_3"
                       ? "min-h-[clamp(82px,9.5vw,168px)] text-[clamp(36px,3.3vw,58px)] leading-[1.14] max-b1080:text-[36px] max-b580:min-h-[78px] max-b580:text-[clamp(27px,7vw,32px)] max-b580:leading-[1.16]"
@@ -80,8 +78,8 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
               <p
                 className={
                   isEnglish
-                    ? "mt-5 max-w-[640px] text-[18px] font-medium leading-[1.55] text-white/90 max-b1080:mt-4 max-b1080:text-[15px] max-b580:max-w-[320px] max-b580:text-[13px] max-b580:leading-[1.45]"
-                    : "mt-7 max-w-[590px] text-[20px] font-medium leading-[1.7] text-white/90 max-b1080:text-[17px] max-b580:mt-4 max-b580:max-w-[300px] max-b580:text-[14px]"
+                    ? "mt-5 min-w-0 max-w-[640px] break-words text-[18px] font-medium leading-[1.55] text-white/90 max-b1080:mt-4 max-b1080:text-[15px] max-b580:max-w-full max-b580:text-[13px] max-b580:leading-[1.45]"
+                    : "mt-7 min-w-0 max-w-[590px] break-words text-[20px] font-medium leading-[1.7] text-white/90 max-b1080:text-[17px] max-b580:mt-4 max-b580:max-w-full max-b580:text-[14px]"
                 }
               >
                 {slide.description}
@@ -91,15 +89,15 @@ export default function Hero({ locale = "ko" }: { locale?: SiteLocale }) {
         ))}
       </Swiper>
 
-      <nav aria-label={locale === "en" ? "Primary links" : "주요 바로가기"} className="absolute bottom-[105px] right-[7.5%] z-20 flex gap-3 max-b1080:bottom-[92px] max-b580:inset-x-4 max-b580:bottom-[76px] max-b580:gap-1.5">
+      <nav aria-label={locale === "en" ? "Primary links" : locale === "cn" ? "主要链接" : "주요 바로가기"} className="absolute bottom-[105px] right-[7.5%] z-20 flex min-w-0 gap-3 max-b1080:bottom-[92px] max-b580:inset-x-4 max-b580:bottom-[76px] max-b580:grid max-b580:grid-cols-3 max-b580:gap-1.5">
         {actions.map((action) => (
-          <Link key={action.href} href={action.href} className={`gfont flex min-h-12 items-center justify-center rounded-full px-6 text-[14px] font-extrabold shadow-sm transition-colors max-b580:min-h-10 max-b580:min-w-0 max-b580:flex-1 max-b580:px-1 max-b580:text-[10px] ${action.primary ? "bg-blue-700 text-white hover:bg-blue-800" : "border border-white/75 bg-white/85 text-blue-800 backdrop-blur-sm hover:bg-blue-700 hover:text-white"}`}>
+          <Link key={action.href} href={action.href} className={`gfont flex min-h-12 min-w-0 items-center justify-center break-words rounded-full px-6 text-center text-[14px] font-extrabold leading-tight shadow-sm transition-colors max-b580:min-h-10 max-b580:w-full max-b580:px-1.5 max-b580:py-2 max-b580:text-[10px] ${action.primary ? "bg-blue-700 text-white hover:bg-blue-800" : "border border-white/75 bg-white/85 text-blue-800 backdrop-blur-sm hover:bg-blue-700 hover:text-white"}`}>
             {action.label}
           </Link>
         ))}
       </nav>
 
-      <div className="absolute bottom-[40px] left-[7.5%] z-20 flex items-center gap-4 text-white max-b580:inset-x-5 max-b580:bottom-[28px]">
+      <div className="absolute bottom-[40px] left-[7.5%] z-20 flex min-w-0 items-center gap-4 text-white max-b580:inset-x-5 max-b580:bottom-[28px] max-b580:gap-2.5">
         <div className="relative h-0.5 w-[280px] overflow-hidden bg-white/25 max-b580:min-w-0 max-b580:flex-1"><span ref={barRef} className="absolute inset-0 origin-left bg-white transition-transform duration-75" /></div>
         <button type="button" onClick={() => swiper?.slidePrev()} aria-label={locale === "en" ? "Previous slide" : "이전 슬라이드"} className="px-1 text-lg">‹</button>
         <span className="gfont text-[15px] font-bold tabular-nums">{index + 1} <span className="opacity-40">/ {slides.length}</span></span>

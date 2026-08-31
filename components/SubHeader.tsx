@@ -62,7 +62,7 @@ export default function SubHeader({
                    max-b1400:h-[65vh] max-b1400:rounded-b-[100px]
                    max-b1080:rounded-b-[50px]
                    max-b980:rounded-b-[25px]
-                   max-b580:h-[430px] max-b580:rounded-b-[20px]`}
+                   max-b580:flex max-b580:!h-auto max-b580:min-h-[430px] max-b580:flex-col max-b580:rounded-b-[20px]`}
         style={{ backgroundImage: bg.fallback }}
       >
         {/* bg.image 가 빈 문자열이면 사진 레이어를 아예 그리지 않고
@@ -103,35 +103,37 @@ export default function SubHeader({
 
         {/* .sub_txt_wrap */}
         <div
-          className="absolute top-1/2 left-[160px] max-w-[calc(100%-320px)] -translate-y-1/2
+          className="absolute top-1/2 left-[160px] z-10 min-w-0 max-w-[calc(100%-320px)] -translate-y-1/2
                      max-b1600:left-[100px] max-b1600:max-w-[calc(100%-200px)]
                      max-b980:left-[50px] max-b980:max-w-[calc(100%-100px)]
-                     max-b520:left-6 max-b520:max-w-[calc(100%-48px)]"
+                     max-b580:relative max-b580:inset-auto max-b580:w-full max-b580:max-w-none
+                     max-b580:translate-y-0 max-b580:px-6 max-b580:pb-10 max-b580:pt-[96px]"
         >
           {eyebrow && (
-            <h2 className="headline-font mb-5 text-[36px] leading-tight max-b1600:mb-0 max-b1600:text-[24px] max-b980:text-[20px]">
+            <h2 className="headline-font mb-5 min-w-0 break-words text-[36px] leading-tight max-b1600:mb-0 max-b1600:text-[24px] max-b980:text-[20px] max-b580:mb-2">
               {eyebrow}
             </h2>
           )}
-          <h1 className="headline-font text-[80px] leading-[1.08] max-b1600:text-[68px] max-b980:text-[36px] max-b520:text-[30px]">
+          <h1 className="headline-font min-w-0 break-words text-[80px] leading-[1.08] max-b1600:text-[68px] max-b980:text-[36px] max-b520:text-[30px]">
             {title}
           </h1>
         </div>
 
         {/* .sub_pager */}
         <nav
-          className="absolute bottom-0 left-1/2 w-[80%] -translate-x-1/2 rounded-t-[30px]
+          className="absolute bottom-0 left-1/2 z-10 w-[80%] -translate-x-1/2 rounded-t-[30px]
                      bg-black/60 py-2.5 text-center
-                     max-b580:w-[calc(100%-32px)] max-b580:overflow-x-auto max-b580:rounded-t-[18px] max-b580:px-3"
+                     max-b580:relative max-b580:inset-auto max-b580:mx-auto max-b580:mt-auto
+                     max-b580:w-[calc(100%-32px)] max-b580:translate-x-0 max-b580:rounded-t-[18px] max-b580:px-3"
         >
-          <ul className="max-b580:flex max-b580:w-max max-b580:min-w-full max-b580:items-center max-b580:justify-start">
+          <ul className="max-b580:flex max-b580:w-full max-b580:min-w-0 max-b580:flex-wrap max-b580:items-center max-b580:justify-center max-b580:gap-x-3 max-b580:gap-y-2">
             {pager.map((item) => {
               const on = item.label === current;
               return (
-                <li key={item.label} className="mx-[30px] inline-block max-b1600:mx-[25px] max-b580:mx-3 max-b580:shrink-0">
+                <li key={item.label} className="mx-[30px] inline-block max-b1600:mx-[25px] max-b580:mx-0 max-b580:min-w-0 max-b580:max-w-full">
                   <Link
                     href={item.href}
-                    className={`whitespace-nowrap text-[18px] text-white max-b1400:text-[16px] max-b520:text-[13px] ${
+                    className={`block min-w-0 break-words text-[18px] leading-snug text-white max-b1400:text-[16px] max-b520:text-[13px] ${
                       on ? "font-bold" : "opacity-80 hover:opacity-100"
                     }`}
                   >
@@ -150,21 +152,21 @@ export default function SubHeader({
 
       {/* .clumble.wrap_in.mt20 — 빵부스러기 */}
       <div className="wrap-in mt-5">
-        <ul className="flex items-center text-ink-900 max-b860:text-[14px] max-b520:text-[12px]">
-          <li className="mr-2.5">
+        <ul className="flex min-w-0 flex-wrap items-center gap-y-2 text-ink-900 max-b860:text-[14px] max-b520:text-[12px]">
+          <li className="mr-2.5 min-w-0">
             <Link href={locale === "ko" ? "/" : `/${locale}`} className="hover:text-sky-600">
               Home
             </Link>
           </li>
           {breadcrumb.map((crumb) => (
-            <li key={crumb} className="flex items-center">
+            <li key={crumb} className="flex min-w-0 max-w-full items-center">
               {/* 원본 <i class="fa fa-caret-right"> + .op40 */}
               <span className="mr-2.5 opacity-40" aria-hidden>
                 <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor">
                   <path d="M0 0l8 5-8 5z" />
                 </svg>
               </span>
-              <span className="mr-2.5">{crumb}</span>
+              <span className="mr-2.5 min-w-0 break-words">{crumb}</span>
             </li>
           ))}
         </ul>

@@ -156,9 +156,9 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
           </div>
         </div>
 
-        <label className="mb-[60px] flex cursor-pointer items-center gap-3 text-[17px]">
-          <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 accent-brand-500" />
-          <span>{tr(EN_INQUIRY_COPY.agree, "개인정보 수집·이용에 동의합니다.", "我同意收集和使用个人信息。")}</span>
+        <label className="mb-[60px] flex min-w-0 cursor-pointer items-center gap-3 text-[17px]">
+          <input name="privacy" value="agreed" type="checkbox" required className="h-5 w-5 shrink-0 accent-brand-500" />
+          <span className="min-w-0 break-words">{tr(EN_INQUIRY_COPY.agree, "개인정보 수집·이용에 동의합니다.", "我同意收集和使用个人信息。")}</span>
         </label>
 
         <div className="border-t-2 border-ink-900">
@@ -175,7 +175,7 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
           </FormRow>
 
           <FormRow label={tr(EN_INQUIRY_COPY.fields.phone, "연락처", "联系电话")}>
-            <div className="flex min-w-0 items-center gap-3 max-b580:gap-1.5">
+            <div className="grid w-full max-w-[480px] min-w-0 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 max-b580:gap-1.5">
               <PhoneInput name="tel1" maxLength={3} />
               <span>-</span>
               <PhoneInput name="tel2" maxLength={4} />
@@ -185,11 +185,11 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
           </FormRow>
 
           <FormRow label={tr(EN_INQUIRY_COPY.fields.email, "이메일", "电子邮箱")}>
-            <div className="flex items-center gap-3 max-b860:flex-wrap max-b580:gap-2">
-              <input name="emailId" required className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
+            <div className="grid w-full max-w-[760px] min-w-0 grid-cols-[minmax(0,220px)_auto_minmax(0,220px)_minmax(180px,220px)] items-center gap-3 max-b860:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] max-b580:gap-2">
+              <input name="emailId" required className={`${inputClass} w-full min-w-0`} />
               <span>@</span>
-              <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:min-w-0 max-b580:flex-1`} />
-              <select aria-label={tr(EN_INQUIRY_COPY.emailDomainLabel, "이메일 도메인 선택", "选择邮箱域名")} value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-[220px] max-b580:w-full`}>
+              <input name="emailDomain" required value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} w-full min-w-0`} />
+              <select aria-label={tr(EN_INQUIRY_COPY.emailDomainLabel, "이메일 도메인 선택", "选择邮箱域名")} value={domain} onChange={(event) => setDomain(event.target.value)} className={`${inputClass} min-w-0 max-b860:col-span-3 max-b860:w-full`}>
                 <option value="">{tr(EN_INQUIRY_COPY.emailDomainCustom, "직접 입력", "手动输入")}</option>
                 {["naver.com", "daum.net", "hanmail.net", "gmail.com", "nate.com", "hotmail.com", "msn.com", "google.com", "dreamwiz.com"].map((item) => <option key={item}>{item}</option>)}
               </select>
@@ -249,13 +249,13 @@ export default function OnlineInquiryForm({ locale = "ko" }: { locale?: SiteLoca
 
 function FormRow({ label, children, alignTop = false }: { label: string; children: React.ReactNode; alignTop?: boolean }) {
   return (
-    <div className={`flex border-b border-line py-[25px] max-b580:flex-col max-b580:gap-3 ${alignTop ? "items-start" : "items-center"}`}>
-      <div className="w-[220px] shrink-0 text-[17px] font-bold max-b580:w-full">{label}</div>
-      <div className="min-w-0 flex-1">{children}</div>
+    <div className={`flex min-w-0 border-b border-line py-[25px] max-b860:flex-col max-b860:gap-3 ${alignTop ? "items-start" : "items-center"}`}>
+      <div className="w-[220px] min-w-0 shrink-0 break-words text-[17px] font-bold max-b860:w-full">{label}</div>
+      <div className="w-full min-w-0 flex-1">{children}</div>
     </div>
   );
 }
 
 function PhoneInput({ name, maxLength }: { name: string; maxLength: number }) {
-  return <input name={name} required inputMode="numeric" pattern="[0-9]*" maxLength={maxLength} className={`${inputClass} w-[140px] max-b580:min-w-0 max-b580:flex-1`} />;
+  return <input name={name} required inputMode="numeric" pattern="[0-9]*" maxLength={maxLength} className={`${inputClass} w-full min-w-0`} />;
 }

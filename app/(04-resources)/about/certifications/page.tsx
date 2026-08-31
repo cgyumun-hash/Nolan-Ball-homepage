@@ -39,6 +39,7 @@ export function CertificationsPageContent({ locale = "ko" }: { locale?: SiteLoca
   const results = selectLocale(locale, TEST_RESULTS, EN_TEST_RESULTS, CN_TEST_RESULTS);
   const downloadPage = pages.find((page) => page.href.includes("resources-downloads"));
   const isEnglish = locale === "en";
+  const usesLocalizedMobileLayout = locale !== "ko";
 
   return (
     <>
@@ -163,23 +164,55 @@ export function CertificationsPageContent({ locale = "ko" }: { locale?: SiteLoca
               ))}
             </div>
 
-            <div className="relative hidden aspect-[941/1672] overflow-hidden max-b580:block">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/revision/resources/cfu-mobile.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute left-[4.5%] right-[4.5%] top-[2.5%] flex h-[47.5%] flex-col items-center justify-center rounded-[50%] border border-blue-200/80 bg-[#f4f8ff]/95 px-[6%] py-[4%] text-center text-blue-950 shadow-[0_18px_45px_rgba(29,78,216,0.04)]">
-                <h2 className={`gfont font-extrabold tracking-[-0.045em] ${isEnglish ? "text-[clamp(15px,5vw,22px)] leading-[1.08]" : "text-[clamp(20px,6.5vw,29px)] leading-[1.1]"}`}>{results.interpretationTitle}</h2>
-                <p className={`${isEnglish ? "mt-[clamp(6px,1.7vw,9px)] text-[clamp(7.5px,1.9vw,9px)] leading-[1.3]" : "mt-[clamp(8px,2.3vw,12px)] text-[clamp(8.5px,2.3vw,11px)] leading-[1.4]"} text-slate-700`}>{results.summary.lead}</p>
-                <p className={`${isEnglish ? "mt-[clamp(5px,1.5vw,8px)] pt-[clamp(5px,1.5vw,8px)] text-[clamp(7.5px,1.9vw,9px)] leading-[1.3]" : "mt-[clamp(7px,2vw,10px)] pt-[clamp(7px,2vw,10px)] text-[clamp(8.5px,2.3vw,11px)] leading-[1.4]"} border-t border-blue-900/15 text-slate-700`}>{results.summary.body}</p>
-                <p className={`${isEnglish ? "mt-[clamp(5px,1.4vw,7px)] text-[clamp(6.5px,1.6vw,8px)] leading-[1.25]" : "mt-[clamp(7px,1.9vw,9px)] text-[clamp(7px,1.9vw,9px)] leading-[1.35]"} whitespace-pre-line text-slate-500`}>{results.summary.note}</p>
+            {usesLocalizedMobileLayout ? (
+              <div className="hidden max-b580:block">
+                <article className="relative overflow-hidden rounded-[42px] border border-blue-200/80 bg-[#f4f8ff] px-6 py-9 text-center text-blue-950 shadow-[0_18px_45px_rgba(29,78,216,0.06)]">
+                  <span aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-blue-200/70" />
+                  <div className="relative mx-auto max-w-[30rem]">
+                    <h2 className={`gfont font-extrabold tracking-[-0.04em] [overflow-wrap:anywhere] ${isEnglish ? "text-[26px] leading-[1.08]" : "text-[28px] leading-[1.15]"}`}>{results.interpretationTitle}</h2>
+                    <div className="mt-6 space-y-3 text-[13px] leading-[1.65] text-slate-700">
+                      {splitResultParagraphs(results.summary.lead).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    </div>
+                    <p className="mt-6 border-t border-blue-900/15 pt-6 text-[13px] leading-[1.65] text-slate-700">{results.summary.body}</p>
+                    <p className="mt-6 whitespace-pre-line text-[11px] leading-[1.55] text-slate-500">{results.summary.note}</p>
+                  </div>
+                </article>
+
+                <div className="relative mt-5 aspect-[941/930] overflow-hidden rounded-[34px] bg-[#f4f8ff]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/revision/resources/cfu-mobile.webp" alt="" className="absolute bottom-0 left-0 h-auto w-full" />
+                  <div className="relative flex h-full flex-col px-[10%] pb-[8%] pt-[12%] text-blue-950">
+                    <p className="gfont text-center text-[16px] font-bold text-blue-700">{results.resultLabel}</p>
+                    <div className="mt-auto grid grid-cols-2 gap-[12%] px-[13%]">
+                      {results.summary.specs.map((spec) => (
+                        <p key={spec.value} className="min-w-0 text-[10px] leading-[1.35] text-blue-950">
+                          <strong className="gfont block whitespace-nowrap text-[14px] font-bold text-blue-700">{spec.value}</strong>
+                          <span className="block [overflow-wrap:anywhere]">{spec.label}</span>
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="absolute left-[40%] top-[52.3%] w-[20%] text-center text-[13px] font-bold text-blue-700">{results.resultLabel}</p>
-              {results.summary.specs.map((spec, index) => (
-                <p key={spec.value} className={`absolute top-[84.7%] text-left text-[9px] leading-[1.35] text-blue-950 ${index === 0 ? "left-[37.5%] w-[11.5%]" : "left-[67.3%] w-[14%]"}`}>
-                  <strong className="block whitespace-nowrap text-[12px] font-bold text-blue-700">{spec.value}</strong>
-                  {spec.label}
-                </p>
-              ))}
-            </div>
+            ) : (
+              <div className="relative hidden aspect-[941/1672] overflow-hidden max-b580:block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/revision/resources/cfu-mobile.webp" alt="" className="absolute inset-0 h-full w-full object-cover" />
+                <div className="absolute left-[4.5%] right-[4.5%] top-[2.5%] flex h-[47.5%] flex-col items-center justify-center rounded-[50%] border border-blue-200/80 bg-[#f4f8ff]/95 px-[6%] py-[4%] text-center text-blue-950 shadow-[0_18px_45px_rgba(29,78,216,0.04)]">
+                  <h2 className="gfont text-[clamp(20px,6.5vw,29px)] font-extrabold leading-[1.1] tracking-[-0.045em]">{results.interpretationTitle}</h2>
+                  <p className="mt-[clamp(8px,2.3vw,12px)] text-[clamp(8.5px,2.3vw,11px)] leading-[1.4] text-slate-700">{results.summary.lead}</p>
+                  <p className="mt-[clamp(7px,2vw,10px)] border-t border-blue-900/15 pt-[clamp(7px,2vw,10px)] text-[clamp(8.5px,2.3vw,11px)] leading-[1.4] text-slate-700">{results.summary.body}</p>
+                  <p className="mt-[clamp(7px,1.9vw,9px)] whitespace-pre-line text-[clamp(7px,1.9vw,9px)] leading-[1.35] text-slate-500">{results.summary.note}</p>
+                </div>
+                <p className="absolute left-[40%] top-[52.3%] w-[20%] text-center text-[13px] font-bold text-blue-700">{results.resultLabel}</p>
+                {results.summary.specs.map((spec, index) => (
+                  <p key={spec.value} className={`absolute top-[84.7%] text-left text-[9px] leading-[1.35] text-blue-950 ${index === 0 ? "left-[37.5%] w-[11.5%]" : "left-[67.3%] w-[14%]"}`}>
+                    <strong className="block whitespace-nowrap text-[12px] font-bold text-blue-700">{spec.value}</strong>
+                    {spec.label}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       </main>

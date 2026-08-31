@@ -66,7 +66,7 @@ export default function Header({
         className={`absolute inset-x-0 top-0 z-[99] w-full transition-colors duration-300
                     max-b1080:py-1 ${solid ? "bg-white" : "bg-transparent"}`}
       >
-        <div className="wrap-in flex items-center justify-between">
+        <div className="wrap-in flex min-w-0 items-center justify-between gap-4 max-b520:gap-2">
           <Link
             href={locale === "ko" ? "/" : `/${locale}`}
             className="min-w-0 shrink py-3"
@@ -84,7 +84,7 @@ export default function Header({
 
           {/* ── GNB ─────────────────────────────────────────────── */}
           {/* 4개 대분류를 동일한 폭으로 나누고 줄바꿈을 막습니다. */}
-          <nav className="hidden w-[74%] items-center justify-between text-center b1080:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-between text-center b1080:flex">
             {nav.map((item) => (
               <div
                 key={item.label}
@@ -93,13 +93,13 @@ export default function Header({
                   setOpenMenu(item.label);
                 }}
                 onMouseLeave={() => setOpenMenu(null)}
-                className="relative flex-1 cursor-pointer px-2 py-[25px]
+                className="relative min-w-0 flex-1 cursor-pointer px-2 py-[25px]
                            max-b1600:px-1"
               >
                 {/* 원본 GNB 링크는 class="fs20" → 20px, 1600px 이하 18px */}
                 <a
                   href={item.href}
-                  className={`whitespace-nowrap text-[17px] font-normal transition-colors
+                  className={`block min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-[17px] font-normal transition-colors
                               max-b1600:text-[15px] max-b1200:text-[13px] ${fg}`}
                 >
                   {item.label}
@@ -134,7 +134,7 @@ export default function Header({
           </nav>
 
           {/* ── 언어 선택 + 햄버거 ──────────────────────────────── */}
-          <div className="flex shrink-0 items-center gap-5 max-b520:gap-4">
+          <div className="flex min-w-0 shrink-0 items-center gap-5 max-b520:gap-4">
             {/* 원본 .side_menu — hover 시 .translation-links slideDown */}
             <div
               className="relative py-6 max-b1080:py-4"
@@ -144,7 +144,18 @@ export default function Header({
               }}
               onMouseLeave={() => setLangOpen(false)}
             >
-              <button aria-label={locale === "en" ? "Select language" : "언어 선택"} className={`block ${fg}`}>
+              <button
+                type="button"
+                aria-label={locale === "en" ? "Select language" : locale === "cn" ? "选择语言" : "언어 선택"}
+                aria-expanded={langOpen}
+                aria-controls="header-language-menu"
+                aria-haspopup="menu"
+                onClick={() => {
+                  setOpenMenu(null);
+                  setLangOpen((open) => !open);
+                }}
+                className={`block ${fg}`}
+              >
                 {/* 원본 lang.png / b_lang.png (지구본) */}
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <circle cx="12" cy="12" r="9.25" stroke="currentColor" strokeWidth="1.5" />
@@ -156,32 +167,31 @@ export default function Header({
               <AnimatePresence>
                 {langOpen && (
                   <motion.ul
+                    id="header-language-menu"
+                    role="menu"
                     initial={{ height: 0 }}
                     animate={{ height: "auto" }}
                     exit={{ height: 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute right-0 top-[57px] overflow-hidden bg-white"
+                    className="absolute right-0 top-[57px] z-[101] min-w-[72px] overflow-hidden bg-white px-5 py-[15px] shadow-lg
+                               before:absolute before:right-0 before:top-0 before:h-[3px] before:w-6 before:bg-brand-500"
                   >
-                    <span
-                      aria-hidden
-                      className="absolute right-0 top-0 h-[3px] w-6 bg-brand-500"
-                    />
-                    <div className="px-5 py-[15px]">
-                      {LANGUAGE_OPTIONS.map((l) => (
-                        <li key={l.code} className="mb-2.5 last:mb-0">
-                          <Link
-                            href={getLanguageHref(pathname, l.code)}
-                            hrefLang={l.code}
-                            aria-current={locale === l.code ? "page" : undefined}
-                            className={`block w-[30px] text-left text-[13px] font-bold hover:text-ink-900 ${
-                              locale === l.code ? "text-ink-900" : "text-ink-500"
-                            }`}
-                          >
-                            {l.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </div>
+                    {LANGUAGE_OPTIONS.map((l) => (
+                      <li key={l.code} role="none" className="mb-2.5 last:mb-0">
+                        <Link
+                          href={getLanguageHref(pathname, l.code)}
+                          hrefLang={l.code}
+                          role="menuitem"
+                          aria-current={locale === l.code ? "page" : undefined}
+                          onClick={() => setLangOpen(false)}
+                          className={`block min-w-0 text-left text-[13px] font-bold hover:text-ink-900 ${
+                            locale === l.code ? "text-ink-900" : "text-ink-500"
+                          }`}
+                        >
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
                   </motion.ul>
                 )}
               </AnimatePresence>
@@ -190,7 +200,7 @@ export default function Header({
             {/* 원본 .ico — 30×25, 막대 3개(높이 10%), active 시 X 로 변형 */}
             <button
               onClick={() => setSideOpen(true)}
-              aria-label={locale === "en" ? "Open full menu" : "전체 메뉴 열기"}
+              aria-label={locale === "en" ? "Open full menu" : locale === "cn" ? "打开完整菜单" : "전체 메뉴 열기"}
               className="relative h-[25px] w-[30px] max-b520:h-[22px] max-b520:w-[27px]"
             >
               <span className={`absolute left-0 top-0 h-[2.5px] w-full ${barBg}`} />
@@ -212,7 +222,7 @@ export default function Header({
             exit={{ backgroundColor: "rgba(0,0,0,0)" }}
             transition={{ duration: 0.5 }}
             onClick={() => setSideOpen(false)}
-            className="fixed inset-0 z-[100] cursor-pointer"
+            className="fixed inset-0 z-[100] cursor-pointer overflow-hidden"
           >
             <motion.aside
               initial={{ x: "-100%" }}
@@ -220,29 +230,45 @@ export default function Header({
               exit={{ x: "-100%" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="h-full w-[300px] cursor-default overflow-y-auto bg-white
-                         pt-[70px] text-[24px] text-ink-900 max-b580:w-[250px]"
+              role="dialog"
+              aria-modal="true"
+              aria-label={locale === "en" ? "Full menu" : locale === "cn" ? "完整菜单" : "전체 메뉴"}
+              className="relative h-dvh max-h-dvh w-[min(320px,calc(100vw-32px))] max-w-full cursor-default
+                         overflow-x-hidden overflow-y-auto overscroll-contain bg-white pb-[max(24px,env(safe-area-inset-bottom))]
+                         pt-[max(70px,env(safe-area-inset-top))] text-[24px] text-ink-900
+                         max-b580:w-[min(280px,calc(100vw-16px))]"
             >
+              <button
+                type="button"
+                onClick={() => setSideOpen(false)}
+                aria-label={locale === "en" ? "Close full menu" : locale === "cn" ? "关闭完整菜单" : "전체 메뉴 닫기"}
+                className="absolute right-4 top-[max(18px,env(safe-area-inset-top))] grid h-10 w-10 place-items-center text-[30px] leading-none"
+              >
+                <span aria-hidden>×</span>
+              </button>
               {nav.map((item) => (
-                <div key={item.label}>
+                <div key={item.label} className="min-w-0">
                   {/* 하위 항목이 없으면 아코디언 대신 바로 이동하는 링크로 둡니다 */}
                   {item.children.length === 0 ? (
                     <a
                       href={item.href}
-                      className="block w-full px-10 py-3.5 text-left
-                                 max-b580:px-[30px] max-b580:text-[16px]"
+                      onClick={() => setSideOpen(false)}
+                      className="block w-full min-w-0 break-words px-10 py-3.5 text-left leading-snug
+                                 max-b580:px-6 max-b580:text-[16px]"
                     >
                       {item.label}
                     </a>
                   ) : (
                     <button
+                      type="button"
                       onClick={() =>
                         setOpenAccordion((v) =>
                           v === item.label ? null : item.label,
                         )
                       }
-                      className="block w-full px-10 py-3.5 text-left
-                                 max-b580:px-[30px] max-b580:text-[16px]"
+                      aria-expanded={openAccordion === item.label}
+                      className="block w-full min-w-0 break-words px-10 py-3.5 text-left leading-snug
+                                 max-b580:px-6 max-b580:text-[16px]"
                     >
                       {item.label}
                     </button>
@@ -260,11 +286,12 @@ export default function Header({
                         {item.children.map((child) => (
                           <li
                             key={child.label}
-                            className="border-b border-line pl-5 text-[16px] hover:font-extrabold"
+                            className="min-w-0 border-b border-line pl-5 text-[16px] hover:font-extrabold"
                           >
                             <a
                               href={child.href}
-                              className="block px-10 py-3.5 max-b580:px-[30px]"
+                              onClick={() => setSideOpen(false)}
+                              className="block min-w-0 break-words px-10 py-3.5 leading-snug max-b580:px-6"
                             >
                               {child.label}
                             </a>

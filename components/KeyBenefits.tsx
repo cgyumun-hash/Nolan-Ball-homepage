@@ -6,6 +6,7 @@ import { selectLocale, type SiteLocale } from "@/lib/locale";
 export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) {
   const content = selectLocale(locale, KEY_BENEFITS, EN_KEY_BENEFITS, CN_KEY_BENEFITS);
   const isEnglish = locale === "en";
+  const isTranslated = locale !== "ko";
 
   const desktopPositions = isEnglish
     ? [
@@ -21,9 +22,8 @@ export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) 
         "left-[70.8%] top-[85.2%] w-[24%]",
       ] as const;
 
-  // The mobile artwork reserves a fixed media column on the left of each row.
-  // Keep the copy inside the remaining blank area so the illustrations and text
-  // never compete for the same space (the fourth row has two illustrations).
+  // The Korean mobile artwork reserves a fixed media column on the left of each
+  // row. Translated mobile copy uses the normal-flow cards rendered below.
   const mobilePositions = [
     "max-b580:left-[27%] max-b580:right-[5%] max-b580:top-[41.4%]",
     "max-b580:left-[27%] max-b580:right-[5%] max-b580:top-[56.7%]",
@@ -33,10 +33,20 @@ export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) 
 
   return (
     <section aria-labelledby="key-benefits-title" className="w-full overflow-hidden bg-[linear-gradient(90deg,#f8fbfd_0%,#f7fbfe_48%,#edf7fd_100%)]">
-      <div className="relative mx-auto aspect-[1672/1000] w-[92%] max-w-[2000px] overflow-hidden max-b580:w-full max-b580:aspect-auto">
+      <div
+        className={`relative mx-auto aspect-[1672/1000] w-[92%] max-w-[2000px] overflow-hidden max-b580:w-full max-b580:aspect-auto ${
+          isTranslated
+            ? "min-w-0 [word-break:normal] [overflow-wrap:anywhere] max-[581px]:w-full max-[581px]:aspect-auto"
+            : ""
+        }`}
+      >
         <div
           className={`absolute z-20 text-blue-950 max-b580:relative max-b580:inset-auto max-b580:max-w-none max-b580:bg-white max-b580:px-6 max-b580:py-8 ${
             isEnglish ? "left-[6%] top-[9%] max-w-[34%] max-b1080:top-[6%] max-b1080:max-w-[35%]" : "left-[7%] top-[17%] max-w-[34%]"
+          } ${
+            isTranslated
+              ? "max-[581px]:relative max-[581px]:inset-auto max-[581px]:max-w-none max-[581px]:bg-white max-[581px]:px-6 max-[581px]:py-8"
+              : ""
           }`}
         >
           <p className="gfont mb-4 text-[clamp(11px,1vw,16px)] font-bold tracking-[0.08em] text-blue-700">{content.eyebrow}</p>
@@ -50,7 +60,13 @@ export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) 
           </h2>
         </div>
 
-        <div className="absolute inset-0 max-b580:relative max-b580:inset-auto max-b580:aspect-[1003/1568]">
+        <div
+          className={`absolute inset-0 ${
+            isTranslated
+              ? "max-[581px]:hidden"
+              : "max-b580:relative max-b580:inset-auto max-b580:aspect-[1003/1568]"
+          }`}
+        >
           <picture className="absolute inset-0 block">
             <source media="(max-width: 580px)" srcSet={content.imageMobile} />
             <img src={content.image} alt="" className="h-full w-full object-fill max-b580:object-cover" />
@@ -73,6 +89,38 @@ export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) 
             ))}
           </ol>
         </div>
+
+        {isTranslated && (
+          <div className="hidden max-[581px]:block">
+            <div className="relative aspect-[1003/610] overflow-hidden bg-[#f4f9fd]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={content.imageMobile}
+                alt={content.imageAlt}
+                className="absolute inset-x-0 top-0 h-auto w-full"
+              />
+            </div>
+
+            <ol className="grid gap-3 bg-[#f4f9fd] px-5 pb-10 pt-5 [word-break:normal] [overflow-wrap:anywhere]">
+              {content.items.map((item) => (
+                <li
+                  key={item.no}
+                  className="grid min-w-0 grid-cols-[44px_minmax(0,1fr)] gap-3 rounded-2xl border border-sky-100 bg-white/95 p-4 shadow-[0_10px_28px_rgba(22,84,145,0.08)]"
+                >
+                  <span className="gfont inline-flex h-9 w-9 items-center justify-center rounded-full bg-sky-50 text-[11px] font-bold text-blue-700">
+                    {item.no}
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-[16px] font-bold leading-[1.3] tracking-[-0.02em] text-blue-950">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-[13px] leading-[1.65] text-slate-600">{item.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
       </div>
     </section>
   );

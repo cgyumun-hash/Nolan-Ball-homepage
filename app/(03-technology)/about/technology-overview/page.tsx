@@ -91,12 +91,12 @@ function OverviewArtwork({ content, locale }: { content: typeof TECHNOLOGY | typ
 
         <div className="mx-8 -mt-3 rounded-2xl border border-sky-100 bg-white/95 p-6 shadow-[0_12px_35px_rgba(40,116,178,0.08)] max-b580:mx-4 max-b580:p-4">
           <p className="text-[14px] font-bold text-blue-950 max-b580:text-[12px]">{overview.specifications.title}</p>
-          <div className="mt-3 grid grid-cols-3 border-t border-blue-900/20 pt-4">
+          <div className="mt-3 grid grid-cols-3 border-t border-blue-900/20 pt-4 max-b580:grid-cols-1 max-b580:pt-0">
           {overview.specifications.items.map((item, index) => (
-            <div key={item.size} className="border-r border-blue-900/15 px-4 last:border-r-0 max-b580:px-2">
-              <strong className={`gfont text-[24px] max-b580:text-[18px] ${index === 0 ? "text-lime-600" : index === 1 ? "text-amber-500" : "text-blue-500"}`}>{item.size}</strong>
-              <p className="mt-2 text-[13px] font-medium leading-[1.45] text-blue-950 max-b580:text-[10px]">{item.application}</p>
-              <p className="mt-1 text-[11px] leading-[1.35] text-slate-500 max-b580:text-[9px]">({item.code})</p>
+            <div key={item.size} className="min-w-0 border-r border-blue-900/15 px-4 last:border-r-0 max-b580:grid max-b580:grid-cols-[88px_minmax(0,1fr)] max-b580:items-center max-b580:gap-x-4 max-b580:border-b max-b580:border-r-0 max-b580:border-blue-900/10 max-b580:px-0 max-b580:py-3 max-b580:last:border-b-0">
+              <strong className={`gfont row-span-2 text-[24px] max-b580:text-[20px] ${index === 0 ? "text-lime-600" : index === 1 ? "text-amber-500" : "text-blue-500"}`}>{item.size}</strong>
+              <p className="min-w-0 text-[13px] font-medium leading-[1.45] text-blue-950 [overflow-wrap:anywhere]">{item.application}</p>
+              <p className="min-w-0 text-[11px] leading-[1.35] text-slate-500 [overflow-wrap:anywhere]">({item.code})</p>
             </div>
           ))}
           </div>
