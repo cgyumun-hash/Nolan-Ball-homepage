@@ -213,11 +213,11 @@ export async function logoutAdmin(): Promise<void> {
 }
 
 export async function getAdminSession(): Promise<AdminSession | null> {
-  await ensureActivitySchema();
-
   const cookieStore = await cookies();
   const token = cookieStore.get(ADMIN_SESSION_COOKIE_NAME)?.value;
   if (!token || !SESSION_TOKEN_PATTERN.test(token)) return null;
+
+  await ensureActivitySchema();
 
   const sql = getSql();
   const rows = await sql`
@@ -245,7 +245,6 @@ export async function getAdminSession(): Promise<AdminSession | null> {
 }
 
 export async function requireAdminSession(): Promise<AdminSession> {
-  await ensureActivitySchema();
   const session = await getAdminSession();
 
   if (!session) {

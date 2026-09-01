@@ -67,7 +67,7 @@ export async function loginAdminAction(
     return actionFailure(error, "로그인을 처리할 수 없습니다.");
   }
 
-  redirect("/admin/activities");
+  redirect("/about/activities");
 }
 
 export async function logoutAdminAction(): Promise<void> {
@@ -101,7 +101,7 @@ export async function createActivityAction(
     return actionFailure(error, "주요활동을 저장할 수 없습니다.");
   }
 
-  redirect("/admin/activities");
+  redirect("/about/activities");
 }
 
 export async function updateActivityAction(
@@ -123,7 +123,7 @@ export async function updateActivityAction(
     return actionFailure(error, "주요활동을 수정할 수 없습니다.");
   }
 
-  redirect("/admin/activities");
+  redirect("/about/activities");
 }
 
 export async function deleteActivityAction(id: string): Promise<void> {
@@ -144,7 +144,7 @@ export async function deleteActivityAction(id: string): Promise<void> {
     });
   }
 
-  redirect("/admin/activities");
+  redirect("/about/activities");
 }
 
 function parseActivityFormData(formData: FormData): ActivityMutationInput {

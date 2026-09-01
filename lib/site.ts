@@ -423,7 +423,7 @@ export const DOWNLOADS = {
       ready: true,
     },
     {
-      name: "미생물검사 결과보고서",
+      name: "시험 성적서",
       desc: "씨젠의료재단 일반세균배양 결과보고서 9건",
       file: "/downloads/Nolan_Ball_시험성적.pdf",
       size: "0.4 MB",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import ActivityCard from "@/components/activities/ActivityCard";
+import InlineAdminToolbar from "@/components/admin/InlineAdminToolbar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
@@ -11,6 +12,7 @@ import type { SiteLocale } from "@/lib/locale";
 import { selectLocale } from "@/lib/locale";
 import { getLanguageAlternates } from "@/lib/seo";
 import { listPublishedActivities } from "@/lib/server/activities";
+import { getOptionalAdminSession } from "@/lib/server/optional-admin-session";
 import { ACTIVITIES, COMPANY_PAGES, SUBHEADER_BG } from "@/lib/site";
 import { EN_ACTIVITIES, EN_COMPANY_PAGES } from "@/lib/site.en";
 import { CN_ACTIVITIES, CN_COMPANY_PAGES } from "@/lib/site.cn";
@@ -62,6 +64,7 @@ export async function ActivitiesPageContent({
   const pages = selectLocale(locale, COMPANY_PAGES, EN_COMPANY_PAGES, CN_COMPANY_PAGES);
   const basePath = locale === "ko" ? "/about/activities" : `/${locale}/about/activities`;
   const filters = ["all", ...CATEGORY_KEYS] as const;
+  const adminSession = await getOptionalAdminSession();
 
   let result = { items: [], total: 0, page, totalPages: 1 } as Awaited<ReturnType<typeof listPublishedActivities>>;
   try {
@@ -86,6 +89,14 @@ export async function ActivitiesPageContent({
 
       <main className="overflow-hidden bg-[#f4f8fc] py-[150px] max-b1080:py-[110px] max-b580:py-20">
         <section className="wrap-in2 min-w-0">
+          {adminSession && (
+            <InlineAdminToolbar
+              username={adminSession.username}
+              locale={locale}
+              primaryHref="/admin/activities/new"
+              primaryLabel="새 주요활동 작성"
+            />
+          )}
           <header className="mb-16 grid grid-cols-[1fr_minmax(320px,620px)] items-end gap-12 max-b860:grid-cols-1 max-b860:gap-6 max-b580:mb-10">
             <div>
               <p className="mb-4 text-[14px] font-extrabold tracking-[0.28em] text-[#1677c8]">{copy.introEyebrow}</p>
@@ -127,7 +138,14 @@ export async function ActivitiesPageContent({
           {result.items.length > 0 ? (
             <div className="grid grid-cols-4 gap-6 max-b1200:grid-cols-3 max-b860:grid-cols-2 max-b580:grid-cols-1">
               {result.items.map((item) => (
-                <ActivityCard key={item.id} item={item} locale={locale} copy={copy} href={`${basePath}/${item.slug}`} />
+                <ActivityCard
+                  key={item.id}
+                  item={item}
+                  locale={locale}
+                  copy={copy}
+                  href={`${basePath}/${item.slug}`}
+                  editHref={adminSession ? `/admin/activities/${item.id}/edit` : undefined}
+                />
               ))}
             </div>
           ) : (

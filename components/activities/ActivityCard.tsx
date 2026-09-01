@@ -29,17 +29,19 @@ export default function ActivityCard({
   locale,
   copy,
   href,
+  editHref,
 }: {
   item: ActivityListItem;
   locale: "ko" | "en" | "cn";
   copy: ActivityCopy;
   href: string;
+  editHref?: string;
 }) {
   const date = dateRange(item, locale);
   const category = copy.filters[item.category] ?? item.category;
 
   return (
-    <article className="group flex h-full min-w-0 flex-col overflow-hidden rounded-[18px] border border-[#dbe5ef] bg-white shadow-[0_18px_55px_rgba(17,56,105,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_65px_rgba(17,56,105,0.14)]">
+    <article className="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-[18px] border border-[#dbe5ef] bg-white shadow-[0_18px_55px_rgba(17,56,105,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_65px_rgba(17,56,105,0.14)]">
       <Link href={href} className="relative block aspect-[16/10] overflow-hidden bg-[#082a66]">
         {item.coverImageUrl ? (
           <Image
@@ -59,6 +61,15 @@ export default function ActivityCard({
           {category}
         </span>
       </Link>
+
+      {editHref && (
+        <Link
+          href={editHref}
+          className="absolute right-3 top-3 z-10 rounded-full bg-white/95 px-4 py-2 text-[12px] font-extrabold text-[#0755a4] shadow-md backdrop-blur-sm transition hover:bg-[#0755a4] hover:text-white"
+        >
+          수정
+        </Link>
+      )}
 
       <div className="flex flex-1 flex-col p-6 max-b580:p-5">
         {(date || item.location) && (

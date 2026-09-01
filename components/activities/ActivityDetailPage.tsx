@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import InlineAdminToolbar from "@/components/admin/InlineAdminToolbar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
@@ -9,6 +10,7 @@ import SubHeader from "@/components/SubHeader";
 import type { SiteLocale } from "@/lib/locale";
 import { selectLocale } from "@/lib/locale";
 import { getPublishedActivityBySlug } from "@/lib/server/activities";
+import { getOptionalAdminSession } from "@/lib/server/optional-admin-session";
 import { ACTIVITIES, COMPANY_PAGES, SUBHEADER_BG } from "@/lib/site";
 import { EN_ACTIVITIES, EN_COMPANY_PAGES } from "@/lib/site.en";
 import { CN_ACTIVITIES, CN_COMPANY_PAGES } from "@/lib/site.cn";
@@ -54,6 +56,7 @@ export default async function ActivityDetailPage({
   const pages = selectLocale(locale, COMPANY_PAGES, EN_COMPANY_PAGES, CN_COMPANY_PAGES);
   const item = await getPublishedActivityBySlug(slug, locale);
   if (!item) notFound();
+  const adminSession = await getOptionalAdminSession();
 
   const basePath = locale === "ko" ? "/about/activities" : `/${locale}/about/activities`;
   const start = formatDate(item.eventStartDate, locale);
@@ -77,6 +80,14 @@ export default async function ActivityDetailPage({
 
       <main className="bg-white py-[150px] max-b1080:py-[110px] max-b580:py-20">
         <article className="wrap-in2 min-w-0">
+          {adminSession && (
+            <InlineAdminToolbar
+              username={adminSession.username}
+              locale={locale}
+              primaryHref={`/admin/activities/${item.id}/edit`}
+              primaryLabel="이 글 수정"
+            />
+          )}
           <header className="mx-auto mb-16 max-w-[1050px] border-b border-[#cedae6] pb-10 text-center max-b580:mb-10 max-b580:pb-7">
             <span className="mb-5 inline-block rounded-full bg-[#e8f3ff] px-4 py-2 text-[13px] font-bold text-[#0755a4]">
               {copy.filters[item.category] ?? item.category}

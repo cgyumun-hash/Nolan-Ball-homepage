@@ -8,7 +8,7 @@ import { getAdminSession, hasAdminAccount } from "@/lib/server/admin-auth";
 export const dynamic = "force-dynamic";
 
 export default async function AdminLoginPage() {
-  if (await getAdminSession()) redirect("/admin/activities");
+  if (await getAdminSession()) redirect("/about/activities");
   if (!(await hasAdminAccount())) redirect("/admin/setup");
 
   return (
