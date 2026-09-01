@@ -154,26 +154,24 @@ export async function ActivitiesPageContent({
             </div>
           )}
 
-          {result.totalPages > 1 && (
-            <nav aria-label="Pagination" className="mt-14 flex items-center justify-center gap-2">
-              {result.page > 1 && (
-                <Link href={queryHref(basePath, category ?? "all", sort, result.page - 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Previous page">‹</Link>
-              )}
-              {Array.from({ length: result.totalPages }, (_, index) => index + 1)
-                .filter((number) => Math.abs(number - result.page) <= 2 || number === 1 || number === result.totalPages)
-                .map((number, index, visible) => (
-                  <span key={number} className="contents">
-                    {index > 0 && number - visible[index - 1] > 1 && <span className="px-1 text-slate-400">…</span>}
-                    <Link href={queryHref(basePath, category ?? "all", sort, number)} className={`grid h-10 w-10 place-items-center rounded-full text-[14px] font-bold ${number === result.page ? "bg-[#0755a4] text-white" : "border border-[#b9cadd] bg-white text-[#234466]"}`}>
-                      {number}
-                    </Link>
-                  </span>
-                ))}
-              {result.page < result.totalPages && (
-                <Link href={queryHref(basePath, category ?? "all", sort, result.page + 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Next page">›</Link>
-              )}
-            </nav>
-          )}
+          <nav aria-label="Pagination" className="mt-14 flex items-center justify-center gap-2">
+            {result.page > 1 && (
+              <Link href={queryHref(basePath, category ?? "all", sort, result.page - 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Previous page">‹</Link>
+            )}
+            {Array.from({ length: result.totalPages }, (_, index) => index + 1)
+              .filter((number) => Math.abs(number - result.page) <= 2 || number === 1 || number === result.totalPages)
+              .map((number, index, visible) => (
+                <span key={number} className="contents">
+                  {index > 0 && number - visible[index - 1] > 1 && <span className="px-1 text-slate-400">…</span>}
+                  <Link href={queryHref(basePath, category ?? "all", sort, number)} className={`grid h-10 w-10 place-items-center rounded-full text-[14px] font-bold ${number === result.page ? "bg-[#0755a4] text-white" : "border border-[#b9cadd] bg-white text-[#234466]"}`}>
+                    {number}
+                  </Link>
+                </span>
+              ))}
+            {result.page < result.totalPages && (
+              <Link href={queryHref(basePath, category ?? "all", sort, result.page + 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Next page">›</Link>
+            )}
+          </nav>
         </section>
       </main>
 

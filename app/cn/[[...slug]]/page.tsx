@@ -76,7 +76,7 @@ export default async function ChinesePage({ params, searchParams }: PageProps) {
     case "/about/technology-overview": return <TechnologyPageContent locale="cn" />;
     case "/how-to-use": return <HowToUsePageContent locale="cn" />;
     case "/about/certifications": return <CertificationsPageContent locale="cn" />;
-    case "/customer-support/resources-downloads": return <ResourcesDownloadsPageContent locale="cn" />;
+    case "/customer-support/resources-downloads": return <ResourcesDownloadsPageContent locale="cn" searchParams={searchParams} />;
     case "/about/overview": return <OverviewPageContent locale="cn" />;
     case "/about/activities": return <ActivitiesPageContent locale="cn" searchParams={searchParams} />;
     case "/about/location": return <LocationPageContent locale="cn" />;

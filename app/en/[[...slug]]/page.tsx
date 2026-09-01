@@ -149,7 +149,7 @@ export default async function EnglishPage({ params, searchParams }: PageProps) {
     case "/about/certifications":
       return <CertificationsPageContent locale="en" />;
     case "/customer-support/resources-downloads":
-      return <ResourcesDownloadsPageContent locale="en" />;
+      return <ResourcesDownloadsPageContent locale="en" searchParams={searchParams} />;
     case "/about/overview":
       return <OverviewPageContent locale="en" />;
     case "/about/activities":

@@ -27,7 +27,7 @@ export default function InlineAdminToolbar({
       </div>
       <div className="flex flex-wrap items-center gap-2 max-b580:w-full max-b580:flex-nowrap max-b580:overflow-x-auto max-b580:pb-0.5">
         <Link
-          href={`${prefix}/about/activities`}
+          href="/admin/activities"
           className="shrink-0 whitespace-nowrap rounded-lg border border-sky-300 bg-white px-4 py-2.5 text-[13px] font-bold text-sky-800 transition hover:border-sky-600 max-b580:px-3 max-b580:py-2"
         >
           주요활동 관리

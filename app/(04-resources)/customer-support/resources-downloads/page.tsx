@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import {
   createResourceDownloadAction,
@@ -35,10 +36,34 @@ export const metadata: Metadata = {
   alternates: getLanguageAlternates("/customer-support/resources-downloads"),
 };
 
-export async function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?: SiteLocale }) {
+type Query = Record<string, string | string[] | undefined>;
+
+const DOWNLOADS_PAGE_SIZE = 5;
+
+function one(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
+
+function paginationHref(basePath: string, page: number) {
+  return page > 1 ? `${basePath}?page=${page}` : basePath;
+}
+
+export async function ResourcesDownloadsPageContent({
+  locale = "ko",
+  searchParams,
+}: {
+  locale?: SiteLocale;
+  searchParams?: Promise<Query>;
+}) {
+  const query = searchParams ? await searchParams : {};
+  const parsedPage = Number.parseInt(one(query.page) ?? "1", 10);
+  const requestedPage = Number.isFinite(parsedPage) && parsedPage > 0 ? Math.min(parsedPage, 9999) : 1;
   const content = selectLocale(locale, DOWNLOADS, EN_DOWNLOADS, CN_DOWNLOADS);
   const pages = selectLocale(locale, RESOURCES_PAGES, EN_RESOURCES_PAGES, CN_RESOURCES_PAGES);
   const pageTitle = locale === "en" ? "Downloads" : locale === "cn" ? "资料下载" : title;
+  const basePath = locale === "ko"
+    ? "/customer-support/resources-downloads"
+    : `/${locale}/customer-support/resources-downloads`;
   const adminSession = await getOptionalAdminSession();
   let managedDownloads: ResourceDownload[] = [];
   let adminDownloads: ResourceDownloadAdminRecord[] = [];
@@ -75,6 +100,15 @@ export async function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?
   const bundledDownloads = managedDownloadsLoaded
     ? content.items.filter((item) => !item.ready)
     : content.items;
+  const totalItems = localizedManagedDownloads.length + bundledDownloads.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / DOWNLOADS_PAGE_SIZE));
+  const currentPage = Math.min(requestedPage, totalPages);
+  const startIndex = (currentPage - 1) * DOWNLOADS_PAGE_SIZE;
+  const endIndex = startIndex + DOWNLOADS_PAGE_SIZE;
+  const visibleManagedDownloads = localizedManagedDownloads.slice(startIndex, endIndex);
+  const bundledStartIndex = Math.max(0, startIndex - localizedManagedDownloads.length);
+  const bundledEndIndex = Math.max(0, endIndex - localizedManagedDownloads.length);
+  const visibleBundledDownloads = bundledDownloads.slice(bundledStartIndex, bundledEndIndex);
 
   return (
     <>
@@ -108,7 +142,7 @@ export async function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?
           )}
 
           <ul className={`${adminSession ? "mt-14" : ""} border-t border-ink-900`}>
-            {localizedManagedDownloads.map((item) => (
+            {visibleManagedDownloads.map((item) => (
               <li
                 key={item.id}
                 className="flex items-center gap-6 border-b border-line py-[30px] max-b860:flex-col max-b860:items-start max-b860:gap-3"
@@ -134,7 +168,7 @@ export async function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?
               </li>
             ))}
 
-            {bundledDownloads.map((item) => (
+            {visibleBundledDownloads.map((item) => (
               <li
                 key={item.name}
                 className="flex items-center gap-6 border-b border-line py-[30px] max-b860:flex-col max-b860:items-start max-b860:gap-3"
@@ -172,6 +206,47 @@ export async function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?
             ))}
           </ul>
 
+          <nav aria-label="Pagination" className="mt-12 flex items-center justify-center gap-2">
+            {currentPage > 1 && (
+              <Link
+                href={paginationHref(basePath, currentPage - 1)}
+                className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]"
+                aria-label="Previous page"
+              >
+                &lsaquo;
+              </Link>
+            )}
+            {Array.from({ length: totalPages }, (_, index) => index + 1)
+              .filter((number) => Math.abs(number - currentPage) <= 2 || number === 1 || number === totalPages)
+              .map((number, index, visible) => (
+                <span key={number} className="contents">
+                  {index > 0 && number - visible[index - 1] > 1 && (
+                    <span className="px-1 text-slate-400">&hellip;</span>
+                  )}
+                  <Link
+                    href={paginationHref(basePath, number)}
+                    className={`grid h-10 w-10 place-items-center rounded-full text-[14px] font-bold ${
+                      number === currentPage
+                        ? "bg-[#0755a4] text-white"
+                        : "border border-[#b9cadd] bg-white text-[#234466]"
+                    }`}
+                    aria-current={number === currentPage ? "page" : undefined}
+                  >
+                    {number}
+                  </Link>
+                </span>
+              ))}
+            {currentPage < totalPages && (
+              <Link
+                href={paginationHref(basePath, currentPage + 1)}
+                className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]"
+                aria-label="Next page"
+              >
+                &rsaquo;
+              </Link>
+            )}
+          </nav>
+
           <p className="mt-[30px] text-[15px] leading-[1.7] text-ink-500 max-b520:text-[13px]">
             {content.note}
           </p>
@@ -183,8 +258,8 @@ export async function ResourcesDownloadsPageContent({ locale = "ko" }: { locale?
   );
 }
 
-export default async function ResourcesDownloadsPage() {
-  return <ResourcesDownloadsPageContent />;
+export default async function ResourcesDownloadsPage({ searchParams }: { searchParams: Promise<Query> }) {
+  return <ResourcesDownloadsPageContent searchParams={searchParams} />;
 }
 
 function DocumentIcon({ ready }: { ready: boolean }) {
