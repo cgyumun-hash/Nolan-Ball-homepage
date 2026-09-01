@@ -89,9 +89,36 @@ export const RESOURCES_PAGES = [
 /** COMPANY — 회사 정보와 문의 */
 export const COMPANY_PAGES = [
   { label: "회사소개", href: "/about/overview" },
+  { label: "주요활동", href: "/about/activities" },
   { label: "오시는 길", href: "/about/location" },
   { label: "온라인 문의", href: "/customer-support/online-inquiry" },
 ] as const;
+
+export const ACTIVITIES = {
+  eyebrow: "COMPANY",
+  title: "주요활동",
+  introEyebrow: "NOLAN BALL KOREA",
+  introTitle: "국내외 주요활동",
+  intro:
+    "전시회, 학회·세미나, 제품 시연과 해외 협력 등 놀란볼코리아의 주요 소식을 전합니다.",
+  filters: {
+    all: "전체",
+    exhibition: "전시회",
+    seminar: "학회·세미나",
+    demonstration: "제품 시연",
+    overseas: "해외 활동",
+    other: "기타",
+  },
+  sortNewest: "최신순",
+  sortOldest: "오래된순",
+  readMore: "자세히 보기",
+  empty: "등록된 주요활동이 없습니다.",
+  backToList: "목록으로",
+  eventDate: "활동일",
+  location: "장소",
+  gallery: "활동 사진",
+  video: "관련 영상",
+} as const;
 
 /** 메뉴에서 제외된 이전 페이지와의 호환용 목록 */
 export const ABOUT_CONTACT_PAGES = COMPANY_PAGES;
@@ -443,6 +470,15 @@ export const SUBHEADER_BG = {
     position: "center 25%",
     overlay: "linear-gradient(90deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.10) 52%, rgba(0,0,0,0.07) 100%)",
     fallback: "linear-gradient(120deg, #173247 0%, #47758f 55%, #9bc2d2 100%)",
+  },
+  /** COMPANY - ACTIVITIES */
+  activities: {
+    image: "/images/activities/banner-desktop.webp",
+    mobileImage: "/images/activities/banner-mobile.webp",
+    position: "center",
+    mobilePosition: "center 45%",
+    overlay: "linear-gradient(90deg, rgba(0,16,72,0.18) 0%, rgba(0,16,72,0.04) 62%, rgba(0,16,72,0) 100%)",
+    fallback: "linear-gradient(120deg, #03194f 0%, #063a9a 58%, #0879e8 100%)",
   },
   /** RESOURCES */
   resources: {

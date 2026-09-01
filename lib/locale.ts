@@ -11,6 +11,7 @@ const LOCALIZED_PATHS = new Set([
   "/about/certifications",
   "/customer-support/resources-downloads",
   "/about/overview",
+  "/about/activities",
   "/about/location",
   "/customer-support/online-inquiry",
 ]);
@@ -23,9 +24,10 @@ export function stripLocalePrefix(pathname: string) {
 
 export function getLanguageHref(pathname: string, targetLocale: SiteLocale) {
   const basePath = stripLocalePrefix(pathname);
+  const isActivityDetail = basePath.startsWith("/about/activities/");
 
   if (targetLocale === "ko") return basePath;
-  if (!LOCALIZED_PATHS.has(basePath)) return `/${targetLocale}`;
+  if (!LOCALIZED_PATHS.has(basePath) && !isActivityDetail) return `/${targetLocale}`;
 
   return basePath === "/" ? `/${targetLocale}` : `/${targetLocale}${basePath}`;
 }

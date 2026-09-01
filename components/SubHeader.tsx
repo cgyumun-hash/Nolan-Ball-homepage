@@ -27,6 +27,22 @@ import type { SiteLocale } from "@/lib/locale";
 
 type PagerItem = { readonly label: string; readonly href: string };
 
+const BREADCRUMB_SECTION_HREFS: Record<string, string> = {
+  COMPANY: "/about/overview",
+  PRODUCT: "/products/filter-ball-for-gastroscopes",
+  TECHNOLOGY: "/about/technology-overview",
+  RESOURCES: "/about/certifications",
+  "TEST & DATA": "/about/certifications",
+  DOWNLOAD: "/customer-support/resources-downloads",
+  "ABOUT / CONTACT": "/about/overview",
+  "CUSTOMER SUPPORT": "/customer-support/notices",
+};
+
+function localeHref(href: string, locale: SiteLocale) {
+  if (locale === "ko" || href === "/" || href.startsWith(`/${locale}/`) || href === `/${locale}`) return href;
+  return `/${locale}${href}`;
+}
+
 export default function SubHeader({
   eyebrow,
   title,
@@ -46,8 +62,10 @@ export default function SubHeader({
   breadcrumb: string[];
   bg: {
     image: string;
+    mobileImage?: string;
     fallback: string;
     position?: string;
+    mobilePosition?: string;
     overlay?: string;
     selectiveBlur?: boolean;
     darkText?: boolean;
@@ -70,12 +88,21 @@ export default function SubHeader({
         {bg.image && (
           <>
             <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              className={`absolute inset-0 bg-cover bg-center bg-no-repeat ${bg.mobileImage ? "max-b580:hidden" : ""}`}
               style={{
                 backgroundImage: `url(${bg.image})`,
                 backgroundPosition: bg.position ?? "center",
               }}
             />
+            {bg.mobileImage && (
+              <div
+                className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat max-b580:block"
+                style={{
+                  backgroundImage: `url(${bg.mobileImage})`,
+                  backgroundPosition: bg.mobilePosition ?? "center",
+                }}
+              />
+            )}
             {bg.selectiveBlur && (
               <div
                 className="absolute inset-[-3px] bg-cover bg-center bg-no-repeat blur-[1px]"
@@ -158,17 +185,35 @@ export default function SubHeader({
               Home
             </Link>
           </li>
-          {breadcrumb.map((crumb) => (
-            <li key={crumb} className="flex min-w-0 max-w-full items-center">
+          {breadcrumb.map((crumb, index) => {
+            const isCurrent = index === breadcrumb.length - 1;
+            const pagerHref = pager.find((item) => item.label === crumb)?.href;
+            const sectionHref = BREADCRUMB_SECTION_HREFS[crumb.trim().toUpperCase()];
+            const href = pagerHref ?? (sectionHref ? localeHref(sectionHref, locale) : undefined);
+
+            return (
+            <li key={`${crumb}-${index}`} className="flex min-w-0 max-w-full items-center">
               {/* 원본 <i class="fa fa-caret-right"> + .op40 */}
               <span className="mr-2.5 opacity-40" aria-hidden>
                 <svg width="8" height="10" viewBox="0 0 8 10" fill="currentColor">
                   <path d="M0 0l8 5-8 5z" />
                 </svg>
               </span>
-              <span className="mr-2.5 min-w-0 break-words">{crumb}</span>
+              {!isCurrent && href ? (
+                <Link
+                  href={href}
+                  className="mr-2.5 min-w-0 break-words transition-colors hover:text-sky-600 hover:underline hover:underline-offset-4"
+                >
+                  {crumb}
+                </Link>
+              ) : (
+                <span className="mr-2.5 min-w-0 break-words" aria-current={isCurrent ? "page" : undefined}>
+                  {crumb}
+                </span>
+              )}
             </li>
-          ))}
+            );
+          })}
         </ul>
       </div>
     </div>

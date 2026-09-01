@@ -36,9 +36,35 @@ export const CN_RESOURCES_PAGES = [
 
 export const CN_COMPANY_PAGES = [
   { label: "公司简介", href: "/cn/about/overview" },
+  { label: "主要活动", href: "/cn/about/activities" },
   { label: "来访路线", href: "/cn/about/location" },
   { label: "在线咨询", href: "/cn/customer-support/online-inquiry" },
 ] as const;
+
+export const CN_ACTIVITIES = {
+  eyebrow: "COMPANY",
+  title: "主要活动",
+  introEyebrow: "NOLAN BALL KOREA",
+  introTitle: "国内外主要活动",
+  intro: "了解Nolan Ball Korea参加展会、学术会议、产品演示及海外合作的最新动态。",
+  filters: {
+    all: "全部",
+    exhibition: "展会",
+    seminar: "学术会议·研讨会",
+    demonstration: "产品演示",
+    overseas: "海外活动",
+    other: "其他",
+  },
+  sortNewest: "最新发布",
+  sortOldest: "最早发布",
+  readMore: "查看详情",
+  empty: "暂无已发布的活动。",
+  backToList: "返回活动列表",
+  eventDate: "活动日期",
+  location: "地点",
+  gallery: "活动图片",
+  video: "相关视频",
+} as const;
 
 export const CN_TECHNOLOGY_PAGES = [
   { label: "技术概览", href: "/cn/about/technology-overview" },
@@ -292,6 +318,7 @@ export const CN_SUPPORTED_PATHS = [
   "/about/certifications",
   "/customer-support/resources-downloads",
   "/about/overview",
+  "/about/activities",
   "/about/location",
   "/customer-support/online-inquiry",
 ] as const;

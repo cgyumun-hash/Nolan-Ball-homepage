@@ -8,6 +8,7 @@ import { CertificationsPageContent } from "@/app/(04-resources)/about/certificat
 import { ResourcesDownloadsPageContent } from "@/app/(04-resources)/customer-support/resources-downloads/page";
 import { LocationPageContent } from "@/app/(05-company)/about/location/page";
 import { OverviewPageContent } from "@/app/(05-company)/about/overview/page";
+import { ActivitiesPageContent } from "@/app/(05-company)/about/activities/page";
 import { OnlineInquiryPageContent } from "@/app/(05-company)/customer-support/online-inquiry/page";
 import FilterBallPage from "@/components/FilterBallPage";
 import { getLanguageAlternates } from "@/lib/seo";
@@ -21,6 +22,7 @@ import {
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 const PAGE_METADATA: Record<string, { title: string; description: string }> = {
@@ -76,6 +78,10 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     description:
       "Learn about Nolan Ball Korea's vision, mission, values, and approach to endoscope reprocessing solutions.",
   },
+  "/about/activities": {
+    title: "Activities",
+    description: "Explore Nolan Ball Korea's domestic and global activities, exhibitions, seminars, and product demonstrations.",
+  },
   "/about/location": {
     title: "Location",
     description: "Find the Nolan Ball Korea head office and public transportation information.",
@@ -121,7 +127,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function EnglishPage({ params }: PageProps) {
+export default async function EnglishPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const pathname = getPath(slug);
 
@@ -146,6 +152,8 @@ export default async function EnglishPage({ params }: PageProps) {
       return <ResourcesDownloadsPageContent locale="en" />;
     case "/about/overview":
       return <OverviewPageContent locale="en" />;
+    case "/about/activities":
+      return <ActivitiesPageContent locale="en" searchParams={searchParams} />;
     case "/about/location":
       return <LocationPageContent locale="en" />;
     case "/customer-support/online-inquiry":

@@ -233,7 +233,7 @@ export default function Header({
               role="dialog"
               aria-modal="true"
               aria-label={locale === "en" ? "Full menu" : locale === "cn" ? "完整菜单" : "전체 메뉴"}
-              className="relative h-dvh max-h-dvh w-[min(320px,calc(100vw-32px))] max-w-full cursor-default
+              className="relative flex h-dvh max-h-dvh w-[min(320px,calc(100vw-32px))] max-w-full cursor-default flex-col
                          overflow-x-hidden overflow-y-auto overscroll-contain bg-white pb-[max(24px,env(safe-area-inset-bottom))]
                          pt-[max(70px,env(safe-area-inset-top))] text-[24px] text-ink-900
                          max-b580:w-[min(280px,calc(100vw-16px))]"
@@ -302,6 +302,26 @@ export default function Header({
                   </AnimatePresence>
                 </div>
               ))}
+
+              <div className="mt-auto border-t border-slate-200 px-10 pb-2 pt-6 max-b580:px-6">
+                <Link
+                  href="/admin"
+                  onClick={() => setSideOpen(false)}
+                  className="flex w-full items-center justify-between rounded-full border border-[#1677c8] px-5 py-3.5
+                             text-[14px] font-extrabold leading-none text-[#0755a4] transition-colors
+                             hover:bg-[#0755a4] hover:text-white focus-visible:outline focus-visible:outline-2
+                             focus-visible:outline-offset-2 focus-visible:outline-[#1677c8]"
+                >
+                  <span>
+                    {locale === "en"
+                      ? "Administrator"
+                      : locale === "cn"
+                        ? "管理员入口"
+                        : "관리자 전환"}
+                  </span>
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
             </motion.aside>
           </motion.div>
         )}

@@ -67,9 +67,36 @@ export const EN_RESOURCES_PAGES = [
 
 export const EN_COMPANY_PAGES = [
   { label: "Company Overview", href: "/en/about/overview" },
+  { label: "Activities", href: "/en/about/activities" },
   { label: "Location", href: "/en/about/location" },
   { label: "Contact Us", href: "/en/customer-support/online-inquiry" },
 ] as const;
+
+export const EN_ACTIVITIES = {
+  eyebrow: "COMPANY",
+  title: "Activities",
+  introEyebrow: "NOLAN BALL KOREA",
+  introTitle: "Domestic & Global Activities",
+  intro:
+    "Discover Nolan Ball Korea's exhibitions, conferences, product demonstrations, and global partnerships.",
+  filters: {
+    all: "All",
+    exhibition: "Exhibitions",
+    seminar: "Conferences & Seminars",
+    demonstration: "Product Demonstrations",
+    overseas: "Global Activities",
+    other: "Other",
+  },
+  sortNewest: "Newest",
+  sortOldest: "Oldest",
+  readMore: "View details",
+  empty: "No activities have been published yet.",
+  backToList: "Back to activities",
+  eventDate: "Date",
+  location: "Location",
+  gallery: "Activity photos",
+  video: "Related video",
+} as const;
 
 export const EN_TECHNOLOGY_PAGES = [
   { label: "Technology Overview", href: "/en/about/technology-overview" },
@@ -866,6 +893,7 @@ export const EN_SUPPORTED_PATHS = [
   "/about/certifications",
   "/customer-support/resources-downloads",
   "/about/overview",
+  "/about/activities",
   "/about/location",
   "/customer-support/online-inquiry",
 ] as const;

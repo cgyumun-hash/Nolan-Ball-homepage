@@ -17,6 +17,7 @@ export const PUBLIC_PATHS = [
   "/about/certifications",
   "/customer-support/resources-downloads",
   "/about/overview",
+  "/about/activities",
   "/about/location",
   "/customer-support/online-inquiry",
 ] as const;

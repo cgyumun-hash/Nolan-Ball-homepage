@@ -6,6 +6,25 @@ HaKam Bio기반 Nolan Ball homepage만들기
 
 Next.js · React · TypeScript · Tailwind CSS · Framer Motion · Swiper
 
+## 주요활동 관리자
+
+회사 활동 게시물은 Neon Postgres에 저장하고 사진·영상은 Vercel Blob에 저장합니다.
+
+- 공개 목록: `/about/activities`
+- 관리자: `/admin`
+- 최초 관리자 생성: `/admin/setup`
+- 스키마 원본: `db/migrations/001_activities.sql`
+
+Vercel 프로젝트에는 다음 환경변수가 필요합니다. 실제 비밀값은 저장소에 커밋하지 않습니다.
+
+```text
+DATABASE_URL
+BLOB_READ_WRITE_TOKEN
+ADMIN_SETUP_TOKEN
+```
+
+`ADMIN_SETUP_TOKEN`에는 충분히 긴 임의 문자열을 넣습니다. 첫 배포 후 `/admin/setup`에서 관리자 계정을 한 번 생성하면 이후에는 `/admin/login`을 사용합니다. 게시물 작성 화면에서 JPG·PNG 이미지는 WebP로 변환된 뒤 Blob에 업로드됩니다.
+
 ---
 
 ## 1주차

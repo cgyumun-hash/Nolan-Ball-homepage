@@ -8,6 +8,7 @@ import { CertificationsPageContent } from "@/app/(04-resources)/about/certificat
 import { ResourcesDownloadsPageContent } from "@/app/(04-resources)/customer-support/resources-downloads/page";
 import { LocationPageContent } from "@/app/(05-company)/about/location/page";
 import { OverviewPageContent } from "@/app/(05-company)/about/overview/page";
+import { ActivitiesPageContent } from "@/app/(05-company)/about/activities/page";
 import { OnlineInquiryPageContent } from "@/app/(05-company)/customer-support/online-inquiry/page";
 import FilterBallPage from "@/components/FilterBallPage";
 import { getLanguageAlternates } from "@/lib/seo";
@@ -19,7 +20,10 @@ import {
   CN_VALVE_PORT_BRUSH,
 } from "@/lib/site.cn";
 
-type PageProps = { params: Promise<{ slug?: string[] }> };
+type PageProps = {
+  params: Promise<{ slug?: string[] }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 const PAGE_METADATA: Record<string, { title: string; description: string }> = {
   "/": { title: "Nolan Ball Korea | 内镜清洗新标准", description: "了解Nolan Ball一次性内镜管腔清洗解决方案。" },
@@ -32,6 +36,7 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
   "/about/certifications": { title: "试验结果·报告", description: "查看Nolan Ball相关一般细菌培养试验结果及解读。" },
   "/customer-support/resources-downloads": { title: "资料下载", description: "下载Nolan Ball产品及试验资料。" },
   "/about/overview": { title: "公司简介", description: "了解Nolan Ball Korea的公司愿景与业务。" },
+  "/about/activities": { title: "主要活动", description: "了解Nolan Ball Korea的国内外展会、学术会议、产品演示及合作动态。" },
   "/about/location": { title: "来访路线", description: "查看Nolan Ball Korea总部地址与交通信息。" },
   "/customer-support/online-inquiry": { title: "在线咨询", description: "咨询产品、样品、报价及合作事宜。" },
 };
@@ -58,7 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ChinesePage({ params }: PageProps) {
+export default async function ChinesePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
   const pathname = getPath(slug);
 
@@ -73,6 +78,7 @@ export default async function ChinesePage({ params }: PageProps) {
     case "/about/certifications": return <CertificationsPageContent locale="cn" />;
     case "/customer-support/resources-downloads": return <ResourcesDownloadsPageContent locale="cn" />;
     case "/about/overview": return <OverviewPageContent locale="cn" />;
+    case "/about/activities": return <ActivitiesPageContent locale="cn" searchParams={searchParams} />;
     case "/about/location": return <LocationPageContent locale="cn" />;
     case "/customer-support/online-inquiry": return <OnlineInquiryPageContent locale="cn" />;
     default: notFound();
