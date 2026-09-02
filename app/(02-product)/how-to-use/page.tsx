@@ -35,17 +35,19 @@ export const metadata: Metadata = {
 export async function HowToUsePageContent({ locale = "ko" }: { locale?: SiteLocale }) {
   const content = selectLocale(locale, HOW_TO_USE, EN_HOW_TO_USE, CN_HOW_TO_USE);
   const pages = selectLocale(locale, PRODUCTS_PAGES, EN_PRODUCTS_PAGES, CN_PRODUCTS_PAGES);
-  const adminSession = await getOptionalAdminSession();
-  let guideVideo: Awaited<ReturnType<typeof getHowToUseGuideVideo>> = null;
-  try {
-    if (isDatabaseConfigured()) {
-      guideVideo = await getHowToUseGuideVideo();
-    }
-  } catch (error) {
-    console.error("Could not load the how-to-use guide video", {
-      name: error instanceof Error ? error.name : "UnknownError",
-    });
-  }
+  const guideVideoPromise: Promise<Awaited<ReturnType<typeof getHowToUseGuideVideo>>> =
+    isDatabaseConfigured()
+      ? getHowToUseGuideVideo().catch((error) => {
+          console.error("Could not load the how-to-use guide video", {
+            name: error instanceof Error ? error.name : "UnknownError",
+          });
+          return null;
+        })
+      : Promise.resolve(null);
+  const [adminSession, guideVideo] = await Promise.all([
+    getOptionalAdminSession(),
+    guideVideoPromise,
+  ]);
 
   return (
     <>

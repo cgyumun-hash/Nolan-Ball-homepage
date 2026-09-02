@@ -54,9 +54,11 @@ export default async function ActivityDetailPage({
 }) {
   const copy = selectLocale(locale, ACTIVITIES, EN_ACTIVITIES, CN_ACTIVITIES);
   const pages = selectLocale(locale, COMPANY_PAGES, EN_COMPANY_PAGES, CN_COMPANY_PAGES);
-  const item = await getPublishedActivityBySlug(slug, locale);
+  const [item, adminSession] = await Promise.all([
+    getPublishedActivityBySlug(slug, locale),
+    getOptionalAdminSession(),
+  ]);
   if (!item) notFound();
-  const adminSession = await getOptionalAdminSession();
 
   const basePath = locale === "ko" ? "/about/activities" : `/${locale}/about/activities`;
   const start = formatDate(item.eventStartDate, locale);
@@ -109,7 +111,6 @@ export default async function ActivityDetailPage({
                 src={item.coverImageUrl}
                 alt={item.coverImageAlt || item.title}
                 fill
-                priority
                 sizes="(max-width: 580px) 100vw, 90vw"
                 className="object-cover"
               />
@@ -156,6 +157,7 @@ export default async function ActivityDetailPage({
                   <iframe
                     src={embedUrl}
                     title={`${item.title} ${copy.video}`}
+                    loading="lazy"
                     className="h-full w-full"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

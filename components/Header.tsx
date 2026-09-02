@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { NAV } from "@/lib/site";
 import { EN_NAV } from "@/lib/site.en";
 import { CN_NAV } from "@/lib/site.cn";
@@ -97,38 +96,38 @@ export default function Header({
                            max-b1600:px-1"
               >
                 {/* 원본 GNB 링크는 class="fs20" → 20px, 1600px 이하 18px */}
-                <a
+                <Link
                   href={item.href}
                   className={`block min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-[17px] font-normal transition-colors
                               max-b1600:text-[15px] max-b1200:text-[13px] ${fg}`}
                 >
                   {item.label}
-                </a>
+                </Link>
 
                 {/* 원본 .sub_menu — jQuery slideDown/slideUp.
                     하위 항목이 없는 메뉴는 드롭다운을 띄우지 않습니다. */}
-                <AnimatePresence>
-                  {openMenu === item.label && item.children.length > 0 && (
-                    <motion.ul
-                      initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
-                      exit={{ height: 0 }}
-                      transition={{ duration: 0.35, ease: "easeOut" }}
-                      className="absolute left-0 top-[60px] z-[99] w-full overflow-hidden
-                                 border-t-[3px] border-brand-500 text-ink-500"
-                    >
-                      {item.children.map((child) => (
-                        <li
-                          key={child.label}
-                          className="border-b border-line bg-white p-2.5 text-[16px]
-                                     last:border-b-0 hover:font-extrabold hover:text-ink-900"
-                        >
-                          <a href={child.href}>{child.label}</a>
-                        </li>
-                      ))}
-                    </motion.ul>
-                  )}
-                </AnimatePresence>
+                {item.children.length > 0 && (
+                  <ul
+                    aria-hidden={openMenu !== item.label}
+                    className={`absolute left-0 top-[60px] z-[99] w-full overflow-hidden
+                                border-t-[3px] border-brand-500 text-ink-500 transition-[max-height,opacity,visibility]
+                                duration-300 ease-out ${
+                                  openMenu === item.label
+                                    ? "visible max-h-[960px] opacity-100"
+                                    : "invisible max-h-0 opacity-0"
+                                }`}
+                  >
+                    {item.children.map((child) => (
+                      <li
+                        key={child.label}
+                        className="border-b border-line bg-white p-2.5 text-[16px]
+                                   last:border-b-0 hover:font-extrabold hover:text-ink-900"
+                      >
+                        <Link href={child.href}>{child.label}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             ))}
           </nav>
@@ -164,37 +163,35 @@ export default function Header({
                 </svg>
               </button>
 
-              <AnimatePresence>
-                {langOpen && (
-                  <motion.ul
-                    id="header-language-menu"
-                    role="menu"
-                    initial={{ height: 0 }}
-                    animate={{ height: "auto" }}
-                    exit={{ height: 0 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="absolute right-0 top-[57px] z-[101] min-w-[72px] overflow-hidden bg-white px-5 py-[15px] shadow-lg
-                               before:absolute before:right-0 before:top-0 before:h-[3px] before:w-6 before:bg-brand-500"
-                  >
-                    {LANGUAGE_OPTIONS.map((l) => (
-                      <li key={l.code} role="none" className="mb-2.5 last:mb-0">
-                        <Link
-                          href={getLanguageHref(pathname, l.code)}
-                          hrefLang={l.code}
-                          role="menuitem"
-                          aria-current={locale === l.code ? "page" : undefined}
-                          onClick={() => setLangOpen(false)}
-                          className={`block min-w-0 text-left text-[13px] font-bold hover:text-ink-900 ${
-                            locale === l.code ? "text-ink-900" : "text-ink-500"
-                          }`}
-                        >
-                          {l.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </motion.ul>
-                )}
-              </AnimatePresence>
+              <ul
+                id="header-language-menu"
+                role="menu"
+                aria-hidden={!langOpen}
+                className={`absolute right-0 top-[57px] z-[101] min-w-[72px] overflow-hidden bg-white px-5 shadow-lg
+                            transition-[max-height,opacity,padding,visibility] duration-300 ease-out
+                            before:absolute before:right-0 before:top-0 before:h-[3px] before:w-6 before:bg-brand-500 ${
+                              langOpen
+                                ? "visible max-h-52 py-[15px] opacity-100"
+                                : "invisible max-h-0 py-0 opacity-0"
+                            }`}
+              >
+                {LANGUAGE_OPTIONS.map((l) => (
+                  <li key={l.code} role="none" className="mb-2.5 last:mb-0">
+                    <Link
+                      href={getLanguageHref(pathname, l.code)}
+                      hrefLang={l.code}
+                      role="menuitem"
+                      aria-current={locale === l.code ? "page" : undefined}
+                      onClick={() => setLangOpen(false)}
+                      className={`block min-w-0 text-left text-[13px] font-bold hover:text-ink-900 ${
+                        locale === l.code ? "text-ink-900" : "text-ink-500"
+                      }`}
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* 원본 .ico — 30×25, 막대 3개(높이 10%), active 시 X 로 변형 */}
@@ -214,29 +211,27 @@ export default function Header({
       {/* ── 좌측 사이드바 ────────────────────────────────────────
           원본 .left-side-bar-box  fixed · rgba(0,0,0,0) → 0.5 · transition .5s
                .left-side-bar      width 300px (580↓ 250px) · left -250px → 0 */}
-      <AnimatePresence>
-        {sideOpen && (
-          <motion.div
-            initial={{ backgroundColor: "rgba(0,0,0,0)" }}
-            animate={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-            exit={{ backgroundColor: "rgba(0,0,0,0)" }}
-            transition={{ duration: 0.5 }}
-            onClick={() => setSideOpen(false)}
-            className="fixed inset-0 z-[100] cursor-pointer overflow-hidden"
-          >
-            <motion.aside
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
+      <div
+        aria-hidden={!sideOpen}
+        onClick={() => setSideOpen(false)}
+        className={`fixed inset-0 z-[100] cursor-pointer overflow-hidden bg-black/50
+                    transition-[opacity,visibility] duration-300 ${
+                      sideOpen
+                        ? "visible opacity-100"
+                        : "invisible pointer-events-none opacity-0"
+                    }`}
+      >
+            <aside
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
               aria-label={locale === "en" ? "Full menu" : locale === "cn" ? "完整菜单" : "전체 메뉴"}
-              className="relative flex h-dvh max-h-dvh w-[min(320px,calc(100vw-32px))] max-w-full cursor-default flex-col
-                         overflow-x-hidden overflow-y-auto overscroll-contain bg-white pb-[max(24px,env(safe-area-inset-bottom))]
-                         pt-[max(70px,env(safe-area-inset-top))] text-[24px] text-ink-900
-                         max-b580:w-[min(280px,calc(100vw-16px))]"
+              className={`relative flex h-dvh max-h-dvh w-[min(320px,calc(100vw-32px))] max-w-full cursor-default flex-col
+                          overflow-x-hidden overflow-y-auto overscroll-contain bg-white pb-[max(24px,env(safe-area-inset-bottom))]
+                          pt-[max(70px,env(safe-area-inset-top))] text-[24px] text-ink-900
+                          transition-transform duration-300 ease-in-out
+                          max-b580:w-[min(280px,calc(100vw-16px))]
+                          ${sideOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
               <button
                 type="button"
@@ -250,14 +245,14 @@ export default function Header({
                 <div key={item.label} className="min-w-0">
                   {/* 하위 항목이 없으면 아코디언 대신 바로 이동하는 링크로 둡니다 */}
                   {item.children.length === 0 ? (
-                    <a
+                    <Link
                       href={item.href}
                       onClick={() => setSideOpen(false)}
                       className="block w-full min-w-0 break-words px-10 py-3.5 text-left leading-snug
                                  max-b580:px-6 max-b580:text-[16px]"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ) : (
                     <button
                       type="button"
@@ -274,32 +269,31 @@ export default function Header({
                     </button>
                   )}
 
-                  <AnimatePresence initial={false}>
-                    {openAccordion === item.label && (
-                      <motion.ul
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="overflow-hidden"
-                      >
-                        {item.children.map((child) => (
-                          <li
-                            key={child.label}
-                            className="min-w-0 border-b border-line pl-5 text-[16px] hover:font-extrabold"
+                  {item.children.length > 0 && (
+                    <ul
+                      aria-hidden={openAccordion !== item.label}
+                      className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${
+                        openAccordion === item.label
+                          ? "max-h-[1200px] opacity-100"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      {item.children.map((child) => (
+                        <li
+                          key={child.label}
+                          className="min-w-0 border-b border-line pl-5 text-[16px] hover:font-extrabold"
+                        >
+                          <Link
+                            href={child.href}
+                            onClick={() => setSideOpen(false)}
+                            className="block min-w-0 break-words px-10 py-3.5 leading-snug max-b580:px-6"
                           >
-                            <a
-                              href={child.href}
-                              onClick={() => setSideOpen(false)}
-                              className="block min-w-0 break-words px-10 py-3.5 leading-snug max-b580:px-6"
-                            >
-                              {child.label}
-                            </a>
-                          </li>
-                        ))}
-                      </motion.ul>
-                    )}
-                  </AnimatePresence>
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               ))}
 
@@ -322,10 +316,8 @@ export default function Header({
                   <span aria-hidden>→</span>
                 </Link>
               </div>
-            </motion.aside>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </aside>
+      </div>
     </>
   );
 }

@@ -67,7 +67,6 @@ export default function SubHeader({
     position?: string;
     mobilePosition?: string;
     overlay?: string;
-    selectiveBlur?: boolean;
     darkText?: boolean;
   };
   locale?: SiteLocale;
@@ -100,20 +99,6 @@ export default function SubHeader({
                 style={{
                   backgroundImage: `url(${bg.mobileImage})`,
                   backgroundPosition: bg.mobilePosition ?? "center",
-                }}
-              />
-            )}
-            {bg.selectiveBlur && (
-              <div
-                className="absolute inset-[-3px] bg-cover bg-center bg-no-repeat blur-[1px]"
-                aria-hidden
-                style={{
-                  backgroundImage: `url(${bg.image})`,
-                  backgroundPosition: bg.position ?? "center",
-                  maskImage:
-                    "linear-gradient(90deg, #000 0%, #000 48%, rgba(0,0,0,0.75) 62%, transparent 84%)",
-                  WebkitMaskImage:
-                    "linear-gradient(90deg, #000 0%, #000 48%, rgba(0,0,0,0.75) 62%, transparent 84%)",
                 }}
               />
             )}

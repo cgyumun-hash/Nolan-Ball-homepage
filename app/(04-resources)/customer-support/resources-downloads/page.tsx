@@ -64,24 +64,34 @@ export async function ResourcesDownloadsPageContent({
   const basePath = locale === "ko"
     ? "/customer-support/resources-downloads"
     : `/${locale}/customer-support/resources-downloads`;
+  const databaseConfigured = isDatabaseConfigured();
   const adminSession = await getOptionalAdminSession();
+  const publishedDownloads: ResourceDownload[] | null = databaseConfigured && !adminSession
+    ? await listPublishedResourceDownloads().catch((error) => {
+        console.error("Could not load managed resource downloads", {
+          name: error instanceof Error ? error.name : "UnknownError",
+        });
+        return null;
+      })
+    : null;
   let managedDownloads: ResourceDownload[] = [];
   let adminDownloads: ResourceDownloadAdminRecord[] = [];
   let managedDownloadsLoaded = false;
 
-  if (isDatabaseConfigured()) {
-    try {
-      if (adminSession) {
+  if (databaseConfigured) {
+    if (adminSession) {
+      try {
         adminDownloads = await listAdminResourceDownloads();
         managedDownloads = adminDownloads.filter((item) => item.isPublished);
-      } else {
-        managedDownloads = await listPublishedResourceDownloads();
+        managedDownloadsLoaded = true;
+      } catch (error) {
+        console.error("Could not load managed resource downloads", {
+          name: error instanceof Error ? error.name : "UnknownError",
+        });
       }
+    } else if (publishedDownloads) {
+      managedDownloads = publishedDownloads;
       managedDownloadsLoaded = true;
-    } catch (error) {
-      console.error("Could not load managed resource downloads", {
-        name: error instanceof Error ? error.name : "UnknownError",
-      });
     }
   }
 

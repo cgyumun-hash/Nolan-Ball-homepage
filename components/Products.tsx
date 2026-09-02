@@ -19,7 +19,13 @@ export default function Products({ locale = "ko" }: { locale?: SiteLocale }) {
     >
       <picture className="absolute inset-0 block">
         <source media="(max-width: 580px)" srcSet={content.imageMobile} />
-        <img src={content.image} alt="" className="h-full w-full object-cover" />
+        <img
+          src={content.image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
       </picture>
 
       <div

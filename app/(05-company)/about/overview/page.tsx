@@ -49,7 +49,7 @@ export function OverviewPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
       />
 
       <main className="py-[180px] max-b1080:py-[120px] max-b580:py-[80px]">
-        <FadeDown duration={0.8} once={false}>
+        <FadeDown>
           <section className="wrap-in2 grid grid-cols-2 items-start gap-x-[90px] max-b1080:gap-x-[50px] max-b860:grid-cols-1 max-b860:gap-y-12">
           <figure className="relative aspect-[4/5] w-full max-w-[560px] overflow-hidden bg-[#edf3f7]">
             <Image src={content.introImage.src} alt={content.introImage.alt} fill priority sizes="(max-width: 860px) 90vw, 44vw" className="object-cover" />
@@ -67,7 +67,7 @@ export function OverviewPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
           </section>
         </FadeDown>
 
-        <FadeDown duration={0.8} once={false}>
+        <FadeDown>
           <section className="wrap-in2 mt-[180px] grid grid-cols-2 items-start gap-x-[90px] max-b1080:gap-x-[50px] max-b860:grid-cols-1 max-b860:gap-y-12 max-b580:mt-[110px]">
           <div className="max-b860:order-2">
             <div className="mb-8 flex items-start gap-5">
@@ -88,7 +88,7 @@ export function OverviewPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
           </section>
         </FadeDown>
 
-        <FadeDown duration={0.8} once={false}>
+        <FadeDown>
           <section className="wrap-in2 mt-[180px] grid grid-cols-2 items-start gap-x-[90px] max-b1080:gap-x-[50px] max-b860:grid-cols-1 max-b860:gap-y-12 max-b580:mt-[110px]">
           <figure className="relative aspect-[3/4] w-full max-w-[560px] overflow-hidden bg-[#edf3f7]">
             <Image src={content.missionImage.src} alt={content.missionImage.alt} fill sizes="(max-width: 860px) 90vw, 44vw" className="object-cover" />
@@ -109,7 +109,7 @@ export function OverviewPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
         </section>
 
         <section className="relative mt-[340px] overflow-hidden bg-[radial-gradient(ellipse_at_50%_62%,#f7fbff_0%,#e7f3ff_38%,#c7e2ff_72%,#a8d1ff_100%)] py-[110px] max-b1080:mt-[270px] max-b580:mt-[190px] max-b580:py-[80px]">
-          <FadeUp className="wrap-in2 relative" duration={0.8} once={false}>
+          <FadeUp className="wrap-in2 relative">
             <div className="mb-[70px] text-center">
               <h2 className="gfont text-[48px] font-bold text-ink-900 max-b580:text-[32px]">{content.coreValuesTitle}</h2>
               <span className="mx-auto mt-5 block h-[3px] w-12 rounded-full bg-[#3182F6]" />

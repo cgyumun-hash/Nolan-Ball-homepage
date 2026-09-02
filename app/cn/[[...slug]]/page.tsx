@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: pathname === "/" ? { absolute: page.title } : page.title,
     description: page.description,
     alternates: getLanguageAlternates(pathname, "cn"),
-    openGraph: { title: page.title, description: page.description, url, siteName: "Nolan Ball Korea", type: "website", locale: "zh_CN", images: ["/images/og.webp"] },
+    openGraph: { title: page.title, description: page.description, url, siteName: "Nolan Ball Korea", type: "website", locale: "zh_CN", images: ["/images/revision/main/hero-1-desktop.webp"] },
   };
 }
 

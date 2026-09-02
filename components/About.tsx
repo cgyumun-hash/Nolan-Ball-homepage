@@ -1,5 +1,4 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
 
 import { ABOUT } from "@/lib/site";
@@ -84,16 +83,19 @@ export default function About({ locale = "ko" }: { locale?: SiteLocale }) {
 
           {/* .s2 — 원본 section_4bg.jpg */}
           <div
-            className="absolute bottom-0 right-0 h-[195%] w-[43%]
+            className="absolute bottom-0 right-0 h-[195%] w-[43%] overflow-hidden
                        max-b1200:relative max-b1200:bottom-auto max-b1200:right-auto
                        max-b1200:h-auto max-b1200:min-h-[320px]
                        max-b1080:mx-auto max-b1080:w-4/5
                        max-b856:w-full max-b580:min-h-[260px]"
             style={{ backgroundImage: content.fallback }}
           >
-            <div
-              className="h-full min-h-[inherit] w-full bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${content.image})` }}
+            <Image
+              src={content.image}
+              alt=""
+              fill
+              sizes="(max-width: 856px) 100vw, (max-width: 1080px) 80vw, 43vw"
+              className="object-cover object-center"
             />
           </div>
       </div>

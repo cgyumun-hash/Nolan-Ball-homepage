@@ -1,6 +1,7 @@
 import "server-only";
 
 import { randomUUID } from "node:crypto";
+import { unstable_cache } from "next/cache";
 
 import {
   ACTIVITIES_PAGE_SIZE,
@@ -78,30 +79,50 @@ type PublishedDetailRow = PublishedListRow & Pick<
 export async function listPublishedActivities(
   options: PublishedActivityListOptions = {},
 ): Promise<PublishedActivityList> {
-  await ensureActivitySchema();
-
   const { page: requestedPage, category, sort, locale } =
     validatePublishedActivityListOptions(options);
+  return listPublishedActivitiesCached(requestedPage, category, sort, locale);
+}
+
+const listPublishedActivitiesCached = unstable_cache(
+  async (
+    requestedPage: number,
+    category: ActivityCategory | null,
+    sort: ActivitySort,
+    locale: ActivityLocale,
+  ): Promise<PublishedActivityList> => {
+  await ensureActivitySchema();
+
   const sql = getSql();
-  const countRows = category
-    ? await sql`
+  const requestedOffset = (requestedPage - 1) * ACTIVITIES_PAGE_SIZE;
+  const countPromise = category
+    ? sql`
         SELECT count(*)::int AS total
         FROM activities
         WHERE status = 'published'
           AND published_at <= now()
           AND category = ${category}
       `
-    : await sql`
+    : sql`
         SELECT count(*)::int AS total
         FROM activities
         WHERE status = 'published'
           AND published_at <= now()
       `;
+  const rowsPromise = queryPublishedList(
+    category,
+    sort,
+    ACTIVITIES_PAGE_SIZE,
+    requestedOffset,
+  );
+  const [countRows, requestedRows] = await Promise.all([countPromise, rowsPromise]);
   const total = Number(countRows[0]?.total ?? 0);
   const totalPages = Math.max(1, Math.ceil(total / ACTIVITIES_PAGE_SIZE));
   const page = Math.min(requestedPage, totalPages);
   const offset = (page - 1) * ACTIVITIES_PAGE_SIZE;
-  const rows = await queryPublishedList(category, sort, ACTIVITIES_PAGE_SIZE, offset);
+  const rows = page === requestedPage
+    ? requestedRows
+    : await queryPublishedList(category, sort, ACTIVITIES_PAGE_SIZE, offset);
 
   return {
     items: (rows as PublishedListRow[]).map((row) => toPublishedListItem(row, locale)),
@@ -109,17 +130,28 @@ export async function listPublishedActivities(
     page,
     totalPages,
   };
-}
+  },
+  ["published-activities-v1"],
+  { tags: ["activities"], revalidate: 300 },
+);
 
 export async function getPublishedActivityBySlug(
   slug: string,
   locale: ActivityLocale = "ko",
 ): Promise<ActivityDetail | null> {
-  await ensureActivitySchema();
-
   if (typeof slug !== "string" || slug.length === 0 || slug.length > 180) return null;
   const normalizedSlug = slugifyActivityTitle(slug);
   const normalizedLocale = normalizeActivityLocale(locale);
+  return getPublishedActivityBySlugCached(normalizedSlug, normalizedLocale);
+}
+
+const getPublishedActivityBySlugCached = unstable_cache(
+  async (
+    normalizedSlug: string,
+    normalizedLocale: ActivityLocale,
+  ): Promise<ActivityDetail | null> => {
+  await ensureActivitySchema();
+
   const sql = getSql();
   const rows = await sql`
     SELECT
@@ -162,7 +194,10 @@ export async function getPublishedActivityBySlug(
     gallery: normalizeStoredGallery(row.gallery),
     videoUrl: row.video_url,
   };
-}
+  },
+  ["published-activity-detail-v1"],
+  { tags: ["activities"], revalidate: 300 },
+);
 
 export async function listAdminActivities(): Promise<ActivityAdminRecord[]> {
   await ensureActivitySchema();

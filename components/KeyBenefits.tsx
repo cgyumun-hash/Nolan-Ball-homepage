@@ -69,7 +69,13 @@ export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) 
         >
           <picture className="absolute inset-0 block">
             <source media="(max-width: 580px)" srcSet={content.imageMobile} />
-            <img src={content.image} alt="" className="h-full w-full object-fill max-b580:object-cover" />
+            <img
+              src={content.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-fill max-b580:object-cover"
+            />
           </picture>
           <span aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-[6%] bg-[linear-gradient(90deg,#f8fbfd_0%,rgba(248,251,253,0)_100%)] max-b580:hidden" />
           <span aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-[6%] bg-[linear-gradient(270deg,#edf7fd_0%,rgba(237,247,253,0)_100%)] max-b580:hidden" />
@@ -97,6 +103,8 @@ export default function KeyBenefits({ locale = "ko" }: { locale?: SiteLocale }) 
               <img
                 src={content.imageMobile}
                 alt={content.imageAlt}
+                loading="lazy"
+                decoding="async"
                 className="absolute inset-x-0 top-0 h-auto w-full"
               />
             </div>

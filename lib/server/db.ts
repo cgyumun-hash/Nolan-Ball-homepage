@@ -55,6 +55,29 @@ export async function ensureActivitySchema(): Promise<void> {
 async function initializeActivitySchema(): Promise<void> {
   const sql = getSql();
 
+  // 운영 DB는 이미 마이그레이션되어 있으므로 매 cold start마다 아래 DDL을
+  // 모두 직렬 실행하지 않습니다. 필요한 테이블/인덱스가 하나라도 없을 때만
+  // 초기화 경로로 내려가며, 이 목록은 새 마이그레이션 추가 시 함께 갱신합니다.
+  const readinessRows = await sql`
+    SELECT (
+      to_regclass('public.activity_admins') IS NOT NULL
+      AND to_regclass('public.activity_sessions') IS NOT NULL
+      AND to_regclass('public.activities') IS NOT NULL
+      AND to_regclass('public.activity_admins_single_account_idx') IS NOT NULL
+      AND to_regclass('public.activity_sessions_admin_id_idx') IS NOT NULL
+      AND to_regclass('public.activity_sessions_expires_at_idx') IS NOT NULL
+      AND to_regclass('public.activities_publication_idx') IS NOT NULL
+      AND to_regclass('public.activities_category_publication_idx') IS NOT NULL
+      AND to_regclass('public.activities_updated_at_idx') IS NOT NULL
+      AND to_regclass('public.resource_downloads') IS NOT NULL
+      AND to_regclass('public.resource_downloads_source_key_idx') IS NOT NULL
+      AND to_regclass('public.resource_downloads_public_idx') IS NOT NULL
+      AND to_regclass('public.managed_content_seed_state') IS NOT NULL
+      AND to_regclass('public.site_media') IS NOT NULL
+    ) AS ready
+  `;
+  if (readinessRows[0]?.ready === true) return;
+
   await sql`
     CREATE TABLE IF NOT EXISTS activity_admins (
       id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

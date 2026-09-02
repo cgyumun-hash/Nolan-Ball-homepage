@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/og.webp",
+        url: "/images/revision/main/hero-1-desktop.webp",
         width: 1200,
         height: 630,
         alt: "Nolan Ball product structure",

@@ -153,15 +153,8 @@ export const NAV: NavItem[] = [
   },
 ];
 
-/** 언어 선택 (원본은 구글 번역 위젯 · 여기서는 외형만) */
-export const LANGS = [
-  { code: "ko", label: "KO" },
-  { code: "en", label: "EN" },
-  { code: "cn", label: "CN" },
-] as const;
-
 /**
- * section_1 — Swiper 슬라이드 3장
+ * section_1 — 메인 슬라이드 3장
  * 원본 h2 는 <br class="mo_br"> 로 줄을 나누고 580px 이하에서 그 br 을 숨깁니다.
  */
 export const SLIDES = [
@@ -484,7 +477,6 @@ export const SUBHEADER_BG = {
   resources: {
     image: "/images/resources/1.webp",
     position: "center 66%",
-    selectiveBlur: true,
     fallback: "linear-gradient(120deg, #163247 0%, #3c7189 55%, #8cb4c1 100%)",
   },
   /** PRODUCT */
@@ -512,11 +504,6 @@ export const SUBHEADER_BG = {
   sub02: {
     image: "",
     fallback: "linear-gradient(120deg, #14304a 0%, #2f6a86 55%, #74a9b5 100%)",
-  },
-  /** PRODUCT · HOW TO USE */
-  sub03: {
-    image: "",
-    fallback: "linear-gradient(120deg, #2a2320 0%, #5d5048 55%, #a2907f 100%)",
   },
   /** DOWNLOAD */
   sub04: {
@@ -548,11 +535,6 @@ export type FilterBall = {
   features: string[];
   effects: string[];
 };
-
-export const FILTER_BALL_ICONS = {
-  feature: "/images/subicon_1.webp",
-  effect: "/images/subicon_2.webp",
-} as const;
 
 const ENDOSCOPE_FEATURES = [
   "색 변화 재사용 차단",
@@ -676,41 +658,6 @@ export const FILTER_BALL_GASTRO_COLONOSCOPES: FilterBall = {
       { t: "연속 와이핑과 밀어내기 작용으로 " },
       { t: "위·대장내시경 재처리 공정의 일관성", b: true },
       { t: "을 지원합니다." },
-    ],
-  ],
-  features: [...ENDOSCOPE_FEATURES],
-  effects: [...ENDOSCOPE_EFFECTS],
-};
-
-/**
- * /sub/sub33.php — Products ▸ Filter Ball for Bronchoscopes
- * 앞의 두 제품과 달리 본문이 3문단이 아니라 2문단이고,
- * Features · Effects 도 문구가 전부 다릅니다.
- */
-export const FILTER_BALL_BRONCHOSCOPES: FilterBall = {
-  eyebrow: "PRODUCT",
-  title: "기관지 내시경용 2.8mm",
-  brand: "Nolan Ball",
-  brandColor: "#64C5C9",
-  subtitle: "기관지 내시경 전용 · 2.8 mm",
-  image: "/images/sub33_img.webp",
-  imageWidth: 408,
-  imageHeight: 408,
-  intro: [
-    [
-      {
-        t: "기관지 내시경 전용 Nolan Ball 은 좁고 복잡한 호흡기 내시경 채널에 맞춰 설계된 2.8 mm 규격의 일회용 채널 세척 볼입니다.",
-      },
-    ],
-    [
-      { t: "채널 내벽과의 " },
-      {
-        t: "360° 접촉과 연속 와이핑",
-        b: true,
-      },
-      { t: " 을 통해 잔류 오염물의 물리적 제거를 돕고, " },
-      { t: "굴곡부에서도 접촉을 유지하도록", b: true },
-      { t: " 설계되어 균일한 수동 세척 공정을 지원합니다." },
     ],
   ],
   features: [...ENDOSCOPE_FEATURES],

@@ -1,5 +1,7 @@
 import "server-only";
 
+import { unstable_cache } from "next/cache";
+
 import { requireAdminSession } from "@/lib/server/admin-auth";
 import { ensureActivitySchema, getSql } from "@/lib/server/db";
 
@@ -129,6 +131,10 @@ export function validateResourceDownloadInput(
 }
 
 export async function listPublishedResourceDownloads(): Promise<ResourceDownload[]> {
+  return listPublishedResourceDownloadsCached();
+}
+
+const listPublishedResourceDownloadsCached = unstable_cache(async (): Promise<ResourceDownload[]> => {
   await ensureActivitySchema();
 
   const sql = getSql();
@@ -151,7 +157,10 @@ export async function listPublishedResourceDownloads(): Promise<ResourceDownload
   `;
 
   return (rows as ResourceDownloadDatabaseRow[]).map(toPublicResourceDownload);
-}
+}, ["published-resource-downloads-v1"], {
+  tags: ["resource-downloads"],
+  revalidate: 300,
+});
 
 export async function listAdminResourceDownloads(): Promise<ResourceDownloadAdminRecord[]> {
   await ensureActivitySchema();

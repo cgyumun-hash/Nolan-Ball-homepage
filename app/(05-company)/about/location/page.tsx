@@ -87,8 +87,7 @@ export function LocationPageContent({ locale = "ko" }: { locale?: SiteLocale }) 
               {content.officeAddress}
             </p>
 
-            {/* 원본 data-aos="fade-up" data-aos-duration="3000" — 3초짜리 느린 페이드 */}
-            <FadeUp duration={3}>
+            <FadeUp duration={0.5}>
               <KakaoMap
                 appKey={process.env.NEXT_PUBLIC_KAKAO_MAP_APP_KEY ?? ""}
                 height={content.map.height}

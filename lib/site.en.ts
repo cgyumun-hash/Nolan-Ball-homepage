@@ -489,33 +489,6 @@ export const EN_FILTER_BALL_GASTRO_COLONOSCOPES: FilterBall = {
   effects: [...EN_ENDOSCOPE_EFFECTS],
 };
 
-export const EN_FILTER_BALL_BRONCHOSCOPES: FilterBall = {
-  eyebrow: "PRODUCT",
-  title: "Bronchoscope · 2.8 mm",
-  brand: "Nolan Ball",
-  brandColor: "#64C5C9",
-  subtitle: "Dedicated for bronchoscope channels · 2.8 mm",
-  image: "/images/sub33_img.webp",
-  imageWidth: 408,
-  imageHeight: 408,
-  intro: [
-    [
-      {
-        t: "Nolan Ball for bronchoscopes is a 2.8 mm, single-use channel-cleaning ball designed for narrow and complex respiratory endoscope channels.",
-      },
-    ],
-    [
-      { t: "Its " },
-      { t: "360° circumferential contact and continuous wiping action", b: true },
-      { t: " support the physical removal of residual contaminants. The structure is designed to " },
-      { t: "maintain contact through curved sections", b: true },
-      { t: " and support a consistent manual cleaning process." },
-    ],
-  ],
-  features: [...EN_ENDOSCOPE_FEATURES],
-  effects: [...EN_ENDOSCOPE_EFFECTS],
-};
-
 export const EN_VALVE_PORT_BRUSH: FilterBall = {
   eyebrow: "PRODUCT",
   title: "Valve Brush",

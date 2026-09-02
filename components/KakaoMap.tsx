@@ -58,7 +58,9 @@ export default function KakaoMap({
 }: KakaoMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const resizeObserverRef = useRef<ResizeObserver | null>(null);
+  const resizeFrameRef = useRef<number | null>(null);
   const initializedRef = useRef(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     appKey ? "loading" : "error",
   );
@@ -83,8 +85,12 @@ export default function KakaoMap({
 
       resizeObserverRef.current?.disconnect();
       resizeObserverRef.current = new ResizeObserver(() => {
-        map.relayout();
-        map.setCenter(center);
+        if (resizeFrameRef.current !== null) return;
+        resizeFrameRef.current = window.requestAnimationFrame(() => {
+          map.relayout();
+          map.setCenter(center);
+          resizeFrameRef.current = null;
+        });
       });
       resizeObserverRef.current.observe(containerRef.current);
 
@@ -94,12 +100,38 @@ export default function KakaoMap({
   }, [latitude, longitude, placeName]);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!appKey || !container) return;
+
+    if (typeof IntersectionObserver === "undefined") {
+      const frame = window.requestAnimationFrame(() => setShouldLoad(true));
+      return () => window.cancelAnimationFrame(frame);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setShouldLoad(true);
+        observer.disconnect();
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [appKey]);
+
+  useEffect(() => {
+    if (!shouldLoad) return;
     initializeMap();
 
     return () => {
       resizeObserverRef.current?.disconnect();
+      if (resizeFrameRef.current !== null) {
+        window.cancelAnimationFrame(resizeFrameRef.current);
+        resizeFrameRef.current = null;
+      }
     };
-  }, [initializeMap]);
+  }, [initializeMap, shouldLoad]);
 
   const mapHeight = Number.parseInt(height, 10) || 579;
   const kakaoMapUrl = `https://map.kakao.com/link/map/${encodeURIComponent(placeName)},${latitude},${longitude}`;
@@ -110,7 +142,7 @@ export default function KakaoMap({
       style={{ height: `${mapHeight}px` }}
       aria-label={`${placeName} 지도`}
     >
-      {appKey && (
+      {appKey && shouldLoad && (
         <Script
           id="kakao-map-sdk"
           src={`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${encodeURIComponent(appKey)}&autoload=false`}

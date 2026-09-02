@@ -22,7 +22,6 @@ export const PUBLIC_PATHS = [
   "/customer-support/online-inquiry",
 ] as const;
 
-export type PublicPath = (typeof PUBLIC_PATHS)[number];
 export type SiteLanguage = "ko" | "en" | "cn";
 
 export function getEnglishPath(pathname: string) {

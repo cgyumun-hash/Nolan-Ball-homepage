@@ -37,7 +37,7 @@ export default function TechnologyFeatures({ locale = "ko" }: { locale?: SiteLoc
 
         <div className="relative aspect-[2012/941] overflow-hidden rounded-[28px] border border-sky-100 max-b1080:hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={content.structureImage} alt="" className="absolute inset-0 h-full w-full object-fill" />
+          <img src={content.structureImage} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-fill" />
           {content.features.map((item, index) => (
             <button
               key={item.no}
@@ -48,7 +48,7 @@ export default function TechnologyFeatures({ locale = "ko" }: { locale?: SiteLoc
               onFocus={() => setActive(index)}
               onClick={() => setActive(index)}
               className={[
-                "absolute z-10 min-h-[clamp(100px,7vw,130px)] w-[24%] rounded-2xl border bg-white/[0.92] px-[1.25vw] py-[1vw] text-left shadow-[0_10px_30px_rgba(41,116,176,0.09)] backdrop-blur-md transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
+                "absolute z-10 min-h-[clamp(100px,7vw,130px)] w-[24%] rounded-2xl border bg-white/95 px-[1.25vw] py-[1vw] text-left shadow-[0_10px_30px_rgba(41,116,176,0.09)] transition-[transform,border-color,color,box-shadow] duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600",
                 DESKTOP_POSITIONS[index],
                 active === index ? "-translate-y-0.5 border-blue-600 text-blue-800 shadow-[0_16px_38px_rgba(37,99,235,0.16)]" : "border-sky-100 text-blue-950 hover:-translate-y-0.5 hover:border-sky-500 hover:text-sky-700",
               ].join(" ")}
@@ -69,7 +69,7 @@ export default function TechnologyFeatures({ locale = "ko" }: { locale?: SiteLoc
           }`}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={content.structureImageMobile} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={content.structureImageMobile} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
           <article className="absolute left-[10.5%] right-[10.5%] top-[30%] z-10 h-[10%] overflow-hidden px-[3%] py-[1.5%]">
             <h3 className="text-[clamp(12px,1.7vw,16px)] font-bold text-blue-950">{feature.name}</h3>
             <p className="mt-1 line-clamp-3 text-[clamp(9px,1.2vw,12px)] leading-[1.4] text-slate-600">{feature.body}</p>

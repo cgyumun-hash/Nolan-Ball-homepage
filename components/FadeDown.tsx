@@ -1,38 +1,52 @@
 "use client";
 
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
-/**
- * 원본 sub30.php 의 AOS 설정을 그대로 옮겼습니다.
- *
- *   data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500"
- *
- * AOS 의 fade-down 은 translateY(-100px) + opacity 0 에서 시작해
- * 위에서 아래로 내려오며 나타납니다. (fade-up 과 방향이 반대)
- */
 export default function FadeDown({
   children,
   className,
-  duration = 1.5,
+  duration = 0.45,
   once = true,
 }: {
   children: ReactNode;
   className?: string;
-  /** 초 단위. 원본 data-aos-duration 을 1000 으로 나눈 값 */
   duration?: number;
   once?: boolean;
 }) {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (once) observer.disconnect();
+        } else if (!once) {
+          setIsVisible(false);
+        }
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [once]);
+
   return (
-    <motion.div
+    <div
+      ref={elementRef}
       className={className}
-      initial={{ opacity: 0, y: -100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once, amount: 0.2 }}
-      /* 원본 data-aos-easing="linear" */
-      transition={{ duration, ease: "linear" }}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: `translate3d(0, ${isVisible ? 0 : -100}px, 0)`,
+        transition: `opacity ${duration}s linear, transform ${duration}s linear`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

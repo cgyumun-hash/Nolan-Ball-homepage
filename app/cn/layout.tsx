@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: "内镜清洗新标准 | Nolan Ball",
     description: "支持与管腔内壁形成360°接触的一次性内镜管腔清洗解决方案。",
     locale: "zh_CN",
-    images: ["/images/og.webp"],
+    images: ["/images/revision/main/hero-1-desktop.webp"],
   },
 };
 

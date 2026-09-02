@@ -49,11 +49,6 @@ const PAGE_METADATA: Record<string, { title: string; description: string }> = {
     title: "Valve Brush",
     description: "A single-use cleaning brush designed for endoscope valve and port areas.",
   },
-  "/products/filter-ball-for-bronchoscopes": {
-    title: "Nolan Ball for Bronchoscopes · 2.8 mm",
-    description:
-      "A 2.8 mm single-use channel-cleaning ball designed for bronchoscope channels.",
-  },
   "/about/technology-overview": {
     title: "Technology Overview",
     description:
@@ -122,7 +117,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: "Nolan Ball Korea",
       type: "website",
       locale: "en_US",
-      images: ["/images/og.webp"],
+      images: ["/images/revision/main/hero-1-desktop.webp"],
     },
   };
 }

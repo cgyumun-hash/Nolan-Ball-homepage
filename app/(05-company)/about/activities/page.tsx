@@ -64,14 +64,14 @@ export async function ActivitiesPageContent({
   const pages = selectLocale(locale, COMPANY_PAGES, EN_COMPANY_PAGES, CN_COMPANY_PAGES);
   const basePath = locale === "ko" ? "/about/activities" : `/${locale}/about/activities`;
   const filters = ["all", ...CATEGORY_KEYS] as const;
-  const adminSession = await getOptionalAdminSession();
-
-  let result = { items: [], total: 0, page, totalPages: 1 } as Awaited<ReturnType<typeof listPublishedActivities>>;
-  try {
-    result = await listPublishedActivities({ page, category, sort, locale });
-  } catch (error) {
+  const resultPromise = listPublishedActivities({ page, category, sort, locale }).catch((error) => {
     console.error("Could not load activities", error);
-  }
+    return { items: [], total: 0, page, totalPages: 1 } as Awaited<ReturnType<typeof listPublishedActivities>>;
+  });
+  const [adminSession, result] = await Promise.all([
+    getOptionalAdminSession(),
+    resultPromise,
+  ]);
 
   return (
     <>

@@ -1,5 +1,7 @@
 import "server-only";
 
+import { unstable_cache } from "next/cache";
+
 import { requireAdminSession } from "@/lib/server/admin-auth";
 import { ensureActivitySchema, getSql } from "@/lib/server/db";
 
@@ -60,6 +62,10 @@ type NormalizedSiteMediaInput = {
 };
 
 export async function getHowToUseGuideVideo(): Promise<SiteMediaRecord | null> {
+  return getHowToUseGuideVideoCached();
+}
+
+const getHowToUseGuideVideoCached = unstable_cache(async (): Promise<SiteMediaRecord | null> => {
   await ensureActivitySchema();
 
   const sql = getSql();
@@ -78,7 +84,10 @@ export async function getHowToUseGuideVideo(): Promise<SiteMediaRecord | null> {
   `;
   const row = rows[0] as SiteMediaRow | undefined;
   return row ? toSiteMediaRecord(row) : null;
-}
+}, ["how-to-use-guide-video-v1"], {
+  tags: ["how-to-use-video"],
+  revalidate: 300,
+});
 
 export async function upsertHowToUseGuideVideo(
   input: SiteMediaMutationInput,

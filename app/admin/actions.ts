@@ -1,7 +1,7 @@
 "use server";
 
 import { del } from "@vercel/blob";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -211,6 +211,7 @@ function parseGallery(value: FormDataEntryValue | null): string[] {
 }
 
 function revalidateActivityRoutes(...slugs: string[]) {
+  updateTag("activities");
   revalidatePath("/about/activities");
   revalidatePath("/en/about/activities");
   revalidatePath("/cn/about/activities");

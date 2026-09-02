@@ -12,7 +12,13 @@ export default function WhyAcf({ locale = "ko" }: { locale?: SiteLocale }) {
     <section id="why-nolan-ball" aria-labelledby="why-nolan-ball-title" className="relative aspect-[1994/1100] w-full overflow-hidden bg-[#eef8fd] max-b580:aspect-[941/1672]">
       <picture className="absolute inset-0 block">
         <source media="(max-width: 580px)" srcSet={content.imageMobile} />
-        <img src={content.image} alt="" className="h-full w-full object-cover" />
+        <img
+          src={content.image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover"
+        />
       </picture>
 
       <div className="absolute left-[7%] top-[30%] z-10 max-w-[42%] text-[#222] max-b580:left-7 max-b580:right-7 max-b580:top-[12%] max-b580:max-w-none">

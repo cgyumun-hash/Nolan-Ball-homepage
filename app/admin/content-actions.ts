@@ -1,7 +1,7 @@
 "use server";
 
 import { del } from "@vercel/blob";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
 
 import type { HowToUseVideoManagerState } from "@/components/admin/HowToUseVideoManager";
 import { AdminAuthError, requireAdminSession } from "@/lib/server/admin-auth";
@@ -142,12 +142,14 @@ function nullableFormText(formData: FormData, key: string): string | null {
 }
 
 function revalidateDownloadRoutes() {
+  updateTag("resource-downloads");
   revalidatePath("/customer-support/resources-downloads");
   revalidatePath("/en/customer-support/resources-downloads");
   revalidatePath("/cn/customer-support/resources-downloads");
 }
 
 function revalidateHowToUseRoutes() {
+  updateTag("how-to-use-video");
   revalidatePath("/how-to-use");
   revalidatePath("/en/how-to-use");
   revalidatePath("/cn/how-to-use");

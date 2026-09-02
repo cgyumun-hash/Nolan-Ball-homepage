@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { COMPANY, NAV } from "@/lib/site";
 import { EN_COMPANY, EN_NAV } from "@/lib/site.en";
 import { CN_COMPANY, CN_NAV } from "@/lib/site.cn";
@@ -51,13 +52,13 @@ export default function Footer({ bordered = false, locale = "ko" }: { bordered?:
                      max-b580:mb-10 max-b580:grid max-b580:grid-cols-2 max-b580:items-start max-b580:gap-x-6 max-b580:gap-y-4"
         >
           {nav.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               className="transition-colors hover:text-sky-600"
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
