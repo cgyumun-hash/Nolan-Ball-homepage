@@ -1,7 +1,7 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
-import { useActionState, useId, useState } from "react";
+import { useActionState, useId, useRef, useState } from "react";
 
 import VideoPlayer from "@/components/media/VideoPlayer";
 
@@ -41,12 +41,15 @@ export default function HowToUseVideoManager({
   initialMimeType = "",
 }: Props) {
   const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dragDepth = useRef(0);
   const [state, formAction, pending] = useActionState(action, initialActionState);
   const [mediaUrl, setMediaUrl] = useState(initialMediaUrl ?? "");
   const [blobPathname, setBlobPathname] = useState(initialBlobPathname ?? "");
   const [originalName, setOriginalName] = useState(initialOriginalName ?? "");
   const [mimeType, setMimeType] = useState(initialMimeType ?? "");
   const [uploading, setUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [progress, setProgress] = useState(0);
   const [uploadMessage, setUploadMessage] = useState("");
 
@@ -95,6 +98,37 @@ export default function HowToUseVideoManager({
     setUploadMessage("영상 제거를 적용하려면 저장 버튼을 눌러 주세요.");
   }
 
+  function onDragEnter(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (uploading) return;
+    dragDepth.current += 1;
+    setIsDragging(true);
+  }
+
+  function onDragOver(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!uploading) event.dataTransfer.dropEffect = "copy";
+  }
+
+  function onDragLeave(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (uploading) return;
+    dragDepth.current = Math.max(0, dragDepth.current - 1);
+    if (dragDepth.current === 0) setIsDragging(false);
+  }
+
+  function onDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    dragDepth.current = 0;
+    setIsDragging(false);
+    if (uploading) return;
+    void onFileSelected(event.dataTransfer.files);
+  }
+
   return (
     <form
       action={formAction}
@@ -108,20 +142,40 @@ export default function HowToUseVideoManager({
       <input type="hidden" name="originalName" value={originalName} />
       <input type="hidden" name="mimeType" value={mimeType} />
 
-      <div className="rounded-2xl border-2 border-dashed border-sky-200 bg-sky-50/60 px-6 py-8 text-center max-b580:px-4">
+      <div
+        className={`rounded-2xl border-2 border-dashed px-6 py-8 text-center transition-colors max-b580:px-4 ${
+          isDragging
+            ? "border-[#1677c8] bg-sky-100 ring-2 ring-sky-200"
+            : "border-sky-200 bg-sky-50/60"
+        }`}
+        onDragEnter={onDragEnter}
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
+        aria-label="제품 가이드 영상 업로드 영역"
+      >
         <p className="text-[16px] font-extrabold text-slate-800">제품 가이드 영상 업로드</p>
         <p className="mx-auto mt-2 max-w-[620px] text-[13px] leading-relaxed text-slate-500">
-          MP4 또는 WebM 파일을 최대 250MB까지 등록할 수 있습니다. 업로드 후 반드시 저장 버튼을 눌러 주세요.
+          MP4 또는 WebM 파일을 최대 250MB까지 등록할 수 있습니다. 파일을 끌어다 놓거나 선택한 뒤 반드시 저장 버튼을 눌러 주세요.
         </p>
         <label
           htmlFor={inputId}
+          tabIndex={uploading ? -1 : 0}
+          role="button"
+          onKeyDown={(event) => {
+            if (!uploading && (event.key === "Enter" || event.key === " ")) {
+              event.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
           className={`mt-5 inline-flex rounded-lg bg-[#0755a4] px-5 py-3 text-[14px] font-bold text-white transition hover:bg-[#064885] ${
-            uploading ? "cursor-wait opacity-60" : "cursor-pointer"
+            uploading ? "cursor-wait opacity-60" : "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
           }`}
         >
           {uploading ? "업로드 중" : mediaUrl ? "다른 영상 선택" : "영상 파일 선택"}
         </label>
         <input
+          ref={inputRef}
           id={inputId}
           type="file"
           accept="video/mp4,video/webm"

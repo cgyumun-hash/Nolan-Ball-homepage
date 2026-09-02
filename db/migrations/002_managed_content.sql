@@ -67,9 +67,9 @@ INSERT INTO resource_downloads (
 SELECT *
 FROM (
   VALUES
-    ('bundled-catalog', 'Nolan Ball 카탈로그', '제품 개요, 규격표, 핵심 장점', 'https://nolanballkorea.com/downloads/nolan-ball-catalog.pdf', NULL::text, 'nolan-ball-catalog.pdf', 19857996::bigint, 'application/pdf', 10, true),
-    ('bundled-product-guide', 'Nolan Ball 제품소개서', '제품 구조(Micro-Anatomy), 세정 메커니즘', 'https://nolanballkorea.com/downloads/nolan-ball-product-guide.pdf', NULL::text, 'nolan-ball-product-guide.pdf', 28977553::bigint, 'application/pdf', 20, true),
-    ('bundled-test-report', '시험 성적서', '씨젠의료재단 일반세균배양 결과보고서 9건', 'https://nolanballkorea.com/downloads/Nolan_Ball_시험성적.pdf', NULL::text, 'Nolan_Ball_시험성적.pdf', 381524::bigint, 'application/pdf', 30, true)
+    ('bundled-catalog', 'Nolan Ball 카탈로그', '제품 개요, 규격표, 핵심 장점', 'https://nolanballkorea.com/downloads/nolan-ball-catalog.pdf', NULL::text, 'nolan-ball-catalog.pdf', 19857996::bigint, 'application/pdf', 1, true),
+    ('bundled-product-guide', 'Nolan Ball 제품소개서', '제품 구조(Micro-Anatomy), 세정 메커니즘', 'https://nolanballkorea.com/downloads/nolan-ball-product-guide.pdf', NULL::text, 'nolan-ball-product-guide.pdf', 28977553::bigint, 'application/pdf', 2, true),
+    ('bundled-test-report', '시험 성적서', '씨젠의료재단 일반세균배양 결과보고서 9건', 'https://nolanballkorea.com/downloads/Nolan_Ball_시험성적.pdf', NULL::text, 'Nolan_Ball_시험성적.pdf', 381524::bigint, 'application/pdf', 3, true)
 ) AS seed(source_key, title, description, file_url, blob_pathname, file_name, file_size_bytes, mime_type, sort_order, is_published)
 WHERE NOT EXISTS (
   SELECT 1

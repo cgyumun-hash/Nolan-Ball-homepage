@@ -1,7 +1,7 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 
 async function imageToWebp(file: File) {
   if (file.type === "image/webp") return file;
@@ -57,12 +57,16 @@ export default function ActivityMediaManager({
   initialGallery?: string[];
   initialVideoUrl?: string;
 }) {
+  const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dragDepth = useRef(0);
   const [coverUrl, setCoverUrl] = useState(initialCoverUrl);
   const [coverPathname, setCoverPathname] = useState(initialCoverPathname);
   const [gallery, setGallery] = useState(initialGallery);
   const [videoUrl, setVideoUrl] = useState(initialVideoUrl);
   const [progress, setProgress] = useState(0);
   const [busy, setBusy] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [message, setMessage] = useState("");
 
   async function uploadImage(file: File) {
@@ -152,6 +156,37 @@ export default function ActivityMediaManager({
     }
   }
 
+  function onDragEnter(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (busy) return;
+    dragDepth.current += 1;
+    setIsDragging(true);
+  }
+
+  function onDragOver(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!busy) event.dataTransfer.dropEffect = "copy";
+  }
+
+  function onDragLeave(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (busy) return;
+    dragDepth.current = Math.max(0, dragDepth.current - 1);
+    if (dragDepth.current === 0) setIsDragging(false);
+  }
+
+  function onDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    dragDepth.current = 0;
+    setIsDragging(false);
+    if (busy) return;
+    void onMedia(event.dataTransfer.files);
+  }
+
   return (
     <section className="space-y-7 rounded-[20px] border border-slate-200 bg-white p-6 shadow-sm">
       <div>
@@ -164,17 +199,39 @@ export default function ActivityMediaManager({
       <input type="hidden" name="gallery" value={JSON.stringify(gallery)} />
       <input type="hidden" name="videoUrl" value={videoUrl} />
 
-      <div className="rounded-2xl border-2 border-dashed border-sky-200 bg-sky-50/60 px-6 py-7 text-center max-b580:px-4">
+      <div
+        className={`rounded-2xl border-2 border-dashed px-6 py-7 text-center transition-colors max-b580:px-4 ${
+          isDragging
+            ? "border-[#1677c8] bg-sky-100 ring-2 ring-sky-200"
+            : "border-sky-200 bg-sky-50/60"
+        }`}
+        onDragEnter={onDragEnter}
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
+        aria-label="주요활동 사진 및 영상 업로드 영역"
+      >
         <p className="text-[15px] font-extrabold text-slate-800">사진·영상 파일</p>
         <p className="mx-auto mt-2 max-w-[620px] text-[13px] leading-relaxed text-slate-500">
-          사진과 영상을 한 번에 선택할 수 있습니다. 첫 번째 사진은 목록의 대표 이미지가 되고,
+          사진과 영상을 끌어다 놓거나 한 번에 선택할 수 있습니다. 첫 번째 사진은 목록의 대표 이미지가 되고,
           나머지는 본문 상세 이미지로 등록됩니다.
         </p>
         <label
-          className={`mt-5 inline-flex rounded-lg bg-[#0755a4] px-5 py-3 text-[14px] font-bold text-white transition hover:bg-[#064885] ${busy ? "cursor-wait opacity-60" : "cursor-pointer"}`}
+          htmlFor={inputId}
+          tabIndex={busy ? -1 : 0}
+          role="button"
+          onKeyDown={(event) => {
+            if (!busy && (event.key === "Enter" || event.key === " ")) {
+              event.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
+          className={`mt-5 inline-flex rounded-lg bg-[#0755a4] px-5 py-3 text-[14px] font-bold text-white transition hover:bg-[#064885] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 ${busy ? "cursor-wait opacity-60" : "cursor-pointer"}`}
         >
           {busy ? "업로드 중…" : "사진·영상 선택"}
           <input
+            ref={inputRef}
+            id={inputId}
             type="file"
             multiple
             accept="image/jpeg,image/png,image/webp,video/mp4,video/webm"

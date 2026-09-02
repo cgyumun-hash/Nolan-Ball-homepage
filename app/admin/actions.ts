@@ -4,6 +4,7 @@ import { del } from "@vercel/blob";
 import { revalidatePath, updateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { after } from "next/server";
 
 import {
   ActivityValidationError,
@@ -67,7 +68,7 @@ export async function loginAdminAction(
     return actionFailure(error, "로그인을 처리할 수 없습니다.");
   }
 
-  redirect("/about/activities");
+  redirect("/admin/activities");
 }
 
 export async function logoutAdminAction(): Promise<void> {
@@ -101,7 +102,7 @@ export async function createActivityAction(
     return actionFailure(error, "주요활동을 저장할 수 없습니다.");
   }
 
-  redirect("/about/activities");
+  redirect("/admin/activities?section=activities");
 }
 
 export async function updateActivityAction(
@@ -123,28 +124,31 @@ export async function updateActivityAction(
     return actionFailure(error, "주요활동을 수정할 수 없습니다.");
   }
 
-  redirect("/about/activities");
+  redirect("/admin/activities?section=activities");
 }
 
-export async function deleteActivityAction(id: string): Promise<void> {
+export async function deleteActivityAction(
+  id: string,
+  _state: AdminActionState,
+  _formData: FormData,
+): Promise<AdminActionState> {
+  void _state;
+  void _formData;
+
   try {
-    await requireAdminSession();
     const deleted = await deleteActivity(id);
-    if (deleted) {
-      await cleanupDeletedActivityBlobs(deleted);
-      revalidateActivityRoutes(deleted.slug);
-    }
+    if (!deleted) return { ok: false, message: "삭제할 게시물을 찾을 수 없습니다." };
+
+    after(() => cleanupDeletedActivityBlobs(deleted));
+    revalidateActivityRoutes(deleted.slug);
+    return { ok: true, message: "게시물을 삭제했습니다." };
   } catch (error) {
     if (error instanceof AdminAuthError && error.code === "UNAUTHORIZED") {
       redirect("/admin/login");
     }
 
-    console.error("Unexpected activity deletion failure", {
-      name: error instanceof Error ? error.name : "UnknownError",
-    });
+    return actionFailure(error, "주요활동을 삭제할 수 없습니다. 잠시 후 다시 시도해 주세요.");
   }
-
-  redirect("/about/activities");
 }
 
 function parseActivityFormData(formData: FormData): ActivityMutationInput {

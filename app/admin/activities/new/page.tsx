@@ -15,7 +15,7 @@ export default async function NewActivityPage() {
   return (
     <AdminShell username={session.username}>
       <div className="mb-8">
-        <Link href="/admin/activities" className="mb-4 inline-flex text-[13px] font-bold text-[#0755a4]">← 목록으로</Link>
+        <Link href="/admin/activities?section=activities" className="mb-4 inline-flex text-[13px] font-bold text-[#0755a4]">← 주요활동 관리로</Link>
         <h1 className="text-[34px] font-extrabold tracking-tight text-[#102a52] max-b580:text-[28px]">새 주요활동 작성</h1>
         <p className="mt-2 text-[14px] text-slate-500">제목과 목록 요약, 본문을 작성하고 필요한 사진이나 영상을 함께 등록하세요.</p>
       </div>

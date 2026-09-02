@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 
+import GlobalAdminToolbar from "@/components/admin/GlobalAdminToolbar";
 import { SITE_URL } from "@/lib/seo";
 
 import "./globals.css";
@@ -80,7 +81,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <GlobalAdminToolbar />
+      </body>
     </html>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { upload } from "@vercel/blob/client";
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useId, useRef, useState, useTransition } from "react";
 
 export type ResourceDownloadsActionState = {
   ok: boolean;
@@ -10,6 +10,7 @@ export type ResourceDownloadsActionState = {
 
 export type ResourceDownloadAdminItem = {
   id: string;
+  sourceKey: string | null;
   title: string;
   description: string;
   sortOrder: number;
@@ -43,6 +44,14 @@ type UploadedDocument = {
   originalFilename: string;
   mimeType: string;
   size: number;
+};
+
+type ResourceEditorDraft = {
+  sourceKey?: string;
+  title: string;
+  description: string;
+  sortOrder: number;
+  isPublished: boolean;
 };
 
 const initialActionState: ResourceDownloadsActionState = {
@@ -79,6 +88,14 @@ const DOCUMENT_MIME_TYPES = new Set([
 ]);
 
 const inputClass = "mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-[14px] text-slate-900 outline-none transition focus:border-[#1677c8] focus:ring-2 focus:ring-sky-100";
+
+const IFU_DRAFT: ResourceEditorDraft = {
+  sourceKey: "bundled-ifu",
+  title: "사용설명서 (IFU)",
+  description: "단계별 사용 순서와 주의사항",
+  sortOrder: 4,
+  isPublished: true,
+};
 
 function getExtension(filename: string) {
   return filename.split(".").pop()?.toLowerCase() ?? "";
@@ -120,8 +137,12 @@ function DocumentUploadField({
   initialDocument?: UploadedDocument | null;
   allowClear?: boolean;
 }) {
+  const inputId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dragDepth = useRef(0);
   const [document, setDocument] = useState<UploadedDocument | null>(initialDocument ?? null);
   const [busy, setBusy] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
 
@@ -156,8 +177,50 @@ function DocumentUploadField({
     }
   }
 
+  function onDragEnter(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (busy) return;
+    dragDepth.current += 1;
+    setIsDragging(true);
+  }
+
+  function onDragOver(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!busy) event.dataTransfer.dropEffect = "copy";
+  }
+
+  function onDragLeave(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    if (busy) return;
+    dragDepth.current = Math.max(0, dragDepth.current - 1);
+    if (dragDepth.current === 0) setIsDragging(false);
+  }
+
+  function onDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    dragDepth.current = 0;
+    setIsDragging(false);
+    if (busy) return;
+    void onDocument(event.dataTransfer.files?.[0]);
+  }
+
   return (
-    <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <div
+      className={`rounded-xl border-2 border-dashed p-4 transition-colors ${
+        isDragging
+          ? "border-[#1677c8] bg-sky-100 ring-2 ring-sky-200"
+          : "border-slate-200 bg-slate-50"
+      }`}
+      onDragEnter={onDragEnter}
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+      aria-label="자료 파일 업로드 영역"
+    >
       <input type="hidden" name="fileUrl" value={document?.url ?? ""} />
       <input type="hidden" name="fileDownloadUrl" value={document?.downloadUrl ?? ""} />
       <input type="hidden" name="blobPathname" value={document?.pathname ?? ""} />
@@ -174,13 +237,28 @@ function DocumentUploadField({
               <p className="mt-1 text-[12px] text-slate-400">{formatBytes(document.size)}</p>
             </>
           ) : (
-            <p className="mt-1 text-[13px] text-slate-500">저장하려면 문서 파일을 먼저 등록해 주세요.</p>
+            <p className="mt-1 text-[13px] text-slate-500">
+              파일을 끌어다 놓거나 파일 선택 버튼을 이용해 등록해 주세요.
+            </p>
           )}
         </div>
         <div className="flex shrink-0 gap-2">
-          <label className={`rounded-lg bg-[#0755a4] px-4 py-2.5 text-[13px] font-bold text-white hover:bg-[#064681] ${busy ? "cursor-wait opacity-60" : "cursor-pointer"}`}>
+          <label
+            htmlFor={inputId}
+            tabIndex={busy ? -1 : 0}
+            role="button"
+            onKeyDown={(event) => {
+              if (!busy && (event.key === "Enter" || event.key === " ")) {
+                event.preventDefault();
+                inputRef.current?.click();
+              }
+            }}
+            className={`rounded-lg bg-[#0755a4] px-4 py-2.5 text-[13px] font-bold text-white hover:bg-[#064681] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 ${busy ? "cursor-wait opacity-60" : "cursor-pointer"}`}
+          >
             {busy ? `업로드 ${progress}%` : document ? "파일 교체" : "파일 선택"}
             <input
+              ref={inputRef}
+              id={inputId}
               type="file"
               accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.hwp,.hwpx"
               className="sr-only"
@@ -221,14 +299,23 @@ function DocumentUploadField({
 
 function ResourceEditor({
   item,
+  draft,
   action,
   submitLabel,
 }: {
   item?: ResourceDownloadAdminItem;
+  draft?: ResourceEditorDraft;
   action: CreateResourceAction;
   submitLabel: string;
 }) {
   const [state, formAction, pending] = useActionState(action, initialActionState);
+  // sourceKey is only accepted while creating a managed bundled slot.
+  // Existing rows keep their immutable source_key on update.
+  const sourceKey = item ? "" : draft?.sourceKey ?? "";
+  const title = item?.title ?? draft?.title ?? "";
+  const description = item?.description ?? draft?.description ?? "";
+  const sortOrder = item?.sortOrder ?? draft?.sortOrder ?? 0;
+  const isPublished = item?.isPublished ?? draft?.isPublished ?? false;
   const initialDocument = item?.fileUrl
       ? {
         url: item.fileUrl,
@@ -242,18 +329,19 @@ function ResourceEditor({
 
   return (
     <form action={formAction} className="space-y-5">
+      <input type="hidden" name="sourceKey" value={sourceKey} />
       <div className="grid grid-cols-[minmax(0,1fr)_160px_180px] gap-4 max-b860:grid-cols-1">
         <label className="text-[13px] font-bold text-slate-700">
           제목 <span className="text-red-500">*</span>
-          <input className={inputClass} name="title" required maxLength={200} defaultValue={item?.title ?? ""} />
+          <input className={inputClass} name="title" required maxLength={200} defaultValue={title} />
         </label>
         <label className="text-[13px] font-bold text-slate-700">
           정렬 순서
-          <input className={inputClass} name="sortOrder" type="number" min={0} max={9999} defaultValue={item?.sortOrder ?? 0} />
+          <input className={inputClass} name="sortOrder" type="number" min={0} max={9999} defaultValue={sortOrder} />
         </label>
         <label className="text-[13px] font-bold text-slate-700">
           공개 상태
-          <select className={inputClass} name="isPublished" defaultValue={item?.isPublished ? "true" : "false"}>
+          <select className={inputClass} name="isPublished" defaultValue={isPublished ? "true" : "false"}>
             <option value="false">임시 저장</option>
             <option value="true">공개</option>
           </select>
@@ -262,7 +350,7 @@ function ResourceEditor({
 
       <label className="block text-[13px] font-bold text-slate-700">
         설명
-        <textarea className={`${inputClass} min-h-24 resize-y leading-relaxed`} name="description" maxLength={4000} defaultValue={item?.description ?? ""} />
+        <textarea className={`${inputClass} min-h-24 resize-y leading-relaxed`} name="description" maxLength={4000} defaultValue={description} />
       </label>
 
       <DocumentUploadField initialDocument={initialDocument} allowClear={!item} />
@@ -341,24 +429,55 @@ function ResourceListItem({
   );
 }
 
+function PendingIfuListItem({
+  createAction,
+}: {
+  createAction: CreateResourceAction;
+}) {
+  return (
+    <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm max-b580:p-4">
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-center gap-2 text-[12px] font-bold">
+          <span className="rounded-full bg-sky-50 px-2.5 py-1 text-sky-700">순서 4</span>
+          <span className="rounded-full bg-amber-50 px-2.5 py-1 text-amber-700">파일 준비 중</span>
+          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-500">파일 없음</span>
+        </div>
+        <h3 className="mt-3 break-words text-[18px] font-extrabold text-[#102a52]">
+          {IFU_DRAFT.title}
+        </h3>
+        <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-slate-500">
+          {IFU_DRAFT.description}
+        </p>
+      </div>
+
+      <details className="mt-4 border-t border-slate-100 pt-4">
+        <summary className="w-fit cursor-pointer text-[13px] font-extrabold text-[#0755a4]">
+          내용 및 파일 등록
+        </summary>
+        <div className="mt-5">
+          <ResourceEditor draft={IFU_DRAFT} action={createAction} submitLabel="사용설명서 저장" />
+        </div>
+      </details>
+    </article>
+  );
+}
+
 export default function ResourceDownloadsManager({
   items,
   createAction,
   updateAction,
   deleteAction,
+  embedded = false,
 }: {
   items: ResourceDownloadAdminItem[];
   createAction: CreateResourceAction;
   updateAction: UpdateResourceAction;
   deleteAction: DeleteResourceAction;
+  embedded?: boolean;
 }) {
-  return (
-    <details className="mt-12 rounded-[22px] border border-sky-200 bg-[#f3f8fd] shadow-sm">
-      <summary className="cursor-pointer px-6 py-5 text-[16px] font-extrabold text-[#102a52] marker:text-[#1677c8] max-b580:px-4">
-        관리자 자료 다운로드 관리
-      </summary>
-
-      <div className="space-y-6 border-t border-sky-200 px-6 py-6 max-b580:px-4">
+  const hasIfuResource = items.some(isIfuResource);
+  const managerContent = (
+    <div className={`space-y-6 ${embedded ? "" : "border-t border-sky-200 px-6 py-6 max-b580:px-4"}`}>
         <div>
           <p className="text-[12px] font-extrabold tracking-[0.18em] text-[#1677c8]">DOWNLOADS CMS</p>
           <p className="mt-2 text-[13px] leading-relaxed text-slate-500">
@@ -388,8 +507,25 @@ export default function ResourceDownloadsManager({
               />
             ))
           )}
+          {!hasIfuResource && <PendingIfuListItem createAction={createAction} />}
         </div>
       </div>
+  );
+
+  if (embedded) {
+    return managerContent;
+  }
+
+  return (
+    <details className="mt-12 rounded-[22px] border border-sky-200 bg-[#f3f8fd] shadow-sm">
+      <summary className="cursor-pointer px-6 py-5 text-[16px] font-extrabold text-[#102a52] marker:text-[#1677c8] max-b580:px-4">
+        관리자 자료 다운로드 관리
+      </summary>
+      {managerContent}
     </details>
   );
+}
+
+function isIfuResource(item: ResourceDownloadAdminItem) {
+  return item.sourceKey === "bundled-ifu" || /\bifu\b/i.test(item.title) || item.title.includes("사용설명서");
 }

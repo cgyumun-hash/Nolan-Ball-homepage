@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import DeleteActivityButton from "@/components/admin/DeleteActivityButton";
+import type { DeleteActivityFormAction } from "@/components/admin/DeleteActivityButton";
 import type { ActivityListItem } from "@/lib/activities";
 
 type ActivityCopy = {
@@ -30,12 +32,14 @@ export default function ActivityCard({
   copy,
   href,
   editHref,
+  deleteAction,
 }: {
   item: ActivityListItem;
   locale: "ko" | "en" | "cn";
   copy: ActivityCopy;
   href: string;
   editHref?: string;
+  deleteAction?: DeleteActivityFormAction;
 }) {
   const date = dateRange(item, locale);
   const category = copy.filters[item.category] ?? item.category;
@@ -62,13 +66,24 @@ export default function ActivityCard({
         </span>
       </Link>
 
-      {editHref && (
-        <Link
-          href={editHref}
-          className="absolute right-3 top-3 z-10 rounded-full bg-white/95 px-4 py-2 text-[12px] font-extrabold text-[#0755a4] shadow-md backdrop-blur-sm transition hover:bg-[#0755a4] hover:text-white"
-        >
-          수정
-        </Link>
+      {(editHref || deleteAction) && (
+        <div className="absolute right-3 top-3 z-10 flex items-center gap-2">
+          {deleteAction && (
+            <DeleteActivityButton
+              action={deleteAction}
+              title={item.title}
+              variant="card"
+            />
+          )}
+          {editHref && (
+            <Link
+              href={editHref}
+              className="rounded-full bg-white/95 px-4 py-2 text-[12px] font-extrabold text-[#0755a4] shadow-md backdrop-blur-sm transition hover:bg-[#0755a4] hover:text-white"
+            >
+              수정
+            </Link>
+          )}
+        </div>
       )}
 
       <div className="flex flex-1 flex-col p-6 max-b580:p-5">

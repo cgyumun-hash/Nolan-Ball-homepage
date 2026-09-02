@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { deleteActivityAction } from "@/app/admin/actions";
 import ActivityCard from "@/components/activities/ActivityCard";
-import InlineAdminToolbar from "@/components/admin/InlineAdminToolbar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
@@ -89,14 +89,6 @@ export async function ActivitiesPageContent({
 
       <main className="overflow-hidden bg-[#f4f8fc] py-[150px] max-b1080:py-[110px] max-b580:py-20">
         <section className="wrap-in2 min-w-0">
-          {adminSession && (
-            <InlineAdminToolbar
-              username={adminSession.username}
-              locale={locale}
-              primaryHref="/admin/activities/new"
-              primaryLabel="새 주요활동 작성"
-            />
-          )}
           <header className="mb-16 grid grid-cols-[1fr_minmax(320px,620px)] items-end gap-12 max-b860:grid-cols-1 max-b860:gap-6 max-b580:mb-10">
             <div>
               <p className="mb-4 text-[14px] font-extrabold tracking-[0.28em] text-[#1677c8]">{copy.introEyebrow}</p>
@@ -145,6 +137,7 @@ export async function ActivitiesPageContent({
                   copy={copy}
                   href={`${basePath}/${item.slug}`}
                   editHref={adminSession ? `/admin/activities/${item.id}/edit` : undefined}
+                  deleteAction={adminSession ? deleteActivityAction.bind(null, item.id) : undefined}
                 />
               ))}
             </div>
@@ -154,24 +147,35 @@ export async function ActivitiesPageContent({
             </div>
           )}
 
-          <nav aria-label="Pagination" className="mt-14 flex items-center justify-center gap-2">
-            {result.page > 1 && (
-              <Link href={queryHref(basePath, category ?? "all", sort, result.page - 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Previous page">‹</Link>
+          <div className="relative mt-14 flex min-h-12 items-center justify-center max-b860:flex-col max-b860:gap-5">
+            <nav aria-label="Pagination" className="flex items-center justify-center gap-2">
+              {result.page > 1 && (
+                <Link href={queryHref(basePath, category ?? "all", sort, result.page - 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Previous page">‹</Link>
+              )}
+              {Array.from({ length: result.totalPages }, (_, index) => index + 1)
+                .filter((number) => Math.abs(number - result.page) <= 2 || number === 1 || number === result.totalPages)
+                .map((number, index, visible) => (
+                  <span key={number} className="contents">
+                    {index > 0 && number - visible[index - 1] > 1 && <span className="px-1 text-slate-400">…</span>}
+                    <Link href={queryHref(basePath, category ?? "all", sort, number)} className={`grid h-10 w-10 place-items-center rounded-full text-[14px] font-bold ${number === result.page ? "bg-[#0755a4] text-white" : "border border-[#b9cadd] bg-white text-[#234466]"}`}>
+                      {number}
+                    </Link>
+                  </span>
+                ))}
+              {result.page < result.totalPages && (
+                <Link href={queryHref(basePath, category ?? "all", sort, result.page + 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Next page">›</Link>
+              )}
+            </nav>
+
+            {adminSession && (
+              <Link
+                href="/admin/activities/new"
+                className="absolute right-0 inline-flex items-center rounded-xl bg-[#0755a4] px-5 py-3 text-[14px] font-extrabold text-white shadow-lg shadow-blue-900/10 transition hover:bg-[#064681] max-b860:static max-b860:self-end"
+              >
+                + 새 주요활동 작성
+              </Link>
             )}
-            {Array.from({ length: result.totalPages }, (_, index) => index + 1)
-              .filter((number) => Math.abs(number - result.page) <= 2 || number === 1 || number === result.totalPages)
-              .map((number, index, visible) => (
-                <span key={number} className="contents">
-                  {index > 0 && number - visible[index - 1] > 1 && <span className="px-1 text-slate-400">…</span>}
-                  <Link href={queryHref(basePath, category ?? "all", sort, number)} className={`grid h-10 w-10 place-items-center rounded-full text-[14px] font-bold ${number === result.page ? "bg-[#0755a4] text-white" : "border border-[#b9cadd] bg-white text-[#234466]"}`}>
-                    {number}
-                  </Link>
-                </span>
-              ))}
-            {result.page < result.totalPages && (
-              <Link href={queryHref(basePath, category ?? "all", sort, result.page + 1)} className="grid h-10 w-10 place-items-center rounded-full border border-[#b9cadd] bg-white text-[#0755a4]" aria-label="Next page">›</Link>
-            )}
-          </nav>
+          </div>
         </section>
       </main>
 

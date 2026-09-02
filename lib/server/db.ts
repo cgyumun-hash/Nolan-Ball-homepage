@@ -76,7 +76,10 @@ async function initializeActivitySchema(): Promise<void> {
       AND to_regclass('public.site_media') IS NOT NULL
     ) AS ready
   `;
-  if (readinessRows[0]?.ready === true) return;
+  if (readinessRows[0]?.ready === true) {
+    await normalizeBundledResourceSortOrders(sql);
+    return;
+  }
 
   await sql`
     CREATE TABLE IF NOT EXISTS activity_admins (
@@ -270,7 +273,7 @@ async function initializeActivitySchema(): Promise<void> {
           'nolan-ball-catalog.pdf',
           19857996,
           'application/pdf',
-          10,
+          1,
           true
         ),
         (
@@ -282,7 +285,7 @@ async function initializeActivitySchema(): Promise<void> {
           'nolan-ball-product-guide.pdf',
           28977553,
           'application/pdf',
-          20,
+          2,
           true
         ),
         (
@@ -294,7 +297,7 @@ async function initializeActivitySchema(): Promise<void> {
           'Nolan_Ball_시험성적.pdf',
           381524,
           'application/pdf',
-          30,
+          3,
           true
         )
       ON CONFLICT (source_key) DO NOTHING
@@ -306,6 +309,8 @@ async function initializeActivitySchema(): Promise<void> {
       ON CONFLICT (seed_key) DO NOTHING
     `;
   }
+
+  await normalizeBundledResourceSortOrders(sql);
 
   await sql`
     CREATE TABLE IF NOT EXISTS site_media (
@@ -336,5 +341,40 @@ async function initializeActivitySchema(): Promise<void> {
           AND mime_type ~ '^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$'
         )
     )
+  `;
+}
+
+async function normalizeBundledResourceSortOrders(sql: SqlClient): Promise<void> {
+  const migrationRows = await sql`
+    SELECT seed_key
+    FROM managed_content_seed_state
+    WHERE seed_key = 'bundled-resource-sort-order-v2'
+    LIMIT 1
+  `;
+
+  if (migrationRows.length > 0) return;
+
+  await sql`
+    UPDATE resource_downloads
+    SET
+      sort_order = CASE source_key
+        WHEN 'bundled-catalog' THEN 1
+        WHEN 'bundled-product-guide' THEN 2
+        WHEN 'bundled-test-report' THEN 3
+        WHEN 'bundled-ifu' THEN 4
+        ELSE sort_order
+      END,
+      updated_at = now()
+    WHERE
+      (source_key = 'bundled-catalog' AND sort_order = 10)
+      OR (source_key = 'bundled-product-guide' AND sort_order = 20)
+      OR (source_key = 'bundled-test-report' AND sort_order = 30)
+      OR (source_key = 'bundled-ifu' AND sort_order = 40)
+  `;
+
+  await sql`
+    INSERT INTO managed_content_seed_state (seed_key)
+    VALUES ('bundled-resource-sort-order-v2')
+    ON CONFLICT (seed_key) DO NOTHING
   `;
 }

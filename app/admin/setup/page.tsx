@@ -7,7 +7,7 @@ import { getAdminSession, hasAdminAccount } from "@/lib/server/admin-auth";
 export const dynamic = "force-dynamic";
 
 export default async function AdminSetupPage() {
-  if (await getAdminSession()) redirect("/about/activities");
+  if (await getAdminSession()) redirect("/admin/activities");
   if (await hasAdminAccount()) redirect("/admin/login");
 
   const configured = Boolean(process.env.ADMIN_SETUP_TOKEN);

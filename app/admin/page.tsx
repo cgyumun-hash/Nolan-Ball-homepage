@@ -6,6 +6,6 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
   const session = await getAdminSession();
-  if (session) redirect("/about/activities");
+  if (session) redirect("/admin/activities");
   redirect((await hasAdminAccount()) ? "/admin/login" : "/admin/setup");
 }

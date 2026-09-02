@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { saveHowToUseGuideVideoAction } from "@/app/admin/content-actions";
 import HowToUseVideoManager from "@/components/admin/HowToUseVideoManager";
-import InlineAdminToolbar from "@/components/admin/InlineAdminToolbar";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryButton from "@/components/InquiryButton";
@@ -66,9 +65,6 @@ export async function HowToUsePageContent({ locale = "ko" }: { locale?: SiteLoca
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
         <div className="wrap-in2">
-          {adminSession && (
-            <InlineAdminToolbar username={adminSession.username} locale={locale} />
-          )}
           <p
             className="mb-[40px] text-[24px] leading-[1.7] text-ink-900
                        max-b1080:text-[19px] max-b520:text-[17px]"

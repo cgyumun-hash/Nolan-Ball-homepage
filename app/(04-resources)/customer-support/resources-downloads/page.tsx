@@ -6,7 +6,6 @@ import {
   deleteResourceDownloadAction,
   updateResourceDownloadAction,
 } from "@/app/admin/content-actions";
-import InlineAdminToolbar from "@/components/admin/InlineAdminToolbar";
 import ResourceDownloadsManager from "@/components/admin/ResourceDownloadsManager";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -96,7 +95,7 @@ export async function ResourcesDownloadsPageContent({
   }
 
   const localizedManagedDownloads = managedDownloads.map((item) => {
-    const bundledIndex = bundledDownloadIndex(item.sourceKey);
+    const bundledIndex = bundledDownloadIndex(item.sourceKey, item.title);
     const bundled = bundledIndex == null ? null : content.items[bundledIndex];
 
     if (bundled) {
@@ -107,8 +106,14 @@ export async function ResourcesDownloadsPageContent({
     }
     return item;
   });
+  const managedBundledIndexes = new Set<number>(
+    managedDownloads.flatMap((item) => {
+      const index = bundledDownloadIndex(item.sourceKey, item.title);
+      return index == null ? [] : [index];
+    }),
+  );
   const bundledDownloads = managedDownloadsLoaded
-    ? content.items.filter((item) => !item.ready)
+    ? content.items.filter((item, index) => !item.ready && !managedBundledIndexes.has(index))
     : content.items;
   const totalItems = localizedManagedDownloads.length + bundledDownloads.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / DOWNLOADS_PAGE_SIZE));
@@ -136,8 +141,6 @@ export async function ResourcesDownloadsPageContent({
 
       <main className="pt-[250px] pb-[300px] max-b1080:pt-[150px] max-b1080:pb-[200px]">
         <div className="wrap-in2">
-          {adminSession && <InlineAdminToolbar username={adminSession.username} locale={locale} />}
-
           <h2 className="gfont mb-[50px] text-[40px] font-bold text-ink-900 max-b1080:text-[30px] max-b520:text-[24px]">
             {content.heading}
           </h2>
@@ -307,9 +310,10 @@ function formatBytes(value: number) {
   return `${size >= 10 || index === 0 ? size.toFixed(0) : size.toFixed(1)} ${units[index]}`;
 }
 
-function bundledDownloadIndex(sourceKey: string | null) {
+function bundledDownloadIndex(sourceKey: string | null, title = "") {
   if (sourceKey === "bundled-catalog") return 0;
   if (sourceKey === "bundled-product-guide") return 1;
   if (sourceKey === "bundled-test-report") return 2;
+  if (sourceKey === "bundled-ifu" || /\bifu\b/i.test(title) || title.includes("사용설명서")) return 3;
   return null;
 }

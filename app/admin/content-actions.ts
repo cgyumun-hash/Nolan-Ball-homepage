@@ -2,6 +2,7 @@
 
 import { del } from "@vercel/blob";
 import { revalidatePath, updateTag } from "next/cache";
+import { after } from "next/server";
 
 import type { HowToUseVideoManagerState } from "@/components/admin/HowToUseVideoManager";
 import { AdminAuthError, requireAdminSession } from "@/lib/server/admin-auth";
@@ -53,7 +54,7 @@ export async function updateResourceDownloadAction(
     if (!updated) return { ok: false, message: "수정할 자료를 찾지 못했습니다." };
 
     if (previous.blobPathname && previous.blobPathname !== updated.blobPathname) {
-      await deleteSafeBlob(previous.blobPathname, "downloads/");
+      after(() => deleteSafeBlob(previous.blobPathname!, "downloads/"));
     }
     revalidateDownloadRoutes();
     return { ok: true, message: "자료가 수정되었습니다." };
@@ -70,7 +71,7 @@ export async function deleteResourceDownloadAction(
     const deleted = await deleteResourceDownload(id);
     if (!deleted) return { ok: false, message: "삭제할 자료를 찾지 못했습니다." };
     if (deleted?.blobPathname) {
-      await deleteSafeBlob(deleted.blobPathname, "downloads/");
+      after(() => deleteSafeBlob(deleted.blobPathname!, "downloads/"));
     }
     revalidateDownloadRoutes();
     return { ok: true, message: "자료가 삭제되었습니다." };
@@ -91,7 +92,7 @@ export async function saveHowToUseGuideVideoAction(
     if (!mediaUrl) {
       const deleted = await deleteHowToUseGuideVideo();
       if (deleted?.blobPathname) {
-        await deleteSafeBlob(deleted.blobPathname, "site/how-to-use/videos/");
+        after(() => deleteSafeBlob(deleted.blobPathname!, "site/how-to-use/videos/"));
       }
       revalidateHowToUseRoutes();
       return { ok: true, message: "제품 가이드 영상이 제거되었습니다." };
@@ -105,7 +106,7 @@ export async function saveHowToUseGuideVideoAction(
     });
 
     if (previous?.blobPathname && previous.blobPathname !== updated.blobPathname) {
-      await deleteSafeBlob(previous.blobPathname, "site/how-to-use/videos/");
+      after(() => deleteSafeBlob(previous.blobPathname!, "site/how-to-use/videos/"));
     }
     revalidateHowToUseRoutes();
     return { ok: true, message: "제품 가이드 영상이 저장되었습니다." };
@@ -119,6 +120,7 @@ function parseResourceDownloadForm(formData: FormData): ResourceDownloadMutation
   const sortOrder = Number.parseInt(formText(formData, "sortOrder") || "0", 10);
 
   return {
+    sourceKey: nullableFormText(formData, "sourceKey"),
     title: formText(formData, "title"),
     description: formText(formData, "description"),
     fileUrl: formText(formData, "fileDownloadUrl") || formText(formData, "fileUrl"),
@@ -143,6 +145,7 @@ function nullableFormText(formData: FormData, key: string): string | null {
 
 function revalidateDownloadRoutes() {
   updateTag("resource-downloads");
+  revalidatePath("/admin/activities");
   revalidatePath("/customer-support/resources-downloads");
   revalidatePath("/en/customer-support/resources-downloads");
   revalidatePath("/cn/customer-support/resources-downloads");
@@ -150,6 +153,7 @@ function revalidateDownloadRoutes() {
 
 function revalidateHowToUseRoutes() {
   updateTag("how-to-use-video");
+  revalidatePath("/admin/activities");
   revalidatePath("/how-to-use");
   revalidatePath("/en/how-to-use");
   revalidatePath("/cn/how-to-use");

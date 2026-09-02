@@ -16,6 +16,7 @@ const DOWNLOAD_BLOB_PATH_PATTERN = /^downloads\/[A-Za-z0-9][A-Za-z0-9._/-]*$/;
 const VERCEL_BLOB_HOST_SUFFIX = ".blob.vercel-storage.com";
 const SORT_ORDER_MIN = -1_000_000;
 const SORT_ORDER_MAX = 1_000_000;
+const MANAGED_SOURCE_KEYS = new Set(["bundled-ifu"]);
 
 export type ResourceDownload = {
   id: string;
@@ -37,6 +38,7 @@ export type ResourceDownloadAdminRecord = ResourceDownload & {
 };
 
 export type ResourceDownloadMutationInput = {
+  sourceKey?: string | null;
   title: string;
   description: string;
   fileUrl: string;
@@ -48,7 +50,9 @@ export type ResourceDownloadMutationInput = {
   isPublished: boolean;
 };
 
-type ValidatedResourceDownloadInput = ResourceDownloadMutationInput;
+type ValidatedResourceDownloadInput = Omit<ResourceDownloadMutationInput, "sourceKey"> & {
+  sourceKey: string | null;
+};
 
 type ResourceDownloadDatabaseRow = {
   id: string;
@@ -81,6 +85,7 @@ export function validateResourceDownloadInput(
   }
 
   const title = validateRequiredText(input.title, "제목", TITLE_MAX_LENGTH);
+  const sourceKey = validateManagedSourceKey(input.sourceKey);
   const description = validateText(input.description, "설명", DESCRIPTION_MAX_LENGTH);
   const fileUrl = validateHttpsUrl(input.fileUrl);
   const blobPathname = validateNullableText(
@@ -118,6 +123,7 @@ export function validateResourceDownloadInput(
   }
 
   return {
+    sourceKey,
     title,
     description,
     fileUrl,
@@ -230,6 +236,7 @@ export async function createResourceDownload(
   const sql = getSql();
   const rows = await sql`
     INSERT INTO resource_downloads (
+      source_key,
       title,
       description,
       file_url,
@@ -241,6 +248,7 @@ export async function createResourceDownload(
       is_published
     )
     VALUES (
+      ${resource.sourceKey},
       ${resource.title},
       ${resource.description},
       ${resource.fileUrl},
@@ -251,6 +259,18 @@ export async function createResourceDownload(
       ${resource.sortOrder},
       ${resource.isPublished}
     )
+    ON CONFLICT (source_key) DO UPDATE
+    SET
+      title = EXCLUDED.title,
+      description = EXCLUDED.description,
+      file_url = EXCLUDED.file_url,
+      blob_pathname = EXCLUDED.blob_pathname,
+      file_name = EXCLUDED.file_name,
+      file_size_bytes = EXCLUDED.file_size_bytes,
+      mime_type = EXCLUDED.mime_type,
+      sort_order = EXCLUDED.sort_order,
+      is_published = EXCLUDED.is_published,
+      updated_at = now()
     RETURNING
       id,
       source_key,
@@ -269,6 +289,14 @@ export async function createResourceDownload(
   const row = rows[0] as ResourceDownloadDatabaseRow | undefined;
   if (!row) throw new Error("Resource download insert returned no row");
   return toAdminResourceDownload(row);
+}
+
+function validateManagedSourceKey(sourceKey: string | null | undefined): string | null {
+  if (sourceKey == null || sourceKey === "") return null;
+  if (!MANAGED_SOURCE_KEYS.has(sourceKey)) {
+    throw new ResourceDownloadValidationError("관리 자료 식별값이 올바르지 않습니다.");
+  }
+  return sourceKey;
 }
 
 export async function updateResourceDownload(
