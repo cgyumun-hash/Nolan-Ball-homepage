@@ -604,7 +604,7 @@ export const FILTER_BALL_GASTROSCOPES: FilterBall = {
   title: "2.8 mm / 위내시경 전용",
   brand: "Nolan Ball",
   brandColor: "#999",
-  subtitle: "위 내시경 전용 · 2.8 mm",
+  subtitle: "위 내시경 전용 2.8 mm",
   image: "/images/revision/products/nolan-ball-2-8.webp",
   imageWidth: 1254,
   imageHeight: 1254,

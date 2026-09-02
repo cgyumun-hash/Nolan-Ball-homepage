@@ -182,7 +182,7 @@ function product(base: FilterBall, title: string, subtitle: string, image: strin
   };
 }
 
-export const CN_FILTER_BALL_GASTROSCOPES = product(EN_FILTER_BALL_GASTROSCOPES, "2.8 mm / 胃镜专用", "胃镜专用 · 2.8 mm", "/images/revision/products/nolan-ball-2-8.webp", "2.8 mm Nolan Ball是根据胃镜管腔结构设计的一次性管腔清洗球。");
+export const CN_FILTER_BALL_GASTROSCOPES = product(EN_FILTER_BALL_GASTROSCOPES, "2.8 mm / 胃镜专用", "胃镜专用 2.8 mm", "/images/revision/products/nolan-ball-2-8.webp", "2.8 mm Nolan Ball是根据胃镜管腔结构设计的一次性管腔清洗球。");
 export const CN_FILTER_BALL_GASTRO_COLONOSCOPES = product(EN_FILTER_BALL_GASTROSCOPES, "3.2 mm / 胃镜·肠镜兼用", "胃镜·肠镜兼用 · 3.2 mm", "/images/revision/products/nolan-ball-3-2.webp", "3.2 mm Nolan Ball是为兼容胃镜和肠镜管腔而设计的一次性管腔清洗球。");
 export const CN_FILTER_BALL_COLONOSCOPES = product(EN_FILTER_BALL_COLONOSCOPES, "3.7 mm / 肠镜专用", "肠镜专用 · 3.7 mm", "/images/revision/products/nolan-ball-3-7.webp", "3.7 mm Nolan Ball是根据肠镜较长且弯曲的管腔结构设计的一次性管腔清洗球。");
 export const CN_VALVE_PORT_BRUSH = product(EN_FILTER_BALL_GASTROSCOPES, "Valve Brush", "内镜阀门·端口一次性清洗刷", "/images/revision/products/valve-brush.webp", "Valve Brush是用于清洗内镜阀门和端口等容易残留污染物区域的一次性清洗刷。");

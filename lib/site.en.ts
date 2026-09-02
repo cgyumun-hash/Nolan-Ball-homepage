@@ -436,7 +436,7 @@ export const EN_FILTER_BALL_GASTROSCOPES: FilterBall = {
   title: "Gastroscope · 2.8 mm",
   brand: "Nolan Ball",
   brandColor: "#999",
-  subtitle: "Dedicated for gastroscope channels · 2.8 mm",
+  subtitle: "Dedicated for gastroscope channels 2.8 mm",
   image: "/images/revision/products/nolan-ball-2-8.webp",
   imageWidth: 1254,
   imageHeight: 1254,

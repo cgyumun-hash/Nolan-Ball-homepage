@@ -19,6 +19,18 @@ function hasImage(src: string) {
   return fs.existsSync(path.join(process.cwd(), "public", src));
 }
 
+function keepMeasurementTogether(text: string) {
+  return text.split(/(\d+(?:\.\d+)?\s*mm)/gi).map((part, index) =>
+    /^\d+(?:\.\d+)?\s*mm$/i.test(part) ? (
+      <span key={`${part}-${index}`} className="whitespace-nowrap">
+        {part.replace(/\s*mm$/i, " mm")}
+      </span>
+    ) : (
+      part
+    ),
+  );
+}
+
 /**
  * 원본 /sub/sub31.php ~ sub33.php 공통 레이아웃
  *
@@ -131,7 +143,7 @@ export default function FilterBallPage({ data, locale = "ko" }: { data: FilterBa
                            max-b860:mb-10 max-b860:text-[40px]
                            max-b520:mb-[30px] max-b520:text-[clamp(26px,8vw,32px)] max-b520:leading-[1.3]"
               >
-                {data.subtitle}
+                {keepMeasurementTogether(data.subtitle)}
               </h4>
 
               <div>
@@ -143,10 +155,10 @@ export default function FilterBallPage({ data, locale = "ko" }: { data: FilterBa
                     {paragraph.map((seg, si) =>
                       seg.b ? (
                         <span key={si} className="font-semibold">
-                          {seg.t}
+                          {keepMeasurementTogether(seg.t)}
                         </span>
                       ) : (
-                        <span key={si}>{seg.t}</span>
+                        <span key={si}>{keepMeasurementTogether(seg.t)}</span>
                       ),
                     )}
                   </p>
